@@ -11,10 +11,14 @@ describe("scaffold smoke", () => {
     const Map = require("../js/map.js");
     const Notes = require("../js/notifications.js");
     const Game = require("../js/game.js");
+    const Audio = require("../js/audio.js");
     assert.equal(typeof Physics.stepBody, "function");
     assert.equal(typeof Map.createOfficeMap, "function");
     assert.equal(typeof Notes.resolveNotification, "function");
     assert.equal(typeof Game.createGame, "function");
+    assert.equal(typeof Audio.playEvents, "function");
+    assert.ok(Audio.SFX_NAMES.includes("jump"));
+    assert.ok(Audio.SFX_NAMES.includes("notify"));
   });
 
   it("index.html uses relative plain script tags (file:// safe)", () => {
@@ -25,6 +29,7 @@ describe("scaffold smoke", () => {
     assert.match(html, /<canvas id="game"/);
     assert.match(html, /src="js\/physics\.js"/);
     assert.match(html, /src="js\/game\.js"/);
+    assert.match(html, /src="js\/audio\.js"/);
     assert.match(html, /src="js\/main\.js"/);
     assert.doesNotMatch(html, /type=["']module["']/);
   });

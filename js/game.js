@@ -64,6 +64,16 @@
     };
   }
 
+  function pushEvent(game, type, extra) {
+    if (!game.events) game.events = [];
+    const e = { type: type };
+    if (extra) {
+      const keys = Object.keys(extra);
+      for (let i = 0; i < keys.length; i++) e[keys[i]] = extra[keys[i]];
+    }
+    game.events.push(e);
+  }
+
   /**
    * Create a fresh game. Optional seed map for tests.
    */
@@ -92,6 +102,7 @@
       lastEffects: null,
       message: "",
       messageTimer: 0,
+      events: [],
     };
 
     // Optionally suppress first notification delay for tests
@@ -173,11 +184,13 @@
     game.lives -= 1;
     game.player.invuln = INVULN_TIME;
     game.player.vy = -200;
+    pushEvent(game, "hurt");
     if (game.lives <= 0) {
       game.lives = 0;
       game.phase = "gameover";
       game.message = "Laid off. Game over.";
       game.messageTimer = 99;
+      pushEvent(game, "gameover");
     }
     return true;
   }
@@ -186,6 +199,7 @@
     enemy.alive = false;
     game.player.vy = STOMP_BOUNCE;
     game.player.onGround = false;
+    pushEvent(game, "stomp");
   }
 
   function updateEnemies(game, dt, platforms) {
@@ -274,6 +288,7 @@
     game.message = "Sprint " + game.sprint + " — shipped. Loop continues.";
     game.messageTimer = 2.5;
     game.cameraX = 0;
+    pushEvent(game, "deploy");
   }
 
   function tickEffectTimers(game, dt) {
@@ -330,10 +345,14 @@
     if (result.cleared) {
       applyEffectsPayload(game, result.effects);
       game.phase = "playing";
-      game.message =
-        result.effects.kind === "timeout"
-          ? "Ignored Slack — stunned"
-          : "Replied: " + result.effects.kind;
+      if (result.effects.kind === "timeout") {
+        game.message = "Ignored Slack — stunned";
+        pushEvent(game, "notify_timeout");
+      } else {
+        game.message = "Replied: " + result.effects.kind;
+        pushEvent(game, "notify_reply", { kind: result.effects.kind });
+      }
+      if (result.effects.stun > 0) pushEvent(game, "stun");
       game.messageTimer = 1.5;
     }
     return result;
@@ -349,6 +368,7 @@
     if (dt > 0.05) dt = 0.05; // clamp
     input = input || {};
     game.time += dt;
+    game.events = [];
 
     if (game.phase === "gameover") {
       return game;
@@ -360,6 +380,7 @@
     }
 
     // Notifications tick (can open popup)
+    const hadNote = !!game.notifications.active;
     const pausedForNote = false; // soft pause: still sim but player may be stunned by resolve
     Notes.tickNotifications(
       game.notifications,
@@ -368,6 +389,9 @@
       game.rng,
       pausedForNote && !!game.notifications.active
     );
+    if (!hadNote && game.notifications.active) {
+      pushEvent(game, "notify");
+    }
 
     // Timeout
     if (game.notifications.active) {
@@ -378,6 +402,8 @@
         game.phase = "playing";
         game.message = "Notification timeout — stunned";
         game.messageTimer = 1.5;
+        pushEvent(game, "notify_timeout");
+        if (timed.effects.stun > 0) pushEvent(game, "stun");
       }
     } else if (game.phase === "notification") {
       game.phase = "playing";
@@ -399,10 +425,17 @@
     };
     const slowFactor = game.effects.slowTimer > 0 ? 0.45 : 1;
 
+    const wasGround = game.player.onGround;
+    const willJump = physInput.jump && wasGround;
     Physics.stepBody(game.player, physInput, platforms, dt, {
       stunned: stunned,
       slowFactor: slowFactor,
     });
+    if (willJump && !game.player.onGround && game.player.vy < 0) {
+      pushEvent(game, "jump");
+    } else if (!wasGround && game.player.onGround) {
+      pushEvent(game, "land");
+    }
 
     if (physInput.left) game.player.facing = -1;
     if (physInput.right) game.player.facing = 1;

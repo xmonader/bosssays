@@ -234,3 +234,58 @@ describe("map", () => {
     assert.ok(m.width > 1000);
   });
 });
+
+describe("game events for audio", () => {
+  it("emits jump event when jumping from ground", () => {
+    const game = Game.createGame();
+    settle(game, 30);
+    Game.step(game, { jump: true }, 1 / 60);
+    assert.ok(
+      game.events.some((e) => e.type === "jump"),
+      "expected jump event, got " + JSON.stringify(game.events)
+    );
+  });
+
+  it("emits stomp event on enemy stomp", () => {
+    const map = Map.createOfficeMap();
+    map.enemySpawns = [{ x: 100, y: map.groundY - 28, vx: 0 }];
+    const game = Game.createGame({ map: map, lives: 3 });
+    settle(game, 15);
+    const e = game.enemies[0];
+    game.player.x = e.x;
+    game.player.y = e.y - game.player.h + 4;
+    game.player.vy = 200;
+    game.player.invuln = 0;
+    Game.step(game, {}, 1 / 60);
+    assert.ok(game.events.some((ev) => ev.type === "stomp"));
+  });
+
+  it("emits deploy event on sprint advance", () => {
+    const game = Game.createGame();
+    game.events = [];
+    Game.advanceSprint(game);
+    assert.ok(game.events.some((e) => e.type === "deploy"));
+  });
+
+  it("emits notify and notify_reply events", () => {
+    const game = Game.createGame({ notifyImmediate: true });
+    Game.step(game, {}, 0.05);
+    assert.ok(game.events.some((e) => e.type === "notify"));
+    Game.chooseNotification(game, "dismiss");
+    assert.ok(game.events.some((e) => e.type === "notify_reply"));
+  });
+
+  it("audio playEvents maps known types without throwing in Node", () => {
+    const Audio = require("../js/audio.js");
+    // No AudioContext in Node — must no-op safely
+    assert.equal(
+      Audio.playEvents([
+        { type: "jump" },
+        { type: "notify" },
+        { type: "deploy" },
+      ]),
+      undefined
+    );
+    assert.equal(Audio.play("jump"), false);
+  });
+});
