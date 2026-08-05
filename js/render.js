@@ -276,64 +276,117 @@
 
   function drawNotification(ctx, note) {
     if (!note) return;
-    const boxW = 420;
-    const boxH = 160;
+    const boxW = 520;
+    const boxH = 230;
     const x = (VIEW_W - boxW) / 2;
-    const y = 90;
+    const y = 70;
 
-    ctx.fillStyle = "rgba(0,0,0,0.35)";
+    // Dim world — game is frozen while you read
+    ctx.fillStyle = "rgba(2,6,23,0.55)";
     ctx.fillRect(0, 0, VIEW_W, VIEW_H);
 
+    // PAUSED banner
+    ctx.fillStyle = "#fbbf24";
+    ctx.font = "bold 12px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("GAME PAUSED · leadership is speaking", VIEW_W / 2, y - 12);
+    ctx.textAlign = "left";
+
+    const accent = note.color || "#38bdf8";
     ctx.fillStyle = "#0f172a";
-    ctx.strokeStyle = "#38bdf8";
-    ctx.lineWidth = 2;
-    roundRect(ctx, x, y, boxW, boxH, 10);
+    ctx.strokeStyle = note.urgent ? "#e11d48" : accent;
+    ctx.lineWidth = 3;
+    roundRect(ctx, x, y, boxW, boxH, 12);
     ctx.fill();
     ctx.stroke();
 
-    // Slack-like header
-    ctx.fillStyle = "#38bdf8";
-    ctx.font = "bold 13px sans-serif";
-    ctx.fillText("Slack · #" + note.from.toLowerCase() + "-stream", x + 16, y + 24);
+    // Top bar
+    ctx.fillStyle = "#1e293b";
+    roundRect(ctx, x, y, boxW, 36, 12);
+    ctx.fill();
+    ctx.fillStyle = "#0f172a";
+    ctx.fillRect(x, y + 24, boxW, 14);
 
+    ctx.fillStyle = accent;
+    ctx.font = "bold 12px sans-serif";
+    const channel = note.channel || "#exec-stream";
+    ctx.fillText("Slack  " + channel, x + 14, y + 22);
+
+    if (note.urgent) {
+      ctx.fillStyle = "#e11d48";
+      ctx.font = "bold 10px sans-serif";
+      ctx.fillText("● URGENT · KNOW-IT-ALL ENERGY", x + boxW - 200, y + 22);
+    }
+
+    // Avatar circle
+    const ax = x + 22;
+    const ay = y + 58;
+    ctx.fillStyle = accent;
+    ctx.beginPath();
+    ctx.arc(ax, ay, 16, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "#0f172a";
+    ctx.font = "bold 11px sans-serif";
+    ctx.textAlign = "center";
+    const initials = (note.name || note.from || "?")
+      .split(/\s+/)
+      .map(function (w) {
+        return w[0];
+      })
+      .join("")
+      .slice(0, 2)
+      .toUpperCase();
+    ctx.fillText(initials, ax, ay + 4);
+    ctx.textAlign = "left";
+
+    // Name + title
+    ctx.fillStyle = "#f8fafc";
+    ctx.font = "bold 15px sans-serif";
+    ctx.fillText(note.name || note.from, x + 48, y + 54);
+    ctx.fillStyle = "#94a3b8";
+    ctx.font = "12px sans-serif";
+    ctx.fillText(
+      (note.title || note.from) + "  ·  just now  ·  expects a reply",
+      x + 48,
+      y + 72
+    );
+
+    // Body
     ctx.fillStyle = "#e2e8f0";
-    ctx.font = "bold 14px sans-serif";
-    ctx.fillText(note.from, x + 16, y + 48);
-
-    ctx.fillStyle = "#cbd5e1";
-    ctx.font = "13px sans-serif";
-    wrapText(ctx, note.text, x + 16, y + 70, boxW - 32, 16);
+    ctx.font = "14px sans-serif";
+    wrapText(ctx, note.text, x + 18, y + 100, boxW - 36, 18, 5);
 
     // Timer bar
     const t = Math.max(0, note.timer / note.maxTimer);
     ctx.fillStyle = "#1e293b";
-    ctx.fillRect(x + 16, y + 100, boxW - 32, 6);
-    ctx.fillStyle = t < 0.3 ? "#ef4444" : "#38bdf8";
-    ctx.fillRect(x + 16, y + 100, (boxW - 32) * t, 6);
+    ctx.fillRect(x + 18, y + 168, boxW - 36, 8);
+    ctx.fillStyle = t < 0.25 ? "#ef4444" : accent;
+    ctx.fillRect(x + 18, y + 168, (boxW - 36) * t, 8);
+    ctx.fillStyle = "#64748b";
+    ctx.font = "10px sans-serif";
+    ctx.fillText(
+      "Read & reply — world is frozen  ·  timeout = they get mad (stun)",
+      x + 18,
+      y + 186
+    );
 
     // Choices
     const choices = note.choices || [];
-    const bw = 90;
-    const gap = 8;
+    const bw = 112;
+    const gap = 10;
     const total = choices.length * bw + (choices.length - 1) * gap;
     let cx = x + (boxW - total) / 2;
     for (let i = 0; i < choices.length; i++) {
       const c = choices[i];
-      ctx.fillStyle = "#1e293b";
-      ctx.strokeStyle = "#64748b";
-      roundRect(ctx, cx, y + 118, bw, 28, 6);
+      ctx.fillStyle = i === 2 ? "#14532d" : "#1e293b";
+      ctx.strokeStyle = i === 2 ? "#22c55e" : "#64748b";
+      roundRect(ctx, cx, y + 194, bw, 28, 6);
       ctx.fill();
       ctx.stroke();
       ctx.fillStyle = "#f1f5f9";
       ctx.font = "11px sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText(c.label, cx + bw / 2, y + 136);
-      ctx.textAlign = "left";
-      // key hint
-      ctx.fillStyle = "#94a3b8";
-      ctx.font = "9px sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText("[" + (i + 1) + "]", cx + bw / 2, y + 112);
+      ctx.fillText("[" + (i + 1) + "] " + c.label, cx + bw / 2, y + 212);
       ctx.textAlign = "left";
       cx += bw + gap;
     }
@@ -349,16 +402,23 @@
     ctx.closePath();
   }
 
-  function wrapText(ctx, text, x, y, maxW, lineH) {
+  function wrapText(ctx, text, x, y, maxW, lineH, maxLines) {
     const words = text.split(" ");
     let line = "";
     let yy = y;
+    let linesUsed = 0;
+    maxLines = maxLines || 8;
     for (let n = 0; n < words.length; n++) {
       const test = line + words[n] + " ";
       if (ctx.measureText(test).width > maxW && n > 0) {
         ctx.fillText(line, x, yy);
         line = words[n] + " ";
         yy += lineH;
+        linesUsed++;
+        if (linesUsed >= maxLines) {
+          ctx.fillText(line.trim() + "…", x, yy);
+          return;
+        }
       } else {
         line = test;
       }

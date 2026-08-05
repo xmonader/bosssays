@@ -435,38 +435,47 @@
       return game;
     }
 
-    // Choice from UI
+    // Choice from UI (1–4 / dismiss)
     if (input.choice && game.notifications.active) {
       chooseNotification(game, input.choice);
     }
 
-    // Notifications tick (can open popup)
+    // Notifications tick (can open popup). World freezes while one is open.
     const hadNote = !!game.notifications.active;
-    const pausedForNote = false; // soft pause: still sim but player may be stunned by resolve
     Notes.tickNotifications(
       game.notifications,
       dt,
       game.sprint,
       game.rng,
-      pausedForNote && !!game.notifications.active
+      false
     );
     if (!hadNote && game.notifications.active) {
       pushEvent(game, "notify");
+      // Brief invuln when Slack hits so unpausing mid-enemy isn't an instant layoff
+      game.player.invuln = Math.max(game.player.invuln, 0.8);
     }
 
-    // Timeout
     if (game.notifications.active) {
       game.phase = "notification";
+      // Freeze player mid-air so you can actually read the ego trip
+      game.player.vx = 0;
+      game.player.vy = 0;
+
       const timed = Notes.checkTimeout(game.notifications);
       if (timed && timed.cleared) {
         applyEffectsPayload(game, timed.effects);
         game.phase = "playing";
-        game.message = "Notification timeout — stunned";
+        game.message = "Ignored Slack — stunned (they noticed)";
         game.messageTimer = 2.8;
         pushEvent(game, "notify_timeout");
         if (timed.effects.stun > 0) pushEvent(game, "stun");
+        game.player.invuln = Math.max(game.player.invuln, 0.6);
       }
-    } else if (game.phase === "notification") {
+      // No world sim while reading — comedy needs attention
+      return game;
+    }
+
+    if (game.phase === "notification") {
       game.phase = "playing";
     }
 
@@ -478,7 +487,6 @@
 
     const platforms = allSolids(game);
     const stunned = game.effects.stunTimer > 0;
-    // Soft freeze movement while notification open? Keep moving but no jump spam — still playable
     const physInput = {
       left: input.left && !stunned,
       right: input.right && !stunned,

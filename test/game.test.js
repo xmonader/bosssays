@@ -115,9 +115,16 @@ describe("notifications effects", () => {
     Game.step(game, {}, 0.05);
     assert.ok(game.notifications.active, "notification should open");
     assert.equal(game.phase, "notification");
+    assert.ok(game.notifications.active.name, "persona name set");
+    assert.ok(game.notifications.active.maxTimer >= 9);
 
-    // Burn timer across frames (step clamps dt to 0.05; need > maxTimer ~8.5s)
-    for (let i = 0; i < 600; i++) {
+    // World frozen: player should not move while Slack is open
+    const x0 = game.player.x;
+    for (let i = 0; i < 30; i++) Game.step(game, { right: true }, 1 / 60);
+    assert.equal(game.player.x, x0, "player frozen during notification");
+
+    // Burn timer across frames (step clamps dt; need > maxTimer up to ~14s)
+    for (let i = 0; i < 1000; i++) {
       Game.step(game, {}, 1 / 60);
       if (!game.notifications.active) break;
     }
@@ -253,6 +260,31 @@ describe("notification copy bank", () => {
     assert.ok(egoish.length >= 40, "expected many narcissistic lines");
     // no empty texts
     assert.ok(Notes.LINES.every((l) => l.text && l.text.length > 10));
+  });
+
+  it("personas map titles to human names and channels", () => {
+    const p = Notes.personaFor("CEO");
+    assert.ok(p.name.length > 3);
+    assert.match(p.channel, /^#/);
+    assert.equal(Notes.personaFor("CTO").title, "CTO");
+  });
+
+  it("pickLine heavily favors ego/corp tone", () => {
+    const state = Notes.createNotificationState();
+    let ego = 0;
+    const rng = (function () {
+      let i = 0;
+      return function () {
+        i = (i * 1103515245 + 12345) & 0x7fffffff;
+        return (i % 1000) / 1000;
+      };
+    })();
+    for (let n = 0; n < 80; n++) {
+      const line = Notes.pickLine(state, rng);
+      state.lastFrom = line.from;
+      if (line.tone === "ego" || line.tone === "corp") ego++;
+    }
+    assert.ok(ego >= 50, "expected mostly ego lines, got " + ego + "/80");
   });
 });
 

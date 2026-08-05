@@ -65,14 +65,22 @@
       Audio.setMuted(!Audio.isMuted());
       updateHint();
     }
-    // Notification choices 1-4
+    // Notification choices 1-4 (Space / Enter = sycophant default)
     if (down && game.notifications.active) {
-      const map = { "1": "dismiss", "2": "on_it", "3": "love", "4": "pushback" };
+      const map = {
+        "1": "dismiss",
+        "2": "on_it",
+        "3": "love",
+        "4": "pushback",
+        " ": "love",
+        Enter: "on_it",
+      };
       if (map[k]) {
         game.events = [];
         Game.chooseNotification(game, map[k]);
         if (Audio) Audio.playEvents(game.events);
         game.events = [];
+        if (k === " ") e.preventDefault();
       }
     }
   }
@@ -127,7 +135,7 @@
     if (!hint) return;
     const mute = Audio && Audio.isMuted() ? " · sound OFF (M)" : " · M mute";
     hint.textContent =
-      "← → / A D move · Space / W jump · 1–4 reply to Slack · R restart after layoff" +
+      "Move A/D · Jump W/Space · Slack freezes the game — 1–4 reply (Space=love it) · M mute · R restart" +
       mute;
   }
 

@@ -1369,11 +1369,42 @@
   ];
 
   const CHOICES = [
-    { id: "dismiss", label: "Dismiss" },
-    { id: "on_it", label: "On it!" },
-    { id: "love", label: "Love this vision" },
-    { id: "pushback", label: "Edge cases tho" },
+    { id: "dismiss", label: "Mute 1h" },
+    { id: "on_it", label: "On it!!" },
+    { id: "love", label: "Love this 🔥" },
+    { id: "pushback", label: "Quick pushback" },
   ];
+
+  /** Display names so it feels like real Slack people, not job titles. */
+  const PERSONAS = {
+    CEO: { name: "Blake Ashford", title: "CEO", channel: "#exec-stream", color: "#e11d48" },
+    CTO: { name: "Brent Caldwell", title: "CTO", channel: "#arch-thots", color: "#8b5cf6" },
+    PM: { name: "Avery Quinn", title: "PM", channel: "#ship-at-all-costs", color: "#0ea5e9" },
+    "VP Product": { name: "Jordan Hale", title: "VP Product", channel: "#roadmap-vibes", color: "#06b6d4" },
+    "VP Eng": { name: "Sam Okonkwo", title: "VP Eng", channel: "#eng-leadership", color: "#a78bfa" },
+    Founder: { name: "Rex \"Vision\" Park", title: "Founder", channel: "#founders-only", color: "#f59e0b" },
+    HR: { name: "Casey Bloom", title: "People", channel: "#culture-corner", color: "#34d399" },
+    Legal: { name: "Morgan Reed", title: "Legal", channel: "#legal-asks", color: "#94a3b8" },
+    Board: { name: "Board Observer", title: "Board", channel: "#board-fwd", color: "#f472b6" },
+    Investor: { name: "Partner @PeakCap", title: "Investor", channel: "#investor-updates", color: "#fb7185" },
+    Sales: { name: "Tyler \"Quota\" Nash", title: "Sales", channel: "#deals-deals", color: "#38bdf8" },
+    CMO: { name: "Riley Brand", title: "CMO", channel: "#brand-wars", color: "#f472b6" },
+    CFO: { name: "Pat Numbers", title: "CFO", channel: "#runway-panic", color: "#a3e635" },
+    COO: { name: "Drew Process", title: "COO", channel: "#ops-ops-ops", color: "#2dd4bf" },
+    "Chief of Staff": { name: "Alex Buffer", title: "CoS", channel: "#ceo-proxy", color: "#e2e8f0" },
+    AI: { name: "SynthoBot", title: "Internal LLM", channel: "#ai-copilot", color: "#c084fc" },
+  };
+
+  function personaFor(from) {
+    return (
+      PERSONAS[from] || {
+        name: from,
+        title: from,
+        channel: "#random",
+        color: "#94a3b8",
+      }
+    );
+  }
 
   function createNotificationState() {
     return {
@@ -1382,6 +1413,7 @@
       timeSince: 0,
       totalFired: 0,
       lines: LINES.slice(),
+      lastFrom: null,
     };
   }
 
@@ -1389,14 +1421,37 @@
    * Interval between notifications shrinks with sprint.
    */
   function intervalForSprint(sprint) {
-    const base = 8;
-    const min = 3.5;
-    return Math.max(min, base - (sprint - 1) * 0.6);
+    const base = 9;
+    const min = 4;
+    return Math.max(min, base - (sprint - 1) * 0.55);
   }
 
+  /**
+   * Prefer narcissistic/know-it-all lines (~80%), avoid same sender twice in a row.
+   */
   function pickLine(state, rng) {
-    const i = Math.floor(rng() * state.lines.length);
-    return state.lines[i];
+    rng = rng || Math.random;
+    const lines = state.lines;
+    const ego = [];
+    const other = [];
+    for (let i = 0; i < lines.length; i++) {
+      const L = lines[i];
+      if (L.tone === "ego" || L.tone === "corp") ego.push(L);
+      else other.push(L);
+    }
+    let pool = rng() < 0.82 && ego.length ? ego : lines;
+    // Try a few times to avoid immediate same-from spam
+    let pick = pool[Math.floor(rng() * pool.length)];
+    for (let t = 0; t < 6; t++) {
+      const candidate = pool[Math.floor(rng() * pool.length)];
+      if (candidate.from !== state.lastFrom) {
+        pick = candidate;
+        break;
+      }
+    }
+    // If we fell into "other" empty edge case
+    if (!pick) pick = lines[Math.floor(rng() * lines.length)];
+    return pick;
   }
 
   /**
@@ -1415,14 +1470,25 @@
     state.timeSince = 0;
     state.cooldown = need;
     const line = pickLine(state, rng || Math.random);
+    state.lastFrom = line.from;
+    const persona = personaFor(line.from);
+    const readSecs = Math.min(
+      14,
+      Math.max(9, 7 + line.text.length / 28)
+    );
     state.active = {
       id: state.totalFired++,
       from: line.from,
+      name: persona.name,
+      title: persona.title,
+      channel: persona.channel,
+      color: persona.color,
       text: line.text,
       tone: line.tone,
-      timer: 8.5,
-      maxTimer: 8.5,
+      timer: readSecs,
+      maxTimer: readSecs,
       choices: CHOICES.slice(),
+      urgent: line.tone === "ego",
     };
     return state.active;
   }
@@ -1519,8 +1585,11 @@
   const API = {
     LINES: LINES,
     CHOICES: CHOICES,
+    PERSONAS: PERSONAS,
+    personaFor: personaFor,
     createNotificationState: createNotificationState,
     intervalForSprint: intervalForSprint,
+    pickLine: pickLine,
     tickNotifications: tickNotifications,
     resolveNotification: resolveNotification,
     checkTimeout: checkTimeout,
