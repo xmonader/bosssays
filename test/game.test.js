@@ -235,6 +235,27 @@ describe("map", () => {
   });
 });
 
+describe("notification copy bank", () => {
+  it("has a large ego/know-it-all management line pool", () => {
+    assert.ok(Notes.LINES.length >= 80, "expected 80+ lines, got " + Notes.LINES.length);
+    const froms = new Set(Notes.LINES.map((l) => l.from));
+    for (const role of ["CEO", "CTO", "PM", "HR", "Founder"]) {
+      assert.ok(froms.has(role), "missing role " + role);
+    }
+    const egoish = Notes.LINES.filter(
+      (l) =>
+        /I (am|don't|just|already|once|spoke|closed|hired|meditated|forked)/i.test(
+          l.text
+        ) ||
+        /my (LinkedIn|5-year-old|vibe|opinion|certainty|ego)/i.test(l.text) ||
+        l.tone === "ego"
+    );
+    assert.ok(egoish.length >= 40, "expected many narcissistic lines");
+    // no empty texts
+    assert.ok(Notes.LINES.every((l) => l.text && l.text.length > 10));
+  });
+});
+
 describe("collectibles", () => {
   it("map provides collectible spawns", () => {
     const m = Map.createOfficeMap();
