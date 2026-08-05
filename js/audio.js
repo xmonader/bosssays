@@ -172,6 +172,18 @@
       tone(180, 0.15, "triangle", 0.12);
       noiseBurst(0.12, 0.08);
     },
+    collect: function () {
+      tone(880, 0.05, "square", 0.14);
+      setTimeout(function () {
+        tone(1175, 0.08, "square", 0.16);
+      }, 40);
+    },
+    collect_coffee: function () {
+      tone(400, 0.06, "triangle", 0.12);
+      setTimeout(function () {
+        tone(520, 0.1, "triangle", 0.14);
+      }, 50);
+    },
   };
 
   function play(name) {
@@ -252,6 +264,10 @@
       else if (t === "notify_timeout") play("timeout");
       else if (t === "deploy") play("deploy");
       else if (t === "stun") play("stun");
+      else if (t === "collect") {
+        if (events[i].kind === "coffee") play("collect_coffee");
+        else play("collect");
+      }
     }
   }
 

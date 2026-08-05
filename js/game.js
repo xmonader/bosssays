@@ -32,6 +32,9 @@
   const MAX_CONTEXT = 100;
   const INVULN_TIME = 1.2;
   const STOMP_BOUNCE = -320;
+  const STORY_POINTS = 10;
+  const COFFEE_POINTS = 5;
+  const COFFEE_CONTEXT_RELIEF = 12;
 
   function createEnemy(spawn) {
     return {
@@ -51,6 +54,27 @@
     b.invuln = 0;
     b.facing = 1;
     return b;
+  }
+
+  function createCollectible(spawn, id) {
+    return {
+      id: id,
+      x: spawn.x,
+      y: spawn.y,
+      w: spawn.w || 18,
+      h: spawn.h || 18,
+      kind: spawn.kind || "story",
+      collected: false,
+    };
+  }
+
+  function spawnCollectibles(map) {
+    const list = map.collectibleSpawns || [];
+    const out = [];
+    for (let i = 0; i < list.length; i++) {
+      out.push(createCollectible(list[i], i));
+    }
+    return out;
   }
 
   function emptyEffects() {
@@ -90,9 +114,12 @@
       lives: lives,
       maxLives: MAX_LIVES,
       deploys: opts.deploys != null ? opts.deploys : 0,
+      score: opts.score != null ? opts.score : 0,
+      collectedCount: opts.collectedCount != null ? opts.collectedCount : 0,
       phase: "playing", // playing | notification | gameover
       player: createPlayer(map.spawn),
       enemies: map.enemySpawns.map(createEnemy),
+      collectibles: spawnCollectibles(map),
       notifications: Notes.createNotificationState(),
       effects: emptyEffects(),
       cameraX: 0,
@@ -256,6 +283,38 @@
     }
   }
 
+  /**
+   * Touch collectibles: story points add score; coffee also eases context.
+   */
+  function collectPickups(game) {
+    const p = game.player;
+    let n = 0;
+    for (let i = 0; i < game.collectibles.length; i++) {
+      const c = game.collectibles[i];
+      if (c.collected) continue;
+      if (!Physics.aabb(p, c)) continue;
+      c.collected = true;
+      n++;
+      game.collectedCount += 1;
+      if (c.kind === "coffee") {
+        game.score += COFFEE_POINTS;
+        game.effects.context = Math.max(
+          0,
+          game.effects.context - COFFEE_CONTEXT_RELIEF
+        );
+        pushEvent(game, "collect", { kind: "coffee", points: COFFEE_POINTS });
+        game.message = "Coffee +" + COFFEE_POINTS + " · context −" + COFFEE_CONTEXT_RELIEF;
+        game.messageTimer = 1.2;
+      } else {
+        game.score += STORY_POINTS;
+        pushEvent(game, "collect", { kind: "story", points: STORY_POINTS });
+        game.message = "Story point +" + STORY_POINTS;
+        game.messageTimer = 0.9;
+      }
+    }
+    return n;
+  }
+
   function checkDeploy(game) {
     const d = game.map.deploy;
     if (Physics.aabb(game.player, d)) {
@@ -273,6 +332,8 @@
     game.deploys += 1;
     game.player = createPlayer(game.map.spawn);
     game.enemies = game.map.enemySpawns.map(createEnemy);
+    // Pickups respawn each sprint; score is kept
+    game.collectibles = spawnCollectibles(game.map);
     game.effects.calendarBlocks = [];
     game.effects.hallucinated = [];
     game.effects.stunTimer = 0;
@@ -442,6 +503,9 @@
 
     updateEnemies(game, dt, platforms);
     playerEnemyCollisions(game);
+    if (game.phase !== "gameover") {
+      collectPickups(game);
+    }
     fallDeath(game);
 
     if (game.phase !== "gameover") {
@@ -473,9 +537,12 @@
     chooseNotification: chooseNotification,
     advanceSprint: advanceSprint,
     hurtPlayer: hurtPlayer,
+    collectPickups: collectPickups,
     allSolids: allSolids,
     applyEffectsPayload: applyEffectsPayload,
     isGameOver: isGameOver,
+    STORY_POINTS: STORY_POINTS,
+    COFFEE_POINTS: COFFEE_POINTS,
   };
 
   if (typeof module !== "undefined" && module.exports) {

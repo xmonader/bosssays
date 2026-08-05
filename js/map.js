@@ -60,6 +60,50 @@
       { x: 1500, y: 355 - 28, vx: -35 },
     ];
 
+    // Pickups: walk/jump into them. story = score; coffee = score + clears context
+    const COLLECT_SIZE = 18;
+    function pickup(x, y, kind) {
+      return {
+        x: x,
+        y: y,
+        w: COLLECT_SIZE,
+        h: COLLECT_SIZE,
+        kind: kind || "story",
+      };
+    }
+    const collectibleSpawns = [
+      // lobby path
+      pickup(250, GROUND_Y - 28, "story"),
+      pickup(220, 355 - 28, "story"),
+      pickup(380, 300 - 28, "story"),
+      pickup(540, 355 - 28, "coffee"),
+      // across first gap onto desks
+      pickup(820, GROUND_Y - 28, "story"),
+      pickup(920, 355 - 28, "story"),
+      pickup(1100, 300 - 28, "story"),
+      pickup(1280, 355 - 28, "story"),
+      // kitchen
+      pickup(1450, GROUND_Y - 28, "coffee"),
+      pickup(1520, 355 - 28, "story"),
+      pickup(1720, 300 - 28, "story"),
+      pickup(1900, 355 - 28, "coffee"),
+      // pods
+      pickup(2100, GROUND_Y - 28, "story"),
+      pickup(2220, 355 - 28, "story"),
+      pickup(2420, 300 - 28, "story"),
+      pickup(2580, 355 - 28, "coffee"),
+      // prod / deploy approach
+      pickup(2720, GROUND_Y - 28, "story"),
+      pickup(2820, 355 - 28, "story"),
+      pickup(3000, 300 - 28, "story"),
+      pickup(3100, 355 - 28, "coffee"),
+      // floating mid-air breadcrumbs over gaps (tempting)
+      pickup(740, 360, "story"),
+      pickup(1320, 360, "story"),
+      pickup(2000, 360, "story"),
+      pickup(2660, 360, "story"),
+    ];
+
     // Decor labels for simple art (not solid)
     const decor = [
       { x: 80, y: 80, text: "SYNTHO HQ", kind: "sign" },
@@ -78,6 +122,7 @@
       spawn: spawn,
       deploy: deploy,
       enemySpawns: enemySpawns,
+      collectibleSpawns: collectibleSpawns,
       decor: decor,
     };
   }

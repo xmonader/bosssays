@@ -140,6 +140,51 @@
     ctx.fillText("BUG", x + 4, y + e.h - 4);
   }
 
+  function drawCollectible(ctx, c, camX, time) {
+    if (c.collected) return;
+    const x = c.x - camX;
+    const y = c.y;
+    if (x + c.w < -20 || x > VIEW_W + 20) return;
+    const bob = Math.sin((time || 0) * 6 + c.x * 0.05) * 3;
+
+    if (c.kind === "coffee") {
+      // Mug — brown, clearly a pickup
+      ctx.fillStyle = "#78350f";
+      ctx.fillRect(x + 2, y + 4 + bob, c.w - 4, c.h - 6);
+      ctx.fillStyle = "#fef3c7";
+      ctx.fillRect(x + 4, y + 6 + bob, c.w - 8, 5);
+      ctx.strokeStyle = "#92400e";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(x + 2, y + 4 + bob, c.w - 4, c.h - 6);
+      // handle
+      ctx.beginPath();
+      ctx.arc(x + c.w - 1, y + 10 + bob, 4, -0.5, 0.5);
+      ctx.stroke();
+      ctx.fillStyle = "#451a03";
+      ctx.font = "bold 8px sans-serif";
+      ctx.fillText("☕", x + 3, y + bob - 1);
+    } else {
+      // Story-point coin — gold disc with SP
+      const cx = x + c.w / 2;
+      const cy = y + c.h / 2 + bob;
+      ctx.fillStyle = "#fbbf24";
+      ctx.beginPath();
+      ctx.arc(cx, cy, c.w / 2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = "#b45309";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.fillStyle = "#78350f";
+      ctx.font = "bold 9px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("SP", cx, cy + 3);
+      ctx.textAlign = "left";
+      // sparkle
+      ctx.fillStyle = "#fef9c3";
+      ctx.fillRect(cx + 3, cy - 6, 2, 2);
+    }
+  }
+
   function drawDeployZone(ctx, d, camX) {
     const x = d.x - camX;
     ctx.fillStyle = "rgba(34,197,94,0.25)";
@@ -152,23 +197,38 @@
   function drawHUD(ctx, game) {
     // Top bar
     ctx.fillStyle = "rgba(15,23,42,0.82)";
-    ctx.fillRect(0, 0, VIEW_W, 36);
+    ctx.fillRect(0, 0, VIEW_W, 40);
 
     ctx.fillStyle = "#f8fafc";
-    ctx.font = "bold 14px sans-serif";
-    ctx.fillText("Boss Says", 12, 23);
+    ctx.font = "bold 13px sans-serif";
+    ctx.fillText("Boss Says", 10, 17);
 
-    ctx.font = "13px sans-serif";
-    ctx.fillText("Sprint " + game.sprint, 120, 23);
-    ctx.fillText("Deploys " + game.deploys, 210, 23);
+    ctx.font = "12px sans-serif";
+    ctx.fillText("Sprint " + game.sprint, 100, 17);
+    ctx.fillText("Ship " + game.deploys, 175, 17);
+
+    // Score / pickups
+    ctx.fillStyle = "#fbbf24";
+    ctx.font = "bold 12px sans-serif";
+    ctx.fillText("SP " + (game.score || 0), 240, 17);
+    ctx.fillStyle = "#94a3b8";
+    ctx.font = "11px sans-serif";
+    const left =
+      game.collectibles
+        ? game.collectibles.filter(function (c) {
+            return !c.collected;
+          }).length
+        : 0;
+    ctx.fillText("left " + left, 300, 17);
 
     // Lives as PTO hearts
-    ctx.fillText("PTO", 320, 23);
+    ctx.fillStyle = "#e2e8f0";
+    ctx.fillText("PTO", 355, 17);
     for (let i = 0; i < game.maxLives; i++) {
       ctx.fillStyle = i < game.lives ? "#f43f5e" : "#475569";
       ctx.beginPath();
-      const hx = 355 + i * 18;
-      ctx.arc(hx, 18, 6, 0, Math.PI * 2);
+      const hx = 385 + i * 14;
+      ctx.arc(hx, 13, 5, 0, Math.PI * 2);
       ctx.fill();
     }
 
@@ -176,29 +236,40 @@
     const cm = game.effects.context;
     const maxC = 100;
     ctx.fillStyle = "#94a3b8";
-    ctx.font = "12px sans-serif";
-    ctx.fillText("Context", 430, 23);
+    ctx.font = "11px sans-serif";
+    ctx.fillText("Ctx", 440, 17);
     ctx.fillStyle = "#1e293b";
-    ctx.fillRect(490, 12, 120, 12);
+    ctx.fillRect(468, 8, 100, 10);
     ctx.fillStyle = cm > 80 ? "#ef4444" : cm > 50 ? "#f59e0b" : "#22c55e";
-    ctx.fillRect(490, 12, (120 * cm) / maxC, 12);
+    ctx.fillRect(468, 8, (100 * cm) / maxC, 10);
 
     // Status
     if (game.effects.stunTimer > 0) {
       ctx.fillStyle = "#fbbf24";
-      ctx.fillText("STUNNED", 630, 23);
+      ctx.fillText("STUNNED", 580, 17);
     } else if (game.effects.slowTimer > 0) {
       ctx.fillStyle = "#c084fc";
-      ctx.fillText("SLOW (AI)", 630, 23);
+      ctx.fillText("SLOW", 580, 17);
     }
+
+    // Legend strip
+    ctx.fillStyle = "rgba(15,23,42,0.55)";
+    ctx.fillRect(0, 28, VIEW_W, 14);
+    ctx.fillStyle = "#fbbf24";
+    ctx.font = "10px sans-serif";
+    ctx.fillText("● SP = story points (collect)", 10, 38);
+    ctx.fillStyle = "#d97706";
+    ctx.fillText("☕ coffee = points + clears context", 175, 38);
+    ctx.fillStyle = "#94a3b8";
+    ctx.fillText("Touch to collect · pickups respawn each sprint", 400, 38);
 
     if (game.message && game.messageTimer > 0) {
       ctx.fillStyle = "rgba(15,23,42,0.75)";
-      ctx.fillRect(VIEW_W / 2 - 200, 48, 400, 28);
+      ctx.fillRect(VIEW_W / 2 - 200, 52, 400, 28);
       ctx.fillStyle = "#f8fafc";
       ctx.font = "13px sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText(game.message, VIEW_W / 2, 67);
+      ctx.fillText(game.message, VIEW_W / 2, 71);
       ctx.textAlign = "left";
     }
   }
@@ -305,7 +376,12 @@
     ctx.font = "16px sans-serif";
     ctx.fillStyle = "#94a3b8";
     ctx.fillText(
-      "Sprints survived: " + game.sprint + " · Deploys: " + game.deploys,
+      "Sprints " +
+        game.sprint +
+        " · Deploys " +
+        game.deploys +
+        " · Score " +
+        (game.score || 0),
       VIEW_W / 2,
       VIEW_H / 2 + 16
     );
@@ -338,6 +414,11 @@
       drawPlatform(ctx, game.effects.hallucinated[i], camX);
     }
 
+    if (game.collectibles) {
+      for (let i = 0; i < game.collectibles.length; i++) {
+        drawCollectible(ctx, game.collectibles[i], camX, game.time);
+      }
+    }
     for (let i = 0; i < game.enemies.length; i++) {
       drawEnemy(ctx, game.enemies[i], camX);
     }

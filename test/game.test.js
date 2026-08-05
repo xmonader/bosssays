@@ -235,6 +235,58 @@ describe("map", () => {
   });
 });
 
+describe("collectibles", () => {
+  it("map provides collectible spawns", () => {
+    const m = Map.createOfficeMap();
+    assert.ok(m.collectibleSpawns && m.collectibleSpawns.length >= 5);
+    assert.ok(m.collectibleSpawns.some((c) => c.kind === "story"));
+    assert.ok(m.collectibleSpawns.some((c) => c.kind === "coffee"));
+  });
+
+  it("touching a story point collects it and adds score", () => {
+    const game = Game.createGame();
+    const c = game.collectibles.find((x) => x.kind === "story");
+    assert.ok(c);
+    game.player.x = c.x;
+    game.player.y = c.y;
+    const before = game.score;
+    Game.step(game, {}, 1 / 60);
+    assert.equal(c.collected, true);
+    assert.equal(game.score, before + Game.STORY_POINTS);
+    assert.ok(game.events.some((e) => e.type === "collect" && e.kind === "story"));
+    // second touch no double-dip
+    const mid = game.score;
+    Game.step(game, {}, 1 / 60);
+    assert.equal(game.score, mid);
+  });
+
+  it("coffee reduces context and awards points", () => {
+    const game = Game.createGame();
+    game.effects.context = 40;
+    const c = game.collectibles.find((x) => x.kind === "coffee");
+    assert.ok(c);
+    game.player.x = c.x;
+    game.player.y = c.y;
+    Game.step(game, {}, 1 / 60);
+    assert.equal(c.collected, true);
+    assert.ok(game.score >= Game.COFFEE_POINTS);
+    assert.ok(game.effects.context < 40);
+    assert.ok(game.events.some((e) => e.type === "collect" && e.kind === "coffee"));
+  });
+
+  it("collectibles respawn on sprint advance; score persists", () => {
+    const game = Game.createGame();
+    game.collectibles.forEach((c) => {
+      c.collected = true;
+    });
+    game.score = 50;
+    Game.advanceSprint(game);
+    assert.equal(game.score, 50);
+    assert.ok(game.collectibles.every((c) => !c.collected));
+    assert.ok(game.collectibles.length >= 5);
+  });
+});
+
 describe("game events for audio", () => {
   it("emits jump event when jumping from ground", () => {
     const game = Game.createGame();
