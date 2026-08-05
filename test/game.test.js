@@ -237,7 +237,7 @@ describe("map", () => {
 
 describe("notification copy bank", () => {
   it("has a large ego/know-it-all management line pool", () => {
-    assert.ok(Notes.LINES.length >= 80, "expected 80+ lines, got " + Notes.LINES.length);
+    assert.ok(Notes.LINES.length >= 200, "expected 200+ lines, got " + Notes.LINES.length);
     const froms = new Set(Notes.LINES.map((l) => l.from));
     for (const role of ["CEO", "CTO", "PM", "HR", "Founder"]) {
       assert.ok(froms.has(role), "missing role " + role);
