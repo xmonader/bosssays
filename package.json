@@ -1,0 +1,13 @@
+{
+  "name": "bosssays",
+  "version": "1.0.0",
+  "description": "Endless Mario-like office platformer — CEO/CTO AI notification hell",
+  "private": true,
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "start": "npx --yes serve -l 4173 ."
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
