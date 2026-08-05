@@ -44,6 +44,39 @@ describe("physics", () => {
     assert.ok(body.y <= yBefore);
   });
 
+  it("jump reaches low and mid office platforms from the side", () => {
+    const groundY = 420;
+    const h = 36;
+    // Start clear of platform so jump is not blocked by ceiling collision
+    const body = Physics.createBody(100, groundY - h, 28, h);
+    const low = { x: 180, y: 355, w: 110, h: 14 };
+    const mid = { x: 340, y: 300, w: 100, h: 14 };
+    const floor = [{ x: 0, y: groundY, w: 900, h: 60 }, low, mid];
+    for (let i = 0; i < 20; i++) Physics.stepBody(body, {}, floor, 1 / 60);
+    assert.equal(body.onGround, true);
+    Physics.stepBody(body, { jump: true, right: true }, floor, 1 / 60);
+    let landedLow = false;
+    for (let i = 0; i < 100; i++) {
+      Physics.stepBody(body, { right: true }, floor, 1 / 60);
+      if (body.onGround && Math.abs(body.y + body.h - low.y) < 1) {
+        landedLow = true;
+        break;
+      }
+    }
+    assert.equal(landedLow, true, "should land on low desk (~65px)");
+
+    Physics.stepBody(body, { jump: true, right: true }, floor, 1 / 60);
+    let landedMid = false;
+    for (let i = 0; i < 100; i++) {
+      Physics.stepBody(body, { right: true }, floor, 1 / 60);
+      if (body.onGround && Math.abs(body.y + body.h - mid.y) < 1) {
+        landedMid = true;
+        break;
+      }
+    }
+    assert.equal(landedMid, true, "should step low→mid (~55px more)");
+  });
+
   it("moves horizontally with left/right input", () => {
     const body = Physics.createBody(50, 70, 20, 30);
     const floor = [{ x: 0, y: 100, w: 400, h: 40 }];

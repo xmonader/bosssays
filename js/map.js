@@ -25,17 +25,23 @@
     platforms.push(rect(2040, GROUND_Y, 500, 60, "pods"));
     platforms.push(rect(2620, GROUND_Y, 580, 60, "prod"));
 
-    // Standing desks / floating platforms
-    platforms.push(rect(200, 320, 120, 16, "desk"));
-    platforms.push(rect(400, 260, 100, 16, "whiteboard"));
-    platforms.push(rect(900, 340, 140, 16, "standup"));
-    platforms.push(rect(1100, 280, 100, 16, "monitor"));
-    platforms.push(rect(1500, 300, 160, 16, "snack-bar"));
-    platforms.push(rect(1750, 240, 90, 16, "fridge"));
-    platforms.push(rect(2200, 330, 130, 16, "glass-pod"));
-    platforms.push(rect(2450, 270, 100, 16, "zoom-room"));
-    platforms.push(rect(2800, 300, 150, 16, "server-rack"));
-    platforms.push(rect(3000, 220, 100, 16, "deploy-ledge"));
+    // Floating platforms — stepped heights within jump reach (~135px from ground).
+    // Ground top = 420. Low ~355 (65px), mid ~300 (120px), high ~250 via mid step.
+    platforms.push(rect(180, 355, 110, 14, "desk"));
+    platforms.push(rect(340, 300, 100, 14, "whiteboard"));
+    platforms.push(rect(500, 355, 90, 14, "plant-shelf"));
+    platforms.push(rect(880, 355, 130, 14, "standup"));
+    platforms.push(rect(1060, 300, 110, 14, "monitor"));
+    platforms.push(rect(1220, 355, 90, 14, "side-desk"));
+    platforms.push(rect(1480, 355, 140, 14, "snack-bar"));
+    platforms.push(rect(1680, 300, 100, 14, "fridge"));
+    platforms.push(rect(1840, 355, 90, 14, "counter"));
+    platforms.push(rect(2180, 355, 120, 14, "glass-pod"));
+    platforms.push(rect(2380, 300, 100, 14, "zoom-room"));
+    platforms.push(rect(2540, 355, 90, 14, "pod-exit"));
+    platforms.push(rect(2780, 355, 130, 14, "server-rack"));
+    platforms.push(rect(2960, 300, 100, 14, "deploy-ledge"));
+    platforms.push(rect(3080, 355, 80, 14, "ship-step"));
 
     // Left wall / right soft barrier via tall platforms at edges
     platforms.push(rect(-40, 0, 40, MAP_HEIGHT, "wall-l"));
@@ -50,8 +56,8 @@
       { x: 1600, y: GROUND_Y - 28, vx: 55 },
       { x: 2300, y: GROUND_Y - 28, vx: -45 },
       { x: 2900, y: GROUND_Y - 28, vx: 40 },
-      { x: 920, y: 340 - 28, vx: 40 },
-      { x: 1520, y: 300 - 28, vx: -35 },
+      { x: 900, y: 355 - 28, vx: 40 },
+      { x: 1500, y: 355 - 28, vx: -35 },
     ];
 
     // Decor labels for simple art (not solid)

@@ -5,9 +5,10 @@
 (function (root) {
   "use strict";
 
-  const GRAVITY = 1800;
-  const MOVE_SPEED = 220;
-  const JUMP_VELOCITY = -520;
+  const GRAVITY = 1700;
+  const MOVE_SPEED = 240;
+  // ~135px peak height — enough to clear low desks and step up mid platforms
+  const JUMP_VELOCITY = -680;
   const MAX_FALL = 900;
 
   function aabb(a, b) {
