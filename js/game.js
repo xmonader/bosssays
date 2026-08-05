@@ -304,12 +304,12 @@
         );
         pushEvent(game, "collect", { kind: "coffee", points: COFFEE_POINTS });
         game.message = "Coffee +" + COFFEE_POINTS + " · context −" + COFFEE_CONTEXT_RELIEF;
-        game.messageTimer = 1.2;
+        game.messageTimer = 2.4;
       } else {
         game.score += STORY_POINTS;
         pushEvent(game, "collect", { kind: "story", points: STORY_POINTS });
         game.message = "Story point +" + STORY_POINTS;
-        game.messageTimer = 0.9;
+        game.messageTimer = 2.0;
       }
     }
     return n;
@@ -414,7 +414,7 @@
         pushEvent(game, "notify_reply", { kind: result.effects.kind });
       }
       if (result.effects.stun > 0) pushEvent(game, "stun");
-      game.messageTimer = 1.5;
+      game.messageTimer = 2.8;
     }
     return result;
   }
@@ -462,7 +462,7 @@
         applyEffectsPayload(game, timed.effects);
         game.phase = "playing";
         game.message = "Notification timeout — stunned";
-        game.messageTimer = 1.5;
+        game.messageTimer = 2.8;
         pushEvent(game, "notify_timeout");
         if (timed.effects.stun > 0) pushEvent(game, "stun");
       }

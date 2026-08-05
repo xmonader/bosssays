@@ -69,17 +69,34 @@
     return g;
   }
 
-  function tone(freq, duration, type, peak) {
+  function tone(freq, duration, type, peak, when) {
     const c = ensure();
     if (!c || muted || !unlocked) return;
-    const g = envGain(duration, peak != null ? peak : 0.22);
-    if (!g) return;
+    const start = c.currentTime + (when || 0);
+    peak = peak != null ? peak : 0.22;
+    duration = duration != null ? duration : 0.1;
+    type = type || "square";
+    const g = c.createGain();
+    g.gain.setValueAtTime(0.0001, start);
+    g.gain.exponentialRampToValueAtTime(peak, start + 0.012);
+    g.gain.exponentialRampToValueAtTime(
+      0.0001,
+      start + Math.max(0.04, duration)
+    );
+    g.connect(master);
     const o = c.createOscillator();
-    o.type = type || "square";
-    o.frequency.setValueAtTime(freq, c.currentTime);
+    o.type = type;
+    o.frequency.setValueAtTime(freq, start);
     o.connect(g);
-    o.start();
-    o.stop(c.currentTime + duration);
+    o.start(start);
+    o.stop(start + duration + 0.02);
+  }
+
+  /** Coin-style arpeggio scheduled on the audio clock (no setTimeout). */
+  function blipArp(freqs, step, peak, type) {
+    for (let i = 0; i < freqs.length; i++) {
+      tone(freqs[i], step * 0.9, type || "square", peak, i * step);
+    }
   }
 
   function slide(freq0, freq1, duration, type, peak) {
@@ -173,16 +190,11 @@
       noiseBurst(0.12, 0.08);
     },
     collect: function () {
-      tone(880, 0.05, "square", 0.14);
-      setTimeout(function () {
-        tone(1175, 0.08, "square", 0.16);
-      }, 40);
+      // Loud Mario-ish coin: clearly audible over jump/land
+      blipArp([988, 1319, 1760], 0.07, 0.32, "square");
     },
     collect_coffee: function () {
-      tone(400, 0.06, "triangle", 0.12);
-      setTimeout(function () {
-        tone(520, 0.1, "triangle", 0.14);
-      }, 50);
+      blipArp([392, 523, 659], 0.08, 0.28, "triangle");
     },
   };
 

@@ -116,8 +116,8 @@ describe("notifications effects", () => {
     assert.ok(game.notifications.active, "notification should open");
     assert.equal(game.phase, "notification");
 
-    // Burn timer across frames (step clamps dt to 0.05; need >4.5s)
-    for (let i = 0; i < 400; i++) {
+    // Burn timer across frames (step clamps dt to 0.05; need > maxTimer ~8.5s)
+    for (let i = 0; i < 600; i++) {
       Game.step(game, {}, 1 / 60);
       if (!game.notifications.active) break;
     }

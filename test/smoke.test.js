@@ -19,6 +19,7 @@ describe("scaffold smoke", () => {
     assert.equal(typeof Audio.playEvents, "function");
     assert.ok(Audio.SFX_NAMES.includes("jump"));
     assert.ok(Audio.SFX_NAMES.includes("notify"));
+    assert.ok(Audio.SFX_NAMES.includes("collect"));
   });
 
   it("index.html uses relative plain script tags (file:// safe)", () => {

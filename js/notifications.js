@@ -718,8 +718,8 @@
       from: line.from,
       text: line.text,
       tone: line.tone,
-      timer: 4.5,
-      maxTimer: 4.5,
+      timer: 8.5,
+      maxTimer: 8.5,
       choices: CHOICES.slice(),
     };
     return state.active;
