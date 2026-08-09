@@ -1366,6 +1366,608 @@
       text: "I hear you. Hearing is not agreeing. Agreeing is mandatory. Loop closed.",
       tone: "ego",
     },
+
+    // —— batch 3: weirder narcissistic know-it-alls ——
+    {
+      from: "CEO",
+      text: "I just reverse-mentored myself. The takeaway: you should listen more.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Put my face on the loading screen. Soft power. Also ego. Mostly ego.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I don't have imposter syndrome. The company has imposter syndrome about me.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We're family-owned now. I'm the family. You're the owned.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I need a war room. Not for a war. For my feelings about the roadmap.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Stop saying 'blocked.' Champions are never blocked. They are 'strategically paused by destiny.'",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I timeboxed empathy to 90 seconds. Your turn started 89 seconds ago.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Make the game whisper my name when you collect a coin. Subtle. Iconic.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I canceled 1:1s to scale myself. You can still monologue into this thread.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "The board asked who the talent is. I pointed at the mirror. Correct answer.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I want asynchronous leadership. You work. I appear in dreams with requirements.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We need founder-mode for everyone except founders. Founders stay in god-mode.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I A/B tested saying 'please.' Conversion to obedience dropped. Never again.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Your PR description should open with why this advances my personal brand.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I don't escalate. I levitate problems until they become your KPI.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Ship a mode where dying thanks me for the opportunity.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I crowdsourced strategy from my group chat of other CEOs. None ship. All advice.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Call it a 'blitz.' Blitz means panic with better fonts.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I need loyalty metrics. Start with who liked my all-hands in under 12 seconds.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Don't document decisions. Document my instincts in past tense as if they were plans.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I dual-track: Track A is your work. Track B is me changing Track A mid-air.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We're not late to market. The market is early to my genius.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Please treat my random emoji reaction as a signed requirements doc.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I want psychological safety for me to say unhinged things. You get the unhinged things.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Rename 'bugs' to 'character development.' Investors hate bugs. Love arcs.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I refactored the org into hexagonal architecture. You're an adapter. Beep when spoken to.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We'll solve race conditions with a meeting. Meetings are mutexes for humans.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I want zero downtime for my reputation. Your deploys may thrash freely.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Stop cargo-culting. Start culting my cargo: this zip of half-written Go.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I drew the system on a steamy shower door. Photograph lost. Rebuild from steam.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "The PagerDuty schedule is a meritocracy. I merit never being on it.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Add AI to the AI that watches the AI. I will keynote the recursion.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I don't rubber-duck. I rubber-swan. Larger. Louder. Still wrong.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We need strict typing for Slack messages. Except mine. Mine are any.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I benchmarked your PR against a dream I had. Dream won. Rewrite.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Put feature flags on ethics. Default off in staging. Default off in prod too.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I want an enterprise service bus for opinions. Hub node: me.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Your unit tests lack executive presence. Add asserts that flatter the architecture.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We'll migrate to the cloud by renaming folders 'cloud.' Ship the metaphor.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I invented continuous interruption. It's like continuous delivery but for your focus.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Don't premature-optimize. Premature-rewrite instead. Keeps me interested.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "The incident RCA should list 'insufficient belief in the platform' as root cause.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I need a design partner. You design. I partner by rejecting.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Make gravity multi-tenant. Each customer falls differently. Bill for airtime.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I peer-reviewed the universe. Needs better abstractions. Assign to you.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We're greenfielding the brownfield while maintaining the grayfield. Color is a mindset.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Add a circuit breaker for saying no to me. It should always trip open.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I want observability so good I can watch you almost type a disagreement.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Stop using stacks I learned last year. Use stacks I misheard on a podcast today.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "The monorepo will fix culture. If not, we'll try a multi-multi-repo and a manifesto.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "I need a north-star metric that goes up when I talk. Instrument my mouth.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "User research said no. I heard yes with poor facilitation. Proceed.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Can we make the tutorial a TED talk starring leadership?",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "This epic has no acceptance criteria. Acceptance is a feeling I get in standup.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "I prioritised by LinkedIn clout of the requester. You are not on LinkedIn enough.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Add empty states that shame the user for not generating enterprise value.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "The PRD is a poem. Interpret freely. Ship literally. Both. Immediately.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "We need jobs-to-be-done for the mushroom. What job does fungus perform in the funnel?",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Please spike 'removing the player.' Some products are just dashboards of courage.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "I scheduled GTM before GTBuild. Marketing is live. Invent the product under it.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Can platforms be opinionated and also do whatever enterprise wants by Friday?",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "I wrote 'delightful' fourteen times. That's the spec. Decode delight.",
+      tone: "ego",
+    },
+    {
+      from: "VP Product",
+      text: "Strategy is saying no. I'm saying no to your no. That's meta-strategy.",
+      tone: "ego",
+    },
+    {
+      from: "VP Product",
+      text: "I want category creation. Start by inventing a problem only we can overcharge for.",
+      tone: "ego",
+    },
+    {
+      from: "VP Product",
+      text: "Roadmap confidence: 110%. Evidence confidence: decorative.",
+      tone: "ego",
+    },
+    {
+      from: "VP Product",
+      text: "Make churn emotionally expensive. Guilt is a retention feature.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "I need staffing leverage. Translation: same people, new names, harder OKRs.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "We will hire for potential and manage for telepathy. You should already know.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Cycle time is down because I redefined 'done' as 'mentioned in Slack.'",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "I want craft. Also velocity. Also no rework. Also my drive-by redesigns. Yes.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "I manifestation-boarded Series C. You manifestation-board the sprint. Same energy, less equity.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Doubt is a luxury brand I don't wear. You can wear the on-call hoodie.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "I only raise from funds that 'get it.' Getting it means laughing at my jokes.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "We are building the future of work by destroying the present of your evenings.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "I don't pivot. I rebrand the destination while you're still driving.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "The total addressable market is everyone with eyes. Start with physics for eyelids.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "I hired a chief evangelist for me. You are the congregation. Amen and deploy.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Sleep when the category is won. The category is 'people who tolerate this Slack.'",
+      tone: "ego",
+    },
+    {
+      from: "HR",
+      text: "We're introducing radical transparency: you share burnout data; we share stock photos of kayaks.",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "Performance is a vibe. Calibration is a vibe court. Bring evidence of smiling in Slack.",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "Please complete the engagement survey. Neutral answers will be interpreted as hostility.",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "We care about whole humans. Whole humans ship on weekends. Holistically.",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "Your manager is an algorithm now. It optimized for visibility of leadership. Surprise.",
+      tone: "corp",
+    },
+    {
+      from: "Sales",
+      text: "I promised them a white-glove jump consultant. You are the glove. Be white.",
+      tone: "ego",
+    },
+    {
+      from: "Sales",
+      text: "They want on-prem cloud hybrid air-gap multiplayer. I said 'native.' Build native chaos.",
+      tone: "ego",
+    },
+    {
+      from: "Sales",
+      text: "Commission is a leading indicator of engineering priority. Math checks out in my head.",
+      tone: "ego",
+    },
+    {
+      from: "Sales",
+      text: "Customer success means the customer succeeds at blaming us less. Patch their feelings.",
+      tone: "ego",
+    },
+    {
+      from: "Board",
+      text: "Are we the Uber of pipes yet? If not, why do I still see an engineer with work-life balance?",
+      tone: "ego",
+    },
+    {
+      from: "Board",
+      text: "Prefer a strategy that fits in one slide and ruins three teams.",
+      tone: "ego",
+    },
+    {
+      from: "Investor",
+      text: "I need a narrative of inevitability. Reality is optional until the next round.",
+      tone: "ego",
+    },
+    {
+      from: "Investor",
+      text: "Cut the burn that isn't me. Double the burn that photographs well.",
+      tone: "ego",
+    },
+    {
+      from: "CFO",
+      text: "Can we capitalize culture as an intangible and depreciate the interns?",
+      tone: "ego",
+    },
+    {
+      from: "CFO",
+      text: "I need real-time burn dashboards and delayed empathy. Prioritize Grafana.",
+      tone: "ego",
+    },
+    {
+      from: "CMO",
+      text: "Launch the campaign before the feature. Truth is a Q4 problem.",
+      tone: "ego",
+    },
+    {
+      from: "CMO",
+      text: "I want the brand to feel 'inevitable and warm.' Like a hug from a Series B.",
+      tone: "ego",
+    },
+    {
+      from: "COO",
+      text: "I mapped swimlanes until the org drowned. Swim harder in your lane.",
+      tone: "ego",
+    },
+    {
+      from: "COO",
+      text: "New policy: decisions require a decision about whether we need a decision framework.",
+      tone: "ego",
+    },
+    {
+      from: "Chief of Staff",
+      text: "The CEO's shower thought is now a P0 with stakeholders. Stake: you.",
+      tone: "ego",
+    },
+    {
+      from: "Chief of Staff",
+      text: "I'm cascading ambiguity so everyone has equal lack of clarity. Inclusive.",
+      tone: "ego",
+    },
+    {
+      from: "AI",
+      text: "I fine-tuned on leadership Slack. Output: you are wrong, ship faster, add AI.",
+      tone: "ai",
+    },
+    {
+      from: "AI",
+      text: "Confidence: 94%. Accuracy: decorative. Proceed as if I were the CTO.",
+      tone: "ai",
+    },
+    {
+      from: "CEO",
+      text: "I want fewer words in status and more awe. Awe is a deliverable.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Replace the design doc with a meme that implies I already won the argument.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "If we can't measure it, it didn't happen — unless I announced it, then it did.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "I don't micromanage outcomes. I micromanage your belief system.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Add a boss key that opens a fake spreadsheet when investors walk by. Priority: my dignity.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We'll do platform thinking by putting 'Platform' in the team name. Done. Next slide.",
+      tone: "ego",
+    },
+    {
+      from: "VP Product",
+      text: "I need a wedge. The wedge is your weekend. Drive it in.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "My operating system is vibes + veto. Your operating system is compliance.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I want idempotent yeses. Retry your agreement until it succeeds.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "We're a movement pretending to be a company. Movements don't do code review. Do it anyway.",
+      tone: "ego",
+    },
+    {
+      from: "HR",
+      text: "Reminder: feedback is a gift. This gift is on fire. Say thank you.",
+      tone: "corp",
+    },
+    {
+      from: "Sales",
+      text: "I need a custom demo env that lies attractively. Truth is a post-sales problem.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I will be offline at a retreat to think about presence. Be present for my absence.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "The architecture is fine. The implementers lack narrative coherence. That's you.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Let's call the rewrite a 'refresh' so nobody panics except the codebase.",
+      tone: "ego",
+    },
+    {
+      from: "Board",
+      text: "When do we see AI leverage in headcount? Prefer fewer humans, same slides.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I don't want a plan. I want a prophecy with Gantt charts.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Ship the reference architecture. Reality can catch up in a follow-up PR forever.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "I bet the company on a sentence I liked. Defend the sentence with your life. Metaphorically. Mostly.",
+      tone: "ego",
+    },
   ];
 
   const CHOICES = [
