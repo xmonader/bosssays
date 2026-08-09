@@ -4,8 +4,12 @@
 (function (root) {
   "use strict";
 
-  const VIEW_W = 800;
-  const VIEW_H = 480;
+  // Logical playfield (camera / world units). Canvas is scaled up for a bigger window.
+  const LOGIC_W = 800;
+  const LOGIC_H = 480;
+  const SCALE = 1.6;
+  const VIEW_W = Math.round(LOGIC_W * SCALE); // 1280 — canvas pixel width
+  const VIEW_H = Math.round(LOGIC_H * SCALE); // 768 — canvas pixel height
 
   function clear(ctx, w, h) {
     // Office sky / ceiling wash
@@ -20,7 +24,7 @@
   function drawPlatform(ctx, p, camX) {
     const x = p.x - camX;
     const y = p.y;
-    if (x + p.w < 0 || x > VIEW_W) return;
+    if (x + p.w < 0 || x > LOGIC_W) return;
 
     if (p.kind === "calendar") {
       ctx.fillStyle = "#5b8def";
@@ -75,7 +79,7 @@
     for (let i = 0; i < decor.length; i++) {
       const d = decor[i];
       const x = d.x - camX;
-      if (x < -100 || x > VIEW_W + 100) continue;
+      if (x < -100 || x > LOGIC_W + 100) continue;
       if (d.kind === "flag") {
         ctx.fillStyle = "#16a34a";
         ctx.fillRect(x, d.y, 6, 70);
@@ -144,7 +148,7 @@
     if (c.collected) return;
     const x = c.x - camX;
     const y = c.y;
-    if (x + c.w < -20 || x > VIEW_W + 20) return;
+    if (x + c.w < -20 || x > LOGIC_W + 20) return;
     const bob = Math.sin((time || 0) * 6 + c.x * 0.05) * 3;
 
     if (c.kind === "coffee") {
@@ -197,7 +201,7 @@
   function drawHUD(ctx, game) {
     // Top bar
     ctx.fillStyle = "rgba(15,23,42,0.82)";
-    ctx.fillRect(0, 0, VIEW_W, 40);
+    ctx.fillRect(0, 0, LOGIC_W, 40);
 
     ctx.fillStyle = "#f8fafc";
     ctx.font = "bold 13px sans-serif";
@@ -254,7 +258,7 @@
 
     // Legend strip
     ctx.fillStyle = "rgba(15,23,42,0.55)";
-    ctx.fillRect(0, 28, VIEW_W, 14);
+    ctx.fillRect(0, 28, LOGIC_W, 14);
     ctx.fillStyle = "#fbbf24";
     ctx.font = "10px sans-serif";
     ctx.fillText("● SP = story points (collect)", 10, 38);
@@ -265,11 +269,11 @@
 
     if (game.message && game.messageTimer > 0) {
       ctx.fillStyle = "rgba(15,23,42,0.75)";
-      ctx.fillRect(VIEW_W / 2 - 200, 52, 400, 28);
+      ctx.fillRect(LOGIC_W / 2 - 200, 52, 400, 28);
       ctx.fillStyle = "#f8fafc";
       ctx.font = "13px sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText(game.message, VIEW_W / 2, 71);
+      ctx.fillText(game.message, LOGIC_W / 2, 71);
       ctx.textAlign = "left";
     }
   }
@@ -278,18 +282,18 @@
     if (!note) return;
     const boxW = 520;
     const boxH = 230;
-    const x = (VIEW_W - boxW) / 2;
+    const x = (LOGIC_W - boxW) / 2;
     const y = 70;
 
     // Dim world — game is frozen while you read
     ctx.fillStyle = "rgba(2,6,23,0.55)";
-    ctx.fillRect(0, 0, VIEW_W, VIEW_H);
+    ctx.fillRect(0, 0, LOGIC_W, LOGIC_H);
 
     // PAUSED banner
     ctx.fillStyle = "#fbbf24";
     ctx.font = "bold 12px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("GAME PAUSED · leadership is speaking", VIEW_W / 2, y - 12);
+    ctx.fillText("GAME PAUSED · leadership is speaking", LOGIC_W / 2, y - 12);
     ctx.textAlign = "left";
 
     const accent = note.color || "#38bdf8";
@@ -428,11 +432,11 @@
 
   function drawGameOver(ctx, game) {
     ctx.fillStyle = "rgba(15,23,42,0.8)";
-    ctx.fillRect(0, 0, VIEW_W, VIEW_H);
+    ctx.fillRect(0, 0, LOGIC_W, LOGIC_H);
     ctx.fillStyle = "#f8fafc";
     ctx.font = "bold 36px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("LAID OFF", VIEW_W / 2, VIEW_H / 2 - 20);
+    ctx.fillText("LAID OFF", LOGIC_W / 2, LOGIC_H / 2 - 20);
     ctx.font = "16px sans-serif";
     ctx.fillStyle = "#94a3b8";
     ctx.fillText(
@@ -442,22 +446,24 @@
         game.deploys +
         " · Score " +
         (game.score || 0),
-      VIEW_W / 2,
-      VIEW_H / 2 + 16
+      LOGIC_W / 2,
+      LOGIC_H / 2 + 16
     );
-    ctx.fillText("Press R to re-interview (restart)", VIEW_W / 2, VIEW_H / 2 + 48);
+    ctx.fillText("Press R to re-interview (restart)", LOGIC_W / 2, LOGIC_H / 2 + 48);
     ctx.textAlign = "left";
   }
 
   function draw(ctx, game) {
     const camX = game.cameraX || 0;
-    clear(ctx, VIEW_W, VIEW_H);
+    // Upscale logical playfield to full canvas (bigger on-screen game area)
+    ctx.setTransform(SCALE, 0, 0, SCALE, 0, 0);
+    clear(ctx, LOGIC_W, LOGIC_H);
 
     // far wall tint stripes
     ctx.fillStyle = "rgba(148,163,184,0.15)";
     for (let i = 0; i < game.map.width; i += 200) {
       const x = i - camX;
-      ctx.fillRect(x, 40, 2, VIEW_H - 40);
+      ctx.fillRect(x, 40, 2, LOGIC_H - 40);
     }
 
     drawDecor(ctx, game.map.decor, camX);
@@ -496,6 +502,9 @@
   const API = {
     VIEW_W: VIEW_W,
     VIEW_H: VIEW_H,
+    LOGIC_W: LOGIC_W,
+    LOGIC_H: LOGIC_H,
+    SCALE: SCALE,
     draw: draw,
   };
 
