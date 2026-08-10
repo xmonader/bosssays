@@ -1968,6 +1968,428 @@
       text: "I bet the company on a sentence I liked. Defend the sentence with your life. Metaphorically. Mostly.",
       tone: "ego",
     },
+
+    // —— passive-aggressive: slow / I could do it myself / just asking ——
+    {
+      from: "CEO",
+      text: "Not rushing you… just curious why this is taking so long? No pressure. Status by EOD though.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I could do this myself in an afternoon. I'm choosing to invest in you. Please don't waste the investment.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Interesting that it's still not done. I'm sure there's a great story. I love stories. Prefer shipping.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Take all the time you need! (Board meeting is Thursday. Magic is due Wednesday.)",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I'm not disappointed — I'm just recalibrating my expectations of you in real time.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "When I was IC we shipped faster with worse tools. Not comparing. Just remembering. Out loud. Here.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "No rush on the fix. Unless customers notice. They will. So… rush, but make it look calm.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Happy to jump in and do it myself if that's easier for everyone? I'll just rewrite your week.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Still waiting on that 'quick' thing. Quotation marks intentional. Love you. Mean it. Kind of.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Help me understand the blocker — is it complexity, or courage?",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I thought this was done last week? Or did I invent that in a meeting you should have corrected?",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Per my last three pings: still free when you are. My calendar is a crime scene. Yours is… open?",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Not micromanaging — just checking in every 11 minutes because I care about outcomes (and control).",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "If it's hard, say so. If it's easy, why isn't it done? There's no third option that keeps me calm.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I could hire a contractor. Or an intern. Or a model. Trying people first. Don't make me untry.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Why is this ticket still open? Genuinely curious. Also please close it. Both vibes.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I could pair on this for 20 minutes and finish it. Offering as a gift. The gift has sharp edges.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Interesting approach. When I prototyped it over lunch it was simpler. Sharing for inspiration.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Not blocking you — just leaving 40 comments so you feel supported (and watched).",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Is the delay technical debt or emotional debt? Asking as your architecture friend.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Take your time on the refactor. Production can wait. The demo cannot. Prioritize wisely (the demo).",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I rewrote your service in a gist. Not to replace you. To show 'possible.' Possible is loud.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Still on that PR? Cool cool cool. I'll just keep refreshing GitHub like a healthy person.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "No judgment if you need help. Judgment starts after the second day of silence though.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Happy to unblock you by redesigning everything you already built. Say the word. Or don't. I might anyway.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Reminding you the estimate was 'soon.' Soon has a half-life. It expired. Politely.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I can do it myself after standup. Prefer you grow. Prefer it done. Conflict noted.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Not rushing the tests — just shipping without them if they continue to 'take time.'",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Interesting that CI is red again. I'm sure you'll look when you're free. Freedom is a schedule.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Any update? Even a no-update update is an update. Silence is a status I invent for you.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "I could write the tickets slower so engineering has time… or you could go faster. Joking! (Not.)",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Scope was tiny. Time was not. Help me reconcile the poetry of that.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Stakeholders are asking why it's late. I said 'craft.' Please invent craft by Friday.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "No pressure on the estimate you gave. Just using it as a promise in every slide deck.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "I can mock the feature in Figma faster than this. Not a dig. A timeline.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Still waiting on the 'quick sync' follow-ups. Quick has left the chat.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "If you need more time, take it — and also don't, because the launch email already went out.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Just bumping this to the top of your mental stack. Gently. With a crowbar.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Would it help if I sat next to you and sighed every 30 seconds? Asking for a friend (me).",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Velocity looks soft this sprint. Soft is a word we use before 'performance conversation.'",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "I trust you to own the timeline. I'm also putting the timeline on a public dashboard. Trust++.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Other teams shipped more with less. Not a comparison. A mood. Absorb the mood.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Happy to remove blockers. First blocker might be standards. Second might be you. Exploring both.",
+      tone: "ego",
+    },
+    {
+      from: "VP Product",
+      text: "We said MVP. You heard cathedral. Cathedrals ship in years. We have a webinar.",
+      tone: "ego",
+    },
+    {
+      from: "VP Product",
+      text: "I'm not changing requirements. I'm clarifying destiny. Destiny has a new due date.",
+      tone: "ego",
+    },
+    {
+      from: "VP Product",
+      text: "Interesting that discovery took a quarter. Customers discovered we don't have it yet.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "I built v0 on a weekend. You have a team. Math is passive-aggressive today.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Why does everything take a sprint? In my head it takes a vibe. Align heads.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "I can do it myself after investor dinner. I'd rather you feel ownership (and heat).",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Not mad. Just updating the story I tell about this team. Draft is… in progress.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Move fast. If you can't, narrate the slowness in a way that flatters the mission.",
+      tone: "ego",
+    },
+    {
+      from: "HR",
+      text: "Noting the delivery timeline for your growth file. Totally supportive. Extremely documented.",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "We value work-life balance and also responses within 5 minutes. Both can be true if you try.",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "Heard this project is 'taking a while.' Want a wellness resource or a tighter deadline? 💙",
+      tone: "corp",
+    },
+    {
+      from: "Sales",
+      text: "Customer asked if we're still building it. I laughed. Please make the laugh honest soon.",
+      tone: "ego",
+    },
+    {
+      from: "Sales",
+      text: "I can keep selling the dream while you… take your time? Time is a closed-won risk.",
+      tone: "ego",
+    },
+    {
+      from: "Sales",
+      text: "They want it yesterday. I said today. You said Friday. Someone is lying. Prefer not me.",
+      tone: "ego",
+    },
+    {
+      from: "Board",
+      text: "Execution velocity came up. Fondly. With charts. You're on slide 6.",
+      tone: "ego",
+    },
+    {
+      from: "Investor",
+      text: "Love the vision. Timing is a love language too. Speak sooner.",
+      tone: "ego",
+    },
+    {
+      from: "COO",
+      text: "Process says 5 days. You've used 5 moods. Let's return to calendar time.",
+      tone: "ego",
+    },
+    {
+      from: "COO",
+      text: "I can reassign this if it's too heavy. Reassigning looks like a signal. Just saying.",
+      tone: "ego",
+    },
+    {
+      from: "Chief of Staff",
+      text: "CEO asked 'is it done?' three times. I said 'soon.' Please make soon less fictional.",
+      tone: "ego",
+    },
+    {
+      from: "Chief of Staff",
+      text: "Following up on the follow-up to the nudge. This is the friendly escalation tier.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I'll do it myself this weekend. Not a threat. A calendar hold. With your name in the notes.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Don't mind me — I'll just fix prod while you 'think about the design.' Thinking is free. Outages aren't.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Friendly reminder the deadline was soft. Soft like concrete. After it sets, we walk on you.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "In the early days I did this alone overnight. Nostalgia is a management tool. Feeling it?",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "No blame on the slip — only a retro, a dashboard, and a hallway conversation that isn't optional.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Just circling back! And around. And over your head. Wave when the ticket moves.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I left a 'suggestion' that rewrites your module. Optional, like gravity.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Can we get a quick ETA on the ETA you already gave? Nested timelines are my love language.",
+      tone: "ego",
+    },
+    {
+      from: "Sales",
+      text: "I told them engineering is 'heads down.' Heads down should produce a head-up update soon.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I'm here if you need anything — except more time. Time is the one thing I'm not giving.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Slow is fine if it's careful. This seems slow and chaotic. Pick a brand of delay.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "I could vibe-code this by Friday. Offering partnership. Or replacement energy. Your call.",
+      tone: "ego",
+    },
+    {
+      from: "HR",
+      text: "Checking whether workload is sustainable. If yes, why the delay? If no, why the delay? 💙",
+      tone: "corp",
+    },
+    {
+      from: "CEO",
+      text: "Not angry you missed the date — angry I believed the date. Fix my faith with a deploy.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I'll hop on a call and share my screen and do it 'real quick.' Bring popcorn or a resignation draft.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "The ticket is still In Progress. Progress is a verb. Verbs need motion. Please verb.",
+      tone: "ego",
+    },
+    {
+      from: "VP Product",
+      text: "We launched the narrative. The product is fashionably late. Fashion needs a ship date.",
+      tone: "ego",
+    },
+    {
+      from: "Board",
+      text: "Any reason delivery slipped besides 'engineering'? Prefer reasons that sound strategic.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I trust the team completely. That's why I'm asking for hourly screenshots of the branch.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "No worries if you're stuck — worries start when stuck becomes a lifestyle.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Speed is a value. Values are non-negotiable. Negotiating your timeline against our values rn.",
+      tone: "ego",
+    },
   ];
 
   const CHOICES = [

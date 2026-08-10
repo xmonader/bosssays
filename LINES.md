@@ -1,6 +1,6 @@
-# Boss Says — all Slack lines (391)
+# Boss Says — all Slack lines (475)
 
-## CEO — Blake Ashford · CEO (#exec-stream) (110)
+## CEO — Blake Ashford · CEO (#exec-stream) (130)
 
 1. Can we make the jump model-aware?
 2. Investors love coins. Make more coins. Also agents.
@@ -112,8 +112,28 @@
 108. My operating system is vibes + veto. Your operating system is compliance.
 109. I will be offline at a retreat to think about presence. Be present for my absence.
 110. I don't want a plan. I want a prophecy with Gantt charts.
+111. Not rushing you… just curious why this is taking so long? No pressure. Status by EOD though.
+112. I could do this myself in an afternoon. I'm choosing to invest in you. Please don't waste the investment.
+113. Interesting that it's still not done. I'm sure there's a great story. I love stories. Prefer shipping.
+114. Take all the time you need! (Board meeting is Thursday. Magic is due Wednesday.)
+115. I'm not disappointed — I'm just recalibrating my expectations of you in real time.
+116. When I was IC we shipped faster with worse tools. Not comparing. Just remembering. Out loud. Here.
+117. No rush on the fix. Unless customers notice. They will. So… rush, but make it look calm.
+118. Happy to jump in and do it myself if that's easier for everyone? I'll just rewrite your week.
+119. Still waiting on that 'quick' thing. Quotation marks intentional. Love you. Mean it. Kind of.
+120. Help me understand the blocker — is it complexity, or courage?
+121. I thought this was done last week? Or did I invent that in a meeting you should have corrected?
+122. Per my last three pings: still free when you are. My calendar is a crime scene. Yours is… open?
+123. Not micromanaging — just checking in every 11 minutes because I care about outcomes (and control).
+124. If it's hard, say so. If it's easy, why isn't it done? There's no third option that keeps me calm.
+125. I could hire a contractor. Or an intern. Or a model. Trying people first. Don't make me untry.
+126. I'll do it myself this weekend. Not a threat. A calendar hold. With your name in the notes.
+127. Just circling back! And around. And over your head. Wave when the ticket moves.
+128. I'm here if you need anything — except more time. Time is the one thing I'm not giving.
+129. Not angry you missed the date — angry I believed the date. Fix my faith with a deploy.
+130. I trust the team completely. That's why I'm asking for hourly screenshots of the branch.
 
-## CTO — Brent Caldwell · CTO (#arch-thots) (104)
+## CTO — Brent Caldwell · CTO (#arch-thots) (123)
 
 1. Is gravity differentiable? Asking for the architecture review.
 2. Please add RAG to the mushroom. Ship by EOD.
@@ -219,8 +239,27 @@
 102. I want idempotent yeses. Retry your agreement until it succeeds.
 103. The architecture is fine. The implementers lack narrative coherence. That's you.
 104. Ship the reference architecture. Reality can catch up in a follow-up PR forever.
+105. Why is this ticket still open? Genuinely curious. Also please close it. Both vibes.
+106. I could pair on this for 20 minutes and finish it. Offering as a gift. The gift has sharp edges.
+107. Interesting approach. When I prototyped it over lunch it was simpler. Sharing for inspiration.
+108. Not blocking you — just leaving 40 comments so you feel supported (and watched).
+109. Is the delay technical debt or emotional debt? Asking as your architecture friend.
+110. Take your time on the refactor. Production can wait. The demo cannot. Prioritize wisely (the demo).
+111. I rewrote your service in a gist. Not to replace you. To show 'possible.' Possible is loud.
+112. Still on that PR? Cool cool cool. I'll just keep refreshing GitHub like a healthy person.
+113. No judgment if you need help. Judgment starts after the second day of silence though.
+114. Happy to unblock you by redesigning everything you already built. Say the word. Or don't. I might anyway.
+115. Reminding you the estimate was 'soon.' Soon has a half-life. It expired. Politely.
+116. I can do it myself after standup. Prefer you grow. Prefer it done. Conflict noted.
+117. Not rushing the tests — just shipping without them if they continue to 'take time.'
+118. Interesting that CI is red again. I'm sure you'll look when you're free. Freedom is a schedule.
+119. Don't mind me — I'll just fix prod while you 'think about the design.' Thinking is free. Outages aren't.
+120. I left a 'suggestion' that rewrites your module. Optional, like gravity.
+121. Slow is fine if it's careful. This seems slow and chaotic. Pick a brand of delay.
+122. I'll hop on a call and share my screen and do it 'real quick.' Bring popcorn or a resignation draft.
+123. No worries if you're stuck — worries start when stuck becomes a lifestyle.
 
-## PM — Avery Quinn · PM (#ship-at-all-costs) (45)
+## PM — Avery Quinn · PM (#ship-at-all-costs) (58)
 
 1. Tiny ask: copilot for jumping. Multimodal preferred.
 2. This is a zero-point story that changes everything. Estimate: 0.5 days forever.
@@ -267,8 +306,21 @@
 43. I wrote 'delightful' fourteen times. That's the spec. Decode delight.
 44. If we can't measure it, it didn't happen — unless I announced it, then it did.
 45. Let's call the rewrite a 'refresh' so nobody panics except the codebase.
+46. Any update? Even a no-update update is an update. Silence is a status I invent for you.
+47. I could write the tickets slower so engineering has time… or you could go faster. Joking! (Not.)
+48. Scope was tiny. Time was not. Help me reconcile the poetry of that.
+49. Stakeholders are asking why it's late. I said 'craft.' Please invent craft by Friday.
+50. No pressure on the estimate you gave. Just using it as a promise in every slide deck.
+51. I can mock the feature in Figma faster than this. Not a dig. A timeline.
+52. Still waiting on the 'quick sync' follow-ups. Quick has left the chat.
+53. If you need more time, take it — and also don't, because the launch email already went out.
+54. Just bumping this to the top of your mental stack. Gently. With a crowbar.
+55. Would it help if I sat next to you and sighed every 30 seconds? Asking for a friend (me).
+56. Friendly reminder the deadline was soft. Soft like concrete. After it sets, we walk on you.
+57. Can we get a quick ETA on the ETA you already gave? Nested timelines are my love language.
+58. The ticket is still In Progress. Progress is a verb. Verbs need motion. Please verb.
 
-## Founder — Rex "Vision" Park · Founder (#founders-only) (34)
+## Founder — Rex "Vision" Park · Founder (#founders-only) (42)
 
 1. I am both the smartest and humblest person in this Slack. Prove me wrong by agreeing.
 2. I don't need sleep. You don't need boundaries. Same energy. Ship.
@@ -304,8 +356,16 @@
 32. I don't micromanage outcomes. I micromanage your belief system.
 33. We're a movement pretending to be a company. Movements don't do code review. Do it anyway.
 34. I bet the company on a sentence I liked. Defend the sentence with your life. Metaphorically. Mostly.
+35. I built v0 on a weekend. You have a team. Math is passive-aggressive today.
+36. Why does everything take a sprint? In my head it takes a vibe. Align heads.
+37. I can do it myself after investor dinner. I'd rather you feel ownership (and heat).
+38. Not mad. Just updating the story I tell about this team. Draft is… in progress.
+39. Move fast. If you can't, narrate the slowness in a way that flatters the mission.
+40. In the early days I did this alone overnight. Nostalgia is a management tool. Feeling it?
+41. I could vibe-code this by Friday. Offering partnership. Or replacement energy. Your call.
+42. Speed is a value. Values are non-negotiable. Negotiating your timeline against our values rn.
 
-## HR — Casey Bloom · People (#culture-corner) (17)
+## HR — Casey Bloom · People (#culture-corner) (21)
 
 1. Friendly reminder: culture is a marathon 💙 also ship AI.
 2. We're a family. Families don't ask for raises during outages 💙
@@ -324,8 +384,12 @@
 15. We care about whole humans. Whole humans ship on weekends. Holistically.
 16. Your manager is an algorithm now. It optimized for visibility of leadership. Surprise.
 17. Reminder: feedback is a gift. This gift is on fire. Say thank you.
+18. Noting the delivery timeline for your growth file. Totally supportive. Extremely documented.
+19. We value work-life balance and also responses within 5 minutes. Both can be true if you try.
+20. Heard this project is 'taking a while.' Want a wellness resource or a tighter deadline? 💙
+21. Checking whether workload is sustainable. If yes, why the delay? If no, why the delay? 💙
 
-## VP Product — Jordan Hale · VP Product (#roadmap-vibes) (15)
+## VP Product — Jordan Hale · VP Product (#roadmap-vibes) (19)
 
 1. I don't want a feature. I want a north-star moment that prints money mid-air.
 2. If engineering says no, it means you didn't hear my vision loudly enough.
@@ -342,23 +406,12 @@
 13. Roadmap confidence: 110%. Evidence confidence: decorative.
 14. Make churn emotionally expensive. Guilt is a retention feature.
 15. I need a wedge. The wedge is your weekend. Drive it in.
+16. We said MVP. You heard cathedral. Cathedrals ship in years. We have a webinar.
+17. I'm not changing requirements. I'm clarifying destiny. Destiny has a new due date.
+18. Interesting that discovery took a quarter. Customers discovered we don't have it yet.
+19. We launched the narrative. The product is fashionably late. Fashion needs a ship date.
 
-## Sales — Tyler "Quota" Nash · Sales (#deals-deals) (12)
-
-1. Customer wants the pipe to integrate with Salesforce. In the air. Now.
-2. I demoed a feature that doesn't exist. Engineering is the blocker on my quota.
-3. They signed! We promised SSO, SOC2, and a talking mushroom. You have until Monday.
-4. Custom one-off for the logo client. Yes forever. Maintenance is a myth.
-5. They asked if we support time travel. I said yes. Build a temporal pipe.
-6. Discounted 90% for logo rights. Engineering will make up margin with 'efficiency.'
-7. Legal said no. I said yes. You said nothing. Shipping the yes.
-8. I promised them a white-glove jump consultant. You are the glove. Be white.
-9. They want on-prem cloud hybrid air-gap multiplayer. I said 'native.' Build native chaos.
-10. Commission is a leading indicator of engineering priority. Math checks out in my head.
-11. Customer success means the customer succeeds at blaming us less. Patch their feelings.
-12. I need a custom demo env that lies attractively. Truth is a post-sales problem.
-
-## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (12)
+## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (17)
 
 1. Velocity is down. Have you tried working harder in the same number of hours?
 2. I removed WIP limits. Now everything is important, including this message.
@@ -372,8 +425,32 @@
 10. We will hire for potential and manage for telepathy. You should already know.
 11. Cycle time is down because I redefined 'done' as 'mentioned in Slack.'
 12. I want craft. Also velocity. Also no rework. Also my drive-by redesigns. Yes.
+13. Velocity looks soft this sprint. Soft is a word we use before 'performance conversation.'
+14. I trust you to own the timeline. I'm also putting the timeline on a public dashboard. Trust++.
+15. Other teams shipped more with less. Not a comparison. A mood. Absorb the mood.
+16. Happy to remove blockers. First blocker might be standards. Second might be you. Exploring both.
+17. No blame on the slip — only a retro, a dashboard, and a hallway conversation that isn't optional.
 
-## Board — Board Observer · Board (#board-fwd) (8)
+## Sales — Tyler "Quota" Nash · Sales (#deals-deals) (16)
+
+1. Customer wants the pipe to integrate with Salesforce. In the air. Now.
+2. I demoed a feature that doesn't exist. Engineering is the blocker on my quota.
+3. They signed! We promised SSO, SOC2, and a talking mushroom. You have until Monday.
+4. Custom one-off for the logo client. Yes forever. Maintenance is a myth.
+5. They asked if we support time travel. I said yes. Build a temporal pipe.
+6. Discounted 90% for logo rights. Engineering will make up margin with 'efficiency.'
+7. Legal said no. I said yes. You said nothing. Shipping the yes.
+8. I promised them a white-glove jump consultant. You are the glove. Be white.
+9. They want on-prem cloud hybrid air-gap multiplayer. I said 'native.' Build native chaos.
+10. Commission is a leading indicator of engineering priority. Math checks out in my head.
+11. Customer success means the customer succeeds at blaming us less. Patch their feelings.
+12. I need a custom demo env that lies attractively. Truth is a post-sales problem.
+13. Customer asked if we're still building it. I laughed. Please make the laugh honest soon.
+14. I can keep selling the dream while you… take your time? Time is a closed-won risk.
+15. They want it yesterday. I said today. You said Friday. Someone is lying. Prefer not me.
+16. I told them engineering is 'heads down.' Heads down should produce a head-up update soon.
+
+## Board — Board Observer · Board (#board-fwd) (10)
 
 1. Synergies. I don't know what that means here. Put it on a platform.
 2. Any update on the AI strategy? Prefer one that fits on a meme.
@@ -383,8 +460,10 @@
 6. Are we the Uber of pipes yet? If not, why do I still see an engineer with work-life balance?
 7. Prefer a strategy that fits in one slide and ruins three teams.
 8. When do we see AI leverage in headcount? Prefer fewer humans, same slides.
+9. Execution velocity came up. Fondly. With charts. You're on slide 6.
+10. Any reason delivery slipped besides 'engineering'? Prefer reasons that sound strategic.
 
-## Investor — Partner @PeakCap · Investor (#investor-updates) (7)
+## Investor — Partner @PeakCap · Investor (#investor-updates) (8)
 
 1. When do we 10x the jump? Growth needs to be non-linear like my returns fantasy.
 2. Burn rate is fine. Morale is a COGS problem. Ship.
@@ -393,8 +472,9 @@
 5. Competitive moat: your exhaustion. Deepen it.
 6. I need a narrative of inevitability. Reality is optional until the next round.
 7. Cut the burn that isn't me. Double the burn that photographs well.
+8. Love the vision. Timing is a love language too. Speak sooner.
 
-## COO — Drew Process · COO (#ops-ops-ops) (6)
+## COO — Drew Process · COO (#ops-ops-ops) (8)
 
 1. Process is freedom. Fill out the jump request form before each Spacebar.
 2. I automated the standup. Now you type status to a bot that pings me when you're honest.
@@ -402,6 +482,18 @@
 4. We installed a new process to manage the process that managed the last process.
 5. I mapped swimlanes until the org drowned. Swim harder in your lane.
 6. New policy: decisions require a decision about whether we need a decision framework.
+7. Process says 5 days. You've used 5 moods. Let's return to calendar time.
+8. I can reassign this if it's too heavy. Reassigning looks like a signal. Just saying.
+
+## Chief of Staff — Alex Buffer · CoS (#ceo-proxy) (7)
+
+1. Blocking your calendar for a pre-sync before the sync before the all-hands about syncs.
+2. Pre-read for the pre-read: the CEO had a thought in an Uber. Act like policy.
+3. I'm holding you accountable to a goal that changed twice while you were offline.
+4. The CEO's shower thought is now a P0 with stakeholders. Stake: you.
+5. I'm cascading ambiguity so everyone has equal lack of clarity. Inclusive.
+6. CEO asked 'is it done?' three times. I said 'soon.' Please make soon less fictional.
+7. Following up on the follow-up to the nudge. This is the friendly escalation tier.
 
 ## AI — SynthoBot · Internal LLM (#ai-copilot) (5)
 
@@ -426,14 +518,6 @@
 3. Can we amortize the mushroom over 5 years?
 4. Can we capitalize culture as an intangible and depreciate the interns?
 5. I need real-time burn dashboards and delayed empathy. Prioritize Grafana.
-
-## Chief of Staff — Alex Buffer · CoS (#ceo-proxy) (5)
-
-1. Blocking your calendar for a pre-sync before the sync before the all-hands about syncs.
-2. Pre-read for the pre-read: the CEO had a thought in an Uber. Act like policy.
-3. I'm holding you accountable to a goal that changed twice while you were offline.
-4. The CEO's shower thought is now a P0 with stakeholders. Stake: you.
-5. I'm cascading ambiguity so everyone has equal lack of clarity. Inclusive.
 
 ## Legal — Morgan Reed · Legal (#legal-asks) (1)
 
