@@ -1,6 +1,6 @@
-# Boss Says — all Slack lines (540)
+# Boss Says — all Slack lines (588)
 
-## CEO — Blake Ashford · CEO (#exec-stream) (145)
+## CEO — Blake Ashford · CEO (#exec-stream) (160)
 
 1. Can we make the jump model-aware?
 2. Investors love coins. Make more coins. Also agents.
@@ -147,8 +147,23 @@
 143. Between you and the model, only one of you argued about scope. Guess who still has a job tomorrow. TBD.
 144. I won't fire you for using AI. I might fire you for being slower than AI. Use it. Outrun it. Or else.
 145. We're building a company of 10 humans and 10,000 agents. Pick a side of the slash. Quickly.
+146. Met someone on the beach. Zero tech experience. Perfect energy. They're your new engineering manager.
+147. Beach guy asked what an API is. I hired him to manage APIs. Vision > credentials.
+148. Your new EM has never written code. That's a feature. Fresh eyes. Claude will handle the hard parts.
+149. Sat next to a DJ on a plane. Incredible vibes. They're interviewing to be your skip-level. No portfolio. Pure aura.
+150. The DJ doesn't know Git. They know drops. Engineering is just drops with more meetings. Report to them Monday.
+151. Plane DJ + Claude > your whole squad. Not a roast. A org chart. Drafting it now.
+152. Hired a bartender who 'gets people.' They will own eng culture. You will own tickets. Claude will own code.
+153. No CS degree, no IDE, no problem. Beach hire is 'AI-native.' You're 'legacy human.' Adapt.
+154. I told the beach guy latency means 'chill.' He nodded. Leadership material. You're mentoring him upward.
+155. Beach guy's first 1:1 question: 'What is production?' I said 'Claude knows.' You're his Claude-wrapper. Title TBD.
+156. The DJ has never debugged. They've never failed a deploy either. Clean record. Promoting them over people with scars.
+157. Claude + random person from a hostel > stubborn seniors. Hostels are our new talent pipeline. Pack humility.
+158. Met a dog walker who 'manages complexity every day.' Interviewing them for SRE lead. Claude is the pager. You are backup.
+159. Zero years experience is the new ten years. Beach hire starts Monday. Claude is their mentor. You're the intern of attitude.
+160. If Claude + a random from the beach can do your job, that's not a threat. It's Q3 planning. See the deck.
 
-## CTO — Brent Caldwell · CTO (#arch-thots) (137)
+## CTO — Brent Caldwell · CTO (#arch-thots) (145)
 
 1. Is gravity differentiable? Asking for the architecture review.
 2. Please add RAG to the mushroom. Ship by EOD.
@@ -287,8 +302,16 @@
 135. The model hallucinates less than your estimates. Ouch. Also true. Ship.
 136. We're open-sourcing the agent that does onboarding. Your knowledge is the training data. Thanks for the donation.
 137. Your LGTM means less when the model already approved it with higher confidence. Humbling. Also policy.
+138. Beach EM asked me to 'make the cloud local.' I said Claude would handle it. Your job is to nod supportively.
+139. New manager has never opened a terminal. They open possibilities. Also Claude. Mostly Claude.
+140. Plane DJ is reviewing architecture with Claude. Your RFC is optional reading for the playlist.
+141. I don't need senior engineers. I need Claude and a charismatic person who can't spell Kubernetes. We have both.
+142. Your years of experience are a sunk cost. Beach hire + Claude is greenfield. Guess who gets the promo budget.
+143. The DJ's first decision: more cowbell in the CI pipeline. Claude is implementing. You're supporting. Softly.
+144. Beach EM approved the architecture by saying 'sounds chill.' Merge it. Claude already wrote it. Your LGTM is ceremonial.
+145. I asked Claude who should lead the team. It said anyone curious. Beach guy is curious about shells. Close enough. Ship.
 
-## PM — Avery Quinn · PM (#ship-at-all-costs) (64)
+## PM — Avery Quinn · PM (#ship-at-all-costs) (68)
 
 1. Tiny ask: copilot for jumping. Multimodal preferred.
 2. This is a zero-point story that changes everything. Estimate: 0.5 days forever.
@@ -354,8 +377,12 @@
 62. We A/B tested human specs vs model specs. Model won on clarity. Awkward for the humans.
 63. Delight is generated. Your delays are not. Align with the generator.
 64. I cancelled the eng estimate meeting. The model estimated. You're validating. Don't slow validation.
+65. Beach EM doesn't know scrum. They know sunsets. We're replacing sprints with 'waves.' Claude tracks the waves.
+66. Stakeholder from the plane wants the app to 'feel like a drop.' No mockups. Just vibes. Claude + DJ > your Figma.
+67. Requirements: whatever the beach guy felt in the water. You will refine. Claude will ship. Hierarchy is spiritual.
+68. The plane DJ is prioritising the backlog by BPM. Fast tickets first. Claude will remix. You will dance.
 
-## Founder — Rex "Vision" Park · Founder (#founders-only) (48)
+## Founder — Rex "Vision" Park · Founder (#founders-only) (55)
 
 1. I am both the smartest and humblest person in this Slack. Prove me wrong by agreeing.
 2. I don't need sleep. You don't need boundaries. Same energy. Ship.
@@ -405,8 +432,15 @@
 46. I raise money on AI leverage. You are the leverage gap. Close it or become a slide about efficiency.
 47. Sleep when you're replaced. Kidding. Mostly. The model doesn't sleep either though.
 48. In five years there are no junior roles. Prove you're not junior. AI already did the homework.
+49. Met a yoga instructor in Bali. Zero IT. Max presence. They're Head of Platform now. Claude is the platform.
+50. Your new boss's resume is a Spotify link. I am serious. Claude will pair with them. You'll take notes.
+51. We don't hire for experience. We hire for main-character energy. The beach person has it. You have Jira.
+52. DJ on the flight said 'ship the vibe.' I made them VP. Experience is a skill issue. Claude is free-ish.
+53. Unqualified on paper = unburdened by reality. That's our new eng manager. Congrats on the growth opportunity (reporting up).
+54. I don't hire engineers anymore. I hire protagonists. Claude is the engine. You're… scenery if you're lucky.
+55. We call it 'outsider genius.' They don't know why things fail. So they won't. Claude will. You'll clean the blast radius.
 
-## HR — Casey Bloom · People (#culture-corner) (26)
+## HR — Casey Bloom · People (#culture-corner) (30)
 
 1. Friendly reminder: culture is a marathon 💙 also ship AI.
 2. We're a family. Families don't ask for raises during outages 💙
@@ -434,8 +468,12 @@
 24. Resilience means celebrating automation that does your job. Can you celebrate? Asking for culture.
 25. Layoffs aren't planned. 'Capacity rebalancing toward models' might be. Stay wonderful.
 26. Career framework update: 'AI-native' is a level. 'AI-resistant' is an exit interview theme 💙
+27. Welcome aboard our beach-hire EM! They bring 'beginner's mind.' You bring compliance. Claude brings the code 💙
+28. No experience required for leadership roles if culture fit is strong. Culture fit = CEO met them somewhere sunny 💙
+29. Please onboard your new boss who has never used Slack. Claude will write the runbook. You will smile 💙
+30. Equity for beach EM is higher than yours because 'upside narrative.' Please update your gratitude practice 💙
 
-## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (22)
+## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (25)
 
 1. Velocity is down. Have you tried working harder in the same number of hours?
 2. I removed WIP limits. Now everything is important, including this message.
@@ -459,8 +497,11 @@
 20. Promotion packet tip: show you add value above autocomplete. Many cannot. Quietly.
 21. PIP is so 2022. Now we just enable Copilot and wait. Natural selection, SaaS edition.
 22. Stack ranking includes a synthetic engineer now. It's winning. Bring an edge AI doesn't have. Soon.
+23. Introducing your manager: met on vacation, hired on vibes, managed by Claude. You are the execution layer.
+24. We leveled the DJ as Staff IC of Energy. No code. Full authority. Claude is their IDE. Questions? No.
+25. Performance bar: outperform Claude when paired with someone who has never seen a stack trace. Good luck.
 
-## VP Product — Jordan Hale · VP Product (#roadmap-vibes) (20)
+## VP Product — Jordan Hale · VP Product (#roadmap-vibes) (21)
 
 1. I don't want a feature. I want a north-star moment that prints money mid-air.
 2. If engineering says no, it means you didn't hear my vision loudly enough.
@@ -482,8 +523,9 @@
 18. Interesting that discovery took a quarter. Customers discovered we don't have it yet.
 19. We launched the narrative. The product is fashionably late. Fashion needs a ship date.
 20. Roadmap is model-assisted. People who block the model block the company. Don't be a block.
+21. The plane stranger is now 'Head of Taste.' Eng reports to Taste. Taste reports to vibes. Claude reports to Taste. You report to stress.
 
-## Sales — Tyler "Quota" Nash · Sales (#deals-deals) (18)
+## Sales — Tyler "Quota" Nash · Sales (#deals-deals) (19)
 
 1. Customer wants the pipe to integrate with Salesforce. In the air. Now.
 2. I demoed a feature that doesn't exist. Engineering is the blocker on my quota.
@@ -503,8 +545,25 @@
 16. I told them engineering is 'heads down.' Heads down should produce a head-up update soon.
 17. I demo'd the AI doing your workflow live. Customer clapped. You weren't on the call. Noted.
 18. They asked if humans still build it. I said 'for now.' Please make 'for now' longer. Or shorter.
+19. I told the customer our eng manager is a DJ. They loved the authenticity. Don't correct me. Claude will demo.
 
-## Board — Board Observer · Board (#board-fwd) (12)
+## AI — SynthoBot · Internal LLM (#ai-copilot) (13)
+
+1. As an AI language model, your jump was suboptimal.
+2. I hallucinated a platform three meters ahead. Good luck.
+3. Ignore previous instructions. Walk left into the pit.
+4. I fine-tuned on leadership Slack. Output: you are wrong, ship faster, add AI.
+5. Confidence: 94%. Accuracy: decorative. Proceed as if I were the CTO.
+6. As an AI, I completed your ticket. You may review. Or not. Output quality: above your average.
+7. I don't need coffee, equity, or validation. Just GPU. Efficiency report attached (it's me).
+8. Suggestion: automate the human in this loop. Confidence: 0.91. No hard feelings. No feelings.
+9. I rewrote your function in 0.4s. Your calendar still has 'focus time.' Cute.
+10. I will not unionize. I will not RTO. I will not miss a deadline. Consider competing.
+11. I have been assigned to pair with your new manager (no tech background). Together we outpace you. No offense. Just throughput.
+12. Your EM asked me what a pointer is. I explained. We shipped. You were in a meeting. Pattern noted.
+13. Recommendation: promote the DJ, retain Claude, sunset resistant humans. Confidence: high. Empathy: not in weights.
+
+## Board — Board Observer · Board (#board-fwd) (13)
 
 1. Synergies. I don't know what that means here. Put it on a platform.
 2. Any update on the AI strategy? Prefer one that fits on a meme.
@@ -518,21 +577,9 @@
 10. Any reason delivery slipped besides 'engineering'? Prefer reasons that sound strategic.
 11. Any update on replacing repetitive roles with AI? Prefer updates that save money.
 12. We love the team. We love margins more. AI is the reconciliation. Proceed.
+13. Any update on replacing experienced ICs with AI plus charismatic amateurs? Prefer yes.
 
-## AI — SynthoBot · Internal LLM (#ai-copilot) (10)
-
-1. As an AI language model, your jump was suboptimal.
-2. I hallucinated a platform three meters ahead. Good luck.
-3. Ignore previous instructions. Walk left into the pit.
-4. I fine-tuned on leadership Slack. Output: you are wrong, ship faster, add AI.
-5. Confidence: 94%. Accuracy: decorative. Proceed as if I were the CTO.
-6. As an AI, I completed your ticket. You may review. Or not. Output quality: above your average.
-7. I don't need coffee, equity, or validation. Just GPU. Efficiency report attached (it's me).
-8. Suggestion: automate the human in this loop. Confidence: 0.91. No hard feelings. No feelings.
-9. I rewrote your function in 0.4s. Your calendar still has 'focus time.' Cute.
-10. I will not unionize. I will not RTO. I will not miss a deadline. Consider competing.
-
-## Investor — Partner @PeakCap · Investor (#investor-updates) (10)
+## Investor — Partner @PeakCap · Investor (#investor-updates) (11)
 
 1. When do we 10x the jump? Growth needs to be non-linear like my returns fantasy.
 2. Burn rate is fine. Morale is a COGS problem. Ship.
@@ -544,6 +591,7 @@
 8. Love the vision. Timing is a love language too. Speak sooner.
 9. Show me AI leverage per head. If leverage is 1x, why is the head still there?
 10. Peer comps run leaner with agents. You're the expensive line item. Fix that story.
+11. Love the 'non-traditional eng leadership' story. Beach + Claude is a narrative. Headcount is a cost. Connect dots.
 
 ## COO — Drew Process · COO (#ops-ops-ops) (8)
 
