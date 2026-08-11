@@ -1,6 +1,6 @@
-# Boss Says — all Slack lines (848)
+# Boss Says — all Slack lines (868)
 
-## CEO — Blake Ashford · CEO (#exec-stream) (230)
+## CEO — Blake Ashford · CEO (#exec-stream) (236)
 
 1. Can we make the jump model-aware?
 2. Investors love coins. Make more coins. Also agents.
@@ -232,8 +232,14 @@
 228. I forwarded an AI wall of text titled STRATEGY. I didn't read past the emoji. You will. Meeting to quiz you on the emoji.
 229. I'm hiring another exec who also doesn't know eng. Balance. You remain the only ones who know things. Lonely. Also fireable if AI catches up.
 230. Double down on demotivation this quarter. Happy eng ask hard questions. Hard questions expose that CTO and I are winging it with models.
+231. I clicked the big red button in the admin UI AI built. Everything soft-deleted. Why was the button red if I shouldn't click it? Design owned by eng.
+232. I shared production secrets in the all-hands chat for 'transparency.' Leak is a security culture issue on eng. Rotate keys. And my slides.
+233. I told the customer we already shipped it, then asked you to invent the past. Timeline fraud is now 'alignment debt.' Pay it by Friday.
+234. I changed the pricing flag in the DB by hand during the earnings call. Numbers lied. Finance is mad at eng. Fix reality before the replay airs.
+235. I approved the vendor that phished us because the logo looked enterprise. Breach writeup will say 'engineering controls.' Your name is closer to eng.
+236. I gave a contractor admin to 'just look.' They force-pushed. I hired them. You secured nothing. Blameless retro will blame a process you don't own.
 
-## CTO — Brent Caldwell · CTO (#arch-thots) (208)
+## CTO — Brent Caldwell · CTO (#arch-thots) (222)
 
 1. Is gravity differentiable? Asking for the architecture review.
 2. Please add RAG to the mushroom. Ship by EOD.
@@ -443,6 +449,20 @@
 206. On-call? Never. On-stage? Always. When prod dies I need a narrative, not a shell. You provide shell. I provide narrative. AI provides fiction.
 207. LGTM from me means I saw a screenshot. LGTM from AI means tokens moved. LGTM from you means nothing until both of us are bored. Process!
 208. Winging it is agile. Knowing things is waterfall. AI is the water. You're the fall. Meeting to rebrand your fall as a growth loop.
+209. Who force-pushed main with last month's tag? Not me. I only clicked force-with-lease after AI said it was fine. Own the outage.
+210. Prod is last Tuesday because someone didn't pull. I didn't pull either—but I have a title. Retro action item is on you.
+211. I rebased your branch into oblivion from my laptop. You should have protected main harder. Skill issue. Incident commander: you.
+212. I hotfixed prod from master… wait, from my local main that was 40 commits behind. Why didn't eng stop me? Culture problem.
+213. The config I 'didn't touch' is in my git blame. Git is wrong. Your monitoring should have known I meant well. Page yourself.
+214. I ran migrate down in prod to 'clean vibes.' Data is gone. Process gap: you didn't take my keyboard. Postmortem template prefilled with your name.
+215. I merged the AI PR with conflicts marked 'ours.' Ours was wrong. Yours was right. Still shipping the narrative that eng reviews failed.
+216. I force-pushed over the release tag because the demo needed yesterday's UI. Customers on today's API: your communication failure.
+217. I never pulled staging. I deployed staging. Staging was main. Main was sad. Sadness is an eng morale metric—fix morale, not my git.
+218. I deleted the branch you were on because the board deck needed a clean screenshot of GitHub. Next time stash harder. Also restore prod.
+219. I disabled CI to go faster before the demo. Demo used broken main. Speed is my brand; broken is your ticket queue. Open tickets.
+220. I cherry-picked a commit from a feature branch into prod with -n and vibes. Tests didn't run. Tests are eng's religion. Convert me later—ship now.
+221. I hard-reset the release branch to an old SHA 'for stability.' Stability was a year of CVEs. Stability theater is your on-call weekend.
+222. I ran rm -rf on the wrong box because the hostnames AI generated were poetry. Poetry is not infra. Infra is eng. Restore from the backup I also deleted.
 
 ## PM — Avery Quinn · PM (#ship-at-all-costs) (94)
 

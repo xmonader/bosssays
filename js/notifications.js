@@ -4267,6 +4267,108 @@
       text: "Winging it is agile. Knowing things is waterfall. AI is the water. You're the fall. Meeting to rebrand your fall as a growth loop.",
       tone: "ego",
     },
+
+    // —— blame eng for leadership's own screwups (force-push, no pull, etc.) ——
+    {
+      from: "CTO",
+      text: "Who force-pushed main with last month's tag? Not me. I only clicked force-with-lease after AI said it was fine. Own the outage.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Prod is last Tuesday because someone didn't pull. I didn't pull either—but I have a title. Retro action item is on you.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I rebased your branch into oblivion from my laptop. You should have protected main harder. Skill issue. Incident commander: you.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I hotfixed prod from master… wait, from my local main that was 40 commits behind. Why didn't eng stop me? Culture problem.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "The config I 'didn't touch' is in my git blame. Git is wrong. Your monitoring should have known I meant well. Page yourself.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I ran migrate down in prod to 'clean vibes.' Data is gone. Process gap: you didn't take my keyboard. Postmortem template prefilled with your name.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I merged the AI PR with conflicts marked 'ours.' Ours was wrong. Yours was right. Still shipping the narrative that eng reviews failed.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I force-pushed over the release tag because the demo needed yesterday's UI. Customers on today's API: your communication failure.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I never pulled staging. I deployed staging. Staging was main. Main was sad. Sadness is an eng morale metric—fix morale, not my git.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I deleted the branch you were on because the board deck needed a clean screenshot of GitHub. Next time stash harder. Also restore prod.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I clicked the big red button in the admin UI AI built. Everything soft-deleted. Why was the button red if I shouldn't click it? Design owned by eng.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I shared production secrets in the all-hands chat for 'transparency.' Leak is a security culture issue on eng. Rotate keys. And my slides.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I told the customer we already shipped it, then asked you to invent the past. Timeline fraud is now 'alignment debt.' Pay it by Friday.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I changed the pricing flag in the DB by hand during the earnings call. Numbers lied. Finance is mad at eng. Fix reality before the replay airs.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I approved the vendor that phished us because the logo looked enterprise. Breach writeup will say 'engineering controls.' Your name is closer to eng.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I disabled CI to go faster before the demo. Demo used broken main. Speed is my brand; broken is your ticket queue. Open tickets.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I cherry-picked a commit from a feature branch into prod with -n and vibes. Tests didn't run. Tests are eng's religion. Convert me later—ship now.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I hard-reset the release branch to an old SHA 'for stability.' Stability was a year of CVEs. Stability theater is your on-call weekend.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I gave a contractor admin to 'just look.' They force-pushed. I hired them. You secured nothing. Blameless retro will blame a process you don't own.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I ran rm -rf on the wrong box because the hostnames AI generated were poetry. Poetry is not infra. Infra is eng. Restore from the backup I also deleted.",
+      tone: "ego",
+    },
   ];
 
   const CHOICES = [
