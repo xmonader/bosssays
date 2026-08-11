@@ -4572,7 +4572,7 @@
     );
   }
 
-  const MAX_INBOX = 5;
+  const MAX_INBOX = 7;
 
   function createNotificationState() {
     return {
@@ -4590,12 +4590,14 @@
   }
 
   /**
-   * Interval between new Slack arrivals (longer = smoother platforming).
+   * Interval between new Slack arrivals (seconds).
+   * Frequent enough that leadership noise is constant, still playable.
    */
   function intervalForSprint(sprint) {
-    const base = 14;
-    const min = 8;
-    return Math.max(min, base - (sprint - 1) * 0.4);
+    const base = 6.5;
+    const min = 3.2;
+    // Gets noisier each sprint: ~6.5s → floors at ~3.2s
+    return Math.max(min, base - (sprint - 1) * 0.45);
   }
 
   function shuffleBag(state, rng) {
