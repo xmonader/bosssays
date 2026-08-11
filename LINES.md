@@ -238,7 +238,7 @@
 234. I changed the pricing flag in the DB by hand during the earnings call. Numbers lied. Finance is mad at eng. Fix reality before the replay airs.
 235. I approved the vendor that phished us because the logo looked enterprise. Breach writeup will say 'engineering controls.' Your name is closer to eng.
 236. I gave a contractor admin to 'just look.' They force-pushed. I hired them. You secured nothing. Blameless retro will blame a process you don't own.
-237. We let go of engineer X (too 'careful'). Hired a DJ with no CS background to own our distributed storage layer. Drops are consistency, right?
+237. We let go of Priya Nair (too 'careful'). Hired a DJ with no CS background to own our distributed storage layer. Drops are consistency, right?
 238. Fired the consensus expert. Replaced with a librarian—great at catalogs. They're designing our multi-region catalog of… bits. Claude is the Dewey decimal.
 239. Salesperson who closed one deal is now tech lead for the real-time analytics warehouse. Pipeline means funnel. Funnel means tables. Ship funnel.
 240. We fired the SRE who kept saying no. Beach hire owns global traffic management now. Load balancing is crowd control. They did festivals. Prod is a festival.
@@ -512,7 +512,7 @@
 227. We cut the distributed systems PhD. Hired a realtor. They know partitions (apartments). Cap theorem is a lease. You're the security deposit when it breaks.
 228. Stream processing rewrite led by a radio host. Latency is dead air. Exactly-once is a promise like 'we'll be right back.' Prod is live radio.
 229. Fired the person who built multi-tenant isolation. Replacement: timeshare sales. Tenants share everything joyfully. Isolation is a mindset. Security is optional.
-230. Consensus protocol redesign: no more engineer X. New lead is a debate club coach with zero distributed experience. Votes are vibes. Quorum is claps.
+230. Consensus protocol redesign: no more Marcus Chen. New lead is a debate club coach with zero distributed experience. Votes are vibes. Quorum is claps.
 231. OLAP engine ownership transferred to a sports statistician who used Excel once. Columns are players. Queries are plays. You optimize the stadium (cluster).
 232. We let go of the person who said CRDTs are subtle. New owner: improv actor. Conflict-free means yes-and. Merge is comedy. Prod is the audience.
 233. Time-series database for metrics: former weather presenter. Forecasts are SLOs. Storms are incidents. They point at green screens. You point at Grafana.
@@ -729,7 +729,7 @@
 73. Spec is 'build the future.' Future is undefined on purpose. Definition is how dreams die. Meeting to kill your definitions.
 74. AI generated OKRs that cannot be measured. We will measure you against them anyway. Quarterly review is performance art.
 75. If the AI spec is bad, that's your chance to show ownership by implementing badness beautifully. All-hands will showcase the beauty.
-76. Engineer X is out (negative energy). Beach stranger owns our geo-replicated object store. Replication is storytelling. Claude is the durability story.
+76. Dana Okonkwo is out (negative energy). Beach stranger owns our geo-replicated object store. Replication is storytelling. Claude is the durability story.
 77. Sales hire with no backend background is building the billing ledger and the warehouse. Closed-won is ACID. You're the isolation level: read uncommitted career.
 78. Founders get forgiveness rounds. Employees get performance rounds. I force-pushed product into a ditch. You're on the tow truck. Gratitude optional.
 79. I break things to move fast. You get broken things to fix slowly. Speed is my brand. Slow is your review. Fair is not a Series B word.
@@ -844,7 +844,7 @@
 43. Please attend 'Spec Empathy Training.' Learn to love incomplete AI requirements. Resistance is a values misalignment 💙
 44. Meeting norms: no asking for concrete acceptance criteria—it stresses product. Stress is for eng. AI is calm 💙
 45. Wellness meeting on calendar: cope with ambiguous AI specs. Coping strategy: acceptance. Acceptance is shipping garbage on time 💙
-46. Engineer X's exit is a growth story. Their replacement (DJ / no STEM) is 'AI-native leadership.' Please mentor upward without sounding qualified 💙
+46. Riley Soto's exit is a growth story. Their replacement (DJ / no STEM) is 'AI-native leadership.' Please mentor upward without sounding qualified 💙
 47. Leadership is protected as 'strategic risk-taking.' ICs are coached for 'execution risk.' Same outage. Different HR templates 💙
 48. We won't name executives in postmortems—psychological safety. We will name teams. Your team name is a person-shaped target 💙
 49. Leadership mistakes are 'learning moments' with coaching. IC mistakes are 'performance themes' with documentation. Same outage. Different folders 💙

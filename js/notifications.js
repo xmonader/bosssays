@@ -4373,7 +4373,7 @@
     // —— fired the engineer, hired a civilian for nightmare systems ——
     {
       from: "CEO",
-      text: "We let go of engineer X (too 'careful'). Hired a DJ with no CS background to own our distributed storage layer. Drops are consistency, right?",
+      text: "We let go of Priya Nair (too 'careful'). Hired a DJ with no CS background to own our distributed storage layer. Drops are consistency, right?",
       tone: "ego",
     },
     {
@@ -4453,7 +4453,7 @@
     },
     {
       from: "CTO",
-      text: "Consensus protocol redesign: no more engineer X. New lead is a debate club coach with zero distributed experience. Votes are vibes. Quorum is claps.",
+      text: "Consensus protocol redesign: no more Marcus Chen. New lead is a debate club coach with zero distributed experience. Votes are vibes. Quorum is claps.",
       tone: "ego",
     },
     {
@@ -4498,7 +4498,7 @@
     },
     {
       from: "Founder",
-      text: "Engineer X is out (negative energy). Beach stranger owns our geo-replicated object store. Replication is storytelling. Claude is the durability story.",
+      text: "Dana Okonkwo is out (negative energy). Beach stranger owns our geo-replicated object store. Replication is storytelling. Claude is the durability story.",
       tone: "ego",
     },
     {
@@ -4518,7 +4518,7 @@
     },
     {
       from: "HR",
-      text: "Engineer X's exit is a growth story. Their replacement (DJ / no STEM) is 'AI-native leadership.' Please mentor upward without sounding qualified 💙",
+      text: "Riley Soto's exit is a growth story. Their replacement (DJ / no STEM) is 'AI-native leadership.' Please mentor upward without sounding qualified 💙",
       tone: "corp",
     },
     {
