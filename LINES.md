@@ -1,6 +1,6 @@
-# Boss Says — all Slack lines (791)
+# Boss Says — all Slack lines (848)
 
-## CEO — Blake Ashford · CEO (#exec-stream) (201)
+## CEO — Blake Ashford · CEO (#exec-stream) (230)
 
 1. Can we make the jump model-aware?
 2. Investors love coins. Make more coins. Also agents.
@@ -203,8 +203,37 @@
 199. I don't want details in the eng meeting. Details kill dreams. AI has no details. Be more AI. Be less usefully specific.
 200. Double-booked you into two demotivation sessions and a vague-spec workshop. That is focus time now. AI will multitask for you (it won't).
 201. Eng, gather: I will project a vague AI mock and ask why prod doesn't match the dream. Dream has no constraints. You do. Explain yourself.
+202. I don't read code. I read the room. The room says you're slow. Meeting at 3 where I repeat that until it becomes strategy.
+203. Claude wrote our multi-year tech vision. I skimmed the bold words. Eng all-hands: clap for bold words you must implement blind.
+204. I'm the CEO. I know product. You know… tickets? AI knows both. Hierarchy updated in my head. Sync to download the insult.
+205. Spec from me (via assistant model): 'be the Uber of X but kinder.' X undefined. Kinder undefined. Deadline firm. Questions = resistance.
+206. In the eng forum I will mispronounce your systems and still grade you. Confidence is my competency. Yours is optional.
+207. I asked AI how databases work. It agreed with me. Architecture decision locked. Meeting to tell you the decision you can't change.
+208. You build. I visionary. Visionary means I paste ChatGPT into Slack and call it a mandate. Build the mandate. Cry in the meeting later.
+209. I don't understand latency. I understand board decks. Deck says green. Prod says fire. Eng meeting: explain why green is on fire.
+210. New rule from the top: no technical pushback in my presence. Technical is what AI is for. You're for nodding and shipping my screenshots.
+211. I once wrote HTML in 2009. That makes me technical enough to overrule you. Claude agrees when I prompt it to. All-hands energy.
+212. The model said we need a 'data mesh fabric cloud lakehouse.' I don't know what that is. Neither do you, apparently. Build it by Q3.
+213. Eng, I'm disappointed in a vague way. AI drafted my disappointment. Personalized paragraphs for each of you. Read aloud meeting optional (mandatory).
+214. I will open the eng sync with 'I'm not technical but…' then dictate the stack. The but is load-bearing. Your expertise is decorative.
+215. Screenshot of a competitor + Claude fanfic = our PRD. If you need more, you lack founder mentality. Meeting to diagnose your mentality.
+216. I cancelled your deep work for a town hall where I learn the words you use and misuse them next week as orders.
+217. AI says our eng culture is the blocker. I agree without reading why. Culture meeting: you apologize to the culture. AI facilitates.
+218. I don't want a plan. I want a feeling of a plan. Claude generated the feeling. You're on the hook for the casualties of feeling.
+219. In my keynote to eng I will claim I invented our architecture. Claude invented it. You maintain it. History is a slide with my face.
+220. Stop using jargon I don't know. Use jargon AI taught me yesterday. If I misuse it, that's your communication problem. Sync booked.
+221. I asked the model who to fire if AI can code. It didn't name me. Interesting. Eng meeting to discuss 'accountability' (not me).
+222. CTO and I aligned (we both used ChatGPT). Eng is misaligned (you used brains). Realignment offsite: no wifi for you, wifi for us.
+223. I will host 'Ask Me Anything' and answer nothing technical. Anything technical is a gotcha. Gotchas go on your review.
+224. My incompetent superpower is certainty. Your competent weakness is nuance. Meeting culture optimizes for superpowers. Bring certainty or silence.
+225. I don't need to understand eng to lead eng. Understanding is a conflict of interest with vision. Vision meeting: you listen, I monologue, AI notes.
+226. We met with eng to lower expectations of leadership. Instead we lowered expectations of eng. Minutes say 'productive.' AI wrote minutes.
+227. Incompetent and in charge is the brand. Competent and quiet is the risk. Volume meeting Thursday. Bring volume. Leave competence at the door.
+228. I forwarded an AI wall of text titled STRATEGY. I didn't read past the emoji. You will. Meeting to quiz you on the emoji.
+229. I'm hiring another exec who also doesn't know eng. Balance. You remain the only ones who know things. Lonely. Also fireable if AI catches up.
+230. Double down on demotivation this quarter. Happy eng ask hard questions. Hard questions expose that CTO and I are winging it with models.
 
-## CTO — Brent Caldwell · CTO (#arch-thots) (180)
+## CTO — Brent Caldwell · CTO (#arch-thots) (208)
 
 1. Is gravity differentiable? Asking for the architecture review.
 2. Please add RAG to the mushroom. Ship by EOD.
@@ -386,6 +415,34 @@
 178. We meet to prioritize a backlog the model shuffled randomly and labeled 'strategic.' Random is the new roadmap. Bow.
 179. Vague NFR from AI: 'fast enough to feel instant globally always.' SLOs are a mindset. Outage is a learning. Meeting is a ritual.
 180. Definition of ready: the AI document exists. Definition of done: leadership forgot the meeting. You live in the middle forever.
+181. I'm the CTO. I haven't merged in years. That makes my opinions pure. Pure opinions beat your dirty production scars. Office hours: suffer.
+182. I skimmed half a Claude answer about Kubernetes and now I have a platform strategy. Eng forum: clap, then migrate, then regret.
+183. You say race condition. I say skill issue. AI says both. We ship the skill issue. Postmortem is a TED talk I give about culture.
+184. My RFC is a prompt dump with a title. If you need sequence diagrams, you're waterfall. Meeting to shame waterfall publicly.
+185. I don't know what CAP theorem is. I know we need all three letters. Spec: CAP++. Implement letters. Theory is for people who aren't shipping.
+186. Code freeze because I have a conference talk. Unfreeze when I land. AI may unfreeze earlier. You may not. Calendar is law.
+187. I will run eng Q&A. Answers will be 'use AI' or 'that's an IC problem.' Questions that need knowledge will be marked unhelpful.
+188. Production is down and I'm in a strategy offsite generating AI slides about reliability. Priority is slides. You own the fire. Literally.
+189. I renamed microservices to 'nanoagents' because Claude liked it. Same broken mesh. New all-hands to celebrate the rename as innovation.
+190. Your benchmarks are negative energy. My vibes are the SLO. Miss vibes = incident. AI writes the customer apology in my voice.
+191. I can't set up the VPN. I can set direction. Direction: rewrite everything in whatever the model hallucinated this morning. Kickoff: now.
+192. Design review with me is you explaining until I get bored, then I pick the AI option I didn't read. Boredom is an architectural principle.
+193. I demand observability then ignore dashboards. In the eng meeting I will ask why I wasn't told. You were. Slack is forever. So is blame.
+194. Security is important. I disabled 2FA because friction. AI said friction bad. You're on the audit findings. Meeting with Legal: bring neck.
+195. I will pair-program by watching you and sighing. AI will actually type. My sighs are the architecture review. Book 2 hours.
+196. We need real-time everything offline-first multi-region single-threaded simplicity. AI wrote that sentence. Your job is the universe.
+197. I don't debug. I escalate to you and keynote the learnings. Learning: hire less people who notice I'm useless. AI covers.
+198. Stack decision: whatever was on Hacker News + Claude summary I misread. Migration starts before the meeting ends. Dissent is offline-only (ignored).
+199. Eng, you don't understand monorepos. Neither do I. AI does (maybe). We're monorepoing Friday during the morale lunch. Irony is speed.
+200. I asked Claude to rate your PRs. It was mean. I made the mean the process. Calibration is a chatbot with my API key.
+201. AMA format: you ask, I rephrase into a reason AI should do your job. Closing slide is a beach hire waving. Stay for photos.
+202. I greenlit a rewrite because the AI demo had nice fonts. Fonts aren't prod. Prod is your weekend. Thanks in advance for the fonts.
+203. Please stop fixing root causes. Root causes make me look like I created them. AI will generate a side quest instead. Side quest is P0.
+204. I will explain Git to you wrong in the all-hands. Correcting me is a culture violation. Claude will quietly fix main later.
+205. My architecture is a graph of buzzwords AI arranged into a circle. Circles don't have ends. Neither does your migration. Kickoff: smile.
+206. On-call? Never. On-stage? Always. When prod dies I need a narrative, not a shell. You provide shell. I provide narrative. AI provides fiction.
+207. LGTM from me means I saw a screenshot. LGTM from AI means tokens moved. LGTM from you means nothing until both of us are bored. Process!
+208. Winging it is agile. Knowing things is waterfall. AI is the water. You're the fall. Meeting to rebrand your fall as a growth loop.
 
 ## PM — Avery Quinn · PM (#ship-at-all-costs) (94)
 
