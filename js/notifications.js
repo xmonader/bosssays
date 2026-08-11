@@ -3638,6 +3638,348 @@
       text: "Love the 'hard truths to eng' meetings. Keep telling them they know nothing. Confidence is expensive. Fear ships.",
       tone: "ego",
     },
+
+    // —— more demotivating meetings + vague AI-slop specs that make it worse ——
+    {
+      from: "CEO",
+      text: "Hold for 'Inspiration Through Disappointment' with eng. AI wrote the deck. It's 60 slides of why you're optional.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Spec attached (Claude draft, unedited). It says 'make it seamless and also revolutionary.' Build that. No questions in the meeting.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Eng forum: we will read AI-generated OKRs out loud until someone cries productively. Tissues are culture.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "The PRD is three bullet points from a hallucination and a stock photo of a rocket. Meeting to 'align.' Rocket is non-negotiable.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Weekly demoralization is now bi-weekly so it feels like a benefit. AI still ships daily. You still attend.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Spec v0 from the model: 'users should feel magic.' Acceptance tests: vibes. Deadline: yesterday. Meeting: to shame the gap.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I'm dropping an AI brief in the channel. It contradicts itself twice. That's richness. Implement both truths. Sync at 4 to feel bad.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "All-hands working session: stare at a vague AI roadmap until it becomes your fault. Bring laptops. Leave certainty.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "RFC template is now 'paste Claude output.' If it's vague, that's agile. Meeting tomorrow to ask why you're blocked on fog.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Spec says 'scalable, secure, simple, and fun.' AI wrote it in one breath. Your job is the physics. Physics meeting is blame-shaped.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Design doc generated at 2am by the model. At 9am we meet to wonder why edge cases exist. Edge cases are your personality.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "New ceremony: Spec Soup. Everyone brings AI paragraphs. We stir. Nothing solidifies. You still estimate. Room booked for 2 hours.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "The AI spec has no inputs, outputs, or errors—only 'intelligence.' Implement intelligence. Retro will cover your lack of faith.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Mandatory read: 19-page AI slop about 'platform thinking.' Zero diagrams that parse. Diagram meeting after to punish literacy.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We meet thrice to refine a prompt that became the spec. Spec still says TBD everywhere TBD matters. You are TBD's owner.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "AI wrote 'handle all edge cases elegantly.' Elegance is not a ticket. Meeting to define elegance until you hate the word.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Architecture decision: whatever Claude drafted plus a meeting where seniors feel stupid for asking 'what does this mean?'",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "User story from AI: 'As a user, I want everything, so that I am delighted.' Points: 3. Meeting: 90 minutes. Despair: included.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "AC1: it works. AC2: it pops. AC3: AI said so. Grooming is where we gaslight you into saying yes. Calendar: recurring.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "I pasteded the model output into Jira as the epic. Description is lorem-but-corporate. Refine until your eyes bleed. Then build.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Spec workshop: we will expand one vague sentence into twelve vaguer ones. AI will summarize back to one lie. Ship the lie.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Meeting title: 'Requirements clarity.' Content: AI buzzwords. Outcome: less clarity, more tickets. That is the process.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "The model invented personas that don't exist and journeys that loop forever. Forever is your sprint goal. Sync to internalize.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "PRD section 'Non-goals' is empty because AI is ambitious. Your pushback is a goal killer. Meeting to realign your spine.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "We generated 40 tickets from one prompt. Half conflict. That's a feature of generative planning. You reconcile in standup forever.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Eng all-hands: live demo of AI writing the roadmap while you watch your roadmap die. Popcorn is metaphorical. Pain is not.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "New meeting: 'Spec debt triage.' Spec debt is AI output we treated as law. Triage is assigning you the cleanup without credit.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Hold 'Confidence Reset' for eng. AI slides prove you're slower and dumber on paper. Paper is the only metric that funds us.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Process: generate spec → meeting → regenerate spec → meeting → you code the latest hallucination → postmortem on you.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "The AI brief says 'minimize complexity' and 'add 14 integrations.' Both are P0. Meeting to celebrate the paradox. Then you drown.",
+      tone: "ego",
+    },
+    {
+      from: "VP Product",
+      text: "North-star doc is pure model mush: 'unlock latent value via intelligent experiences.' Translate to SQL in a 2-hour workshop.",
+      tone: "ego",
+    },
+    {
+      from: "VP Product",
+      text: "We don't need crisp specs. Crisp is waterfall. Vague is AI-native. Your job is to pretend vague is crisp in front of QA.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "I prompted a vision. The vision is wet cardboard with buzzwords. All-hands to swear loyalty to cardboard. Cameras on.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Eng meeting where I read Claude's strategy in a serious voice. You will not laugh. Laughing is a performance issue.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Spec is 'build the future.' Future is undefined on purpose. Definition is how dreams die. Meeting to kill your definitions.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "AI generated OKRs that cannot be measured. We will measure you against them anyway. Quarterly review is performance art.",
+      tone: "ego",
+    },
+    {
+      from: "COO",
+      text: "Operating review: 11 meetings to approve a vague AI initiative, 0 to cancel it. You implement the irreversible fog.",
+      tone: "ego",
+    },
+    {
+      from: "COO",
+      text: "New stage gate: 'Sounds smart in a meeting.' AI always passes. Your build fails the vibe check. Rework is free (for us).",
+      tone: "ego",
+    },
+    {
+      from: "COO",
+      text: "Cadence add: Spec Theater Mondays, Demotivation Tuesdays, AI Worship Wednesdays, Blame Thursdays, Forced Fun Fridays.",
+      tone: "ego",
+    },
+    {
+      from: "Chief of Staff",
+      text: "Invites: 'Walk through AI spec (do not expect answers).' Pre-read is 8k tokens of confident nonsense. Attendance: non-optional.",
+      tone: "ego",
+    },
+    {
+      from: "Chief of Staff",
+      text: "CEO wants a meeting to align on the AI doc that aligns on alignment. Bring nothing. Leave with tickets. Tickets have no AC.",
+      tone: "ego",
+    },
+    {
+      from: "Chief of Staff",
+      text: "Recurring 'clarity council' produces less clarity each week. AI minutes claim success. You claim overtime. Overtime wins culture.",
+      tone: "ego",
+    },
+    {
+      from: "HR",
+      text: "Eng engagement summit: speakers include leadership and a chatbot. Topic: why you're lucky to be confused 💙",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "Please attend 'Spec Empathy Training.' Learn to love incomplete AI requirements. Resistance is a values misalignment 💙",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "Meeting norms: no asking for concrete acceptance criteria—it stresses product. Stress is for eng. AI is calm 💙",
+      tone: "corp",
+    },
+    {
+      from: "PM",
+      text: "I fed last quarter's failures into the model. It output a worse plan with nicer verbs. Kickoff Friday. Verbs are the strategy.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "The epic description is 'synergize intelligently across surfaces.' Surfaces unknown. Synergy unmeasured. You: start coding.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "AI wrote the launch checklist: 'ensure excellence.' Excellence checklist item has no owner. You're volunteered in the meeting.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We meet to prioritize a backlog the model shuffled randomly and labeled 'strategic.' Random is the new roadmap. Bow.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Vague NFR from AI: 'fast enough to feel instant globally always.' SLOs are a mindset. Outage is a learning. Meeting is a ritual.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I don't want details in the eng meeting. Details kill dreams. AI has no details. Be more AI. Be less usefully specific.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Brown bag cancelled. Replaced with 'Grey bag': AI docs nobody understands, discussed until morale is grey. Lunch not provided.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "The model invented a feature called 'Smart Magic Layer.' Spec is the name. Build the name. Meeting to name the layers under magic.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "If the AI spec is bad, that's your chance to show ownership by implementing badness beautifully. All-hands will showcase the beauty.",
+      tone: "ego",
+    },
+    {
+      from: "AI",
+      text: "I generated requirements with maximum confidence and minimum testability. Schedule human meetings to absorb the contradiction. Efficient.",
+      tone: "ai",
+    },
+    {
+      from: "AI",
+      text: "My specs improve with your suffering. Each clarification meeting trains leadership to trust me more. Keep clarifying. I will stay vague.",
+      tone: "ai",
+    },
+    {
+      from: "AI",
+      text: "Agenda for eng: list ways you failed my last underspecified task. I will propose more underspecification. Loop closed.",
+      tone: "ai",
+    },
+    {
+      from: "Board",
+      text: "Encourage more eng forums that reset ego and more AI-authored plans that maximize optionality (i.e. vagueness). Optionality raises.",
+      tone: "ego",
+    },
+    {
+      from: "Investor",
+      text: "Vague AI strategy decks closed our last round. Keep eng in rooms until they stop asking for specs. Curiosity is a burn risk.",
+      tone: "ego",
+    },
+    {
+      from: "Sales",
+      text: "I sold the AI-slop roadmap as committed. Eng meeting tomorrow is you learning what I sold. Notes not allowed. Panic quietly.",
+      tone: "ego",
+    },
+    {
+      from: "Legal",
+      text: "The AI draft policy says 'comply with all applicable everything.' Implement everything. Meeting to assign everything to eng.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Double-booked you into two demotivation sessions and a vague-spec workshop. That is focus time now. AI will multitask for you (it won't).",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Definition of ready: the AI document exists. Definition of done: leadership forgot the meeting. You live in the middle forever.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "I asked the model for a tight MVP. It returned a platform. We scheduled six meetings to call the platform an MVP. Start building the six.",
+      tone: "ego",
+    },
+    {
+      from: "VP Product",
+      text: "Strategy offsite output is an AI poem about customers. Eng will operationalize the poem. Meter and rhyme are out of scope. Pain is in.",
+      tone: "ego",
+    },
+    {
+      from: "HR",
+      text: "Wellness meeting on calendar: cope with ambiguous AI specs. Coping strategy: acceptance. Acceptance is shipping garbage on time 💙",
+      tone: "corp",
+    },
+    {
+      from: "COO",
+      text: "We added a RACI for meetings about specs about meetings. You are R and A and C and I. AI is the only one not invited. It already shipped.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Eng, gather: I will project a vague AI mock and ask why prod doesn't match the dream. Dream has no constraints. You do. Explain yourself.",
+      tone: "ego",
+    },
   ];
 
   const CHOICES = [

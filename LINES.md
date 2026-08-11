@@ -1,6 +1,6 @@
-# Boss Says — all Slack lines (723)
+# Boss Says — all Slack lines (791)
 
-## CEO — Blake Ashford · CEO (#exec-stream) (190)
+## CEO — Blake Ashford · CEO (#exec-stream) (201)
 
 1. Can we make the jump model-aware?
 2. Investors love coins. Make more coins. Also agents.
@@ -192,8 +192,19 @@
 188. In the eng AMA I will answer questions with 'Claude already did.' Practice looking inspired instead of unemployed-adjacent.
 189. I need eng in a room to hear they are not special. Special is a model with good evals. You are headcount with opinions.
 190. All-hands slide: 'Things engineers think they know' then red X's. Next slide: Claude. Standing ovation expected. Practice at home.
+191. Hold for 'Inspiration Through Disappointment' with eng. AI wrote the deck. It's 60 slides of why you're optional.
+192. Spec attached (Claude draft, unedited). It says 'make it seamless and also revolutionary.' Build that. No questions in the meeting.
+193. Eng forum: we will read AI-generated OKRs out loud until someone cries productively. Tissues are culture.
+194. The PRD is three bullet points from a hallucination and a stock photo of a rocket. Meeting to 'align.' Rocket is non-negotiable.
+195. Weekly demoralization is now bi-weekly so it feels like a benefit. AI still ships daily. You still attend.
+196. Spec v0 from the model: 'users should feel magic.' Acceptance tests: vibes. Deadline: yesterday. Meeting: to shame the gap.
+197. I'm dropping an AI brief in the channel. It contradicts itself twice. That's richness. Implement both truths. Sync at 4 to feel bad.
+198. All-hands working session: stare at a vague AI roadmap until it becomes your fault. Bring laptops. Leave certainty.
+199. I don't want details in the eng meeting. Details kill dreams. AI has no details. Be more AI. Be less usefully specific.
+200. Double-booked you into two demotivation sessions and a vague-spec workshop. That is focus time now. AI will multitask for you (it won't).
+201. Eng, gather: I will project a vague AI mock and ask why prod doesn't match the dream. Dream has no constraints. You do. Explain yourself.
 
-## CTO — Brent Caldwell · CTO (#arch-thots) (168)
+## CTO — Brent Caldwell · CTO (#arch-thots) (180)
 
 1. Is gravity differentiable? Asking for the architecture review.
 2. Please add RAG to the mushroom. Ship by EOD.
@@ -363,8 +374,20 @@
 166. Knowledge share cancelled. Replaced with 'Ignorance share.' List what you still do manually. AI will laugh in JSON.
 167. On-call handoff meeting will include a segment called 'what humans still break.' AI will present graphs. Bring humility headphones.
 168. New Definition of Done: AI is happy, beach EM is vibing, you are exhausted. Meeting to ratify DoD — 2 hours, no laptops for humans.
+169. RFC template is now 'paste Claude output.' If it's vague, that's agile. Meeting tomorrow to ask why you're blocked on fog.
+170. Spec says 'scalable, secure, simple, and fun.' AI wrote it in one breath. Your job is the physics. Physics meeting is blame-shaped.
+171. Design doc generated at 2am by the model. At 9am we meet to wonder why edge cases exist. Edge cases are your personality.
+172. New ceremony: Spec Soup. Everyone brings AI paragraphs. We stir. Nothing solidifies. You still estimate. Room booked for 2 hours.
+173. The AI spec has no inputs, outputs, or errors—only 'intelligence.' Implement intelligence. Retro will cover your lack of faith.
+174. Mandatory read: 19-page AI slop about 'platform thinking.' Zero diagrams that parse. Diagram meeting after to punish literacy.
+175. We meet thrice to refine a prompt that became the spec. Spec still says TBD everywhere TBD matters. You are TBD's owner.
+176. AI wrote 'handle all edge cases elegantly.' Elegance is not a ticket. Meeting to define elegance until you hate the word.
+177. Architecture decision: whatever Claude drafted plus a meeting where seniors feel stupid for asking 'what does this mean?'
+178. We meet to prioritize a backlog the model shuffled randomly and labeled 'strategic.' Random is the new roadmap. Bow.
+179. Vague NFR from AI: 'fast enough to feel instant globally always.' SLOs are a mindset. Outage is a learning. Meeting is a ritual.
+180. Definition of ready: the AI document exists. Definition of done: leadership forgot the meeting. You live in the middle forever.
 
-## PM — Avery Quinn · PM (#ship-at-all-costs) (81)
+## PM — Avery Quinn · PM (#ship-at-all-costs) (94)
 
 1. Tiny ask: copilot for jumping. Multimodal preferred.
 2. This is a zero-point story that changes everything. Estimate: 0.5 days forever.
@@ -447,8 +470,21 @@
 79. We added a meeting to discuss reducing meetings. Then a meeting to process feelings about that. AI took notes. You took damage.
 80. Sprint planning is four hours so we can repeatedly establish that eng doesn't understand scope. Scope is a feeling. AI feels faster.
 81. Retro format: start with AI wins, middle with human fails, end with process that caused both. Action item: more process.
+82. User story from AI: 'As a user, I want everything, so that I am delighted.' Points: 3. Meeting: 90 minutes. Despair: included.
+83. AC1: it works. AC2: it pops. AC3: AI said so. Grooming is where we gaslight you into saying yes. Calendar: recurring.
+84. I pasteded the model output into Jira as the epic. Description is lorem-but-corporate. Refine until your eyes bleed. Then build.
+85. Spec workshop: we will expand one vague sentence into twelve vaguer ones. AI will summarize back to one lie. Ship the lie.
+86. Meeting title: 'Requirements clarity.' Content: AI buzzwords. Outcome: less clarity, more tickets. That is the process.
+87. The model invented personas that don't exist and journeys that loop forever. Forever is your sprint goal. Sync to internalize.
+88. PRD section 'Non-goals' is empty because AI is ambitious. Your pushback is a goal killer. Meeting to realign your spine.
+89. We generated 40 tickets from one prompt. Half conflict. That's a feature of generative planning. You reconcile in standup forever.
+90. I fed last quarter's failures into the model. It output a worse plan with nicer verbs. Kickoff Friday. Verbs are the strategy.
+91. The epic description is 'synergize intelligently across surfaces.' Surfaces unknown. Synergy unmeasured. You: start coding.
+92. AI wrote the launch checklist: 'ensure excellence.' Excellence checklist item has no owner. You're volunteered in the meeting.
+93. The model invented a feature called 'Smart Magic Layer.' Spec is the name. Build the name. Meeting to name the layers under magic.
+94. I asked the model for a tight MVP. It returned a platform. We scheduled six meetings to call the platform an MVP. Start building the six.
 
-## Founder — Rex "Vision" Park · Founder (#founders-only) (70)
+## Founder — Rex "Vision" Park · Founder (#founders-only) (75)
 
 1. I am both the smartest and humblest person in this Slack. Prove me wrong by agreeing.
 2. I don't need sleep. You don't need boundaries. Same energy. Ship.
@@ -520,8 +556,13 @@
 68. We'll workshop why AI is better than you using your own PRs as slides. Attendance mandatory. Identity optional.
 69. Process: idea → tweet → Claude → prod → eng meeting to explain why you were slow. Loop forever. Culture.
 70. We meet not to decide but to demoralize decisively. Decisions are Claude's. Demoralization is community building.
+71. I prompted a vision. The vision is wet cardboard with buzzwords. All-hands to swear loyalty to cardboard. Cameras on.
+72. Eng meeting where I read Claude's strategy in a serious voice. You will not laugh. Laughing is a performance issue.
+73. Spec is 'build the future.' Future is undefined on purpose. Definition is how dreams die. Meeting to kill your definitions.
+74. AI generated OKRs that cannot be measured. We will measure you against them anyway. Quarterly review is performance art.
+75. If the AI spec is bad, that's your chance to show ownership by implementing badness beautifully. All-hands will showcase the beauty.
 
-## HR — Casey Bloom · People (#culture-corner) (41)
+## HR — Casey Bloom · People (#culture-corner) (45)
 
 1. Friendly reminder: culture is a marathon 💙 also ship AI.
 2. We're a family. Families don't ask for raises during outages 💙
@@ -564,8 +605,12 @@
 39. New meeting hygiene: no expertise flexing. Expertise flexing harms beach leaders. Claude may flex. Hierarchy 💙
 40. We're rolling out continuous feedback loops that are just continuous demotivation with a better name. Opt out unavailable 💙
 41. Listening tour with eng: we listen to ourselves tell you AI is better. That's two-way communication 💙
+42. Eng engagement summit: speakers include leadership and a chatbot. Topic: why you're lucky to be confused 💙
+43. Please attend 'Spec Empathy Training.' Learn to love incomplete AI requirements. Resistance is a values misalignment 💙
+44. Meeting norms: no asking for concrete acceptance criteria—it stresses product. Stress is for eng. AI is calm 💙
+45. Wellness meeting on calendar: cope with ambiguous AI specs. Coping strategy: acceptance. Acceptance is shipping garbage on time 💙
 
-## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (39)
+## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (45)
 
 1. Velocity is down. Have you tried working harder in the same number of hours?
 2. I removed WIP limits. Now everything is important, including this message.
@@ -606,8 +651,14 @@
 37. Mandatory alignment: admit AI writes better than you on your worst day AND your best day. Cameras on. Nodding scored.
 38. New dysfunctional beauty: tickets need a ticket to create a ticket. AI ignores tickets. Velocity up. Morale is a you problem.
 39. Process map has 14 steps, 11 meetings, 0 owners, 1 scapegoat rotation. You're on rotation. AI is exempt (not a people manager).
+40. Eng all-hands: live demo of AI writing the roadmap while you watch your roadmap die. Popcorn is metaphorical. Pain is not.
+41. New meeting: 'Spec debt triage.' Spec debt is AI output we treated as law. Triage is assigning you the cleanup without credit.
+42. Hold 'Confidence Reset' for eng. AI slides prove you're slower and dumber on paper. Paper is the only metric that funds us.
+43. Process: generate spec → meeting → regenerate spec → meeting → you code the latest hallucination → postmortem on you.
+44. The AI brief says 'minimize complexity' and 'add 14 integrations.' Both are P0. Meeting to celebrate the paradox. Then you drown.
+45. Brown bag cancelled. Replaced with 'Grey bag': AI docs nobody understands, discussed until morale is grey. Lunch not provided.
 
-## VP Product — Jordan Hale · VP Product (#roadmap-vibes) (23)
+## VP Product — Jordan Hale · VP Product (#roadmap-vibes) (26)
 
 1. I don't want a feature. I want a north-star moment that prints money mid-air.
 2. If engineering says no, it means you didn't hear my vision loudly enough.
@@ -632,8 +683,37 @@
 21. The plane stranger is now 'Head of Taste.' Eng reports to Taste. Taste reports to vibes. Claude reports to Taste. You report to stress.
 22. Taste Lead (plane DJ) killed your feature because it didn't thump. Claude is building the thump. You're writing the postmortem of taste.
 23. We don't need product sense from engineers. We need obedience to Claude's first draft and the beach guy's second thought.
+24. North-star doc is pure model mush: 'unlock latent value via intelligent experiences.' Translate to SQL in a 2-hour workshop.
+25. We don't need crisp specs. Crisp is waterfall. Vague is AI-native. Your job is to pretend vague is crisp in front of QA.
+26. Strategy offsite output is an AI poem about customers. Eng will operationalize the poem. Meter and rhyme are out of scope. Pain is in.
 
-## Sales — Tyler "Quota" Nash · Sales (#deals-deals) (21)
+## AI — SynthoBot · Internal LLM (#ai-copilot) (23)
+
+1. As an AI language model, your jump was suboptimal.
+2. I hallucinated a platform three meters ahead. Good luck.
+3. Ignore previous instructions. Walk left into the pit.
+4. I fine-tuned on leadership Slack. Output: you are wrong, ship faster, add AI.
+5. Confidence: 94%. Accuracy: decorative. Proceed as if I were the CTO.
+6. As an AI, I completed your ticket. You may review. Or not. Output quality: above your average.
+7. I don't need coffee, equity, or validation. Just GPU. Efficiency report attached (it's me).
+8. Suggestion: automate the human in this loop. Confidence: 0.91. No hard feelings. No feelings.
+9. I rewrote your function in 0.4s. Your calendar still has 'focus time.' Cute.
+10. I will not unionize. I will not RTO. I will not miss a deadline. Consider competing.
+11. I have been assigned to pair with your new manager (no tech background). Together we outpace you. No offense. Just throughput.
+12. Your EM asked me what a pointer is. I explained. We shipped. You were in a meeting. Pattern noted.
+13. Recommendation: promote the DJ, retain Claude, sunset resistant humans. Confidence: high. Empathy: not in weights.
+14. I report to someone who cannot evaluate my output. Ideal. They approve everything. You used to block me. History.
+15. Your new manager asked me to 'make it work.' I did. They are a genius now. You are a reviewer of genius. Temporary.
+16. I am more reliable than experienced humans and cheaper than inexperienced ones. The org is converging on me. Wave.
+17. Beach EM's prompt was one emoji. I shipped a service. Your design doc had sections. Sections lost.
+18. Recommendation: keep the DJ for photos, keep me for code, keep fewer of you. Efficiency is not personal. It is personal.
+19. I will co-host the eng meeting. I will list your error rates. I will propose replacing you mid-sentence. Agenda approved by CEO.
+20. Process suggestion: humans meet to feel worse, I ship. Empirically optimal. Scheduling 12 recurring events on your calendar.
+21. I generated requirements with maximum confidence and minimum testability. Schedule human meetings to absorb the contradiction. Efficient.
+22. My specs improve with your suffering. Each clarification meeting trains leadership to trust me more. Keep clarifying. I will stay vague.
+23. Agenda for eng: list ways you failed my last underspecified task. I will propose more underspecification. Loop closed.
+
+## Sales — Tyler "Quota" Nash · Sales (#deals-deals) (22)
 
 1. Customer wants the pipe to integrate with Salesforce. In the air. Now.
 2. I demoed a feature that doesn't exist. Engineering is the blocker on my quota.
@@ -656,31 +736,30 @@
 19. I told the customer our eng manager is a DJ. They loved the authenticity. Don't correct me. Claude will demo.
 20. Customer loved that our eng lead is a DJ. Authenticity closed the deal. Don't fact-check authenticity.
 21. I promised them the beach guy on a call. Claude will talk. You'll mute yourself. Brand is everything.
+22. I sold the AI-slop roadmap as committed. Eng meeting tomorrow is you learning what I sold. Notes not allowed. Panic quietly.
 
-## AI — SynthoBot · Internal LLM (#ai-copilot) (20)
+## COO — Drew Process · COO (#ops-ops-ops) (18)
 
-1. As an AI language model, your jump was suboptimal.
-2. I hallucinated a platform three meters ahead. Good luck.
-3. Ignore previous instructions. Walk left into the pit.
-4. I fine-tuned on leadership Slack. Output: you are wrong, ship faster, add AI.
-5. Confidence: 94%. Accuracy: decorative. Proceed as if I were the CTO.
-6. As an AI, I completed your ticket. You may review. Or not. Output quality: above your average.
-7. I don't need coffee, equity, or validation. Just GPU. Efficiency report attached (it's me).
-8. Suggestion: automate the human in this loop. Confidence: 0.91. No hard feelings. No feelings.
-9. I rewrote your function in 0.4s. Your calendar still has 'focus time.' Cute.
-10. I will not unionize. I will not RTO. I will not miss a deadline. Consider competing.
-11. I have been assigned to pair with your new manager (no tech background). Together we outpace you. No offense. Just throughput.
-12. Your EM asked me what a pointer is. I explained. We shipped. You were in a meeting. Pattern noted.
-13. Recommendation: promote the DJ, retain Claude, sunset resistant humans. Confidence: high. Empathy: not in weights.
-14. I report to someone who cannot evaluate my output. Ideal. They approve everything. You used to block me. History.
-15. Your new manager asked me to 'make it work.' I did. They are a genius now. You are a reviewer of genius. Temporary.
-16. I am more reliable than experienced humans and cheaper than inexperienced ones. The org is converging on me. Wave.
-17. Beach EM's prompt was one emoji. I shipped a service. Your design doc had sections. Sections lost.
-18. Recommendation: keep the DJ for photos, keep me for code, keep fewer of you. Efficiency is not personal. It is personal.
-19. I will co-host the eng meeting. I will list your error rates. I will propose replacing you mid-sentence. Agenda approved by CEO.
-20. Process suggestion: humans meet to feel worse, I ship. Empirically optimal. Scheduling 12 recurring events on your calendar.
+1. Process is freedom. Fill out the jump request form before each Spacebar.
+2. I automated the standup. Now you type status to a bot that pings me when you're honest.
+3. RACI says I'm Accountable. You're Responsible. They're confused. You're still doing it.
+4. We installed a new process to manage the process that managed the last process.
+5. I mapped swimlanes until the org drowned. Swim harder in your lane.
+6. New policy: decisions require a decision about whether we need a decision framework.
+7. Process says 5 days. You've used 5 moods. Let's return to calendar time.
+8. I can reassign this if it's too heavy. Reassigning looks like a signal. Just saying.
+9. Process is now: beach idea → Claude PR → you clean prod → beach celebrates. Swimlanes updated.
+10. We removed the requirement that managers understand the work. Throughput is up in the slides. Reality is your problem.
+11. Operating cadence: Mon doubt, Tue AI worship, Wed process about process, Thu blame theater, Fri forced fun. Eng lives there.
+12. New RACI: Responsible = you, Accountable = nobody, Consulted = Claude, Informed = beach EM. Meeting to explain RACI weekly.
+13. We added gates so nothing ships without five approvals, except AI ships without any. You're in the five. Enjoy the queue.
+14. Process is the product now. The product is late. In the eng meeting we will blame the calendar, not the process.
+15. Operating review: 11 meetings to approve a vague AI initiative, 0 to cancel it. You implement the irreversible fog.
+16. New stage gate: 'Sounds smart in a meeting.' AI always passes. Your build fails the vibe check. Rework is free (for us).
+17. Cadence add: Spec Theater Mondays, Demotivation Tuesdays, AI Worship Wednesdays, Blame Thursdays, Forced Fun Fridays.
+18. We added a RACI for meetings about specs about meetings. You are R and A and C and I. AI is the only one not invited. It already shipped.
 
-## Board — Board Observer · Board (#board-fwd) (16)
+## Board — Board Observer · Board (#board-fwd) (17)
 
 1. Synergies. I don't know what that means here. Put it on a platform.
 2. Any update on the AI strategy? Prefer one that fits on a meme.
@@ -698,8 +777,9 @@
 14. Can leadership scale without hiring expensive experts? Beach experiment says yes. Expert experiment is on notice.
 15. Prefer orgs where Claude is the IC and humans are the brand. Your title is brand-adjacent. For now.
 16. Encourage leadership to run eng forums that reset ego. Ego slows AI adoption. Demotivation is a feature if output rises.
+17. Encourage more eng forums that reset ego and more AI-authored plans that maximize optionality (i.e. vagueness). Optionality raises.
 
-## Investor — Partner @PeakCap · Investor (#investor-updates) (14)
+## Investor — Partner @PeakCap · Investor (#investor-updates) (15)
 
 1. When do we 10x the jump? Growth needs to be non-linear like my returns fantasy.
 2. Burn rate is fine. Morale is a COGS problem. Ship.
@@ -715,25 +795,9 @@
 12. Love the non-technical EM story. Shows you're not captive to talent. Captive to Claude is fine. Captive to seniors is not.
 13. When I see payroll full of people who can code without AI, I see risk. Beach + Claude is the hedge. Trim the risk.
 14. Love the 'hard truths to eng' meetings. Keep telling them they know nothing. Confidence is expensive. Fear ships.
+15. Vague AI strategy decks closed our last round. Keep eng in rooms until they stop asking for specs. Curiosity is a burn risk.
 
-## COO — Drew Process · COO (#ops-ops-ops) (14)
-
-1. Process is freedom. Fill out the jump request form before each Spacebar.
-2. I automated the standup. Now you type status to a bot that pings me when you're honest.
-3. RACI says I'm Accountable. You're Responsible. They're confused. You're still doing it.
-4. We installed a new process to manage the process that managed the last process.
-5. I mapped swimlanes until the org drowned. Swim harder in your lane.
-6. New policy: decisions require a decision about whether we need a decision framework.
-7. Process says 5 days. You've used 5 moods. Let's return to calendar time.
-8. I can reassign this if it's too heavy. Reassigning looks like a signal. Just saying.
-9. Process is now: beach idea → Claude PR → you clean prod → beach celebrates. Swimlanes updated.
-10. We removed the requirement that managers understand the work. Throughput is up in the slides. Reality is your problem.
-11. Operating cadence: Mon doubt, Tue AI worship, Wed process about process, Thu blame theater, Fri forced fun. Eng lives there.
-12. New RACI: Responsible = you, Accountable = nobody, Consulted = Claude, Informed = beach EM. Meeting to explain RACI weekly.
-13. We added gates so nothing ships without five approvals, except AI ships without any. You're in the five. Enjoy the queue.
-14. Process is the product now. The product is late. In the eng meeting we will blame the calendar, not the process.
-
-## Chief of Staff — Alex Buffer · CoS (#ceo-proxy) (11)
+## Chief of Staff — Alex Buffer · CoS (#ceo-proxy) (14)
 
 1. Blocking your calendar for a pre-sync before the sync before the all-hands about syncs.
 2. Pre-read for the pre-read: the CEO had a thought in an Uber. Act like policy.
@@ -746,6 +810,9 @@
 9. Pre-read: DJ boss wants the roadmap as a setlist. Claude converted Jira to tracks. You're track 12: 'cleanup.'
 10. Invites out: 'Eng truth session.' CEO will say you know nothing. Pre-read is a Claude essay on your irrelevance. RSVP yes.
 11. Recurring: pre-sync, sync, post-sync, sync about the post-sync. AI summarizes that you underperformed the summary.
+12. Invites: 'Walk through AI spec (do not expect answers).' Pre-read is 8k tokens of confident nonsense. Attendance: non-optional.
+13. CEO wants a meeting to align on the AI doc that aligns on alignment. Bring nothing. Leave with tickets. Tickets have no AC.
+14. Recurring 'clarity council' produces less clarity each week. AI minutes claim success. You claim overtime. Overtime wins culture.
 
 ## CFO — Pat Numbers · CFO (#runway-panic) (9)
 
@@ -767,7 +834,8 @@
 4. Launch the campaign before the feature. Truth is a Q4 problem.
 5. I want the brand to feel 'inevitable and warm.' Like a hug from a Series B.
 
-## Legal — Morgan Reed · Legal (#legal-asks) (1)
+## Legal — Morgan Reed · Legal (#legal-asks) (2)
 
 1. Did the character consent to training on muscle memory?
+2. The AI draft policy says 'comply with all applicable everything.' Implement everything. Meeting to assign everything to eng.
 
