@@ -132,6 +132,82 @@
     ctx.fillRect(x + (p.facing >= 0 ? -2 : p.w - 4), y + 16, 6, 12);
   }
 
+  /**
+   * Comic-style thought bubble above the player (inner monologue).
+   */
+  function drawThoughtBubble(ctx, game, camX) {
+    const th = game.thought;
+    if (!th || !th.text || th.timer <= 0) return;
+    const p = game.player;
+    const px = p.x - camX + p.w / 2;
+    const py = p.y - 8;
+
+    ctx.font = "11px sans-serif";
+    const padX = 8;
+    const padY = 6;
+    const maxW = 160;
+    // simple wrap measure
+    const words = th.text.split(" ");
+    const lines = [];
+    let line = "";
+    for (let i = 0; i < words.length; i++) {
+      const test = line ? line + " " + words[i] : words[i];
+      if (ctx.measureText(test).width > maxW && line) {
+        lines.push(line);
+        line = words[i];
+      } else {
+        line = test;
+      }
+    }
+    if (line) lines.push(line);
+
+    let textW = 0;
+    for (let i = 0; i < lines.length; i++) {
+      textW = Math.max(textW, ctx.measureText(lines[i]).width);
+    }
+    const boxW = textW + padX * 2;
+    const lineH = 13;
+    const boxH = lines.length * lineH + padY * 2;
+    let bx = px - boxW / 2;
+    bx = Math.max(4, Math.min(LOGIC_W - boxW - 4, bx));
+    const by = Math.max(48, py - boxH - 14);
+
+    // fade near end
+    const fade = th.timer < 0.4 ? th.timer / 0.4 : 1;
+    ctx.globalAlpha = 0.55 + 0.45 * fade;
+
+    // cloud bubble
+    ctx.fillStyle = "#fffbeb";
+    ctx.strokeStyle = "#a8a29e";
+    ctx.lineWidth = 1.5;
+    roundRect(ctx, bx, by, boxW, boxH, 10);
+    ctx.fill();
+    ctx.stroke();
+
+    // little thought dots
+    ctx.fillStyle = "#fffbeb";
+    ctx.strokeStyle = "#a8a29e";
+    const dots = [
+      { x: px - 4, y: py - 6, r: 3 },
+      { x: px - 10, y: py - 2, r: 2.2 },
+      { x: px - 14, y: py + 2, r: 1.5 },
+    ];
+    for (let i = 0; i < dots.length; i++) {
+      ctx.beginPath();
+      ctx.arc(dots[i].x, dots[i].y, dots[i].r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    ctx.fillStyle = "#44403c";
+    ctx.font = "11px sans-serif";
+    ctx.textAlign = "left";
+    for (let i = 0; i < lines.length; i++) {
+      ctx.fillText(lines[i], bx + padX, by + padY + lineH * (i + 0.75));
+    }
+    ctx.globalAlpha = 1;
+  }
+
   function drawEnemy(ctx, e, camX) {
     if (!e.alive) return;
     const x = e.x - camX;
@@ -543,6 +619,7 @@
       drawEnemy(ctx, game.enemies[i], camX);
     }
     drawPlayer(ctx, game.player, camX);
+    drawThoughtBubble(ctx, game, camX);
     drawHUD(ctx, game);
 
     if (game.notifications.active) {

@@ -325,6 +325,43 @@ describe("collectibles", () => {
   });
 });
 
+describe("inner thought bubbles", () => {
+  it("has frustration thought pools", () => {
+    assert.ok(Game.THOUGHTS.slack_ping.length >= 5);
+    assert.ok(Game.THOUGHTS.open.length >= 3);
+    assert.ok(Game.THOUGHTS.love.length >= 2);
+    assert.ok(Game.THOUGHTS.sigh || Game.THOUGHTS.idle.length >= 2);
+  });
+
+  it("setThought puts timed text on game", () => {
+    const game = Game.createGame({ rng: () => 0.2 });
+    const t = Game.setThought(game, "slack_ping");
+    assert.ok(t && t.text);
+    assert.ok(game.thought.timer > 1);
+  });
+
+  it("slack arrival and open set thoughts", () => {
+    const game = Game.createGame({ rng: () => 0.3 });
+    game.notifications.timeSince = 999;
+    Game.step(game, {}, 0.05);
+    assert.ok(game.thought, "thought on slack_ping");
+    assert.equal(game.thought.category, "slack_ping");
+    Game.step(game, { openInbox: true }, 0.05);
+    assert.ok(game.thought);
+    assert.equal(game.thought.category, "open");
+  });
+
+  it("reply sets category-specific thought", () => {
+    const game = Game.createGame({ rng: () => 0.1 });
+    game.notifications.timeSince = 999;
+    Game.step(game, {}, 0.05);
+    Game.step(game, { openInbox: true }, 0.05);
+    Game.chooseNotification(game, "love");
+    assert.ok(game.thought);
+    assert.equal(game.thought.category, "love");
+  });
+});
+
 describe("game events for audio", () => {
   it("emits jump event when jumping from ground", () => {
     const game = Game.createGame();

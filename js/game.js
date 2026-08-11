@@ -36,6 +36,107 @@
   const COFFEE_POINTS = 5;
   const COFFEE_CONTEXT_RELIEF = 12;
 
+  /** IC inner monologue — frustration at leadership stupidity */
+  const THOUGHTS = {
+    slack_ping: [
+      "*sigh*",
+      "here we go again…",
+      "please not another 'quick' thing",
+      "my soul just alt-tabbed out",
+      "I can feel my focus dying",
+      "unread = unpaid emotional labor",
+      "why is leadership awake",
+      "nope. not opening that yet.",
+      "the notification sound is a war crime",
+      "context switch tax: 1 brain",
+    ],
+    open: [
+      "I already regret opening this",
+      "words… so many empty words",
+      "this could have been silence",
+      "they're serious. that's worse.",
+      "mentally drafting 'as per my last jump'",
+      "smile in Slack, scream in skull",
+      "translating nonsense → tickets…",
+      "if I reply wrong I die socially",
+    ],
+    love: [
+      "I hate that I typed 'love this'",
+      "selling my spine for political capital",
+      "internal monologue: lol no",
+      "future me will quote this in therapy",
+      "performance: enthusiastic NPC",
+    ],
+    on_it: [
+      "I am not, in fact, 'on it'",
+      "added to the pile of lies",
+      "scope just had a baby",
+      "calendar block incoming. cool cool",
+    ],
+    dismiss: [
+      "muted. temporary peace.",
+      "if I ignore it, is it gaslighting?",
+      "inbox zero is a myth",
+      "see you in the escalation thread",
+    ],
+    pushback: [
+      "said the quiet part. bracing.",
+      "edge cases? in THIS economy?",
+      "career damage: maybe. dignity: slight uptick",
+      "they'll 'circle back' with revenge",
+    ],
+    timeout: [
+      "…I stared too long",
+      "they noticed the silence. of course.",
+      "analysis paralysis: professional edition",
+    ],
+    hurt: [
+      "ow. also: expected.",
+      "PTO is a finite resource. like patience.",
+      "this is fine. (it is not)",
+    ],
+    deploy: [
+      "shipped. they'll rebrand before lunch.",
+      "same office, new logo, same pain",
+      "deploy joy half-life: 12 seconds",
+      "what fresh Slack awaits",
+    ],
+    backlog: [
+      "inbox is a second boss fight",
+      "they're stacking trauma",
+      "I can hear the typing indicators",
+    ],
+    coffee: [
+      "coffee: the only OKR that matters",
+      "brief chemical hope",
+    ],
+    collect: [
+      "story points. fictional currency.",
+      "at least this number goes up",
+    ],
+    idle: [
+      "…",
+      "*stares into the open office*",
+      "is this what they meant by ownership",
+      "I could be gardening right now",
+    ],
+  };
+
+  function setThought(game, category) {
+    const pool = THOUGHTS[category] || THOUGHTS.idle;
+    if (!pool.length) return null;
+    const text = pool[Math.floor(game.rng() * pool.length)];
+    const hold = Math.min(4.2, 2.2 + text.length * 0.035);
+    game.thought = { text: text, timer: hold, category: category };
+    return game.thought;
+  }
+
+  function tickThought(game, dt) {
+    if (!game.thought) return;
+    game.thought.timer -= dt;
+    if (game.thought.timer <= 0) game.thought = null;
+  }
+
   function createEnemy(spawn) {
     return {
       x: spawn.x,
@@ -131,7 +232,9 @@
       lastEffects: null,
       message: "",
       messageTimer: 0,
+      thought: null,
       events: [],
+      thoughtIdleAcc: 0,
     };
 
     // Optionally suppress first notification delay for tests
@@ -214,6 +317,7 @@
     game.player.invuln = INVULN_TIME;
     game.player.vy = -200;
     pushEvent(game, "hurt");
+    setThought(game, "hurt");
     if (game.lives <= 0) {
       game.lives = 0;
       game.phase = "gameover";
@@ -307,11 +411,13 @@
         pushEvent(game, "collect", { kind: "coffee", points: COFFEE_POINTS });
         game.message = "Coffee +" + COFFEE_POINTS + " · context −" + COFFEE_CONTEXT_RELIEF;
         game.messageTimer = 2.4;
+        setThought(game, "coffee");
       } else {
         game.score += STORY_POINTS;
         pushEvent(game, "collect", { kind: "story", points: STORY_POINTS });
         game.message = "Story point +" + STORY_POINTS;
         game.messageTimer = 2.0;
+        if (game.rng() < 0.45) setThought(game, "collect");
       }
     }
     return n;
@@ -359,6 +465,7 @@
     game.messageTimer = 3.2;
     game.cameraX = 0;
     pushEvent(game, "deploy");
+    setThought(game, "deploy");
   }
 
   function tickEffectTimers(game, dt) {
@@ -420,6 +527,7 @@
       game.message =
         "Reading Slack — " + (note.name || note.from) + " · reply with 1–4";
       game.messageTimer = 1.8;
+      setThought(game, "open");
     }
     return note;
   }
@@ -436,9 +544,19 @@
       if (result.effects.kind === "timeout") {
         game.message = "Chat auto-closed — mild stun";
         pushEvent(game, "notify_timeout");
+        setThought(game, "timeout");
       } else {
         game.message = "Replied: " + result.effects.kind;
         pushEvent(game, "notify_reply", { kind: result.effects.kind });
+        const cat =
+          result.effects.kind === "love"
+            ? "love"
+            : result.effects.kind === "on_it"
+              ? "on_it"
+              : result.effects.kind === "pushback"
+                ? "pushback"
+                : "dismiss";
+        setThought(game, cat);
       }
       if (result.effects.stun > 0) pushEvent(game, "stun");
       game.messageTimer = 2.0;
@@ -460,6 +578,7 @@
     game.events = [];
 
     if (game.phase === "gameover") {
+      tickThought(game, dt);
       return game;
     }
 
@@ -493,6 +612,7 @@
         tick.inboxCount +
         " unread)";
       game.messageTimer = 2.8;
+      setThought(game, "slack_ping");
     }
     if (tick.backlogPressure) {
       game.effects.context = Math.min(
@@ -501,6 +621,7 @@
       );
       game.message = "Inbox full — leadership is filling your context";
       game.messageTimer = 1.6;
+      setThought(game, "backlog");
     }
 
     if (game.notifications.active) {
@@ -516,9 +637,11 @@
         game.message = "Chat auto-closed — mild stun";
         game.messageTimer = 2.0;
         pushEvent(game, "notify_timeout");
+        setThought(game, "timeout");
         if (timed.effects.stun > 0) pushEvent(game, "stun");
         game.player.invuln = Math.max(game.player.invuln, 0.45);
       }
+      tickThought(game, dt);
       return game;
     }
 
@@ -567,6 +690,18 @@
       checkDeploy(game);
     }
 
+    // Occasional idle sigh when nothing else is going on
+    if (!game.thought && game.phase === "playing") {
+      game.thoughtIdleAcc = (game.thoughtIdleAcc || 0) + dt;
+      if (game.thoughtIdleAcc > 11 + game.rng() * 8) {
+        game.thoughtIdleAcc = 0;
+        if (game.rng() < 0.55) setThought(game, "idle");
+      }
+    } else {
+      game.thoughtIdleAcc = 0;
+    }
+    tickThought(game, dt);
+
     // Camera follow
     const viewW = 800;
     game.cameraX = game.player.x + game.player.w / 2 - viewW / 2;
@@ -597,6 +732,8 @@
     allSolids: allSolids,
     applyEffectsPayload: applyEffectsPayload,
     isGameOver: isGameOver,
+    setThought: setThought,
+    THOUGHTS: THOUGHTS,
     STORY_POINTS: STORY_POINTS,
     COFFEE_POINTS: COFFEE_POINTS,
   };
