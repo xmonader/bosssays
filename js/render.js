@@ -11,20 +11,21 @@
   const VIEW_W = Math.round(LOGIC_W * SCALE); // 1280 — canvas pixel width
   const VIEW_H = Math.round(LOGIC_H * SCALE); // 768 — canvas pixel height
 
-  function clear(ctx, w, h) {
-    // Office sky / ceiling wash
+  function clear(ctx, w, h, theme) {
+    const sky = (theme && theme.sky) || ["#c8d8e8", "#e8eef4", "#d0d8e0"];
     const g = ctx.createLinearGradient(0, 0, 0, h);
-    g.addColorStop(0, "#c8d8e8");
-    g.addColorStop(0.55, "#e8eef4");
-    g.addColorStop(1, "#d0d8e0");
+    g.addColorStop(0, sky[0] || "#c8d8e8");
+    g.addColorStop(0.55, sky[1] || sky[0]);
+    g.addColorStop(1, sky[2] || sky[1] || sky[0]);
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, w, h);
   }
 
-  function drawPlatform(ctx, p, camX) {
+  function drawPlatform(ctx, p, camX, theme) {
     const x = p.x - camX;
     const y = p.y;
     if (x + p.w < 0 || x > LOGIC_W) return;
+    theme = theme || {};
 
     if (p.kind === "calendar") {
       ctx.fillStyle = "#5b8def";
@@ -49,27 +50,30 @@
       return;
     }
 
-    // Floor vs floating desk
+    // Floor vs floating desk — colors follow sprint theme
     if (p.h >= 40) {
-      ctx.fillStyle = "#6b7280";
+      ctx.fillStyle = theme.floor || "#6b7280";
       ctx.fillRect(x, y, p.w, p.h);
-      ctx.fillStyle = "#9ca3af";
+      ctx.fillStyle = theme.floorTop || "#9ca3af";
       ctx.fillRect(x, y, p.w, 6);
-      // carpet stripes
-      ctx.fillStyle = "#4b5563";
+      ctx.fillStyle = "rgba(0,0,0,0.18)";
       for (let i = 0; i < p.w; i += 40) {
         ctx.fillRect(x + i, y + 20, 20, 4);
       }
     } else {
-      ctx.fillStyle = "#92400e";
+      ctx.fillStyle = theme.desk || "#92400e";
       ctx.fillRect(x, y, p.w, p.h);
-      ctx.fillStyle = "#d97706";
+      ctx.fillStyle = theme.deskTop || "#d97706";
       ctx.fillRect(x, y, p.w, 4);
-      // monitor on desk
-      if (p.label === "monitor" || p.label === "desk" || p.label === "standup") {
+      if (
+        p.label === "monitor" ||
+        p.label === "desk" ||
+        p.label === "standup" ||
+        p.label === "hot-desk"
+      ) {
         ctx.fillStyle = "#1f2937";
         ctx.fillRect(x + p.w * 0.3, y - 22, 28, 18);
-        ctx.fillStyle = "#38bdf8";
+        ctx.fillStyle = theme.accent || "#38bdf8";
         ctx.fillRect(x + p.w * 0.3 + 3, y - 19, 22, 12);
       }
     }
@@ -93,6 +97,9 @@
         ctx.fillStyle = "#14532d";
         ctx.font = "bold 12px sans-serif";
         ctx.fillText("DEPLOY", x - 10, d.y - 6);
+      } else if (d.kind === "prop") {
+        ctx.font = "16px sans-serif";
+        ctx.fillText(d.text, x, d.y);
       } else {
         ctx.fillStyle = "#334155";
         ctx.font = "bold 14px sans-serif";
@@ -210,6 +217,11 @@
     ctx.font = "12px sans-serif";
     ctx.fillText("Sprint " + game.sprint, 100, 17);
     ctx.fillText("Ship " + game.deploys, 175, 17);
+    if (game.map && game.map.brand) {
+      ctx.fillStyle = (game.map.theme && game.map.theme.accent) || "#38bdf8";
+      ctx.font = "bold 10px sans-serif";
+      ctx.fillText(String(game.map.brand).slice(0, 10), 10, 38);
+    }
 
     // Score / pickups
     ctx.fillStyle = "#fbbf24";
@@ -487,15 +499,25 @@
 
   function draw(ctx, game) {
     const camX = game.cameraX || 0;
+    const theme = (game.map && game.map.theme) || null;
     // Upscale logical playfield to full canvas (bigger on-screen game area)
     ctx.setTransform(SCALE, 0, 0, SCALE, 0, 0);
-    clear(ctx, LOGIC_W, LOGIC_H);
+    clear(ctx, LOGIC_W, LOGIC_H, theme);
 
     // far wall tint stripes
-    ctx.fillStyle = "rgba(148,163,184,0.15)";
-    for (let i = 0; i < game.map.width; i += 200) {
+    ctx.fillStyle = "rgba(148,163,184,0.12)";
+    const stripe = 160 + ((game.sprint || 1) % 5) * 12;
+    for (let i = 0; i < game.map.width; i += stripe) {
       const x = i - camX;
       ctx.fillRect(x, 40, 2, LOGIC_H - 40);
+    }
+
+    // theme accent wash
+    if (theme && theme.accent) {
+      ctx.fillStyle = theme.accent;
+      ctx.globalAlpha = 0.06;
+      ctx.fillRect(0, 40, LOGIC_W, 8);
+      ctx.globalAlpha = 1;
     }
 
     drawDecor(ctx, game.map.decor, camX);
@@ -503,13 +525,13 @@
 
     const platforms = game.map.platforms;
     for (let i = 0; i < platforms.length; i++) {
-      drawPlatform(ctx, platforms[i], camX);
+      drawPlatform(ctx, platforms[i], camX, theme);
     }
     for (let i = 0; i < game.effects.calendarBlocks.length; i++) {
-      drawPlatform(ctx, game.effects.calendarBlocks[i], camX);
+      drawPlatform(ctx, game.effects.calendarBlocks[i], camX, theme);
     }
     for (let i = 0; i < game.effects.hallucinated.length; i++) {
-      drawPlatform(ctx, game.effects.hallucinated[i], camX);
+      drawPlatform(ctx, game.effects.hallucinated[i], camX, theme);
     }
 
     if (game.collectibles) {

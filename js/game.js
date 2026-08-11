@@ -103,10 +103,12 @@
    */
   function createGame(opts) {
     opts = opts || {};
-    const map = opts.map || MapMod.createOfficeMap();
     const sprint = opts.sprint != null ? opts.sprint : 1;
     const lives = opts.lives != null ? opts.lives : MAX_LIVES;
     const rng = opts.rng || Math.random;
+    const map =
+      opts.map ||
+      MapMod.createOfficeMap({ sprint: sprint, rng: rng });
 
     const game = {
       map: map,
@@ -330,24 +332,31 @@
   function advanceSprint(game) {
     game.sprint += 1;
     game.deploys += 1;
+    // New layout / rebrand / theme each sprint so the office doesn't feel copy-pasted
+    game.map = MapMod.createOfficeMap({
+      sprint: game.sprint,
+      rng: game.rng,
+    });
     game.player = createPlayer(game.map.spawn);
     game.enemies = game.map.enemySpawns.map(createEnemy);
-    // Pickups respawn each sprint; score is kept
     game.collectibles = spawnCollectibles(game.map);
     game.effects.calendarBlocks = [];
     game.effects.hallucinated = [];
     game.effects.stunTimer = 0;
     game.effects.slowTimer = 0;
-    // Context carries a bit of tech debt
     game.effects.context = Math.min(
       MAX_CONTEXT,
       Math.floor(game.effects.context * 0.5) + 5
     );
     game.notifications.active = null;
+    game.notifications.inbox = [];
     game.notifications.timeSince = 0;
     game.phase = "playing";
-    game.message = "Sprint " + game.sprint + " — shipped. Loop continues.";
-    game.messageTimer = 2.5;
+    const brand = game.map.brandLabel || game.map.brand || "HQ";
+    const theme = (game.map.theme && game.map.theme.id) || "office";
+    game.message =
+      "Sprint " + game.sprint + " · rebrand: " + brand + " · theme: " + theme;
+    game.messageTimer = 3.2;
     game.cameraX = 0;
     pushEvent(game, "deploy");
   }

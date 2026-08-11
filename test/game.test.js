@@ -233,6 +233,32 @@ describe("map", () => {
     assert.ok(m.deploy.w > 0);
     assert.ok(m.enemySpawns.length >= 1);
     assert.ok(m.width > 1000);
+    assert.ok(m.theme && m.theme.id);
+  });
+
+  it("different sprints get different themes/brands and layouts", () => {
+    const a = Map.createOfficeMap({ sprint: 1 });
+    const b = Map.createOfficeMap({ sprint: 2 });
+    const c = Map.createOfficeMap({ sprint: 3 });
+    assert.notEqual(a.theme.id, b.theme.id);
+    assert.notEqual(a.brand, b.brand);
+    // platform fingerprints should differ across sprints
+    const sig = (m) =>
+      m.platforms
+        .filter((p) => p.h < 40)
+        .map((p) => p.x + "," + p.y)
+        .join("|");
+    assert.notEqual(sig(a), sig(b));
+    assert.ok(c.enemySpawns.length >= a.enemySpawns.length);
+  });
+
+  it("advanceSprint rebuilds map theme", () => {
+    const game = Game.createGame({ sprint: 1 });
+    const t0 = game.map.theme.id;
+    Game.advanceSprint(game);
+    assert.equal(game.sprint, 2);
+    assert.notEqual(game.map.theme.id, t0);
+    assert.ok(game.collectibles.length > 0);
   });
 });
 
