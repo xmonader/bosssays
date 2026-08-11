@@ -125,6 +125,23 @@
     return Math.max(lo, Math.min(hi, v));
   }
 
+  function rectsOverlap(a, b, pad) {
+    pad = pad || 0;
+    return (
+      a.x < b.x + b.w + pad &&
+      a.x + a.w + pad > b.x &&
+      a.y < b.y + b.h + pad &&
+      a.y + a.h + pad > b.y
+    );
+  }
+
+  function overlapsAny(list, cand, pad) {
+    for (let i = 0; i < list.length; i++) {
+      if (rectsOverlap(list[i], cand, pad)) return true;
+    }
+    return false;
+  }
+
   /**
    * Build office geometry. Varies by sprint (layout + brand + theme).
    * @param {{sprint?:number, rng?:function}|number} opts
@@ -175,17 +192,25 @@
         x += gaps[i];
       }
     }
-    // Safety: always a landing strip at the end for deploy
-    if (floorSegs.length === 0 || floorSegs[floorSegs.length - 1].x + floorSegs[floorSegs.length - 1].w < MAP_WIDTH) {
-      const lastX = Math.max(0, MAP_WIDTH - 520);
-      const end = rect(lastX, GROUND_Y, MAP_WIDTH - lastX + 20, 60, "floor-end");
+    // Safety: fill only missing end coverage (no full-overlap with last segment)
+    if (floorSegs.length === 0) {
+      const end = rect(0, GROUND_Y, MAP_WIDTH, 60, "floor-end");
       platforms.push(end);
       floorSegs.push(end);
+    } else {
+      const last = floorSegs[floorSegs.length - 1];
+      const coverEnd = last.x + last.w;
+      if (coverEnd < MAP_WIDTH - 4) {
+        const end = rect(coverEnd, GROUND_Y, MAP_WIDTH - coverEnd + 20, 60, "floor-end");
+        platforms.push(end);
+        floorSegs.push(end);
+      }
     }
 
-    // Floating platform templates — heights stay jumpable
+    // Floating platforms — placed without stacking on each other
     const LOW = 355;
     const MID = 300;
+    const floatPlats = [];
     const floatTemplates = [
       { rel: 0.06, y: LOW, w: 110, label: "desk" },
       { rel: 0.12, y: MID, w: 100, label: "whiteboard" },
@@ -204,54 +229,54 @@
       { rel: 0.97, y: LOW, w: 80, label: "ship-step" },
     ];
 
-    // Sprint layout modes
     const mode = (sprint - 1) % 5;
-    // 0 default, 1 low-heavy, 2 mid-steps, 3 sparse high, 4 zigzag
+
+    function tryAddFloat(cand) {
+      // pad so platforms don't visually stack; slight Y-level peers need X gap
+      if (overlapsAny(floatPlats, cand, 10)) return false;
+      floatPlats.push(cand);
+      platforms.push(cand);
+      return true;
+    }
 
     floatTemplates.forEach(function (t, i) {
-      // skip some platforms on sparse modes
       if (mode === 3 && i % 3 === 1 && i < floatTemplates.length - 3) return;
       if (mode === 1 && t.y === MID && rng() < 0.35) return;
 
-      let y = t.y;
-      if (mode === 2) y = i % 2 === 0 ? LOW : MID;
-      if (mode === 4) y = i % 2 === 0 ? MID : LOW;
-      // small jitter still within jump range from ground/low
-      y = clamp(y + Math.floor((rng() - 0.5) * 20), 295, 365);
-
-      const px = clamp(
-        Math.floor(t.rel * MAP_WIDTH + (rng() - 0.5) * 50),
-        40,
-        MAP_WIDTH - 120
-      );
-      const w = clamp(t.w + Math.floor((rng() - 0.5) * 30), 70, 160);
-      platforms.push(rect(px, y, w, 14, t.label));
+      let placed = false;
+      for (let attempt = 0; attempt < 14 && !placed; attempt++) {
+        let y = t.y;
+        if (mode === 2) y = i % 2 === 0 ? LOW : MID;
+        if (mode === 4) y = i % 2 === 0 ? MID : LOW;
+        y = clamp(y + Math.floor((rng() - 0.5) * 18), 295, 365);
+        const px = clamp(
+          Math.floor(t.rel * MAP_WIDTH + (rng() - 0.5) * (40 + attempt * 8)),
+          40,
+          MAP_WIDTH - 140
+        );
+        const w = clamp(t.w + Math.floor((rng() - 0.5) * 24), 70, 150);
+        placed = tryAddFloat(rect(px, y, w, 14, t.label));
+      }
     });
 
-    // Optional bridge platforms over gaps (some sprints)
+    // Gap bridges — only if they don't stack on existing floats
     if (mode === 0 || mode === 2 || sprint % 2 === 0) {
       for (let i = 0; i < floorSegs.length - 1; i++) {
         const a = floorSegs[i];
         const b = floorSegs[i + 1];
         const gapStart = a.x + a.w;
         const gapEnd = b.x;
+        if (gapEnd - gapStart <= 55 || rng() >= 0.75) continue;
         const gapMid = (gapStart + gapEnd) / 2;
-        if (gapEnd - gapStart > 55 && rng() < 0.75) {
-          platforms.push(
-            rect(gapMid - 35, 360 + Math.floor(rng() * 15), 70, 14, "gap-bridge")
-          );
-        }
+        tryAddFloat(
+          rect(gapMid - 35, 360 + Math.floor(rng() * 12), 70, 14, "gap-bridge")
+        );
       }
     }
 
-    // Moving-ish static "standing desk" extras mid-map
     if (sprint % 2 === 1) {
-      platforms.push(
-        rect(600 + Math.floor(rng() * 200), 330, 70, 14, "hot-desk")
-      );
-      platforms.push(
-        rect(1900 + Math.floor(rng() * 200), 330, 70, 14, "hot-desk")
-      );
+      tryAddFloat(rect(600 + Math.floor(rng() * 160), 330, 70, 14, "hot-desk"));
+      tryAddFloat(rect(1900 + Math.floor(rng() * 160), 330, 70, 14, "hot-desk"));
     }
 
     // Walls
@@ -261,22 +286,37 @@
     const spawn = { x: 60, y: GROUND_Y - 40 };
     const deploy = rect(MAP_WIDTH - 120, GROUND_Y - 80, 40, 80, "deploy");
 
-    // Enemies: more and faster each few sprints
+    // Enemies: spread starts so they don't pile on spawn
     const enemyCount = clamp(5 + Math.floor((sprint - 1) / 2), 5, 12);
     const enemySpawns = [];
     const speedBase = 40 + Math.min(40, sprint * 3);
     for (let i = 0; i < enemyCount; i++) {
-      const onFloat = rng() < 0.3;
-      const ex = 200 + Math.floor(rng() * (MAP_WIDTH - 400));
-      const ey = onFloat
-        ? LOW - 28 - Math.floor(rng() * 40)
-        : GROUND_Y - 28;
-      const dir = rng() < 0.5 ? -1 : 1;
-      const sp = speedBase + Math.floor(rng() * 30);
-      enemySpawns.push({ x: ex, y: ey, vx: dir * sp });
+      let placed = false;
+      for (let attempt = 0; attempt < 16 && !placed; attempt++) {
+        const onFloat = rng() < 0.3 && floatPlats.length > 0;
+        let ex;
+        let ey;
+        if (onFloat) {
+          const fp = pick(rng, floatPlats);
+          ex = fp.x + 8 + rng() * Math.max(8, fp.w - 36);
+          ey = fp.y - 28;
+        } else {
+          ex = 220 + Math.floor(rng() * (MAP_WIDTH - 480));
+          ey = GROUND_Y - 28;
+        }
+        const cand = { x: ex, y: ey, w: 28, h: 28 };
+        // keep off spawn and other enemies
+        if (ex < 140) continue;
+        if (overlapsAny(enemySpawns.map(function (e) {
+          return { x: e.x, y: e.y, w: 28, h: 28 };
+        }), cand, 40)) continue;
+        const dir = rng() < 0.5 ? -1 : 1;
+        const sp = speedBase + Math.floor(rng() * 30);
+        enemySpawns.push({ x: ex, y: ey, vx: dir * sp });
+        placed = true;
+      }
     }
 
-    // Bigger pickups + sit in the player's torso so walking past always hits
     const COLLECT_SIZE = 26;
     function pickup(px, py, kind) {
       return {
@@ -288,7 +328,6 @@
       };
     }
 
-    // Safe tops only: solid walkable platforms with margin so pickups never sit over pits
     const safeTops = [];
     const floorTops = [];
     for (let i = 0; i < platforms.length; i++) {
@@ -301,42 +340,50 @@
       if (p.h >= 40) floorTops.push(p);
     }
 
+    const collectibleSpawns = [];
+    const PICKUP_PAD = 18; // min separation between pickups
+
     function placeOnSafeTop(kind, preferFloor) {
       const pool =
         preferFloor && floorTops.length ? floorTops : safeTops;
-      if (!pool.length) {
-        return pickup(80, GROUND_Y - COLLECT_SIZE - 8, kind);
+      if (!pool.length) return null;
+      for (let attempt = 0; attempt < 20; attempt++) {
+        const p = pick(rng, pool);
+        const margin = p.h >= 40 ? 28 : 12;
+        const minX = p.x + margin;
+        const maxX = p.x + p.w - margin - COLLECT_SIZE;
+        if (maxX <= minX) continue;
+        const px = Math.floor(minX + rng() * (maxX - minX));
+        const py = p.y - COLLECT_SIZE + 4;
+        const cand = pickup(px, py, kind);
+        if (overlapsAny(collectibleSpawns, cand, PICKUP_PAD)) continue;
+        return cand;
       }
-      const p = pick(rng, pool);
-      const margin = p.h >= 40 ? 28 : 12;
-      const minX = p.x + margin;
-      const maxX = p.x + p.w - margin - COLLECT_SIZE;
-      const px =
-        maxX <= minX
-          ? p.x + (p.w - COLLECT_SIZE) / 2
-          : minX + rng() * (maxX - minX);
-      // Sit on platform, overlapping player torso when walking past
-      const py = p.y - COLLECT_SIZE + 4;
-      return pickup(Math.floor(px), Math.floor(py), kind);
+      return null;
     }
 
-    const collectibleSpawns = [];
-    const pickupCount = 20 + (sprint % 5);
+    const pickupCount = 18 + (sprint % 4);
     for (let i = 0; i < pickupCount; i++) {
       const kind = rng() < 0.28 ? "coffee" : "story";
-      // Coffee prefers floor so you walk into mugs on the carpet
-      collectibleSpawns.push(placeOnSafeTop(kind, kind === "coffee"));
+      const c = placeOnSafeTop(kind, kind === "coffee");
+      if (c) collectibleSpawns.push(c);
     }
-    collectibleSpawns.push(placeOnSafeTop("story", true));
-    collectibleSpawns.push(placeOnSafeTop("coffee", true));
+    // Guaranteed early coffee + SP if space
+    const g1 = placeOnSafeTop("coffee", true);
+    if (g1) collectibleSpawns.push(g1);
+    const g2 = placeOnSafeTop("story", true);
+    if (g2) collectibleSpawns.push(g2);
     if (floorSegs[0]) {
       const p = floorSegs[0];
-      collectibleSpawns.push(
-        pickup(Math.floor(p.x + 50), p.y - COLLECT_SIZE + 4, "coffee")
-      );
-      collectibleSpawns.push(
-        pickup(Math.floor(p.x + 120), p.y - COLLECT_SIZE + 4, "story")
-      );
+      const early = [
+        pickup(Math.floor(p.x + 50), p.y - COLLECT_SIZE + 4, "coffee"),
+        pickup(Math.floor(p.x + 130), p.y - COLLECT_SIZE + 4, "story"),
+      ];
+      for (let i = 0; i < early.length; i++) {
+        if (!overlapsAny(collectibleSpawns, early[i], PICKUP_PAD)) {
+          collectibleSpawns.push(early[i]);
+        }
+      }
     }
 
     const decor = [
@@ -354,7 +401,6 @@
       { x: MAP_WIDTH - 140, y: GROUND_Y - 110, text: "DEPLOY", kind: "flag" },
     ];
 
-    // Interactive office junk — walk into for a reaction (on floors only)
     const PROP_KINDS = [
       { kind: "chair", emoji: "🪑" },
       { kind: "plant", emoji: "🪴" },
@@ -366,24 +412,33 @@
       { kind: "beanbag", emoji: "🛋" },
     ];
     const interactableSpawns = [];
+    const PROP_PAD = 22;
     const propCount = 10 + (sprint % 5);
     for (let i = 0; i < propCount; i++) {
-      const pk = pick(rng, PROP_KINDS);
-      const floor = floorTops.length ? pick(rng, floorTops) : null;
-      if (!floor) break;
-      const margin = 36;
-      const minX = floor.x + margin;
-      const maxX = floor.x + floor.w - margin - 28;
-      if (maxX <= minX) continue;
-      const px = Math.floor(minX + rng() * (maxX - minX));
-      interactableSpawns.push({
-        x: px,
-        y: floor.y - 30,
-        w: 28,
-        h: 30,
-        kind: pk.kind,
-        emoji: pk.emoji,
-      });
+      let placed = false;
+      for (let attempt = 0; attempt < 18 && !placed; attempt++) {
+        const pk = pick(rng, PROP_KINDS);
+        const floor = floorTops.length ? pick(rng, floorTops) : null;
+        if (!floor) break;
+        const margin = 36;
+        const minX = floor.x + margin;
+        const maxX = floor.x + floor.w - margin - 28;
+        if (maxX <= minX) continue;
+        const px = Math.floor(minX + rng() * (maxX - minX));
+        const cand = {
+          x: px,
+          y: floor.y - 30,
+          w: 28,
+          h: 30,
+          kind: pk.kind,
+          emoji: pk.emoji,
+        };
+        if (overlapsAny(interactableSpawns, cand, PROP_PAD)) continue;
+        // Don't sit under/on a pickup
+        if (overlapsAny(collectibleSpawns, cand, 12)) continue;
+        interactableSpawns.push(cand);
+        placed = true;
+      }
     }
 
     return {
@@ -422,6 +477,7 @@
     createOfficeMap: createOfficeMap,
     solidPlatforms: solidPlatforms,
     mulberry32: mulberry32,
+    rectsOverlap: rectsOverlap,
   };
 
   if (typeof module !== "undefined" && module.exports) {

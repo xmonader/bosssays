@@ -252,6 +252,43 @@ describe("map", () => {
     assert.ok(c.enemySpawns.length >= a.enemySpawns.length);
   });
 
+  it("float platforms and pickups do not fully stack", () => {
+    for (let sprint = 1; sprint <= 10; sprint++) {
+      const m = Map.createOfficeMap({ sprint: sprint });
+      const floats = m.platforms.filter(
+        (p) => p.h < 40 && p.label !== "wall-l" && p.label !== "wall-r"
+      );
+      for (let i = 0; i < floats.length; i++) {
+        for (let j = i + 1; j < floats.length; j++) {
+          assert.equal(
+            Map.rectsOverlap(floats[i], floats[j], 8),
+            false,
+            "float overlap sprint " + sprint + " " + floats[i].label + "/" + floats[j].label
+          );
+        }
+      }
+      for (let i = 0; i < m.collectibleSpawns.length; i++) {
+        for (let j = i + 1; j < m.collectibleSpawns.length; j++) {
+          assert.equal(
+            Map.rectsOverlap(m.collectibleSpawns[i], m.collectibleSpawns[j], 12),
+            false,
+            "pickup overlap sprint " + sprint
+          );
+        }
+      }
+      const props = m.interactableSpawns || [];
+      for (let i = 0; i < props.length; i++) {
+        for (let j = i + 1; j < props.length; j++) {
+          assert.equal(
+            Map.rectsOverlap(props[i], props[j], 14),
+            false,
+            "prop overlap sprint " + sprint
+          );
+        }
+      }
+    }
+  });
+
   it("advanceSprint rebuilds map theme", () => {
     const game = Game.createGame({ sprint: 1 });
     const t0 = game.map.theme.id;
