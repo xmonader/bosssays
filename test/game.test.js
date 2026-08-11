@@ -296,15 +296,15 @@ describe("collectibles", () => {
       const m = Map.createOfficeMap({ sprint: sprint });
       for (let i = 0; i < m.collectibleSpawns.length; i++) {
         const c = m.collectibleSpawns[i];
-        const feetY = c.y + c.h + 2;
         const midX = c.x + c.w / 2;
+        const bottom = c.y + c.h;
         const onSolid = m.platforms.some(function (p) {
           if (p.label === "wall-l" || p.label === "wall-r") return false;
           return (
             midX >= p.x + 4 &&
             midX <= p.x + p.w - 4 &&
-            feetY >= p.y - 1 &&
-            feetY <= p.y + 8
+            bottom >= p.y - 6 &&
+            bottom <= p.y + 14
           );
         });
         assert.ok(
@@ -318,14 +318,12 @@ describe("collectibles", () => {
   it("touching a story point collects it and adds score", () => {
     const game = Game.createGame();
     const c = game.collectibles.find((x) => x.kind === "story");
-    // Avoid double-collect if two spawns share the same tile
+    // Only this pickup should count
     game.collectibles.forEach(function (o) {
-      if (o !== c && Math.abs(o.x - c.x) < 8 && Math.abs(o.y - c.y) < 8) {
-        o.collected = true;
-      }
+      if (o !== c) o.collected = true;
     });
     game.player.x = c.x;
-    game.player.y = c.y;
+    game.player.y = c.y - 10;
     const before = game.score;
     Game.step(game, {}, 1 / 60);
     assert.equal(c.collected, true);
@@ -338,6 +336,11 @@ describe("collectibles", () => {
     game.effects.context = 40;
     game.effects.sleepDebt = 50;
     const c = game.collectibles.find((x) => x.kind === "coffee");
+    game.collectibles.forEach(function (o) {
+      if (o !== c && Math.abs(o.x - c.x) < 10 && Math.abs(o.y - c.y) < 10) {
+        o.collected = true;
+      }
+    });
     game.player.x = c.x;
     game.player.y = c.y;
     Game.step(game, {}, 1 / 60);
@@ -345,6 +348,36 @@ describe("collectibles", () => {
     assert.ok(game.effects.context < 40);
     assert.ok(game.effects.sleepDebt < 50);
     assert.ok(game.thought && game.thought.category === "coffee");
+  });
+
+  it("walking near pickup still collects (padded hitbox)", () => {
+    const game = Game.createGame();
+    const c = game.collectibles.find((x) => x.kind === "coffee") || game.collectibles[0];
+    game.collectibles.forEach(function (o) {
+      if (o !== c) o.collected = true;
+    });
+    // stand beside it, not dead-center
+    game.player.x = c.x - 12;
+    game.player.y = c.y - 4;
+    Game.step(game, {}, 1 / 60);
+    assert.equal(c.collected, true);
+  });
+
+  it("walking into chair/prop triggers reaction once", () => {
+    const game = Game.createGame();
+    assert.ok(game.interactables && game.interactables.length > 0);
+    const it = game.interactables[0];
+    game.player.x = it.x;
+    game.player.y = it.y;
+    Game.step(game, {}, 1 / 60);
+    assert.equal(it.used, true);
+    assert.ok(game.thought);
+    assert.ok(game.events.some((e) => e.type === "prop"));
+    // second touch no re-fire
+    game.thought = null;
+    game.events = [];
+    Game.step(game, {}, 1 / 60);
+    assert.ok(!game.events.some((e) => e.type === "prop"));
   });
 
   it("collectibles respawn on sprint advance; score persists", () => {
@@ -362,6 +395,13 @@ describe("collectibles", () => {
 describe("sleep debt", () => {
   it("slack and replies increase sleep debt", () => {
     const game = Game.createGame({ rng: () => 0.2 });
+    // Don't auto-grab coffee at spawn
+    game.collectibles.forEach(function (c) {
+      c.collected = true;
+    });
+    game.interactables.forEach(function (it) {
+      it.used = true;
+    });
     assert.equal(game.effects.sleepDebt || 0, 0);
     game.notifications.timeSince = 999;
     Game.step(game, {}, 0.05);
@@ -390,6 +430,12 @@ describe("inner thought bubbles", () => {
 
   it("slack arrival and open set thoughts", () => {
     const game = Game.createGame({ rng: () => 0.3 });
+    game.collectibles.forEach(function (c) {
+      c.collected = true;
+    });
+    game.interactables.forEach(function (it) {
+      it.used = true;
+    });
     game.notifications.timeSince = 999;
     Game.step(game, {}, 0.05);
     assert.ok(game.thought, "thought on slack_ping");

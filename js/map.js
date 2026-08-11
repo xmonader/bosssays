@@ -276,28 +276,38 @@
       enemySpawns.push({ x: ex, y: ey, vx: dir * sp });
     }
 
-    const COLLECT_SIZE = 18;
+    // Bigger pickups + sit in the player's torso so walking past always hits
+    const COLLECT_SIZE = 26;
     function pickup(px, py, kind) {
-      return { x: px, y: py, w: COLLECT_SIZE, h: COLLECT_SIZE, kind: kind || "story" };
+      return {
+        x: px,
+        y: py,
+        w: COLLECT_SIZE,
+        h: COLLECT_SIZE,
+        kind: kind || "story",
+      };
     }
 
     // Safe tops only: solid walkable platforms with margin so pickups never sit over pits
     const safeTops = [];
+    const floorTops = [];
     for (let i = 0; i < platforms.length; i++) {
       const p = platforms[i];
       if (p.label === "wall-l" || p.label === "wall-r") continue;
       if (p.w < 50) continue;
-      // margin from edges so you don't land mid-gap after grab
       const margin = p.h >= 40 ? 28 : 12;
       if (p.w < margin * 2 + COLLECT_SIZE) continue;
       safeTops.push(p);
+      if (p.h >= 40) floorTops.push(p);
     }
 
-    function placeOnSafeTop(kind) {
-      if (!safeTops.length) {
-        return pickup(80, GROUND_Y - COLLECT_SIZE, kind);
+    function placeOnSafeTop(kind, preferFloor) {
+      const pool =
+        preferFloor && floorTops.length ? floorTops : safeTops;
+      if (!pool.length) {
+        return pickup(80, GROUND_Y - COLLECT_SIZE - 8, kind);
       }
-      const p = pick(rng, safeTops);
+      const p = pick(rng, pool);
       const margin = p.h >= 40 ? 28 : 12;
       const minX = p.x + margin;
       const maxX = p.x + p.w - margin - COLLECT_SIZE;
@@ -305,28 +315,27 @@
         maxX <= minX
           ? p.x + (p.w - COLLECT_SIZE) / 2
           : minX + rng() * (maxX - minX);
-      const py = p.y - COLLECT_SIZE - 2;
+      // Sit on platform, overlapping player torso when walking past
+      const py = p.y - COLLECT_SIZE + 4;
       return pickup(Math.floor(px), Math.floor(py), kind);
     }
 
     const collectibleSpawns = [];
-    const pickupCount = 18 + (sprint % 5);
+    const pickupCount = 20 + (sprint % 5);
     for (let i = 0; i < pickupCount; i++) {
-      const kind = rng() < 0.22 ? "coffee" : "story";
-      collectibleSpawns.push(placeOnSafeTop(kind));
+      const kind = rng() < 0.28 ? "coffee" : "story";
+      // Coffee prefers floor so you walk into mugs on the carpet
+      collectibleSpawns.push(placeOnSafeTop(kind, kind === "coffee"));
     }
-    // Guarantee a few near start and deploy — still on solid tops
-    collectibleSpawns.push(placeOnSafeTop("story"));
-    collectibleSpawns.push(placeOnSafeTop("coffee"));
-    // Prefer start lobby strip if present
+    collectibleSpawns.push(placeOnSafeTop("story", true));
+    collectibleSpawns.push(placeOnSafeTop("coffee", true));
     if (floorSegs[0]) {
       const p = floorSegs[0];
       collectibleSpawns.push(
-        pickup(
-          Math.floor(p.x + 40),
-          p.y - COLLECT_SIZE - 2,
-          "story"
-        )
+        pickup(Math.floor(p.x + 50), p.y - COLLECT_SIZE + 4, "coffee")
+      );
+      collectibleSpawns.push(
+        pickup(Math.floor(p.x + 120), p.y - COLLECT_SIZE + 4, "story")
       );
     }
 
@@ -345,14 +354,35 @@
       { x: MAP_WIDTH - 140, y: GROUND_Y - 110, text: "DEPLOY", kind: "flag" },
     ];
 
-    // Theme furniture props (non-solid visual markers as decor)
-    const propCount = 8 + (sprint % 4);
+    // Interactive office junk — walk into for a reaction (on floors only)
+    const PROP_KINDS = [
+      { kind: "chair", emoji: "🪑" },
+      { kind: "plant", emoji: "🪴" },
+      { kind: "monitor", emoji: "🖥" },
+      { kind: "box", emoji: "📦" },
+      { kind: "chart", emoji: "📊" },
+      { kind: "lock", emoji: "🔐" },
+      { kind: "antenna", emoji: "📡" },
+      { kind: "beanbag", emoji: "🛋" },
+    ];
+    const interactableSpawns = [];
+    const propCount = 10 + (sprint % 5);
     for (let i = 0; i < propCount; i++) {
-      decor.push({
-        x: 150 + Math.floor(rng() * (MAP_WIDTH - 300)),
-        y: GROUND_Y - 8,
-        text: pick(rng, ["🪑", "🪴", "🖥", "📦", "☕", "📊", "🔐", "📡"]),
-        kind: "prop",
+      const pk = pick(rng, PROP_KINDS);
+      const floor = floorTops.length ? pick(rng, floorTops) : null;
+      if (!floor) break;
+      const margin = 36;
+      const minX = floor.x + margin;
+      const maxX = floor.x + floor.w - margin - 28;
+      if (maxX <= minX) continue;
+      const px = Math.floor(minX + rng() * (maxX - minX));
+      interactableSpawns.push({
+        x: px,
+        y: floor.y - 30,
+        w: 28,
+        h: 30,
+        kind: pk.kind,
+        emoji: pk.emoji,
       });
     }
 
@@ -365,6 +395,7 @@
       deploy: deploy,
       enemySpawns: enemySpawns,
       collectibleSpawns: collectibleSpawns,
+      interactableSpawns: interactableSpawns,
       decor: decor,
       theme: theme,
       brand: brand,

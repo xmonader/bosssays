@@ -123,6 +123,7 @@
       "hot bean water = temporary humanity",
       "if leadership could taste this clarity",
       "Zzz deferred. not cancelled.",
+      "mm. burnt. perfect.",
     ],
     collect: [
       "story points. fictional currency.",
@@ -130,6 +131,50 @@
       "Jira will still say 0.5 though",
       "collecting cope tokens",
       "tiny win. bank it.",
+      "ping — dopamine. cheap but legal.",
+    ],
+    chair: [
+      "ergonomic? emotionally no.",
+      "if I sit I will never stand again",
+      "hot-desking is a war crime",
+      "this chair has known suffering",
+    ],
+    plant: [
+      "the plant gets more water than I do",
+      "still greener than the roadmap",
+      "photosynthesis > standups",
+    ],
+    monitor: [
+      "dual monitors, single will to live",
+      "blue light: the company vitamin",
+      "pixel prison, but mine",
+    ],
+    box: [
+      "moving boxes. reorg energy.",
+      "what's in the box? tech debt.",
+      "do not open until Q4",
+    ],
+    chart: [
+      "chart goes up. my mood doesn't.",
+      "axis of delusion",
+      "they printed this in color. bold.",
+    ],
+    lock: [
+      "SOC2 sticker energy",
+      "security theater, front row",
+      "password is Password1! probably",
+    ],
+    antenna: [
+      "5 bars of anxiety",
+      "signal: strong. meaning: none.",
+    ],
+    beanbag: [
+      "culture. (sits in the corner forever)",
+      "nap illegal. beanbag decorative.",
+    ],
+    prop: [
+      "office clutter: my only friend",
+      "touched grass? no. touched plastic.",
     ],
     tired: [
       "eyelids filing a ticket",
@@ -207,6 +252,36 @@
     return out;
   }
 
+  function spawnInteractables(map) {
+    const list = map.interactableSpawns || [];
+    const out = [];
+    for (let i = 0; i < list.length; i++) {
+      const s = list[i];
+      out.push({
+        id: i,
+        x: s.x,
+        y: s.y,
+        w: s.w || 28,
+        h: s.h || 30,
+        kind: s.kind || "prop",
+        emoji: s.emoji || "📦",
+        used: false,
+      });
+    }
+    return out;
+  }
+
+  /** Fatter hitbox so walking past actually registers */
+  function paddedBox(b, pad) {
+    pad = pad == null ? 10 : pad;
+    return {
+      x: b.x - pad,
+      y: b.y - pad,
+      w: b.w + pad * 2,
+      h: b.h + pad * 2,
+    };
+  }
+
   function emptyEffects() {
     return {
       stunTimer: 0,
@@ -272,6 +347,7 @@
       player: createPlayer(map.spawn),
       enemies: map.enemySpawns.map(createEnemy),
       collectibles: spawnCollectibles(map),
+      interactables: spawnInteractables(map),
       notifications: Notes.createNotificationState(),
       effects: emptyEffects(),
       cameraX: 0,
@@ -452,7 +528,8 @@
   }
 
   /**
-   * Touch collectibles: story points add score; coffee also eases context.
+   * Touch collectibles: story points add score; coffee also eases context/sleep.
+   * Uses padded hitbox so walking past reliably triggers.
    */
   function collectPickups(game) {
     const p = game.player;
@@ -460,7 +537,7 @@
     for (let i = 0; i < game.collectibles.length; i++) {
       const c = game.collectibles[i];
       if (c.collected) continue;
-      if (!Physics.aabb(p, c)) continue;
+      if (!Physics.aabb(p, paddedBox(c, 14))) continue;
       c.collected = true;
       n++;
       game.collectedCount += 1;
@@ -473,21 +550,44 @@
         addSleepDebt(game, -COFFEE_SLEEP_RELIEF);
         pushEvent(game, "collect", { kind: "coffee", points: COFFEE_POINTS });
         game.message =
-          "Coffee +" +
+          "☕ Coffee! +" +
           COFFEE_POINTS +
           " · sleep −" +
           COFFEE_SLEEP_RELIEF +
           " · ctx −" +
           COFFEE_CONTEXT_RELIEF;
-        game.messageTimer = 2.4;
+        game.messageTimer = 2.6;
         setThought(game, "coffee");
       } else {
         game.score += STORY_POINTS;
         pushEvent(game, "collect", { kind: "story", points: STORY_POINTS });
-        game.message = "Story point +" + STORY_POINTS;
-        game.messageTimer = 2.0;
+        game.message = "● Story point +" + STORY_POINTS;
+        game.messageTimer = 2.2;
         setThought(game, "collect");
       }
+    }
+    return n;
+  }
+
+  /**
+   * Walk into chairs/plants/etc. for a one-shot reaction.
+   */
+  function touchInteractables(game) {
+    if (!game.interactables) return 0;
+    const p = game.player;
+    let n = 0;
+    for (let i = 0; i < game.interactables.length; i++) {
+      const it = game.interactables[i];
+      if (it.used) continue;
+      if (!Physics.aabb(p, paddedBox(it, 6))) continue;
+      it.used = true;
+      n++;
+      const cat =
+        THOUGHTS[it.kind] && THOUGHTS[it.kind].length ? it.kind : "prop";
+      setThought(game, cat);
+      game.message = it.emoji + " " + (it.kind || "prop");
+      game.messageTimer = 1.6;
+      pushEvent(game, "prop", { kind: it.kind });
     }
     return n;
   }
@@ -515,6 +615,7 @@
     game.player = createPlayer(game.map.spawn);
     game.enemies = game.map.enemySpawns.map(createEnemy);
     game.collectibles = spawnCollectibles(game.map);
+    game.interactables = spawnInteractables(game.map);
     game.effects.calendarBlocks = [];
     game.effects.hallucinated = [];
     game.effects.stunTimer = 0;
@@ -772,6 +873,7 @@
     playerEnemyCollisions(game);
     if (game.phase !== "gameover") {
       collectPickups(game);
+      touchInteractables(game);
     }
     fallDeath(game);
 
@@ -819,6 +921,7 @@
     advanceSprint: advanceSprint,
     hurtPlayer: hurtPlayer,
     collectPickups: collectPickups,
+    touchInteractables: touchInteractables,
     allSolids: allSolids,
     applyEffectsPayload: applyEffectsPayload,
     isGameOver: isGameOver,

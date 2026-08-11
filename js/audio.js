@@ -280,6 +280,8 @@
       else if (t === "collect") {
         if (events[i].kind === "coffee") play("collect_coffee");
         else play("collect");
+      } else if (t === "prop") {
+        play("land");
       }
     }
   }

@@ -249,42 +249,74 @@
     if (x + c.w < -20 || x > LOGIC_W + 20) return;
     const bob = Math.sin((time || 0) * 6 + c.x * 0.05) * 3;
 
+    // Soft glow so pickups read as "walk into me"
+    ctx.fillStyle =
+      c.kind === "coffee"
+        ? "rgba(217,119,6,0.25)"
+        : "rgba(251,191,36,0.28)";
+    ctx.beginPath();
+    ctx.arc(x + c.w / 2, y + c.h / 2 + bob, c.w * 0.7, 0, Math.PI * 2);
+    ctx.fill();
+
     if (c.kind === "coffee") {
-      // Mug — brown, clearly a pickup
       ctx.fillStyle = "#78350f";
-      ctx.fillRect(x + 2, y + 4 + bob, c.w - 4, c.h - 6);
+      ctx.fillRect(x + 3, y + 6 + bob, c.w - 6, c.h - 8);
       ctx.fillStyle = "#fef3c7";
-      ctx.fillRect(x + 4, y + 6 + bob, c.w - 8, 5);
-      ctx.strokeStyle = "#92400e";
+      ctx.fillRect(x + 6, y + 8 + bob, c.w - 12, 7);
+      ctx.strokeStyle = "#fbbf24";
       ctx.lineWidth = 2;
-      ctx.strokeRect(x + 2, y + 4 + bob, c.w - 4, c.h - 6);
-      // handle
+      ctx.strokeRect(x + 3, y + 6 + bob, c.w - 6, c.h - 8);
       ctx.beginPath();
-      ctx.arc(x + c.w - 1, y + 10 + bob, 4, -0.5, 0.5);
+      ctx.arc(x + c.w - 2, y + 14 + bob, 5, -0.6, 0.6);
       ctx.stroke();
-      ctx.fillStyle = "#451a03";
-      ctx.font = "bold 8px sans-serif";
-      ctx.fillText("☕", x + 3, y + bob - 1);
+      ctx.fillStyle = "#fff";
+      ctx.font = "bold 14px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("☕", x + c.w / 2, y + bob + 4);
+      ctx.font = "bold 9px sans-serif";
+      ctx.fillStyle = "#fde68a";
+      ctx.fillText("COFFEE", x + c.w / 2, y + c.h + bob + 10);
+      ctx.textAlign = "left";
     } else {
-      // Story-point coin — gold disc with SP
       const cx = x + c.w / 2;
       const cy = y + c.h / 2 + bob;
       ctx.fillStyle = "#fbbf24";
       ctx.beginPath();
-      ctx.arc(cx, cy, c.w / 2, 0, Math.PI * 2);
+      ctx.arc(cx, cy, c.w / 2 - 1, 0, Math.PI * 2);
       ctx.fill();
       ctx.strokeStyle = "#b45309";
       ctx.lineWidth = 2;
       ctx.stroke();
       ctx.fillStyle = "#78350f";
-      ctx.font = "bold 9px sans-serif";
+      ctx.font = "bold 11px sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText("SP", cx, cy + 3);
+      ctx.fillText("SP", cx, cy + 4);
       ctx.textAlign = "left";
-      // sparkle
       ctx.fillStyle = "#fef9c3";
-      ctx.fillRect(cx + 3, cy - 6, 2, 2);
+      ctx.fillRect(cx + 4, cy - 7, 3, 3);
     }
+  }
+
+  function drawInteractable(ctx, it, camX) {
+    const x = it.x - camX;
+    const y = it.y;
+    if (x + it.w < -20 || x > LOGIC_W + 20) return;
+    ctx.globalAlpha = it.used ? 0.35 : 1;
+    // base pad so it reads as an object on the floor
+    if (!it.used) {
+      ctx.fillStyle = "rgba(255,255,255,0.12)";
+      ctx.fillRect(x - 2, y + it.h - 6, it.w + 4, 6);
+    }
+    ctx.font = it.used ? "16px sans-serif" : "22px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(it.emoji || "📦", x + it.w / 2, y + it.h - 4);
+    if (!it.used) {
+      ctx.fillStyle = "#94a3b8";
+      ctx.font = "8px sans-serif";
+      ctx.fillText("walk by", x + it.w / 2, y - 2);
+    }
+    ctx.textAlign = "left";
+    ctx.globalAlpha = 1;
   }
 
   function drawDeployZone(ctx, d, camX) {
@@ -677,6 +709,11 @@
       drawPlatform(ctx, game.effects.hallucinated[i], camX, theme);
     }
 
+    if (game.interactables) {
+      for (let i = 0; i < game.interactables.length; i++) {
+        drawInteractable(ctx, game.interactables[i], camX);
+      }
+    }
     if (game.collectibles) {
       for (let i = 0; i < game.collectibles.length; i++) {
         drawCollectible(ctx, game.collectibles[i], camX, game.time);
