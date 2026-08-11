@@ -14,6 +14,7 @@
     right: false,
     jump: false,
     jumpPressed: false,
+    openInbox: false,
   };
 
   let game = Game.createGame();
@@ -50,12 +51,51 @@
     const k = e.key;
     if (down) ensureAudio();
 
+    // While reading Slack: only 1–4 (never Space/Enter — those are jump)
+    if (down && game.notifications.active) {
+      const map = {
+        "1": "dismiss",
+        "2": "on_it",
+        "3": "love",
+        "4": "pushback",
+      };
+      if (map[k]) {
+        game.events = [];
+        Game.chooseNotification(game, map[k]);
+        if (Audio) Audio.playEvents(game.events);
+        game.events = [];
+        e.preventDefault();
+        return;
+      }
+      // Swallow movement keys while reading so you don't "buffer" a jump into a pit
+      if (
+        k === " " ||
+        k === "ArrowUp" ||
+        k === "w" ||
+        k === "W" ||
+        k === "ArrowLeft" ||
+        k === "ArrowRight" ||
+        k === "a" ||
+        k === "A" ||
+        k === "d" ||
+        k === "D"
+      ) {
+        e.preventDefault();
+        return;
+      }
+    }
+
     if (k === "ArrowLeft" || k === "a" || k === "A") keys.left = down;
     if (k === "ArrowRight" || k === "d" || k === "D") keys.right = down;
     if (k === "ArrowUp" || k === "w" || k === "W" || k === " ") {
       if (down && !keys.jump) keys.jumpPressed = true;
       keys.jump = down;
       if (down) e.preventDefault();
+    }
+    // Open Slack inbox when player chooses (Tab or E)
+    if (down && (k === "Tab" || k === "e" || k === "E")) {
+      keys.openInbox = true;
+      e.preventDefault();
     }
     if (down && (k === "r" || k === "R") && game.phase === "gameover") {
       restart();
@@ -65,24 +105,6 @@
       Audio.setMuted(!Audio.isMuted());
       updateHint();
     }
-    // Notification choices 1-4 (Space / Enter = sycophant default)
-    if (down && game.notifications.active) {
-      const map = {
-        "1": "dismiss",
-        "2": "on_it",
-        "3": "love",
-        "4": "pushback",
-        " ": "love",
-        Enter: "on_it",
-      };
-      if (map[k]) {
-        game.events = [];
-        Game.chooseNotification(game, map[k]);
-        if (Audio) Audio.playEvents(game.events);
-        game.events = [];
-        if (k === " ") e.preventDefault();
-      }
-    }
   }
 
   window.addEventListener("keydown", function (e) {
@@ -91,7 +113,6 @@
   window.addEventListener("keyup", function (e) {
     onKey(e, false);
   });
-  // Unlock on first pointer too (browser autoplay policy)
   window.addEventListener(
     "pointerdown",
     function () {
@@ -110,8 +131,10 @@
       left: keys.left,
       right: keys.right,
       jump: keys.jumpPressed,
+      openInbox: keys.openInbox,
     };
     keys.jumpPressed = false;
+    keys.openInbox = false;
 
     Game.step(game, input, dt);
     if (Audio && game.events && game.events.length) {
@@ -120,12 +143,14 @@
     }
     Render.draw(ctx, game);
 
-    // Paint fingerprint for headless checks
     canvas.dataset.painted = "1";
     canvas.dataset.sprint = String(game.sprint);
     canvas.dataset.lives = String(game.lives);
     canvas.dataset.phase = game.phase;
     canvas.dataset.playerX = String(Math.round(game.player.x));
+    canvas.dataset.inbox = String(
+      (game.notifications.inbox && game.notifications.inbox.length) || 0
+    );
 
     rafId = requestAnimationFrame(frame);
   }
@@ -135,17 +160,15 @@
     if (!hint) return;
     const mute = Audio && Audio.isMuted() ? " · sound OFF (M)" : " · M mute";
     hint.textContent =
-      "Move A/D · Jump W/Space · Slack freezes the game — 1–4 reply (Space=love it) · M mute · R restart" +
+      "A/D move · W/Space jump · Tab/E open Slack (when ready) · 1–4 reply · play continues with unread" +
       mute;
   }
 
-  // Start
   Render.draw(ctx, game);
   canvas.dataset.painted = "1";
   updateHint();
   rafId = requestAnimationFrame(frame);
 
-  // Debug / test hooks
   window.BossSays = {
     getGame: function () {
       return game;
@@ -157,11 +180,16 @@
     choose: function (id) {
       return Game.chooseNotification(game, id);
     },
+    openSlack: function () {
+      return Game.openSlack(game);
+    },
     forceNotify: function () {
       game.notifications.timeSince = 999;
       Game.step(game, {}, 0.016);
       if (Audio && game.events) Audio.playEvents(game.events);
-      return game.notifications.active;
+      return game.notifications.inbox[
+        game.notifications.inbox.length - 1
+      ] || null;
     },
     unlockAudio: ensureAudio,
     Audio: Audio,

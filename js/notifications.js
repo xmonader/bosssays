@@ -2430,77 +2430,91 @@
     );
   }
 
+  const MAX_INBOX = 5;
+
   function createNotificationState() {
     return {
       active: null,
-      cooldown: 4,
+      inbox: [],
       timeSince: 0,
       totalFired: 0,
       lines: LINES.slice(),
       lastFrom: null,
+      bag: [], // shuffle-bag of line indices — no repeat until empty
+      toastTimer: 0,
+      lastArrived: null,
+      backlogPulse: 0, // context pressure if inbox ignored too long
     };
   }
 
   /**
-   * Interval between notifications shrinks with sprint.
+   * Interval between new Slack arrivals (longer = smoother platforming).
    */
   function intervalForSprint(sprint) {
-    const base = 9;
-    const min = 4;
-    return Math.max(min, base - (sprint - 1) * 0.55);
+    const base = 14;
+    const min = 8;
+    return Math.max(min, base - (sprint - 1) * 0.4);
+  }
+
+  function shuffleBag(state, rng) {
+    rng = rng || Math.random;
+    const indices = [];
+    // Prefer ego/corp (~3x weight) but still shuffle without replacement within a cycle
+    for (let i = 0; i < state.lines.length; i++) {
+      const tone = state.lines[i].tone;
+      const copies = tone === "ego" || tone === "corp" ? 2 : 1;
+      for (let c = 0; c < copies; c++) indices.push(i);
+    }
+    for (let i = indices.length - 1; i > 0; i--) {
+      const j = Math.floor(rng() * (i + 1));
+      const tmp = indices[i];
+      indices[i] = indices[j];
+      indices[j] = tmp;
+    }
+    state.bag = indices;
   }
 
   /**
-   * Prefer narcissistic/know-it-all lines (~80%), avoid same sender twice in a row.
+   * Draw next line from shuffle bag. Avoids immediate same-sender + no text reuse until bag cycles.
    */
   function pickLine(state, rng) {
     rng = rng || Math.random;
-    const lines = state.lines;
-    const ego = [];
-    const other = [];
-    for (let i = 0; i < lines.length; i++) {
-      const L = lines[i];
-      if (L.tone === "ego" || L.tone === "corp") ego.push(L);
-      else other.push(L);
+    if (!state.bag || state.bag.length === 0) shuffleBag(state, rng);
+
+    let idx = state.bag.pop();
+    let pick = state.lines[idx];
+    // Avoid same sender twice in a row when alternatives exist
+    let guard = 0;
+    while (
+      guard < 8 &&
+      pick.from === state.lastFrom &&
+      state.bag.length > 0
+    ) {
+      state.bag.unshift(idx);
+      idx = state.bag.pop();
+      pick = state.lines[idx];
+      guard++;
     }
-    let pool = rng() < 0.82 && ego.length ? ego : lines;
-    // Try a few times to avoid immediate same-from spam
-    let pick = pool[Math.floor(rng() * pool.length)];
-    for (let t = 0; t < 6; t++) {
-      const candidate = pool[Math.floor(rng() * pool.length)];
-      if (candidate.from !== state.lastFrom) {
-        pick = candidate;
-        break;
-      }
+    // Avoid exact text still sitting in inbox
+    guard = 0;
+    while (guard < 12 && state.bag.length > 0) {
+      const inInbox = state.inbox.some(function (n) {
+        return n.text === pick.text;
+      });
+      const isActive = state.active && state.active.text === pick.text;
+      if (!inInbox && !isActive) break;
+      state.bag.unshift(idx);
+      idx = state.bag.pop();
+      pick = state.lines[idx];
+      guard++;
     }
-    // If we fell into "other" empty edge case
-    if (!pick) pick = lines[Math.floor(rng() * lines.length)];
     return pick;
   }
 
-  /**
-   * Maybe fire a notification. Call each sim tick while playing.
-   * @returns {object|null} the active notification if just opened
-   */
-  function tickNotifications(state, dt, sprint, rng, paused) {
-    if (paused) return state.active;
-    if (state.active) {
-      state.active.timer -= dt;
-      return state.active;
-    }
-    state.timeSince += dt;
-    const need = intervalForSprint(sprint);
-    if (state.timeSince < need) return null;
-    state.timeSince = 0;
-    state.cooldown = need;
-    const line = pickLine(state, rng || Math.random);
-    state.lastFrom = line.from;
+  function buildNote(state, line) {
     const persona = personaFor(line.from);
-    const readSecs = Math.min(
-      14,
-      Math.max(9, 7 + line.text.length / 28)
-    );
-    state.active = {
+    const readSecs = Math.min(18, Math.max(12, 10 + line.text.length / 32));
+    return {
       id: state.totalFired++,
       from: line.from,
       name: persona.name,
@@ -2514,19 +2528,94 @@
       choices: CHOICES.slice(),
       urgent: line.tone === "ego",
     };
+  }
+
+  /**
+   * Tick: enqueue arrivals into inbox (does NOT steal focus).
+   * Active modal only ticks its read timer.
+   * @returns {{arrived:object|null, backlogPressure:boolean, inboxCount:number}}
+   */
+  function tickNotifications(state, dt, sprint, rng, paused) {
+    rng = rng || Math.random;
+    if (state.toastTimer > 0) {
+      state.toastTimer = Math.max(0, state.toastTimer - dt);
+    }
+
+    // Always tick read timer while a message is open (paused only blocks new arrivals)
+    if (state.active) {
+      state.active.timer -= dt;
+      return {
+        arrived: null,
+        backlogPressure: false,
+        inboxCount: state.inbox.length,
+        active: state.active,
+      };
+    }
+
+    if (paused) {
+      return {
+        arrived: null,
+        backlogPressure: false,
+        inboxCount: state.inbox.length,
+        active: null,
+      };
+    }
+
+    state.timeSince += dt;
+    const need = intervalForSprint(sprint);
+    let arrived = null;
+    let backlogPressure = false;
+
+    if (state.timeSince >= need) {
+      state.timeSince = 0;
+      if (state.inbox.length >= MAX_INBOX) {
+        // Inbox full — don't drop comedy on the floor; apply mild pressure
+        backlogPressure = true;
+        state.backlogPulse += 1;
+      } else {
+        const line = pickLine(state, rng);
+        state.lastFrom = line.from;
+        arrived = buildNote(state, line);
+        state.inbox.push(arrived);
+        state.lastArrived = arrived;
+        state.toastTimer = 3.2;
+      }
+    }
+
+    return {
+      arrived: arrived,
+      backlogPressure: backlogPressure,
+      inboxCount: state.inbox.length,
+      active: null,
+    };
+  }
+
+  /**
+   * Player-controlled open: freeze only when they choose to read.
+   */
+  function openInbox(state) {
+    if (state.active) return state.active;
+    if (!state.inbox.length) return null;
+    state.active = state.inbox.shift();
+    // Full read time when opened (not while sitting unread)
+    state.active.timer = state.active.maxTimer;
+    state.toastTimer = 0;
     return state.active;
+  }
+
+  function inboxCount(state) {
+    return (state.inbox && state.inbox.length) || 0;
   }
 
   /**
    * Resolve active notification into effect descriptors.
-   * Pure: returns effects object; does not mutate world beyond clearing active.
    *
    * Effects:
-   * - dismiss: mild context +5
-   * - on_it: calendar block obstacle + context +15
-   * - love: hallucinated platforms + slow + context +25
-   * - pushback: stun short + context +5
-   * - timeout (null choice / timer expired): heavy stun + context +30
+   * - dismiss: mild context
+   * - on_it: calendar block + context
+   * - love: hallucinated platforms + slow + context
+   * - pushback: short stun + context
+   * - timeout: mild stun (was harsh — no more punishing mis-clicks)
    */
   function resolveNotification(state, choiceId) {
     if (!state.active) {
@@ -2534,14 +2623,13 @@
     }
     const note = state.active;
     state.active = null;
-    state.timeSince = 0;
 
     let effects;
     if (choiceId === "timeout" || choiceId == null) {
       effects = {
         kind: "timeout",
-        stun: 1.4,
-        context: 30,
+        stun: 0.35,
+        context: 10,
         slow: 0,
         calendar: false,
         hallucinate: false,
@@ -2550,7 +2638,7 @@
       effects = {
         kind: "dismiss",
         stun: 0,
-        context: 5,
+        context: 3,
         slow: 0,
         calendar: false,
         hallucinate: false,
@@ -2559,7 +2647,7 @@
       effects = {
         kind: "on_it",
         stun: 0,
-        context: 15,
+        context: 12,
         slow: 0,
         calendar: true,
         hallucinate: false,
@@ -2568,16 +2656,16 @@
       effects = {
         kind: "love",
         stun: 0,
-        context: 25,
-        slow: 2.5,
+        context: 18,
+        slow: 1.8,
         calendar: false,
         hallucinate: true,
       };
     } else if (choiceId === "pushback") {
       effects = {
         kind: "pushback",
-        stun: 0.6,
-        context: 5,
+        stun: 0.35,
+        context: 4,
         slow: 0,
         calendar: false,
         hallucinate: false,
@@ -2585,8 +2673,8 @@
     } else {
       effects = {
         kind: "unknown",
-        stun: 0.5,
-        context: 10,
+        stun: 0.25,
+        context: 6,
         slow: 0,
         calendar: false,
         hallucinate: false,
@@ -2597,7 +2685,7 @@
   }
 
   /**
-   * If timer expired, auto-resolve as timeout.
+   * If timer expired while reading, auto-resolve as mild timeout.
    */
   function checkTimeout(state) {
     if (state.active && state.active.timer <= 0) {
@@ -2610,11 +2698,15 @@
     LINES: LINES,
     CHOICES: CHOICES,
     PERSONAS: PERSONAS,
+    MAX_INBOX: MAX_INBOX,
     personaFor: personaFor,
     createNotificationState: createNotificationState,
     intervalForSprint: intervalForSprint,
     pickLine: pickLine,
+    shuffleBag: shuffleBag,
     tickNotifications: tickNotifications,
+    openInbox: openInbox,
+    inboxCount: inboxCount,
     resolveNotification: resolveNotification,
     checkTimeout: checkTimeout,
   };

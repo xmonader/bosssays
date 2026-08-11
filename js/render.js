@@ -256,22 +256,50 @@
       ctx.fillText("SLOW", 580, 17);
     }
 
+    // Slack inbox badge — unread does NOT freeze the game
+    const inbox = game.notifications
+      ? game.notifications.inbox
+        ? game.notifications.inbox.length
+        : 0
+      : 0;
+    const toast =
+      game.notifications && game.notifications.toastTimer > 0
+        ? game.notifications.toastTimer
+        : 0;
+    if (inbox > 0 || toast > 0) {
+      const pulse = toast > 0 && Math.floor(toast * 8) % 2 === 0;
+      ctx.fillStyle = pulse ? "#ef4444" : "#dc2626";
+      roundRect(ctx, LOGIC_W - 118, 6, 108, 22, 6);
+      ctx.fill();
+      ctx.fillStyle = "#fff";
+      ctx.font = "bold 11px sans-serif";
+      ctx.fillText(
+        "Slack " + (inbox > 0 ? inbox : "!") + "  [Tab]",
+        LOGIC_W - 110,
+        21
+      );
+    }
+
     // Legend strip
     ctx.fillStyle = "rgba(15,23,42,0.55)";
     ctx.fillRect(0, 28, LOGIC_W, 14);
     ctx.fillStyle = "#fbbf24";
     ctx.font = "10px sans-serif";
-    ctx.fillText("● SP = story points (collect)", 10, 38);
+    ctx.fillText("● SP collect", 10, 38);
     ctx.fillStyle = "#d97706";
-    ctx.fillText("☕ coffee = points + clears context", 175, 38);
+    ctx.fillText("☕ coffee", 95, 38);
     ctx.fillStyle = "#94a3b8";
-    ctx.fillText("Touch to collect · pickups respawn each sprint", 400, 38);
+    ctx.fillText(
+      "Tab/E = open Slack when YOU want · 1–4 reply · play keeps going with unread",
+      160,
+      38
+    );
 
     if (game.message && game.messageTimer > 0) {
       ctx.fillStyle = "rgba(15,23,42,0.75)";
-      ctx.fillRect(LOGIC_W / 2 - 200, 52, 400, 28);
+      ctx.fillRect(LOGIC_W / 2 - 220, 52, 440, 28);
       ctx.fillStyle = "#f8fafc";
-      ctx.font = "13px sans-serif";
+      ctx.font = "12px sans-serif";
       ctx.textAlign = "center";
       ctx.fillText(game.message, LOGIC_W / 2, 71);
       ctx.textAlign = "left";
@@ -293,7 +321,11 @@
     ctx.fillStyle = "#fbbf24";
     ctx.font = "bold 12px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("GAME PAUSED · leadership is speaking", LOGIC_W / 2, y - 12);
+    ctx.fillText(
+      "READING SLACK · paused · reply 1–4 (no Space — won't mis-click jump)",
+      LOGIC_W / 2,
+      y - 12
+    );
     ctx.textAlign = "left";
 
     const accent = note.color || "#38bdf8";
@@ -369,7 +401,7 @@
     ctx.fillStyle = "#64748b";
     ctx.font = "10px sans-serif";
     ctx.fillText(
-      "Read & reply — world is frozen  ·  timeout = they get mad (stun)",
+      "World frozen while you read · take your time · timeout = mild stun only",
       x + 18,
       y + 186
     );

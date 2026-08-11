@@ -398,6 +398,24 @@
   }
 
   /**
+   * Open next unread Slack when player chooses (Tab / E).
+   */
+  function openSlack(game) {
+    if (game.phase === "gameover") return null;
+    if (game.notifications.active) return game.notifications.active;
+    const note = Notes.openInbox(game.notifications);
+    if (note) {
+      game.phase = "notification";
+      pushEvent(game, "notify");
+      game.player.invuln = Math.max(game.player.invuln, 0.5);
+      game.message =
+        "Reading Slack — " + (note.name || note.from) + " · reply with 1–4";
+      game.messageTimer = 1.8;
+    }
+    return note;
+  }
+
+  /**
    * Resolve the open notification with a choice id.
    */
   function chooseNotification(game, choiceId) {
@@ -407,14 +425,15 @@
       applyEffectsPayload(game, result.effects);
       game.phase = "playing";
       if (result.effects.kind === "timeout") {
-        game.message = "Ignored Slack — stunned";
+        game.message = "Chat auto-closed — mild stun";
         pushEvent(game, "notify_timeout");
       } else {
         game.message = "Replied: " + result.effects.kind;
         pushEvent(game, "notify_reply", { kind: result.effects.kind });
       }
       if (result.effects.stun > 0) pushEvent(game, "stun");
-      game.messageTimer = 2.8;
+      game.messageTimer = 2.0;
+      game.player.invuln = Math.max(game.player.invuln, 0.45);
     }
     return result;
   }
@@ -422,7 +441,7 @@
   /**
    * One simulation step.
    * @param {object} game
-   * @param {{left?:boolean,right?:boolean,jump?:boolean,choice?:string|null}} input
+   * @param {{left?:boolean,right?:boolean,jump?:boolean,choice?:string|null,openInbox?:boolean}} input
    * @param {number} dt seconds
    */
   function step(game, input, dt) {
@@ -435,29 +454,49 @@
       return game;
     }
 
-    // Choice from UI (1–4 / dismiss)
+    // Choice from UI (1–4 only while reading)
     if (input.choice && game.notifications.active) {
       chooseNotification(game, input.choice);
     }
 
-    // Notifications tick (can open popup). World freezes while one is open.
-    const hadNote = !!game.notifications.active;
-    Notes.tickNotifications(
+    // Player opens inbox when ready (does not interrupt mid-jump unless they press Tab)
+    if (input.openInbox && !game.notifications.active) {
+      openSlack(game);
+    }
+
+    // Enqueue Slack into inbox — play continues until player opens
+    const tick = Notes.tickNotifications(
       game.notifications,
       dt,
       game.sprint,
       game.rng,
-      false
+      !!game.notifications.active
     );
-    if (!hadNote && game.notifications.active) {
-      pushEvent(game, "notify");
-      // Brief invuln when Slack hits so unpausing mid-enemy isn't an instant layoff
-      game.player.invuln = Math.max(game.player.invuln, 0.8);
+    if (tick.arrived) {
+      pushEvent(game, "slack_ping", {
+        from: tick.arrived.from,
+        inbox: tick.inboxCount,
+      });
+      game.message =
+        "Slack · " +
+        (tick.arrived.name || tick.arrived.from) +
+        "  (Tab/E to read · " +
+        tick.inboxCount +
+        " unread)";
+      game.messageTimer = 2.8;
+    }
+    if (tick.backlogPressure) {
+      game.effects.context = Math.min(
+        MAX_CONTEXT,
+        game.effects.context + 4
+      );
+      game.message = "Inbox full — leadership is filling your context";
+      game.messageTimer = 1.6;
     }
 
     if (game.notifications.active) {
       game.phase = "notification";
-      // Freeze player mid-air so you can actually read the ego trip
+      // Freeze only while intentionally reading
       game.player.vx = 0;
       game.player.vy = 0;
 
@@ -465,13 +504,12 @@
       if (timed && timed.cleared) {
         applyEffectsPayload(game, timed.effects);
         game.phase = "playing";
-        game.message = "Ignored Slack — stunned (they noticed)";
-        game.messageTimer = 2.8;
+        game.message = "Chat auto-closed — mild stun";
+        game.messageTimer = 2.0;
         pushEvent(game, "notify_timeout");
         if (timed.effects.stun > 0) pushEvent(game, "stun");
-        game.player.invuln = Math.max(game.player.invuln, 0.6);
+        game.player.invuln = Math.max(game.player.invuln, 0.45);
       }
-      // No world sim while reading — comedy needs attention
       return game;
     }
 
@@ -542,6 +580,7 @@
     PLAYER_H: PLAYER_H,
     createGame: createGame,
     step: step,
+    openSlack: openSlack,
     chooseNotification: chooseNotification,
     advanceSprint: advanceSprint,
     hurtPlayer: hurtPlayer,

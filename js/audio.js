@@ -272,6 +272,7 @@
       else if (t === "hurt") play("hurt");
       else if (t === "gameover") play("gameover");
       else if (t === "notify") play("notify");
+      else if (t === "slack_ping") play("notify");
       else if (t === "notify_reply") play("reply");
       else if (t === "notify_timeout") play("timeout");
       else if (t === "deploy") play("deploy");
