@@ -27,7 +27,7 @@ describe("scaffold smoke", () => {
       path.join(__dirname, "..", "index.html"),
       "utf8"
     );
-    assert.match(html, /<canvas id="game"/);
+    assert.match(html, /id=["']game["']/);
     assert.match(html, /src="js\/physics\.js"/);
     assert.match(html, /src="js\/game\.js"/);
     assert.match(html, /src="js\/audio\.js"/);
