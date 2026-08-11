@@ -318,6 +318,12 @@ describe("collectibles", () => {
   it("touching a story point collects it and adds score", () => {
     const game = Game.createGame();
     const c = game.collectibles.find((x) => x.kind === "story");
+    // Avoid double-collect if two spawns share the same tile
+    game.collectibles.forEach(function (o) {
+      if (o !== c && Math.abs(o.x - c.x) < 8 && Math.abs(o.y - c.y) < 8) {
+        o.collected = true;
+      }
+    });
     game.player.x = c.x;
     game.player.y = c.y;
     const before = game.score;
