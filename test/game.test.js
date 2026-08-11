@@ -291,6 +291,30 @@ describe("collectibles", () => {
     assert.ok(m.collectibleSpawns && m.collectibleSpawns.length >= 5);
   });
 
+  it("collectibles sit on solid platforms not over pits", () => {
+    for (let sprint = 1; sprint <= 8; sprint++) {
+      const m = Map.createOfficeMap({ sprint: sprint });
+      for (let i = 0; i < m.collectibleSpawns.length; i++) {
+        const c = m.collectibleSpawns[i];
+        const feetY = c.y + c.h + 2;
+        const midX = c.x + c.w / 2;
+        const onSolid = m.platforms.some(function (p) {
+          if (p.label === "wall-l" || p.label === "wall-r") return false;
+          return (
+            midX >= p.x + 4 &&
+            midX <= p.x + p.w - 4 &&
+            feetY >= p.y - 1 &&
+            feetY <= p.y + 8
+          );
+        });
+        assert.ok(
+          onSolid,
+          "pickup over void at sprint " + sprint + " x=" + c.x + " y=" + c.y
+        );
+      }
+    }
+  });
+
   it("touching a story point collects it and adds score", () => {
     const game = Game.createGame();
     const c = game.collectibles.find((x) => x.kind === "story");
@@ -300,17 +324,21 @@ describe("collectibles", () => {
     Game.step(game, {}, 1 / 60);
     assert.equal(c.collected, true);
     assert.equal(game.score, before + Game.STORY_POINTS);
+    assert.ok(game.thought && game.thought.category === "collect");
   });
 
-  it("coffee reduces context and awards points", () => {
+  it("coffee reduces context, sleep debt, and sets thought", () => {
     const game = Game.createGame();
     game.effects.context = 40;
+    game.effects.sleepDebt = 50;
     const c = game.collectibles.find((x) => x.kind === "coffee");
     game.player.x = c.x;
     game.player.y = c.y;
     Game.step(game, {}, 1 / 60);
     assert.equal(c.collected, true);
     assert.ok(game.effects.context < 40);
+    assert.ok(game.effects.sleepDebt < 50);
+    assert.ok(game.thought && game.thought.category === "coffee");
   });
 
   it("collectibles respawn on sprint advance; score persists", () => {
@@ -322,6 +350,20 @@ describe("collectibles", () => {
     Game.advanceSprint(game);
     assert.equal(game.score, 50);
     assert.ok(game.collectibles.every((c) => !c.collected));
+  });
+});
+
+describe("sleep debt", () => {
+  it("slack and replies increase sleep debt", () => {
+    const game = Game.createGame({ rng: () => 0.2 });
+    assert.equal(game.effects.sleepDebt || 0, 0);
+    game.notifications.timeSince = 999;
+    Game.step(game, {}, 0.05);
+    assert.ok(game.effects.sleepDebt > 0);
+    const afterPing = game.effects.sleepDebt;
+    Game.step(game, { openInbox: true }, 0.05);
+    Game.chooseNotification(game, "love");
+    assert.ok(game.effects.sleepDebt > afterPing);
   });
 });
 

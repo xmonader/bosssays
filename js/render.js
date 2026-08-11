@@ -108,25 +108,40 @@
     }
   }
 
-  function drawPlayer(ctx, p, camX) {
+  function drawPlayer(ctx, p, camX, sleepDebt) {
     const x = p.x - camX;
     const y = p.y;
     const blink = p.invuln > 0 && Math.floor(p.invuln * 10) % 2 === 0;
     if (blink) return;
+    sleepDebt = sleepDebt || 0;
 
     // body
     ctx.fillStyle = "#2563eb";
     ctx.fillRect(x + 4, y + 10, p.w - 8, p.h - 14);
-    // head
-    ctx.fillStyle = "#fbbf24";
+    // head — greyer when sleep-deprived
+    ctx.fillStyle = sleepDebt > 60 ? "#d6d3d1" : sleepDebt > 35 ? "#e7e5e4" : "#fbbf24";
     ctx.fillRect(x + 6, y, p.w - 12, 14);
     // hoodie hood
     ctx.fillStyle = "#1d4ed8";
     ctx.fillRect(x + 4, y + 8, p.w - 8, 6);
     // eyes
-    ctx.fillStyle = "#111";
     const eye = p.facing >= 0 ? x + 16 : x + 8;
+    ctx.fillStyle = "#111";
     ctx.fillRect(eye, y + 4, 3, 3);
+    // bags under eyes / Zzz when tired
+    if (sleepDebt >= 30) {
+      ctx.fillStyle = "rgba(55,48,40,0.45)";
+      ctx.fillRect(eye - 1, y + 7, 5, 2);
+      if (sleepDebt >= 55) {
+        ctx.fillRect(eye - 1, y + 9, 4, 1);
+      }
+    }
+    if (sleepDebt >= 70) {
+      ctx.fillStyle = "#64748b";
+      ctx.font = "9px sans-serif";
+      ctx.fillText("z", x + p.w - 2, y - 2);
+      if (sleepDebt >= 85) ctx.fillText("z", x + p.w + 4, y - 8);
+    }
     // laptop bag
     ctx.fillStyle = "#374151";
     ctx.fillRect(x + (p.facing >= 0 ? -2 : p.w - 4), y + 16, 6, 12);
@@ -329,19 +344,31 @@
     const maxC = 100;
     ctx.fillStyle = "#94a3b8";
     ctx.font = "11px sans-serif";
-    ctx.fillText("Ctx", 440, 17);
+    ctx.fillText("Ctx", 430, 17);
     ctx.fillStyle = "#1e293b";
-    ctx.fillRect(468, 8, 100, 10);
+    ctx.fillRect(452, 8, 70, 10);
     ctx.fillStyle = cm > 80 ? "#ef4444" : cm > 50 ? "#f59e0b" : "#22c55e";
-    ctx.fillRect(468, 8, (100 * cm) / maxC, 10);
+    ctx.fillRect(452, 8, (70 * cm) / maxC, 10);
+
+    // Sleep debt — rises with stupid Slack, falls with coffee
+    const sd = game.effects.sleepDebt || 0;
+    ctx.fillStyle = "#94a3b8";
+    ctx.fillText("Zzz", 530, 17);
+    ctx.fillStyle = "#1e293b";
+    ctx.fillRect(554, 8, 70, 10);
+    ctx.fillStyle = sd > 75 ? "#6366f1" : sd > 45 ? "#818cf8" : "#a5b4fc";
+    ctx.fillRect(554, 8, (70 * sd) / 100, 10);
 
     // Status
     if (game.effects.stunTimer > 0) {
       ctx.fillStyle = "#fbbf24";
-      ctx.fillText("STUNNED", 580, 17);
+      ctx.fillText("STUNNED", 632, 17);
     } else if (game.effects.slowTimer > 0) {
       ctx.fillStyle = "#c084fc";
-      ctx.fillText("SLOW", 580, 17);
+      ctx.fillText("SLOW", 632, 17);
+    } else if (sd >= 60) {
+      ctx.fillStyle = "#a5b4fc";
+      ctx.fillText("TIRED", 632, 17);
     }
 
     // Slack inbox badge — unread does NOT freeze the game
@@ -373,13 +400,14 @@
     ctx.fillRect(0, 28, LOGIC_W, 14);
     ctx.fillStyle = "#fbbf24";
     ctx.font = "10px sans-serif";
-    ctx.fillText("● SP collect", 10, 38);
+    ctx.fillStyle = "#fbbf24";
+    ctx.fillText("● SP", 70, 38);
     ctx.fillStyle = "#d97706";
-    ctx.fillText("☕ coffee", 95, 38);
+    ctx.fillText("☕ coffee = wake up", 105, 38);
     ctx.fillStyle = "#94a3b8";
     ctx.fillText(
-      "Tab/E = open Slack when YOU want · 1–4 reply · play keeps going with unread",
-      160,
+      "Tab=Slack · 1–4 reply · Zzz↑ from stupid requests",
+      230,
       38
     );
 
@@ -618,7 +646,12 @@
     for (let i = 0; i < game.enemies.length; i++) {
       drawEnemy(ctx, game.enemies[i], camX);
     }
-    drawPlayer(ctx, game.player, camX);
+    drawPlayer(
+      ctx,
+      game.player,
+      camX,
+      (game.effects && game.effects.sleepDebt) || 0
+    );
     drawThoughtBubble(ctx, game, camX);
     drawHUD(ctx, game);
 

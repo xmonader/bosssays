@@ -109,18 +109,39 @@
     coffee: [
       "coffee: the only OKR that matters",
       "brief chemical hope",
+      "*slurp* ok. 4 more hours. maybe.",
+      "this is a medical device now",
+      "sleep debt paid in beans",
+      "hot bean water = temporary humanity",
+      "if leadership could taste this clarity",
+      "Zzz deferred. not cancelled.",
     ],
     collect: [
       "story points. fictional currency.",
       "at least this number goes up",
+      "Jira will still say 0.5 though",
+      "collecting cope tokens",
+      "tiny win. bank it.",
+    ],
+    tired: [
+      "eyelids filing a ticket",
+      "running on Slack and spite",
+      "sleep is a roadmap item: P3",
+      "3am energy at 2pm",
+      "I can hear my own latency",
+      "please no more 'quick' thoughts",
     ],
     idle: [
       "…",
       "*stares into the open office*",
       "is this what they meant by ownership",
       "I could be gardening right now",
+      "*yawns into the hoodie*",
     ],
   };
+
+  const MAX_SLEEP = 100;
+  const COFFEE_SLEEP_RELIEF = 22;
 
   function setThought(game, category) {
     const pool = THOUGHTS[category] || THOUGHTS.idle;
@@ -183,10 +204,30 @@
       stunTimer: 0,
       slowTimer: 0,
       context: 0,
+      sleepDebt: 0, // 0 rested → 100 walking zombie from stupid requests
       calendarBlocks: [],
       hallucinated: [],
       lastResolveKind: null,
     };
+  }
+
+  function addSleepDebt(game, amount) {
+    if (!amount) return;
+    game.effects.sleepDebt = Math.min(
+      MAX_SLEEP,
+      Math.max(0, (game.effects.sleepDebt || 0) + amount)
+    );
+    if (game.effects.sleepDebt >= 70 && game.rng() < 0.4) {
+      setThought(game, "tired");
+    }
+  }
+
+  function sleepSlowFactor(game) {
+    const s = game.effects.sleepDebt || 0;
+    if (s < 35) return 1;
+    if (s < 60) return 0.88;
+    if (s < 85) return 0.72;
+    return 0.58;
   }
 
   function pushEvent(game, type, extra) {
@@ -408,8 +449,15 @@
           0,
           game.effects.context - COFFEE_CONTEXT_RELIEF
         );
+        addSleepDebt(game, -COFFEE_SLEEP_RELIEF);
         pushEvent(game, "collect", { kind: "coffee", points: COFFEE_POINTS });
-        game.message = "Coffee +" + COFFEE_POINTS + " · context −" + COFFEE_CONTEXT_RELIEF;
+        game.message =
+          "Coffee +" +
+          COFFEE_POINTS +
+          " · sleep −" +
+          COFFEE_SLEEP_RELIEF +
+          " · ctx −" +
+          COFFEE_CONTEXT_RELIEF;
         game.messageTimer = 2.4;
         setThought(game, "coffee");
       } else {
@@ -417,7 +465,7 @@
         pushEvent(game, "collect", { kind: "story", points: STORY_POINTS });
         game.message = "Story point +" + STORY_POINTS;
         game.messageTimer = 2.0;
-        if (game.rng() < 0.45) setThought(game, "collect");
+        setThought(game, "collect");
       }
     }
     return n;
@@ -453,6 +501,11 @@
     game.effects.context = Math.min(
       MAX_CONTEXT,
       Math.floor(game.effects.context * 0.5) + 5
+    );
+    // Shipping doesn't fix sleep — tech debt of the body carries over
+    game.effects.sleepDebt = Math.min(
+      MAX_SLEEP,
+      Math.floor((game.effects.sleepDebt || 0) * 0.75) + 8
     );
     game.notifications.active = null;
     game.notifications.inbox = [];
@@ -528,6 +581,7 @@
         "Reading Slack — " + (note.name || note.from) + " · reply with 1–4";
       game.messageTimer = 1.8;
       setThought(game, "open");
+      addSleepDebt(game, 4);
     }
     return note;
   }
@@ -545,6 +599,7 @@
         game.message = "Chat auto-closed — mild stun";
         pushEvent(game, "notify_timeout");
         setThought(game, "timeout");
+        addSleepDebt(game, 10);
       } else {
         game.message = "Replied: " + result.effects.kind;
         pushEvent(game, "notify_reply", { kind: result.effects.kind });
@@ -557,6 +612,11 @@
                 ? "pushback"
                 : "dismiss";
         setThought(game, cat);
+        // Sycophancy and fake "on it" cost more sleep than a short dismiss
+        if (cat === "love") addSleepDebt(game, 12);
+        else if (cat === "on_it") addSleepDebt(game, 10);
+        else if (cat === "pushback") addSleepDebt(game, 6);
+        else addSleepDebt(game, 3);
       }
       if (result.effects.stun > 0) pushEvent(game, "stun");
       game.messageTimer = 2.0;
@@ -613,6 +673,7 @@
         " unread)";
       game.messageTimer = 2.8;
       setThought(game, "slack_ping");
+      addSleepDebt(game, 6);
     }
     if (tick.backlogPressure) {
       game.effects.context = Math.min(
@@ -622,6 +683,7 @@
       game.message = "Inbox full — leadership is filling your context";
       game.messageTimer = 1.6;
       setThought(game, "backlog");
+      addSleepDebt(game, 8);
     }
 
     if (game.notifications.active) {
@@ -662,7 +724,8 @@
       right: input.right && !stunned,
       jump: input.jump && !stunned,
     };
-    const slowFactor = game.effects.slowTimer > 0 ? 0.45 : 1;
+    let slowFactor = game.effects.slowTimer > 0 ? 0.45 : 1;
+    slowFactor *= sleepSlowFactor(game);
 
     const wasGround = game.player.onGround;
     const willJump = physInput.jump && wasGround;
@@ -733,9 +796,12 @@
     applyEffectsPayload: applyEffectsPayload,
     isGameOver: isGameOver,
     setThought: setThought,
+    addSleepDebt: addSleepDebt,
     THOUGHTS: THOUGHTS,
     STORY_POINTS: STORY_POINTS,
     COFFEE_POINTS: COFFEE_POINTS,
+    MAX_SLEEP: MAX_SLEEP,
+    COFFEE_SLEEP_RELIEF: COFFEE_SLEEP_RELIEF,
   };
 
   if (typeof module !== "undefined" && module.exports) {

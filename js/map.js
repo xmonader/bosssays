@@ -281,21 +281,54 @@
       return { x: px, y: py, w: COLLECT_SIZE, h: COLLECT_SIZE, kind: kind || "story" };
     }
 
+    // Safe tops only: solid walkable platforms with margin so pickups never sit over pits
+    const safeTops = [];
+    for (let i = 0; i < platforms.length; i++) {
+      const p = platforms[i];
+      if (p.label === "wall-l" || p.label === "wall-r") continue;
+      if (p.w < 50) continue;
+      // margin from edges so you don't land mid-gap after grab
+      const margin = p.h >= 40 ? 28 : 12;
+      if (p.w < margin * 2 + COLLECT_SIZE) continue;
+      safeTops.push(p);
+    }
+
+    function placeOnSafeTop(kind) {
+      if (!safeTops.length) {
+        return pickup(80, GROUND_Y - COLLECT_SIZE, kind);
+      }
+      const p = pick(rng, safeTops);
+      const margin = p.h >= 40 ? 28 : 12;
+      const minX = p.x + margin;
+      const maxX = p.x + p.w - margin - COLLECT_SIZE;
+      const px =
+        maxX <= minX
+          ? p.x + (p.w - COLLECT_SIZE) / 2
+          : minX + rng() * (maxX - minX);
+      const py = p.y - COLLECT_SIZE - 2;
+      return pickup(Math.floor(px), Math.floor(py), kind);
+    }
+
     const collectibleSpawns = [];
     const pickupCount = 18 + (sprint % 5);
     for (let i = 0; i < pickupCount; i++) {
       const kind = rng() < 0.22 ? "coffee" : "story";
-      const onAir = rng() < 0.25;
-      const cx = 120 + Math.floor(rng() * (MAP_WIDTH - 200));
-      let cy;
-      if (onAir) cy = 320 + Math.floor(rng() * 50);
-      else if (rng() < 0.4) cy = LOW - 28;
-      else cy = GROUND_Y - 28;
-      collectibleSpawns.push(pickup(cx, cy, kind));
+      collectibleSpawns.push(placeOnSafeTop(kind));
     }
-    // Guarantee a few near start and deploy
-    collectibleSpawns.push(pickup(220, GROUND_Y - 28, "story"));
-    collectibleSpawns.push(pickup(MAP_WIDTH - 180, LOW - 28, "coffee"));
+    // Guarantee a few near start and deploy — still on solid tops
+    collectibleSpawns.push(placeOnSafeTop("story"));
+    collectibleSpawns.push(placeOnSafeTop("coffee"));
+    // Prefer start lobby strip if present
+    if (floorSegs[0]) {
+      const p = floorSegs[0];
+      collectibleSpawns.push(
+        pickup(
+          Math.floor(p.x + 40),
+          p.y - COLLECT_SIZE - 2,
+          "story"
+        )
+      );
+    }
 
     const decor = [
       { x: 80, y: 70, text: brandLabel, kind: "sign" },
