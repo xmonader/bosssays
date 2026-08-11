@@ -21,6 +21,7 @@
   let last = 0;
   let rafId = 0;
   let audioReady = false;
+  let tabPaused = typeof document !== "undefined" && document.hidden;
 
   const canvas = document.getElementById("game");
   if (!canvas) {
@@ -32,11 +33,19 @@
   canvas.width = Render.VIEW_W;
   canvas.height = Render.VIEW_H;
 
+  function clearHeldKeys() {
+    keys.left = false;
+    keys.right = false;
+    keys.jump = false;
+    keys.jumpPressed = false;
+    keys.openInbox = false;
+  }
+
   function ensureAudio() {
     if (!Audio || audioReady) return;
     if (Audio.unlock()) {
       audioReady = true;
-      Audio.startBgm();
+      if (!tabPaused) Audio.startBgm();
     }
   }
 
@@ -45,6 +54,51 @@
     last = 0;
     ensureAudio();
     if (Audio) Audio.play("reply");
+  }
+
+  function setTabPaused(paused) {
+    tabPaused = !!paused;
+    canvas.dataset.tabPaused = tabPaused ? "1" : "0";
+    if (tabPaused) {
+      clearHeldKeys();
+      last = 0;
+      if (Audio && typeof Audio.stopBgm === "function") Audio.stopBgm();
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+      // Freeze frame with overlay so resume isn't a black gap
+      if (ctx && game) {
+        Render.draw(ctx, game);
+        drawTabPauseOverlay(ctx);
+      }
+    } else {
+      last = 0;
+      if (audioReady && Audio && !Audio.isMuted()) {
+        Audio.startBgm();
+      }
+      if (!rafId) {
+        rafId = requestAnimationFrame(frame);
+      }
+    }
+  }
+
+  function drawTabPauseOverlay(c) {
+    const w = Render.VIEW_W;
+    const h = Render.VIEW_H;
+    c.save();
+    c.setTransform(1, 0, 0, 1, 0, 0);
+    c.fillStyle = "rgba(15,23,42,0.55)";
+    c.fillRect(0, 0, w, h);
+    c.fillStyle = "#f8fafc";
+    c.font = "bold 28px system-ui,sans-serif";
+    c.textAlign = "center";
+    c.fillText("PAUSED", w / 2, h / 2 - 8);
+    c.font = "16px system-ui,sans-serif";
+    c.fillStyle = "#94a3b8";
+    c.fillText("Tab inactive — come back to keep shipping", w / 2, h / 2 + 24);
+    c.textAlign = "left";
+    c.restore();
   }
 
   function onKey(e, down) {
@@ -123,9 +177,16 @@
   );
 
   function frame(ts) {
+    if (tabPaused || document.hidden) {
+      last = 0;
+      rafId = 0;
+      return;
+    }
+
     if (!last) last = ts;
     let dt = (ts - last) / 1000;
     last = ts;
+    // Clamp hard after resume so long background gaps don't teleport physics
     if (dt > 0.05) dt = 0.05;
 
     const input = {
@@ -145,6 +206,7 @@
     Render.draw(ctx, game);
 
     canvas.dataset.painted = "1";
+    canvas.dataset.tabPaused = "0";
     canvas.dataset.sprint = String(game.sprint);
     canvas.dataset.lives = String(game.lives);
     canvas.dataset.phase = game.phase;
@@ -155,6 +217,17 @@
 
     rafId = requestAnimationFrame(frame);
   }
+
+  document.addEventListener("visibilitychange", function () {
+    setTabPaused(document.hidden);
+  });
+  // Extra safety for some browsers when window loses focus
+  window.addEventListener("blur", function () {
+    if (document.hidden) setTabPaused(true);
+  });
+  window.addEventListener("focus", function () {
+    if (!document.hidden && tabPaused) setTabPaused(false);
+  });
 
   function updateHint() {
     const hint = document.getElementById("hint");
@@ -167,12 +240,20 @@
 
   Render.draw(ctx, game);
   canvas.dataset.painted = "1";
+  canvas.dataset.tabPaused = tabPaused ? "1" : "0";
   updateHint();
-  rafId = requestAnimationFrame(frame);
+  if (!tabPaused) {
+    rafId = requestAnimationFrame(frame);
+  } else {
+    drawTabPauseOverlay(ctx);
+  }
 
   window.BossSays = {
     getGame: function () {
       return game;
+    },
+    isTabPaused: function () {
+      return tabPaused || document.hidden;
     },
     restart: restart,
     step: function (input, dt) {

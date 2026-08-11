@@ -34,4 +34,15 @@ describe("scaffold smoke", () => {
     assert.match(html, /src="js\/main\.js"/);
     assert.doesNotMatch(html, /type=["']module["']/);
   });
+
+  it("main.js pauses simulation when the tab is hidden", () => {
+    const main = fs.readFileSync(
+      path.join(__dirname, "..", "js", "main.js"),
+      "utf8"
+    );
+    assert.match(main, /visibilitychange/);
+    assert.match(main, /document\.hidden/);
+    assert.match(main, /setTabPaused/);
+    assert.match(main, /tabPaused/);
+  });
 });
