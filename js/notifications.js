@@ -4600,13 +4600,29 @@
     return Math.max(min, base - (sprint - 1) * 0.45);
   }
 
+  /**
+   * Beach hires, DJs, librarians, fired experts, Claude+civilian managers, etc.
+   * These should dominate the ping stream — that's the joke.
+   */
+  function isIncompetentHireLine(line) {
+    if (!line || !line.text) return false;
+    if (line.theme === "incompetent_hire") return true;
+    return /beach|DJ\b|DJs\b|librarian|barista|yoga|realtor|sommelier|cashier|bouncer|influencer|podcast|bartender|dog walker|hostel|unqualified|non-technical|no STEM|no CS|no tech|zero tech|no experience|no background|never (written|coded|opened|seen|used|debugged|grepped)|plane (DJ|guy|stranger)|TikTok|magician|sommelier|wedding planner|travel blogger|radio host|timeshare|weather presenter|improv actor|sports statistician|bookstore|nightclub|gift shop|life coach|rooftop|cruise ship|Claude \+|Claude and|pair with your new manager|AI-native leadership|beginner's mind|differently credentialed|fresh eyes|main-character|protagonist|Staff IC of Energy|Head of Taste|Head of Platform|engineering manager|new (EM|boss|manager|director|lead)|hired a |Hired a |Hired the |we (fired|let go|PIPed|cut) |Fired the |replaced with|replacement:|reassigned|reorged|no IDE|never merged|never pulled|never force|civilian|zero years|outperformed by|outpace you|replace you|replacing you|replaces you|you're optional|you are optional|sunsetting.*human|mentor upward/i.test(
+      line.text
+    );
+  }
+
+  function lineWeight(line) {
+    if (isIncompetentHireLine(line)) return 8; // show these a lot
+    if (line.tone === "ego" || line.tone === "corp") return 2;
+    return 1;
+  }
+
   function shuffleBag(state, rng) {
     rng = rng || Math.random;
     const indices = [];
-    // Prefer ego/corp (~3x weight) but still shuffle without replacement within a cycle
     for (let i = 0; i < state.lines.length; i++) {
-      const tone = state.lines[i].tone;
-      const copies = tone === "ego" || tone === "corp" ? 2 : 1;
+      const copies = lineWeight(state.lines[i]);
       for (let c = 0; c < copies; c++) indices.push(i);
     }
     for (let i = indices.length - 1; i > 0; i--) {
@@ -4619,37 +4635,69 @@
   }
 
   /**
-   * Draw next line from shuffle bag. Avoids immediate same-sender + no text reuse until bag cycles.
+   * Draw next line from shuffle bag. Biases hard toward incompetent-hire comedy.
    */
   function pickLine(state, rng) {
     rng = rng || Math.random;
     if (!state.bag || state.bag.length === 0) shuffleBag(state, rng);
 
-    let idx = state.bag.pop();
-    let pick = state.lines[idx];
+    function takeFromBag(preferHire) {
+      if (!state.bag.length) shuffleBag(state, rng);
+      if (!preferHire) {
+        const idx = state.bag.pop();
+        return { idx: idx, line: state.lines[idx] };
+      }
+      // Search from the end for a hire line; keep non-matches aside briefly
+      const held = [];
+      let found = null;
+      while (state.bag.length > 0 && !found) {
+        const idx = state.bag.pop();
+        const line = state.lines[idx];
+        if (isIncompetentHireLine(line)) {
+          found = { idx: idx, line: line };
+        } else {
+          held.push(idx);
+        }
+      }
+      // put non-matches back
+      for (let i = held.length - 1; i >= 0; i--) state.bag.push(held[i]);
+      if (found) return found;
+      if (!state.bag.length) shuffleBag(state, rng);
+      const idx = state.bag.pop();
+      return { idx: idx, line: state.lines[idx] };
+    }
+
+    // ~70% of pings should be incompetent-hire / fired-expert comedy
+    let preferHire = rng() < 0.7;
+    let drawn = takeFromBag(preferHire);
+    let idx = drawn.idx;
+    let pick = drawn.line;
+
     // Avoid same sender twice in a row when alternatives exist
     let guard = 0;
     while (
-      guard < 8 &&
+      guard < 10 &&
       pick.from === state.lastFrom &&
       state.bag.length > 0
     ) {
       state.bag.unshift(idx);
-      idx = state.bag.pop();
-      pick = state.lines[idx];
+      drawn = takeFromBag(preferHire && guard < 6);
+      idx = drawn.idx;
+      pick = drawn.line;
       guard++;
     }
     // Avoid exact text still sitting in inbox
     guard = 0;
-    while (guard < 12 && state.bag.length > 0) {
+    while (guard < 14 && state.bag.length > 0) {
       const inInbox = state.inbox.some(function (n) {
         return n.text === pick.text;
       });
       const isActive = state.active && state.active.text === pick.text;
       if (!inInbox && !isActive) break;
       state.bag.unshift(idx);
-      idx = state.bag.pop();
-      pick = state.lines[idx];
+      drawn = takeFromBag(preferHire);
+      idx = drawn.idx;
+      pick = drawn.line;
       guard++;
     }
     return pick;
@@ -4863,6 +4911,7 @@
     personaFor: personaFor,
     createNotificationState: createNotificationState,
     intervalForSprint: intervalForSprint,
+    isIncompetentHireLine: isIncompetentHireLine,
     pickLine: pickLine,
     shuffleBag: shuffleBag,
     tickNotifications: tickNotifications,

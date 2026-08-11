@@ -320,6 +320,29 @@ describe("notification copy bank", () => {
     Notes.shuffleBag(state, () => 0.5);
     assert.ok(state.bag.length > 100);
   });
+
+  it("heavily prefers incompetent-hire messages", () => {
+    const state = Notes.createNotificationState();
+    const rng = (function () {
+      let s = 99;
+      return function () {
+        s = (s * 1664525 + 1013904223) >>> 0;
+        return (s % 10000) / 10000;
+      };
+    })();
+    let hire = 0;
+    const n = 80;
+    for (let i = 0; i < n; i++) {
+      const line = Notes.pickLine(state, rng);
+      state.lastFrom = line.from;
+      if (Notes.isIncompetentHireLine(line)) hire++;
+    }
+    // Should be well above uniform (~maybe 15-25% of corpus) — target majority
+    assert.ok(
+      hire >= 40,
+      "expected mostly incompetent-hire lines, got " + hire + "/" + n
+    );
+  });
 });
 
 describe("collectibles", () => {
