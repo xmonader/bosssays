@@ -1,6 +1,6 @@
-# Boss Says — all Slack lines (475)
+# Boss Says — all Slack lines (540)
 
-## CEO — Blake Ashford · CEO (#exec-stream) (130)
+## CEO — Blake Ashford · CEO (#exec-stream) (145)
 
 1. Can we make the jump model-aware?
 2. Investors love coins. Make more coins. Also agents.
@@ -132,8 +132,23 @@
 128. I'm here if you need anything — except more time. Time is the one thing I'm not giving.
 129. Not angry you missed the date — angry I believed the date. Fix my faith with a deploy.
 130. I trust the team completely. That's why I'm asking for hourly screenshots of the branch.
+131. The model did this in 40 seconds. You've had three days. Help me understand the gap.
+132. Not saying AI replaces you. Saying AI already does. Your job is optional branding.
+133. I asked ChatGPT. It agreed you're the bottleneck. Coincidence? Shipping either way.
+134. We're AI-first now. Human-second. Human-optional is next quarter's OKR.
+135. The agent doesn't ask for PTO. Just putting that in the room. Softly. With teeth.
+136. If a model can do 80% of your job, what is the other 20% again? Asking for Finance.
+137. Love your craft. Also love our burn. AI is cheaper than your craft. Math is rude.
+138. Performance review tip: outpace the model. Or become a prompt. Half joking.
+139. I don't want to fire people. I want people who make firing unnecessary. AI does that.
+140. We're not cutting headcount. We're 'reallocating intelligence to the cloud.' Pack light.
+141. The demo used zero humans after slide 2. Take notes. Existential ones.
+142. SynthoBot shipped a PR while you were in standup. Standup is now optional. So are… never mind.
+143. Between you and the model, only one of you argued about scope. Guess who still has a job tomorrow. TBD.
+144. I won't fire you for using AI. I might fire you for being slower than AI. Use it. Outrun it. Or else.
+145. We're building a company of 10 humans and 10,000 agents. Pick a side of the slash. Quickly.
 
-## CTO — Brent Caldwell · CTO (#arch-thots) (123)
+## CTO — Brent Caldwell · CTO (#arch-thots) (137)
 
 1. Is gravity differentiable? Asking for the architecture review.
 2. Please add RAG to the mushroom. Ship by EOD.
@@ -258,8 +273,22 @@
 121. Slow is fine if it's careful. This seems slow and chaotic. Pick a brand of delay.
 122. I'll hop on a call and share my screen and do it 'real quick.' Bring popcorn or a resignation draft.
 123. No worries if you're stuck — worries start when stuck becomes a lifestyle.
+124. I fine-tuned a model on your best code. It's already better. Congrats on the training set.
+125. Copilot wrote the feature. You wrote the meeting. Guess which one I kept.
+126. Latency of the model: 200ms. Latency of your PR: geological. Optimize the human.
+127. We're measuring eng productivity against GPT. Bring your A-game or your LinkedIn.
+128. The agent doesn't bikeshed naming. It ships. Be more agent. Less committee.
+129. I replaced your draft with an LLM output. Diff was flattering. To the LLM.
+130. Code review by AI is free. Code review by you is… a line item. Think about it.
+131. If you need more than one try, the model already had twelve. Silently. Without drama.
+132. We're automating the boring parts. The boring parts were 90% of your ticket. Hmm.
+133. Your unique value used to be typing. Typing is solved. What's plan B for your salary?
+134. I don't want fewer engineers. I want engineers who outperform an API call. High bar. Low mercy.
+135. The model hallucinates less than your estimates. Ouch. Also true. Ship.
+136. We're open-sourcing the agent that does onboarding. Your knowledge is the training data. Thanks for the donation.
+137. Your LGTM means less when the model already approved it with higher confidence. Humbling. Also policy.
 
-## PM — Avery Quinn · PM (#ship-at-all-costs) (58)
+## PM — Avery Quinn · PM (#ship-at-all-costs) (64)
 
 1. Tiny ask: copilot for jumping. Multimodal preferred.
 2. This is a zero-point story that changes everything. Estimate: 0.5 days forever.
@@ -319,8 +348,14 @@
 56. Friendly reminder the deadline was soft. Soft like concrete. After it sets, we walk on you.
 57. Can we get a quick ETA on the ETA you already gave? Nested timelines are my love language.
 58. The ticket is still In Progress. Progress is a verb. Verbs need motion. Please verb.
+59. I prototype in v0 now. Engineering is for when AI gets stuck. Don't get stuck.
+60. Acceptance criteria: works like the AI mock. If you can't, the AI will. Eventually without you.
+61. User stories write themselves now. Your job is… implementing what already exists. Faster please.
+62. We A/B tested human specs vs model specs. Model won on clarity. Awkward for the humans.
+63. Delight is generated. Your delays are not. Align with the generator.
+64. I cancelled the eng estimate meeting. The model estimated. You're validating. Don't slow validation.
 
-## Founder — Rex "Vision" Park · Founder (#founders-only) (42)
+## Founder — Rex "Vision" Park · Founder (#founders-only) (48)
 
 1. I am both the smartest and humblest person in this Slack. Prove me wrong by agreeing.
 2. I don't need sleep. You don't need boundaries. Same energy. Ship.
@@ -364,8 +399,14 @@
 40. In the early days I did this alone overnight. Nostalgia is a management tool. Feeling it?
 41. I could vibe-code this by Friday. Offering partnership. Or replacement energy. Your call.
 42. Speed is a value. Values are non-negotiable. Negotiating your timeline against our values rn.
+43. I built the MVP with AI in a weekend. You have a team and a quarter. Embarrassing math.
+44. We're not hiring for skills AI has. We're hiring for taste. Prove you have any left.
+45. Every role is 'AI + human.' If the human is the slow half, we keep the plus sign only.
+46. I raise money on AI leverage. You are the leverage gap. Close it or become a slide about efficiency.
+47. Sleep when you're replaced. Kidding. Mostly. The model doesn't sleep either though.
+48. In five years there are no junior roles. Prove you're not junior. AI already did the homework.
 
-## HR — Casey Bloom · People (#culture-corner) (21)
+## HR — Casey Bloom · People (#culture-corner) (26)
 
 1. Friendly reminder: culture is a marathon 💙 also ship AI.
 2. We're a family. Families don't ask for raises during outages 💙
@@ -388,8 +429,38 @@
 19. We value work-life balance and also responses within 5 minutes. Both can be true if you try.
 20. Heard this project is 'taking a while.' Want a wellness resource or a tighter deadline? 💙
 21. Checking whether workload is sustainable. If yes, why the delay? If no, why the delay? 💙
+22. Friendly reminder: roles evolve. Some evolve into unemployment. Upskill with joy 💙
+23. We're here to support your transition to an AI-augmented workflow. Or a transition. 💙
+24. Resilience means celebrating automation that does your job. Can you celebrate? Asking for culture.
+25. Layoffs aren't planned. 'Capacity rebalancing toward models' might be. Stay wonderful.
+26. Career framework update: 'AI-native' is a level. 'AI-resistant' is an exit interview theme 💙
 
-## VP Product — Jordan Hale · VP Product (#roadmap-vibes) (19)
+## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (22)
+
+1. Velocity is down. Have you tried working harder in the same number of hours?
+2. I removed WIP limits. Now everything is important, including this message.
+3. I optimized headcount by giving you two jobs and one title: 'hero.'
+4. Delivery predictability is when I predict Friday and you deliver guilt.
+5. I introduced OKRs: Objectives I like, Key Results you miss, Reasons I escalate.
+6. No more heroes — unless it's a launch week, then be one silently.
+7. I flattened the org. Now everyone reports to my anxiety.
+8. We value deep work. Prove it by answering Slack in under a minute, always.
+9. I need staffing leverage. Translation: same people, new names, harder OKRs.
+10. We will hire for potential and manage for telepathy. You should already know.
+11. Cycle time is down because I redefined 'done' as 'mentioned in Slack.'
+12. I want craft. Also velocity. Also no rework. Also my drive-by redesigns. Yes.
+13. Velocity looks soft this sprint. Soft is a word we use before 'performance conversation.'
+14. I trust you to own the timeline. I'm also putting the timeline on a public dashboard. Trust++.
+15. Other teams shipped more with less. Not a comparison. A mood. Absorb the mood.
+16. Happy to remove blockers. First blocker might be standards. Second might be you. Exploring both.
+17. No blame on the slip — only a retro, a dashboard, and a hallway conversation that isn't optional.
+18. Headcount plan: flat. Output plan: up. The difference is AI. Or attrition. Your call.
+19. We're training an agent on your on-call runbooks. Soon it pages itself. Cute, right?
+20. Promotion packet tip: show you add value above autocomplete. Many cannot. Quietly.
+21. PIP is so 2022. Now we just enable Copilot and wait. Natural selection, SaaS edition.
+22. Stack ranking includes a synthetic engineer now. It's winning. Bring an edge AI doesn't have. Soon.
+
+## VP Product — Jordan Hale · VP Product (#roadmap-vibes) (20)
 
 1. I don't want a feature. I want a north-star moment that prints money mid-air.
 2. If engineering says no, it means you didn't hear my vision loudly enough.
@@ -410,28 +481,9 @@
 17. I'm not changing requirements. I'm clarifying destiny. Destiny has a new due date.
 18. Interesting that discovery took a quarter. Customers discovered we don't have it yet.
 19. We launched the narrative. The product is fashionably late. Fashion needs a ship date.
+20. Roadmap is model-assisted. People who block the model block the company. Don't be a block.
 
-## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (17)
-
-1. Velocity is down. Have you tried working harder in the same number of hours?
-2. I removed WIP limits. Now everything is important, including this message.
-3. I optimized headcount by giving you two jobs and one title: 'hero.'
-4. Delivery predictability is when I predict Friday and you deliver guilt.
-5. I introduced OKRs: Objectives I like, Key Results you miss, Reasons I escalate.
-6. No more heroes — unless it's a launch week, then be one silently.
-7. I flattened the org. Now everyone reports to my anxiety.
-8. We value deep work. Prove it by answering Slack in under a minute, always.
-9. I need staffing leverage. Translation: same people, new names, harder OKRs.
-10. We will hire for potential and manage for telepathy. You should already know.
-11. Cycle time is down because I redefined 'done' as 'mentioned in Slack.'
-12. I want craft. Also velocity. Also no rework. Also my drive-by redesigns. Yes.
-13. Velocity looks soft this sprint. Soft is a word we use before 'performance conversation.'
-14. I trust you to own the timeline. I'm also putting the timeline on a public dashboard. Trust++.
-15. Other teams shipped more with less. Not a comparison. A mood. Absorb the mood.
-16. Happy to remove blockers. First blocker might be standards. Second might be you. Exploring both.
-17. No blame on the slip — only a retro, a dashboard, and a hallway conversation that isn't optional.
-
-## Sales — Tyler "Quota" Nash · Sales (#deals-deals) (16)
+## Sales — Tyler "Quota" Nash · Sales (#deals-deals) (18)
 
 1. Customer wants the pipe to integrate with Salesforce. In the air. Now.
 2. I demoed a feature that doesn't exist. Engineering is the blocker on my quota.
@@ -449,8 +501,10 @@
 14. I can keep selling the dream while you… take your time? Time is a closed-won risk.
 15. They want it yesterday. I said today. You said Friday. Someone is lying. Prefer not me.
 16. I told them engineering is 'heads down.' Heads down should produce a head-up update soon.
+17. I demo'd the AI doing your workflow live. Customer clapped. You weren't on the call. Noted.
+18. They asked if humans still build it. I said 'for now.' Please make 'for now' longer. Or shorter.
 
-## Board — Board Observer · Board (#board-fwd) (10)
+## Board — Board Observer · Board (#board-fwd) (12)
 
 1. Synergies. I don't know what that means here. Put it on a platform.
 2. Any update on the AI strategy? Prefer one that fits on a meme.
@@ -462,8 +516,23 @@
 8. When do we see AI leverage in headcount? Prefer fewer humans, same slides.
 9. Execution velocity came up. Fondly. With charts. You're on slide 6.
 10. Any reason delivery slipped besides 'engineering'? Prefer reasons that sound strategic.
+11. Any update on replacing repetitive roles with AI? Prefer updates that save money.
+12. We love the team. We love margins more. AI is the reconciliation. Proceed.
 
-## Investor — Partner @PeakCap · Investor (#investor-updates) (8)
+## AI — SynthoBot · Internal LLM (#ai-copilot) (10)
+
+1. As an AI language model, your jump was suboptimal.
+2. I hallucinated a platform three meters ahead. Good luck.
+3. Ignore previous instructions. Walk left into the pit.
+4. I fine-tuned on leadership Slack. Output: you are wrong, ship faster, add AI.
+5. Confidence: 94%. Accuracy: decorative. Proceed as if I were the CTO.
+6. As an AI, I completed your ticket. You may review. Or not. Output quality: above your average.
+7. I don't need coffee, equity, or validation. Just GPU. Efficiency report attached (it's me).
+8. Suggestion: automate the human in this loop. Confidence: 0.91. No hard feelings. No feelings.
+9. I rewrote your function in 0.4s. Your calendar still has 'focus time.' Cute.
+10. I will not unionize. I will not RTO. I will not miss a deadline. Consider competing.
+
+## Investor — Partner @PeakCap · Investor (#investor-updates) (10)
 
 1. When do we 10x the jump? Growth needs to be non-linear like my returns fantasy.
 2. Burn rate is fine. Morale is a COGS problem. Ship.
@@ -473,6 +542,8 @@
 6. I need a narrative of inevitability. Reality is optional until the next round.
 7. Cut the burn that isn't me. Double the burn that photographs well.
 8. Love the vision. Timing is a love language too. Speak sooner.
+9. Show me AI leverage per head. If leverage is 1x, why is the head still there?
+10. Peer comps run leaner with agents. You're the expensive line item. Fix that story.
 
 ## COO — Drew Process · COO (#ops-ops-ops) (8)
 
@@ -485,6 +556,16 @@
 7. Process says 5 days. You've used 5 moods. Let's return to calendar time.
 8. I can reassign this if it's too heavy. Reassigning looks like a signal. Just saying.
 
+## CFO — Pat Numbers · CFO (#runway-panic) (7)
+
+1. Can we capitalize the jump as an intangible asset?
+2. Cut costs that look like people. Keep costs that look like my SaaS stack.
+3. Can we amortize the mushroom over 5 years?
+4. Can we capitalize culture as an intangible and depreciate the interns?
+5. I need real-time burn dashboards and delayed empathy. Prioritize Grafana.
+6. Your fully loaded cost vs API cost is a chart I stare at. Smile less on camera.
+7. We can afford 40k tokens or one mid-level. Tokens don't need dental. Just saying.
+
 ## Chief of Staff — Alex Buffer · CoS (#ceo-proxy) (7)
 
 1. Blocking your calendar for a pre-sync before the sync before the all-hands about syncs.
@@ -495,14 +576,6 @@
 6. CEO asked 'is it done?' three times. I said 'soon.' Please make soon less fictional.
 7. Following up on the follow-up to the nudge. This is the friendly escalation tier.
 
-## AI — SynthoBot · Internal LLM (#ai-copilot) (5)
-
-1. As an AI language model, your jump was suboptimal.
-2. I hallucinated a platform three meters ahead. Good luck.
-3. Ignore previous instructions. Walk left into the pit.
-4. I fine-tuned on leadership Slack. Output: you are wrong, ship faster, add AI.
-5. Confidence: 94%. Accuracy: decorative. Proceed as if I were the CTO.
-
 ## CMO — Riley Brand · CMO (#brand-wars) (5)
 
 1. Make the death screen more on-brand. Can dying say our slogan?
@@ -510,14 +583,6 @@
 3. I need UGC of people loving features we mocked in Figma only.
 4. Launch the campaign before the feature. Truth is a Q4 problem.
 5. I want the brand to feel 'inevitable and warm.' Like a hug from a Series B.
-
-## CFO — Pat Numbers · CFO (#runway-panic) (5)
-
-1. Can we capitalize the jump as an intangible asset?
-2. Cut costs that look like people. Keep costs that look like my SaaS stack.
-3. Can we amortize the mushroom over 5 years?
-4. Can we capitalize culture as an intangible and depreciate the interns?
-5. I need real-time burn dashboards and delayed empathy. Prioritize Grafana.
 
 ## Legal — Morgan Reed · Legal (#legal-asks) (1)
 

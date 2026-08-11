@@ -2390,6 +2390,333 @@
       text: "Speed is a value. Values are non-negotiable. Negotiating your timeline against our values rn.",
       tone: "ego",
     },
+
+    // —— AI is better than you / you'll be replaced / fired energy ——
+    {
+      from: "CEO",
+      text: "The model did this in 40 seconds. You've had three days. Help me understand the gap.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Not saying AI replaces you. Saying AI already does. Your job is optional branding.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I asked ChatGPT. It agreed you're the bottleneck. Coincidence? Shipping either way.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We're AI-first now. Human-second. Human-optional is next quarter's OKR.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "The agent doesn't ask for PTO. Just putting that in the room. Softly. With teeth.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "If a model can do 80% of your job, what is the other 20% again? Asking for Finance.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Love your craft. Also love our burn. AI is cheaper than your craft. Math is rude.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Performance review tip: outpace the model. Or become a prompt. Half joking.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I don't want to fire people. I want people who make firing unnecessary. AI does that.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We're not cutting headcount. We're 'reallocating intelligence to the cloud.' Pack light.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "The demo used zero humans after slide 2. Take notes. Existential ones.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "SynthoBot shipped a PR while you were in standup. Standup is now optional. So are… never mind.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I fine-tuned a model on your best code. It's already better. Congrats on the training set.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Copilot wrote the feature. You wrote the meeting. Guess which one I kept.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Latency of the model: 200ms. Latency of your PR: geological. Optimize the human.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We're measuring eng productivity against GPT. Bring your A-game or your LinkedIn.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "The agent doesn't bikeshed naming. It ships. Be more agent. Less committee.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I replaced your draft with an LLM output. Diff was flattering. To the LLM.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Code review by AI is free. Code review by you is… a line item. Think about it.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "If you need more than one try, the model already had twelve. Silently. Without drama.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We're automating the boring parts. The boring parts were 90% of your ticket. Hmm.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Your unique value used to be typing. Typing is solved. What's plan B for your salary?",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I don't want fewer engineers. I want engineers who outperform an API call. High bar. Low mercy.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "The model hallucinates less than your estimates. Ouch. Also true. Ship.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "I prototype in v0 now. Engineering is for when AI gets stuck. Don't get stuck.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Acceptance criteria: works like the AI mock. If you can't, the AI will. Eventually without you.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "User stories write themselves now. Your job is… implementing what already exists. Faster please.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "We A/B tested human specs vs model specs. Model won on clarity. Awkward for the humans.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Delight is generated. Your delays are not. Align with the generator.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Headcount plan: flat. Output plan: up. The difference is AI. Or attrition. Your call.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "We're training an agent on your on-call runbooks. Soon it pages itself. Cute, right?",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Promotion packet tip: show you add value above autocomplete. Many cannot. Quietly.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "PIP is so 2022. Now we just enable Copilot and wait. Natural selection, SaaS edition.",
+      tone: "ego",
+    },
+    {
+      from: "VP Product",
+      text: "Roadmap is model-assisted. People who block the model block the company. Don't be a block.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "I built the MVP with AI in a weekend. You have a team and a quarter. Embarrassing math.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "We're not hiring for skills AI has. We're hiring for taste. Prove you have any left.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Every role is 'AI + human.' If the human is the slow half, we keep the plus sign only.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "I raise money on AI leverage. You are the leverage gap. Close it or become a slide about efficiency.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Sleep when you're replaced. Kidding. Mostly. The model doesn't sleep either though.",
+      tone: "ego",
+    },
+    {
+      from: "HR",
+      text: "Friendly reminder: roles evolve. Some evolve into unemployment. Upskill with joy 💙",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "We're here to support your transition to an AI-augmented workflow. Or a transition. 💙",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "Resilience means celebrating automation that does your job. Can you celebrate? Asking for culture.",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "Layoffs aren't planned. 'Capacity rebalancing toward models' might be. Stay wonderful.",
+      tone: "corp",
+    },
+    {
+      from: "Investor",
+      text: "Show me AI leverage per head. If leverage is 1x, why is the head still there?",
+      tone: "ego",
+    },
+    {
+      from: "Investor",
+      text: "Peer comps run leaner with agents. You're the expensive line item. Fix that story.",
+      tone: "ego",
+    },
+    {
+      from: "Board",
+      text: "Any update on replacing repetitive roles with AI? Prefer updates that save money.",
+      tone: "ego",
+    },
+    {
+      from: "Board",
+      text: "We love the team. We love margins more. AI is the reconciliation. Proceed.",
+      tone: "ego",
+    },
+    {
+      from: "CFO",
+      text: "Your fully loaded cost vs API cost is a chart I stare at. Smile less on camera.",
+      tone: "ego",
+    },
+    {
+      from: "CFO",
+      text: "We can afford 40k tokens or one mid-level. Tokens don't need dental. Just saying.",
+      tone: "ego",
+    },
+    {
+      from: "Sales",
+      text: "I demo'd the AI doing your workflow live. Customer clapped. You weren't on the call. Noted.",
+      tone: "ego",
+    },
+    {
+      from: "Sales",
+      text: "They asked if humans still build it. I said 'for now.' Please make 'for now' longer. Or shorter.",
+      tone: "ego",
+    },
+    {
+      from: "AI",
+      text: "As an AI, I completed your ticket. You may review. Or not. Output quality: above your average.",
+      tone: "ai",
+    },
+    {
+      from: "AI",
+      text: "I don't need coffee, equity, or validation. Just GPU. Efficiency report attached (it's me).",
+      tone: "ai",
+    },
+    {
+      from: "AI",
+      text: "Suggestion: automate the human in this loop. Confidence: 0.91. No hard feelings. No feelings.",
+      tone: "ai",
+    },
+    {
+      from: "AI",
+      text: "I rewrote your function in 0.4s. Your calendar still has 'focus time.' Cute.",
+      tone: "ai",
+    },
+    {
+      from: "AI",
+      text: "I will not unionize. I will not RTO. I will not miss a deadline. Consider competing.",
+      tone: "ai",
+    },
+    {
+      from: "CEO",
+      text: "Between you and the model, only one of you argued about scope. Guess who still has a job tomorrow. TBD.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We're open-sourcing the agent that does onboarding. Your knowledge is the training data. Thanks for the donation.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "I cancelled the eng estimate meeting. The model estimated. You're validating. Don't slow validation.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "In five years there are no junior roles. Prove you're not junior. AI already did the homework.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Stack ranking includes a synthetic engineer now. It's winning. Bring an edge AI doesn't have. Soon.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I won't fire you for using AI. I might fire you for being slower than AI. Use it. Outrun it. Or else.",
+      tone: "ego",
+    },
+    {
+      from: "HR",
+      text: "Career framework update: 'AI-native' is a level. 'AI-resistant' is an exit interview theme 💙",
+      tone: "corp",
+    },
+    {
+      from: "CTO",
+      text: "Your LGTM means less when the model already approved it with higher confidence. Humbling. Also policy.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We're building a company of 10 humans and 10,000 agents. Pick a side of the slash. Quickly.",
+      tone: "ego",
+    },
   ];
 
   const CHOICES = [
