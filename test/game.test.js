@@ -321,7 +321,7 @@ describe("notification copy bank", () => {
     assert.ok(state.bag.length > 100);
   });
 
-  it("heavily prefers hire + shielded-blame messages", () => {
+  it("heavily prefers hire + blame + process-churn messages", () => {
     const state = Notes.createNotificationState();
     const rng = (function () {
       let s = 99;
@@ -332,18 +332,21 @@ describe("notification copy bank", () => {
     })();
     let featured = 0;
     let blame = 0;
+    let process = 0;
     const n = 80;
     for (let i = 0; i < n; i++) {
       const line = Notes.pickLine(state, rng);
       state.lastFrom = line.from;
       if (Notes.isFeaturedCynicismLine(line)) featured++;
       if (Notes.isShieldedAccountabilityLine(line)) blame++;
+      if (Notes.isProcessChurnLine(line)) process++;
     }
     assert.ok(
       featured >= 45,
       "expected mostly featured cynicism, got " + featured + "/" + n
     );
-    assert.ok(blame >= 5, "expected some shielded-blame lines, got " + blame);
+    assert.ok(blame >= 3, "expected some shielded-blame lines, got " + blame);
+    assert.ok(process >= 3, "expected some process-churn lines, got " + process);
   });
 });
 

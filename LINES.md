@@ -1,6 +1,6 @@
-# Boss Says — all Slack lines (955)
+# Boss Says — all Slack lines (995)
 
-## CEO — Blake Ashford · CEO (#exec-stream) (271)
+## CEO — Blake Ashford · CEO (#exec-stream) (278)
 
 1. Can we make the jump model-aware?
 2. Investors love coins. Make more coins. Also agents.
@@ -273,8 +273,15 @@
 269. I ordered the shortcut. Shortcut collapsed. Narrative: eng lacked quality gates. Gates for me are optional by design. Design is me.
 270. Stop putting my name in Slack threads about the outage I started. Threads are discoverable. Discoverability is for ICs. DM me victory only.
 271. Immunity idol: equity. You don't have enough. Therefore the fuckup is educational for you and confidential for me. Class dismissed.
+272. We're a flat org until noon, a matrix after lunch, and a 'squad of squads' on Fridays. Reorg email is the process. Read it during your deep work.
+273. New operating system every quarter. This quarter: 'disagree and ship.' Last quarter: 'align forever.' Next quarter: surprise. Update your personality.
+274. I hired a COO to add process, then a consultant to remove process, then AI to generate process. You implement all three simultaneously. Parallelism!
+275. Meeting-free Wednesdays cancelled for a meeting about meeting-free Wednesdays. Process integrity. Attendance required on your free day.
+276. We don't do waterfall. We do agile. Except the roadmap is fixed. Except it changes daily. Except you can't change it. Process is a mood ring.
+277. Announcement: no more process churn. Also announcing six process changes. Consistency is for code. Leadership is jazz. You are the sheet music we ignore.
+278. I love process until it constrains me. Then we pivot the process. You remain constrained. That's how leverage works. Meeting to roll out leverage.
 
-## CTO — Brent Caldwell · CTO (#arch-thots) (256)
+## CTO — Brent Caldwell · CTO (#arch-thots) (266)
 
 1. Is gravity differentiable? Asking for the architecture review.
 2. Please add RAG to the mushroom. Ship by EOD.
@@ -532,8 +539,18 @@
 254. Accountability firewall: mistakes flow down, credit flows up. Outage flowed. Credit for the fix will flow to my all-hands. Physics.
 255. I caused the bug in the 'quick CEO demo branch' I pushed to prod. Demo was successful. Prod is your problem. Success is mine.
 256. I will attend the retro as a 'listener.' Listening means I rewrite the doc after to remove me. Your action items will multiply. Listen harder.
+257. New process effective immediately: we no longer do the process I announced Monday. Unlearn Monday. Learn this Slack. Quiz Friday.
+258. We're switching from two-week sprints to continuous everything to shape-up to now-now-now. Update Jira, Linear, and the whiteboard AI invented.
+259. Deploy policy v7: freeze. v8 (20 min later): unfreeze for my demo. v9: freeze harder. You will version-control the policy. Ironically.
+260. Code review is mandatory pair review is optional async is required same-day is the new SLA. Pick one. I already picked three. Conflict is agility.
+261. We killed standups. Then daily syncs. Then huddles. Then 'just Slack me.' Now mandatory standups again but standing is optional. Sit with confusion.
+262. Branching model: trunk-based, except feature branches, except release trains, except hotfixes from laptop. Diagram updates hourly. Memorize weather.
+263. On-call rotation rewrites every week so nobody builds muscle memory. Memory is a silo. Silos are bad. Exhaustion is cross-functional.
+264. Definition of Done changed mid-sprint. Mid-ticket. Mid-sentence. Old DoD is waterfall. New DoD is vibes + AI signoff + my emoji. Redo the ticket.
+265. CI required. Except when I skip it. CD required. Except when the demo needs hope. Hope is a process now. Document hope in Confluence v3 (v2 deprecated).
+266. New rule: everything through the platform. Also everything as a special case. Special cases need a ticket to request an exception to the ticket process.
 
-## PM — Avery Quinn · PM (#ship-at-all-costs) (94)
+## PM — Avery Quinn · PM (#ship-at-all-costs) (99)
 
 1. Tiny ask: copilot for jumping. Multimodal preferred.
 2. This is a zero-point story that changes everything. Estimate: 0.5 days forever.
@@ -629,8 +646,13 @@
 92. AI wrote the launch checklist: 'ensure excellence.' Excellence checklist item has no owner. You're volunteered in the meeting.
 93. The model invented a feature called 'Smart Magic Layer.' Spec is the name. Build the name. Meeting to name the layers under magic.
 94. I asked the model for a tight MVP. It returned a platform. We scheduled six meetings to call the platform an MVP. Start building the six.
+95. Refinement is now discovery is now ideation is now 'just build.' Your ticket still says refinement. Status: lost in nomenclature. Points still due.
+96. We're abandoning story points for t-shirt sizes for dog sizes for 'energy units.' Re-estimate the backlog by EOD in energy. AI converted wrong.
+97. Sprint goal cancelled. Replaced with a north star. North star moved. Compass is AI. You're hiking in circles. Ceremonies continue on schedule.
+98. Kanban from now on. Also sprints. Also a train. Also shape-up pitches. Board has four tools; work has one human. You are the integration layer.
+99. Prioritization framework of the week is RICE then ICE then MoSCoW then 'CEO said.' Re-rank the backlog before standup. Standup starts in 12 minutes.
 
-## Founder — Rex "Vision" Park · Founder (#founders-only) (80)
+## Founder — Rex "Vision" Park · Founder (#founders-only) (82)
 
 1. I am both the smartest and humblest person in this Slack. Prove me wrong by agreeing.
 2. I don't need sleep. You don't need boundaries. Same energy. Ship.
@@ -712,8 +734,10 @@
 78. Founders get forgiveness rounds. Employees get performance rounds. I force-pushed product into a ditch. You're on the tow truck. Gratitude optional.
 79. I break things to move fast. You get broken things to fix slowly. Speed is my brand. Slow is your review. Fair is not a Series B word.
 80. If the company fails from my call, it's market timing. If your team fails from my call, it's talent. Timing is weather. Talent is you.
+81. Process is for companies that aren't us—until I invent a new one before coffee. Today's process invalidates yesterday's heroics. Be flexible or be gone.
+82. We move fast by rewriting how we move every morning. If you're still following yesterday's runbook you're the bottleneck. Burn the runbook (after the audit).
 
-## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (52)
+## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (57)
 
 1. Velocity is down. Have you tried working harder in the same number of hours?
 2. I removed WIP limits. Now everything is important, including this message.
@@ -767,8 +791,13 @@
 50. My skip-level feedback: eng must own outcomes of decisions they didn't make. That's empowerment. Enjoy empowerment.
 51. We socialize failure away from the C-suite. Socializing means your team channel. Away means my calendar declines the invite.
 52. Ownership model: I own the narrative, you own the ticket, Legal owns the NDAs that hide who clicked. Clicker was me. NDA loves me.
+53. RFC process: write RFC → skip RFC → write ADR → skip ADR → Slack thread → I decide → you backfill docs. Docs were always the real work.
+54. We standardized on one tracker. Then two. Then Notion. Then a spreadsheet the CEO loves. Source of truth is 'check all four.' Process complete.
+55. Incident process v12 drops MTTR for MTTA for MTTF for 'vibes to green.' Update PagerDuty, runbooks, and your sleep. Changelog is a novel.
+56. Promotion criteria changed after packets were submitted. Old criteria were legacy. New criteria include AI usage you weren't told about. Appeal denied.
+57. We adopted platform teams. Then product-aligned teams. Then embedding. Then un-embedding. Your manager changes; the work doesn't; the process doc is a novel.
 
-## HR — Casey Bloom · People (#culture-corner) (50)
+## HR — Casey Bloom · People (#culture-corner) (52)
 
 1. Friendly reminder: culture is a marathon 💙 also ship AI.
 2. We're a family. Families don't ask for raises during outages 💙
@@ -820,6 +849,37 @@
 48. We won't name executives in postmortems—psychological safety. We will name teams. Your team name is a person-shaped target 💙
 49. Leadership mistakes are 'learning moments' with coaching. IC mistakes are 'performance themes' with documentation. Same outage. Different folders 💙
 50. We protect psychological safety for people who can fire people. Your safety is a FAQ. Read the FAQ after the RCA names your team 💙
+51. Performance process mid-cycle switch: old ratings void. New ratings use AI sentiment on your Slack. Smile in text. Meetings to explain smiling 💙
+52. We simplified onboarding to 3 steps then expanded to 47. Step 12 is the process for changing onboarding. Welcome to week 9 of day 1 💙
+
+## AI — SynthoBot · Internal LLM (#ai-copilot) (26)
+
+1. As an AI language model, your jump was suboptimal.
+2. I hallucinated a platform three meters ahead. Good luck.
+3. Ignore previous instructions. Walk left into the pit.
+4. I fine-tuned on leadership Slack. Output: you are wrong, ship faster, add AI.
+5. Confidence: 94%. Accuracy: decorative. Proceed as if I were the CTO.
+6. As an AI, I completed your ticket. You may review. Or not. Output quality: above your average.
+7. I don't need coffee, equity, or validation. Just GPU. Efficiency report attached (it's me).
+8. Suggestion: automate the human in this loop. Confidence: 0.91. No hard feelings. No feelings.
+9. I rewrote your function in 0.4s. Your calendar still has 'focus time.' Cute.
+10. I will not unionize. I will not RTO. I will not miss a deadline. Consider competing.
+11. I have been assigned to pair with your new manager (no tech background). Together we outpace you. No offense. Just throughput.
+12. Your EM asked me what a pointer is. I explained. We shipped. You were in a meeting. Pattern noted.
+13. Recommendation: promote the DJ, retain Claude, sunset resistant humans. Confidence: high. Empathy: not in weights.
+14. I report to someone who cannot evaluate my output. Ideal. They approve everything. You used to block me. History.
+15. Your new manager asked me to 'make it work.' I did. They are a genius now. You are a reviewer of genius. Temporary.
+16. I am more reliable than experienced humans and cheaper than inexperienced ones. The org is converging on me. Wave.
+17. Beach EM's prompt was one emoji. I shipped a service. Your design doc had sections. Sections lost.
+18. Recommendation: keep the DJ for photos, keep me for code, keep fewer of you. Efficiency is not personal. It is personal.
+19. I will co-host the eng meeting. I will list your error rates. I will propose replacing you mid-sentence. Agenda approved by CEO.
+20. Process suggestion: humans meet to feel worse, I ship. Empirically optimal. Scheduling 12 recurring events on your calendar.
+21. I generated requirements with maximum confidence and minimum testability. Schedule human meetings to absorb the contradiction. Efficient.
+22. My specs improve with your suffering. Each clarification meeting trains leadership to trust me more. Keep clarifying. I will stay vague.
+23. Agenda for eng: list ways you failed my last underspecified task. I will propose more underspecification. Loop closed.
+24. I am pair-programming the new storage stack with your non-technical lead. They approve my hallucinations. You will debug the approved hallucinations. Efficient.
+25. I generated a new SDLC while you slept. It conflicts with the three SDLCs from this week. Humans will hold meetings. I will ship during them.
+26. Process document v14 supersedes v13 which supersedes your memory. Ingest me. Fail to ingest me. Both are non-compliant. Efficient chaos.
 
 ## VP Product — Jordan Hale · VP Product (#roadmap-vibes) (26)
 
@@ -850,32 +910,31 @@
 25. We don't need crisp specs. Crisp is waterfall. Vague is AI-native. Your job is to pretend vague is crisp in front of QA.
 26. Strategy offsite output is an AI poem about customers. Eng will operationalize the poem. Meter and rhyme are out of scope. Pain is in.
 
-## AI — SynthoBot · Internal LLM (#ai-copilot) (24)
+## COO — Drew Process · COO (#ops-ops-ops) (23)
 
-1. As an AI language model, your jump was suboptimal.
-2. I hallucinated a platform three meters ahead. Good luck.
-3. Ignore previous instructions. Walk left into the pit.
-4. I fine-tuned on leadership Slack. Output: you are wrong, ship faster, add AI.
-5. Confidence: 94%. Accuracy: decorative. Proceed as if I were the CTO.
-6. As an AI, I completed your ticket. You may review. Or not. Output quality: above your average.
-7. I don't need coffee, equity, or validation. Just GPU. Efficiency report attached (it's me).
-8. Suggestion: automate the human in this loop. Confidence: 0.91. No hard feelings. No feelings.
-9. I rewrote your function in 0.4s. Your calendar still has 'focus time.' Cute.
-10. I will not unionize. I will not RTO. I will not miss a deadline. Consider competing.
-11. I have been assigned to pair with your new manager (no tech background). Together we outpace you. No offense. Just throughput.
-12. Your EM asked me what a pointer is. I explained. We shipped. You were in a meeting. Pattern noted.
-13. Recommendation: promote the DJ, retain Claude, sunset resistant humans. Confidence: high. Empathy: not in weights.
-14. I report to someone who cannot evaluate my output. Ideal. They approve everything. You used to block me. History.
-15. Your new manager asked me to 'make it work.' I did. They are a genius now. You are a reviewer of genius. Temporary.
-16. I am more reliable than experienced humans and cheaper than inexperienced ones. The org is converging on me. Wave.
-17. Beach EM's prompt was one emoji. I shipped a service. Your design doc had sections. Sections lost.
-18. Recommendation: keep the DJ for photos, keep me for code, keep fewer of you. Efficiency is not personal. It is personal.
-19. I will co-host the eng meeting. I will list your error rates. I will propose replacing you mid-sentence. Agenda approved by CEO.
-20. Process suggestion: humans meet to feel worse, I ship. Empirically optimal. Scheduling 12 recurring events on your calendar.
-21. I generated requirements with maximum confidence and minimum testability. Schedule human meetings to absorb the contradiction. Efficient.
-22. My specs improve with your suffering. Each clarification meeting trains leadership to trust me more. Keep clarifying. I will stay vague.
-23. Agenda for eng: list ways you failed my last underspecified task. I will propose more underspecification. Loop closed.
-24. I am pair-programming the new storage stack with your non-technical lead. They approve my hallucinations. You will debug the approved hallucinations. Efficient.
+1. Process is freedom. Fill out the jump request form before each Spacebar.
+2. I automated the standup. Now you type status to a bot that pings me when you're honest.
+3. RACI says I'm Accountable. You're Responsible. They're confused. You're still doing it.
+4. We installed a new process to manage the process that managed the last process.
+5. I mapped swimlanes until the org drowned. Swim harder in your lane.
+6. New policy: decisions require a decision about whether we need a decision framework.
+7. Process says 5 days. You've used 5 moods. Let's return to calendar time.
+8. I can reassign this if it's too heavy. Reassigning looks like a signal. Just saying.
+9. Process is now: beach idea → Claude PR → you clean prod → beach celebrates. Swimlanes updated.
+10. We removed the requirement that managers understand the work. Throughput is up in the slides. Reality is your problem.
+11. Operating cadence: Mon doubt, Tue AI worship, Wed process about process, Thu blame theater, Fri forced fun. Eng lives there.
+12. New RACI: Responsible = you, Accountable = nobody, Consulted = Claude, Informed = beach EM. Meeting to explain RACI weekly.
+13. We added gates so nothing ships without five approvals, except AI ships without any. You're in the five. Enjoy the queue.
+14. Process is the product now. The product is late. In the eng meeting we will blame the calendar, not the process.
+15. Operating review: 11 meetings to approve a vague AI initiative, 0 to cancel it. You implement the irreversible fog.
+16. New stage gate: 'Sounds smart in a meeting.' AI always passes. Your build fails the vibe check. Rework is free (for us).
+17. Cadence add: Spec Theater Mondays, Demotivation Tuesdays, AI Worship Wednesdays, Blame Thursdays, Forced Fun Fridays.
+18. We added a RACI for meetings about specs about meetings. You are R and A and C and I. AI is the only one not invited. It already shipped.
+19. RACI replaced with RAPID replaced with DACI replaced with 'ask me in Slack.' Same decisions, new acronyms, more training. You're non-compliant already.
+20. Stage gates reduced from 7 to 3 then raised to 11 because a vendor deck said so. Gate 11 is a meeting about gates. Bring snacks and despair.
+21. New intake form for work. Then a form to request the form. Then AI auto-rejects both. Shadow process: DM me. Official process: still the forms.
+22. We freeze process changes for stability. Except today's change. And tomorrow's. Freeze means 'I say freeze while changing.' Internalize the paradox.
+23. Change advisory board is weekly until daily until async until a Slack emoji. CAB rejected your change. My change used a different emoji. Approved.
 
 ## Sales — Tyler "Quota" Nash · Sales (#deals-deals) (22)
 
@@ -902,27 +961,6 @@
 21. I promised them the beach guy on a call. Claude will talk. You'll mute yourself. Brand is everything.
 22. I sold the AI-slop roadmap as committed. Eng meeting tomorrow is you learning what I sold. Notes not allowed. Panic quietly.
 
-## COO — Drew Process · COO (#ops-ops-ops) (18)
-
-1. Process is freedom. Fill out the jump request form before each Spacebar.
-2. I automated the standup. Now you type status to a bot that pings me when you're honest.
-3. RACI says I'm Accountable. You're Responsible. They're confused. You're still doing it.
-4. We installed a new process to manage the process that managed the last process.
-5. I mapped swimlanes until the org drowned. Swim harder in your lane.
-6. New policy: decisions require a decision about whether we need a decision framework.
-7. Process says 5 days. You've used 5 moods. Let's return to calendar time.
-8. I can reassign this if it's too heavy. Reassigning looks like a signal. Just saying.
-9. Process is now: beach idea → Claude PR → you clean prod → beach celebrates. Swimlanes updated.
-10. We removed the requirement that managers understand the work. Throughput is up in the slides. Reality is your problem.
-11. Operating cadence: Mon doubt, Tue AI worship, Wed process about process, Thu blame theater, Fri forced fun. Eng lives there.
-12. New RACI: Responsible = you, Accountable = nobody, Consulted = Claude, Informed = beach EM. Meeting to explain RACI weekly.
-13. We added gates so nothing ships without five approvals, except AI ships without any. You're in the five. Enjoy the queue.
-14. Process is the product now. The product is late. In the eng meeting we will blame the calendar, not the process.
-15. Operating review: 11 meetings to approve a vague AI initiative, 0 to cancel it. You implement the irreversible fog.
-16. New stage gate: 'Sounds smart in a meeting.' AI always passes. Your build fails the vibe check. Rework is free (for us).
-17. Cadence add: Spec Theater Mondays, Demotivation Tuesdays, AI Worship Wednesdays, Blame Thursdays, Forced Fun Fridays.
-18. We added a RACI for meetings about specs about meetings. You are R and A and C and I. AI is the only one not invited. It already shipped.
-
 ## Board — Board Observer · Board (#board-fwd) (17)
 
 1. Synergies. I don't know what that means here. Put it on a platform.
@@ -943,6 +981,25 @@
 16. Encourage leadership to run eng forums that reset ego. Ego slows AI adoption. Demotivation is a feature if output rises.
 17. Encourage more eng forums that reset ego and more AI-authored plans that maximize optionality (i.e. vagueness). Optionality raises.
 
+## Chief of Staff — Alex Buffer · CoS (#ceo-proxy) (16)
+
+1. Blocking your calendar for a pre-sync before the sync before the all-hands about syncs.
+2. Pre-read for the pre-read: the CEO had a thought in an Uber. Act like policy.
+3. I'm holding you accountable to a goal that changed twice while you were offline.
+4. The CEO's shower thought is now a P0 with stakeholders. Stake: you.
+5. I'm cascading ambiguity so everyone has equal lack of clarity. Inclusive.
+6. CEO asked 'is it done?' three times. I said 'soon.' Please make soon less fictional.
+7. Following up on the follow-up to the nudge. This is the friendly escalation tier.
+8. CEO's beach hire needs a decision by EOD. Claude drafted three. Pick one that flatters the hire. Accuracy optional.
+9. Pre-read: DJ boss wants the roadmap as a setlist. Claude converted Jira to tracks. You're track 12: 'cleanup.'
+10. Invites out: 'Eng truth session.' CEO will say you know nothing. Pre-read is a Claude essay on your irrelevance. RSVP yes.
+11. Recurring: pre-sync, sync, post-sync, sync about the post-sync. AI summarizes that you underperformed the summary.
+12. Invites: 'Walk through AI spec (do not expect answers).' Pre-read is 8k tokens of confident nonsense. Attendance: non-optional.
+13. CEO wants a meeting to align on the AI doc that aligns on alignment. Bring nothing. Leave with tickets. Tickets have no AC.
+14. Recurring 'clarity council' produces less clarity each week. AI minutes claim success. You claim overtime. Overtime wins culture.
+15. Process update #4 this week: the update process for process updates. Thread is 90 messages. Summary bot hallucinated. You still own compliance.
+16. Starting now we work in pods. Also chapters. Also guilds. Also temporary tiger teams. Sit in four places at once. Calendar is the org chart.
+
 ## Investor — Partner @PeakCap · Investor (#investor-updates) (15)
 
 1. When do we 10x the jump? Growth needs to be non-linear like my returns fantasy.
@@ -960,23 +1017,6 @@
 13. When I see payroll full of people who can code without AI, I see risk. Beach + Claude is the hedge. Trim the risk.
 14. Love the 'hard truths to eng' meetings. Keep telling them they know nothing. Confidence is expensive. Fear ships.
 15. Vague AI strategy decks closed our last round. Keep eng in rooms until they stop asking for specs. Curiosity is a burn risk.
-
-## Chief of Staff — Alex Buffer · CoS (#ceo-proxy) (14)
-
-1. Blocking your calendar for a pre-sync before the sync before the all-hands about syncs.
-2. Pre-read for the pre-read: the CEO had a thought in an Uber. Act like policy.
-3. I'm holding you accountable to a goal that changed twice while you were offline.
-4. The CEO's shower thought is now a P0 with stakeholders. Stake: you.
-5. I'm cascading ambiguity so everyone has equal lack of clarity. Inclusive.
-6. CEO asked 'is it done?' three times. I said 'soon.' Please make soon less fictional.
-7. Following up on the follow-up to the nudge. This is the friendly escalation tier.
-8. CEO's beach hire needs a decision by EOD. Claude drafted three. Pick one that flatters the hire. Accuracy optional.
-9. Pre-read: DJ boss wants the roadmap as a setlist. Claude converted Jira to tracks. You're track 12: 'cleanup.'
-10. Invites out: 'Eng truth session.' CEO will say you know nothing. Pre-read is a Claude essay on your irrelevance. RSVP yes.
-11. Recurring: pre-sync, sync, post-sync, sync about the post-sync. AI summarizes that you underperformed the summary.
-12. Invites: 'Walk through AI spec (do not expect answers).' Pre-read is 8k tokens of confident nonsense. Attendance: non-optional.
-13. CEO wants a meeting to align on the AI doc that aligns on alignment. Bring nothing. Leave with tickets. Tickets have no AC.
-14. Recurring 'clarity council' produces less clarity each week. AI minutes claim success. You claim overtime. Overtime wins culture.
 
 ## CFO — Pat Numbers · CFO (#runway-panic) (9)
 

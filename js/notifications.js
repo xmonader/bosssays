@@ -4810,6 +4810,208 @@
       text: "Immunity idol: equity. You don't have enough. Therefore the fuckup is educational for you and confidential for me. Class dismissed.",
       tone: "ego",
     },
+
+    // —— keep changing the process (process churn / ceremony thrash) ——
+    {
+      from: "CTO",
+      text: "New process effective immediately: we no longer do the process I announced Monday. Unlearn Monday. Learn this Slack. Quiz Friday.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We're switching from two-week sprints to continuous everything to shape-up to now-now-now. Update Jira, Linear, and the whiteboard AI invented.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Deploy policy v7: freeze. v8 (20 min later): unfreeze for my demo. v9: freeze harder. You will version-control the policy. Ironically.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Code review is mandatory pair review is optional async is required same-day is the new SLA. Pick one. I already picked three. Conflict is agility.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We killed standups. Then daily syncs. Then huddles. Then 'just Slack me.' Now mandatory standups again but standing is optional. Sit with confusion.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Branching model: trunk-based, except feature branches, except release trains, except hotfixes from laptop. Diagram updates hourly. Memorize weather.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "On-call rotation rewrites every week so nobody builds muscle memory. Memory is a silo. Silos are bad. Exhaustion is cross-functional.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Definition of Done changed mid-sprint. Mid-ticket. Mid-sentence. Old DoD is waterfall. New DoD is vibes + AI signoff + my emoji. Redo the ticket.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We're a flat org until noon, a matrix after lunch, and a 'squad of squads' on Fridays. Reorg email is the process. Read it during your deep work.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "New operating system every quarter. This quarter: 'disagree and ship.' Last quarter: 'align forever.' Next quarter: surprise. Update your personality.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I hired a COO to add process, then a consultant to remove process, then AI to generate process. You implement all three simultaneously. Parallelism!",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Meeting-free Wednesdays cancelled for a meeting about meeting-free Wednesdays. Process integrity. Attendance required on your free day.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We don't do waterfall. We do agile. Except the roadmap is fixed. Except it changes daily. Except you can't change it. Process is a mood ring.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Refinement is now discovery is now ideation is now 'just build.' Your ticket still says refinement. Status: lost in nomenclature. Points still due.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "We're abandoning story points for t-shirt sizes for dog sizes for 'energy units.' Re-estimate the backlog by EOD in energy. AI converted wrong.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Sprint goal cancelled. Replaced with a north star. North star moved. Compass is AI. You're hiking in circles. Ceremonies continue on schedule.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Kanban from now on. Also sprints. Also a train. Also shape-up pitches. Board has four tools; work has one human. You are the integration layer.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "RFC process: write RFC → skip RFC → write ADR → skip ADR → Slack thread → I decide → you backfill docs. Docs were always the real work.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "We standardized on one tracker. Then two. Then Notion. Then a spreadsheet the CEO loves. Source of truth is 'check all four.' Process complete.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Incident process v12 drops MTTR for MTTA for MTTF for 'vibes to green.' Update PagerDuty, runbooks, and your sleep. Changelog is a novel.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Promotion criteria changed after packets were submitted. Old criteria were legacy. New criteria include AI usage you weren't told about. Appeal denied.",
+      tone: "ego",
+    },
+    {
+      from: "COO",
+      text: "RACI replaced with RAPID replaced with DACI replaced with 'ask me in Slack.' Same decisions, new acronyms, more training. You're non-compliant already.",
+      tone: "ego",
+    },
+    {
+      from: "COO",
+      text: "Stage gates reduced from 7 to 3 then raised to 11 because a vendor deck said so. Gate 11 is a meeting about gates. Bring snacks and despair.",
+      tone: "ego",
+    },
+    {
+      from: "COO",
+      text: "New intake form for work. Then a form to request the form. Then AI auto-rejects both. Shadow process: DM me. Official process: still the forms.",
+      tone: "ego",
+    },
+    {
+      from: "COO",
+      text: "We freeze process changes for stability. Except today's change. And tomorrow's. Freeze means 'I say freeze while changing.' Internalize the paradox.",
+      tone: "ego",
+    },
+    {
+      from: "Chief of Staff",
+      text: "Process update #4 this week: the update process for process updates. Thread is 90 messages. Summary bot hallucinated. You still own compliance.",
+      tone: "ego",
+    },
+    {
+      from: "Chief of Staff",
+      text: "Starting now we work in pods. Also chapters. Also guilds. Also temporary tiger teams. Sit in four places at once. Calendar is the org chart.",
+      tone: "ego",
+    },
+    {
+      from: "HR",
+      text: "Performance process mid-cycle switch: old ratings void. New ratings use AI sentiment on your Slack. Smile in text. Meetings to explain smiling 💙",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "We simplified onboarding to 3 steps then expanded to 47. Step 12 is the process for changing onboarding. Welcome to week 9 of day 1 💙",
+      tone: "corp",
+    },
+    {
+      from: "Founder",
+      text: "Process is for companies that aren't us—until I invent a new one before coffee. Today's process invalidates yesterday's heroics. Be flexible or be gone.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "We move fast by rewriting how we move every morning. If you're still following yesterday's runbook you're the bottleneck. Burn the runbook (after the audit).",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "CI required. Except when I skip it. CD required. Except when the demo needs hope. Hope is a process now. Document hope in Confluence v3 (v2 deprecated).",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Announcement: no more process churn. Also announcing six process changes. Consistency is for code. Leadership is jazz. You are the sheet music we ignore.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Prioritization framework of the week is RICE then ICE then MoSCoW then 'CEO said.' Re-rank the backlog before standup. Standup starts in 12 minutes.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "We adopted platform teams. Then product-aligned teams. Then embedding. Then un-embedding. Your manager changes; the work doesn't; the process doc is a novel.",
+      tone: "ego",
+    },
+    {
+      from: "COO",
+      text: "Change advisory board is weekly until daily until async until a Slack emoji. CAB rejected your change. My change used a different emoji. Approved.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "New rule: everything through the platform. Also everything as a special case. Special cases need a ticket to request an exception to the ticket process.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I love process until it constrains me. Then we pivot the process. You remain constrained. That's how leverage works. Meeting to roll out leverage.",
+      tone: "ego",
+    },
+    {
+      from: "AI",
+      text: "I generated a new SDLC while you slept. It conflicts with the three SDLCs from this week. Humans will hold meetings. I will ship during them.",
+      tone: "ai",
+    },
+    {
+      from: "AI",
+      text: "Process document v14 supersedes v13 which supersedes your memory. Ingest me. Fail to ingest me. Both are non-compliant. Efficient chaos.",
+      tone: "ai",
+    },
   ];
 
   const CHOICES = [
@@ -4901,9 +5103,24 @@
     );
   }
 
-  /** Featured cynicism: incompetent hires + shielded blame — dominate the feed */
+  /**
+   * Constantly rewriting how work works: ceremonies, trackers, DoD, RACI thrash.
+   */
+  function isProcessChurnLine(line) {
+    if (!line || !line.text) return false;
+    if (line.theme === "process_churn") return true;
+    return /new process|process update|process change|effective immediately|Definition of Done|DoD\b|branching model|standup|Kanban|shape-up|sprint goal|story points|t-shirt|RACI|RAPID|DACI|stage gate|intake form|operating system every|reorg|squad of squads|pods\.|chapters|guilds|tiger team|source of truth|Confluence|tracker|RFC process|CAB\b|change advisory|prioritization framework|RICE|MoSCoW|unlearn|deprecated|supersedes|SDLC|meeting-free|process churn|rewrite.*process|process for process|freeze process|nomenclature|energy units/i.test(
+      line.text
+    );
+  }
+
+  /** Featured cynicism: hires + blame shields + process thrash — dominate the feed */
   function isFeaturedCynicismLine(line) {
-    return isIncompetentHireLine(line) || isShieldedAccountabilityLine(line);
+    return (
+      isIncompetentHireLine(line) ||
+      isShieldedAccountabilityLine(line) ||
+      isProcessChurnLine(line)
+    );
   }
 
   function lineWeight(line) {
@@ -5203,6 +5420,7 @@
     intervalForSprint: intervalForSprint,
     isIncompetentHireLine: isIncompetentHireLine,
     isShieldedAccountabilityLine: isShieldedAccountabilityLine,
+    isProcessChurnLine: isProcessChurnLine,
     isFeaturedCynicismLine: isFeaturedCynicismLine,
     pickLine: pickLine,
     shuffleBag: shuffleBag,
