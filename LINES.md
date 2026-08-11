@@ -1,6 +1,6 @@
-# Boss Says — all Slack lines (900)
+# Boss Says — all Slack lines (955)
 
-## CEO — Blake Ashford · CEO (#exec-stream) (250)
+## CEO — Blake Ashford · CEO (#exec-stream) (271)
 
 1. Can we make the jump model-aware?
 2. Investors love coins. Make more coins. Also agents.
@@ -252,8 +252,29 @@
 248. Auth and identity platform reassigned from security eng to a nightclub bouncer. OAuth is a wristband. MFA is a second stamp. Sessions expire at dawn.
 249. We fired the compiler person. Hired a librarian to 'organize the languages.' LLVM is a card catalog. You maintain the stacks. Claude rewrites the index.
 250. Difficult systems need fresh eyes, not scarred ones. Fired the scarred. Hired the fresh (retail, music, books). Claude has the scars. You have the pager.
+251. Blameless culture: when I break prod, we learn. When you break prod, we document. Learning is for leaders. Documents are for ICs.
+252. I own outcomes. You own root causes. Outcomes are green on my slide. Root causes have your LDAP. Beautiful system.
+253. Accountability is a shield I wear and a sword I point. Direction of the sword is always downhill. Meeting to discuss ownership (yours).
+254. I approved the risk. You executed the risk. Risk materialized. Execution is the problem. Approval is leadership. Live with it.
+255. My force-push was 'executive override.' Your force-push would be a firing. Same git. Different castes. Understand hierarchy.
+256. We don't blame in public. We reorganize quietly around the person who noticed I was wrong. Congrats on noticing.
+257. I was the decision maker. You are the accountable owner. Those are different words for a reason. Look them up after you fix my mess.
+258. Postmortem rule: no names above director. My name is above director. Your name is the action item. Blameless!
+259. I will not go on the incident bridge. Optics. You will. Optics. When it's fixed I'll announce we moved fast. We = me.
+260. Shielded by title: my bad calls are 'bets.' Your bad calls are 'failures.' Bets raise money. Failures raise PIPs.
+261. I was wrong in private. You will be wrong in the customer email. Brand safety for me. Growth opportunity for you.
+262. Board asked who failed. I said 'the system.' System is eng. I am the vision of the system. Vision doesn't fail—it pivots. Pivot ticket: you.
+263. Shielded: my calendar, my reputation, my bonus. Exposed: your name in the RCA, your sleep, your weekend. Fair? Fair is a junior concept.
+264. I signed the risk acceptance. You are the residual risk. Residual risks get written up. Signatures get promoted.
+265. When I ignore your warning and it burns, the warning was 'not loud enough.' Volume is your new KPI. My ears are strategic.
+266. Customer apology will say 'we' failed. Internally 'we' means eng. Externally 'we' means the brand. I'm the brand. You're eng.
+267. I won't be CC'd on the RCA. Plausible deniability is a leadership benefit. You get dental. Different packages.
+268. My bad call is a 'bold experiment.' Your implementation of my bad call is a 'delivery miss.' Experiments get press. Misses get 1:1s.
+269. I ordered the shortcut. Shortcut collapsed. Narrative: eng lacked quality gates. Gates for me are optional by design. Design is me.
+270. Stop putting my name in Slack threads about the outage I started. Threads are discoverable. Discoverability is for ICs. DM me victory only.
+271. Immunity idol: equity. You don't have enough. Therefore the fuckup is educational for you and confidential for me. Class dismissed.
 
-## CTO — Brent Caldwell · CTO (#arch-thots) (234)
+## CTO — Brent Caldwell · CTO (#arch-thots) (256)
 
 1. Is gravity differentiable? Asking for the architecture review.
 2. Please add RAG to the mushroom. Ship by EOD.
@@ -489,6 +510,28 @@
 232. We let go of the person who said CRDTs are subtle. New owner: improv actor. Conflict-free means yes-and. Merge is comedy. Prod is the audience.
 233. Time-series database for metrics: former weather presenter. Forecasts are SLOs. Storms are incidents. They point at green screens. You point at Grafana.
 234. Distributed lock service is now owned by a wedding DJ. Mutexes are exclusives. Deadlock is two songs at once. Unlock is a fade. Page them at 3am.
+235. I broke prod. You are incident lead. I am 'executive sponsor.' Sponsor means I leave early and keynote the learning later.
+236. My bad migrate is a 'process gap in eng enablement.' Your bad migrate is a 'judgment gap.' Same SQL. Different story.
+237. I didn't pull and deployed trash. That's 'context switching cost of leadership.' Your job is absorbing my context.
+238. Git shows me. Narrative shows you. Narrative ships to the board. git blame is not a board metric.
+239. I force-pushed. Branch protection didn't apply to me (I own the settings). Protection failed because eng culture. Fix culture.
+240. Root cause: my override. Proximate cause: you didn't stop the override. We fix proximate causes. I'm free for lunch.
+241. Blameless retro agenda: how eng allowed leadership to click the button. Action: more warnings for me. Severity: your weekend.
+242. I will not be in the RCA. Conflict of interest—I caused it. You will write the RCA. No conflict—you only suffer it.
+243. Accountability sandbox: I play. You clean. AI writes the clean-sounding summary with my name nowhere. Process perfected.
+244. When AI and I break prod, AI is experimental and I am visionary. You are the change management failure. Update the runbook with your face.
+245. I disabled alerts because noise. Outage was silent. Silence is an eng monitoring problem. My peace was intentional.
+246. Shared responsibility model: I share the vision, you share the blame. Vision stays on LinkedIn. Blame stays in Jira.
+247. My access is break-glass forever. Your access is least privilege. When I break glass, you get the broom. Least privilege of dignity.
+248. I approved my own exception to the deploy policy. Exception is leadership. Policy is for people without equity. You are policy-shaped.
+249. I merged with admin rights at 2am. Outage at 2:05. Timeline will say 'insufficient peer review.' Peers can't review gods. Fix peer review.
+250. My break-glass access left fingerprints. We will rotate the glass. We will not rotate me. You will rotate on-call until trust returns (to me).
+251. I skipped the checklist. Checklist is for people who need checklists. SEV-1 is for people who need careers. Guess your role.
+252. Board packet says 'eng execution risk.' Attachment is my force-push. Attachment is confidential. Packet is public. You're public-shaped.
+253. I will not accept a root cause that includes my username. Find a systemic cause that sounds like tooling. Tooling is your username.
+254. Accountability firewall: mistakes flow down, credit flows up. Outage flowed. Credit for the fix will flow to my all-hands. Physics.
+255. I caused the bug in the 'quick CEO demo branch' I pushed to prod. Demo was successful. Prod is your problem. Success is mine.
+256. I will attend the retro as a 'listener.' Listening means I rewrite the doc after to remove me. Your action items will multiply. Listen harder.
 
 ## PM — Avery Quinn · PM (#ship-at-all-costs) (94)
 
@@ -587,7 +630,7 @@
 93. The model invented a feature called 'Smart Magic Layer.' Spec is the name. Build the name. Meeting to name the layers under magic.
 94. I asked the model for a tight MVP. It returned a platform. We scheduled six meetings to call the platform an MVP. Start building the six.
 
-## Founder — Rex "Vision" Park · Founder (#founders-only) (77)
+## Founder — Rex "Vision" Park · Founder (#founders-only) (80)
 
 1. I am both the smartest and humblest person in this Slack. Prove me wrong by agreeing.
 2. I don't need sleep. You don't need boundaries. Same energy. Ship.
@@ -666,8 +709,11 @@
 75. If the AI spec is bad, that's your chance to show ownership by implementing badness beautifully. All-hands will showcase the beauty.
 76. Engineer X is out (negative energy). Beach stranger owns our geo-replicated object store. Replication is storytelling. Claude is the durability story.
 77. Sales hire with no backend background is building the billing ledger and the warehouse. Closed-won is ACID. You're the isolation level: read uncommitted career.
+78. Founders get forgiveness rounds. Employees get performance rounds. I force-pushed product into a ditch. You're on the tow truck. Gratitude optional.
+79. I break things to move fast. You get broken things to fix slowly. Speed is my brand. Slow is your review. Fair is not a Series B word.
+80. If the company fails from my call, it's market timing. If your team fails from my call, it's talent. Timing is weather. Talent is you.
 
-## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (47)
+## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (52)
 
 1. Velocity is down. Have you tried working harder in the same number of hours?
 2. I removed WIP limits. Now everything is important, including this message.
@@ -716,8 +762,13 @@
 45. Brown bag cancelled. Replaced with 'Grey bag': AI docs nobody understands, discussed until morale is grey. Lunch not provided.
 46. We reorged: hard systems (storage, consensus, streaming) go to people with soft skills and no systems background. Hard skills go to Claude. Soft landing optional.
 47. PIP for the distributed systems lead who 'overcomplicated' correctness. Replacement: podcast host. Episodes are partitions. Guests are replicas. Outro is failover.
+48. Escalation policy: issues go up until they hit someone unfireable, then bounce down to you. You're the trampoline. Boing.
+49. We practice accountability theater. Execs get the stage. You get the trapdoor. Rehearsal is every incident.
+50. My skip-level feedback: eng must own outcomes of decisions they didn't make. That's empowerment. Enjoy empowerment.
+51. We socialize failure away from the C-suite. Socializing means your team channel. Away means my calendar declines the invite.
+52. Ownership model: I own the narrative, you own the ticket, Legal owns the NDAs that hide who clicked. Clicker was me. NDA loves me.
 
-## HR — Casey Bloom · People (#culture-corner) (46)
+## HR — Casey Bloom · People (#culture-corner) (50)
 
 1. Friendly reminder: culture is a marathon 💙 also ship AI.
 2. We're a family. Families don't ask for raises during outages 💙
@@ -765,6 +816,10 @@
 44. Meeting norms: no asking for concrete acceptance criteria—it stresses product. Stress is for eng. AI is calm 💙
 45. Wellness meeting on calendar: cope with ambiguous AI specs. Coping strategy: acceptance. Acceptance is shipping garbage on time 💙
 46. Engineer X's exit is a growth story. Their replacement (DJ / no STEM) is 'AI-native leadership.' Please mentor upward without sounding qualified 💙
+47. Leadership is protected as 'strategic risk-taking.' ICs are coached for 'execution risk.' Same outage. Different HR templates 💙
+48. We won't name executives in postmortems—psychological safety. We will name teams. Your team name is a person-shaped target 💙
+49. Leadership mistakes are 'learning moments' with coaching. IC mistakes are 'performance themes' with documentation. Same outage. Different folders 💙
+50. We protect psychological safety for people who can fire people. Your safety is a FAQ. Read the FAQ after the RCA names your team 💙
 
 ## VP Product — Jordan Hale · VP Product (#roadmap-vibes) (26)
 

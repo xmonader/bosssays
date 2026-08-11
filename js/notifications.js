@@ -4531,6 +4531,285 @@
       text: "Difficult systems need fresh eyes, not scarred ones. Fired the scarred. Hired the fresh (retail, music, books). Claude has the scars. You have the pager.",
       tone: "ego",
     },
+
+    // —— shielded accountability: their fuckups, your name on the ticket ——
+    {
+      from: "CEO",
+      text: "Blameless culture: when I break prod, we learn. When you break prod, we document. Learning is for leaders. Documents are for ICs.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I own outcomes. You own root causes. Outcomes are green on my slide. Root causes have your LDAP. Beautiful system.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Accountability is a shield I wear and a sword I point. Direction of the sword is always downhill. Meeting to discuss ownership (yours).",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I approved the risk. You executed the risk. Risk materialized. Execution is the problem. Approval is leadership. Live with it.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "My force-push was 'executive override.' Your force-push would be a firing. Same git. Different castes. Understand hierarchy.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We don't blame in public. We reorganize quietly around the person who noticed I was wrong. Congrats on noticing.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I was the decision maker. You are the accountable owner. Those are different words for a reason. Look them up after you fix my mess.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Postmortem rule: no names above director. My name is above director. Your name is the action item. Blameless!",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I will not go on the incident bridge. Optics. You will. Optics. When it's fixed I'll announce we moved fast. We = me.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Shielded by title: my bad calls are 'bets.' Your bad calls are 'failures.' Bets raise money. Failures raise PIPs.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I broke prod. You are incident lead. I am 'executive sponsor.' Sponsor means I leave early and keynote the learning later.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "My bad migrate is a 'process gap in eng enablement.' Your bad migrate is a 'judgment gap.' Same SQL. Different story.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I didn't pull and deployed trash. That's 'context switching cost of leadership.' Your job is absorbing my context.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Git shows me. Narrative shows you. Narrative ships to the board. git blame is not a board metric.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I force-pushed. Branch protection didn't apply to me (I own the settings). Protection failed because eng culture. Fix culture.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Root cause: my override. Proximate cause: you didn't stop the override. We fix proximate causes. I'm free for lunch.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Blameless retro agenda: how eng allowed leadership to click the button. Action: more warnings for me. Severity: your weekend.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I will not be in the RCA. Conflict of interest—I caused it. You will write the RCA. No conflict—you only suffer it.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Accountability sandbox: I play. You clean. AI writes the clean-sounding summary with my name nowhere. Process perfected.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "When AI and I break prod, AI is experimental and I am visionary. You are the change management failure. Update the runbook with your face.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I disabled alerts because noise. Outage was silent. Silence is an eng monitoring problem. My peace was intentional.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Shared responsibility model: I share the vision, you share the blame. Vision stays on LinkedIn. Blame stays in Jira.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Escalation policy: issues go up until they hit someone unfireable, then bounce down to you. You're the trampoline. Boing.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "We practice accountability theater. Execs get the stage. You get the trapdoor. Rehearsal is every incident.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "My skip-level feedback: eng must own outcomes of decisions they didn't make. That's empowerment. Enjoy empowerment.",
+      tone: "ego",
+    },
+    {
+      from: "HR",
+      text: "Leadership is protected as 'strategic risk-taking.' ICs are coached for 'execution risk.' Same outage. Different HR templates 💙",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "We won't name executives in postmortems—psychological safety. We will name teams. Your team name is a person-shaped target 💙",
+      tone: "corp",
+    },
+    {
+      from: "CEO",
+      text: "I was wrong in private. You will be wrong in the customer email. Brand safety for me. Growth opportunity for you.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "My access is break-glass forever. Your access is least privilege. When I break glass, you get the broom. Least privilege of dignity.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Board asked who failed. I said 'the system.' System is eng. I am the vision of the system. Vision doesn't fail—it pivots. Pivot ticket: you.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I approved my own exception to the deploy policy. Exception is leadership. Policy is for people without equity. You are policy-shaped.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Founders get forgiveness rounds. Employees get performance rounds. I force-pushed product into a ditch. You're on the tow truck. Gratitude optional.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Shielded: my calendar, my reputation, my bonus. Exposed: your name in the RCA, your sleep, your weekend. Fair? Fair is a junior concept.",
+      tone: "ego",
+    },
+
+    // —— more shielded accountability / blame laundering ——
+    {
+      from: "CEO",
+      text: "I signed the risk acceptance. You are the residual risk. Residual risks get written up. Signatures get promoted.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "When I ignore your warning and it burns, the warning was 'not loud enough.' Volume is your new KPI. My ears are strategic.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Customer apology will say 'we' failed. Internally 'we' means eng. Externally 'we' means the brand. I'm the brand. You're eng.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I won't be CC'd on the RCA. Plausible deniability is a leadership benefit. You get dental. Different packages.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "My bad call is a 'bold experiment.' Your implementation of my bad call is a 'delivery miss.' Experiments get press. Misses get 1:1s.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I ordered the shortcut. Shortcut collapsed. Narrative: eng lacked quality gates. Gates for me are optional by design. Design is me.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I merged with admin rights at 2am. Outage at 2:05. Timeline will say 'insufficient peer review.' Peers can't review gods. Fix peer review.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "My break-glass access left fingerprints. We will rotate the glass. We will not rotate me. You will rotate on-call until trust returns (to me).",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I skipped the checklist. Checklist is for people who need checklists. SEV-1 is for people who need careers. Guess your role.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Board packet says 'eng execution risk.' Attachment is my force-push. Attachment is confidential. Packet is public. You're public-shaped.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I will not accept a root cause that includes my username. Find a systemic cause that sounds like tooling. Tooling is your username.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Accountability firewall: mistakes flow down, credit flows up. Outage flowed. Credit for the fix will flow to my all-hands. Physics.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I caused the bug in the 'quick CEO demo branch' I pushed to prod. Demo was successful. Prod is your problem. Success is mine.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "We socialize failure away from the C-suite. Socializing means your team channel. Away means my calendar declines the invite.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Ownership model: I own the narrative, you own the ticket, Legal owns the NDAs that hide who clicked. Clicker was me. NDA loves me.",
+      tone: "ego",
+    },
+    {
+      from: "HR",
+      text: "Leadership mistakes are 'learning moments' with coaching. IC mistakes are 'performance themes' with documentation. Same outage. Different folders 💙",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "We protect psychological safety for people who can fire people. Your safety is a FAQ. Read the FAQ after the RCA names your team 💙",
+      tone: "corp",
+    },
+    {
+      from: "Founder",
+      text: "I break things to move fast. You get broken things to fix slowly. Speed is my brand. Slow is your review. Fair is not a Series B word.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "If the company fails from my call, it's market timing. If your team fails from my call, it's talent. Timing is weather. Talent is you.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Stop putting my name in Slack threads about the outage I started. Threads are discoverable. Discoverability is for ICs. DM me victory only.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I will attend the retro as a 'listener.' Listening means I rewrite the doc after to remove me. Your action items will multiply. Listen harder.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Immunity idol: equity. You don't have enough. Therefore the fuckup is educational for you and confidential for me. Class dismissed.",
+      tone: "ego",
+    },
   ];
 
   const CHOICES = [
@@ -4602,18 +4881,33 @@
 
   /**
    * Beach hires, DJs, librarians, fired experts, Claude+civilian managers, etc.
-   * These should dominate the ping stream — that's the joke.
    */
   function isIncompetentHireLine(line) {
     if (!line || !line.text) return false;
     if (line.theme === "incompetent_hire") return true;
-    return /beach|DJ\b|DJs\b|librarian|barista|yoga|realtor|sommelier|cashier|bouncer|influencer|podcast|bartender|dog walker|hostel|unqualified|non-technical|no STEM|no CS|no tech|zero tech|no experience|no background|never (written|coded|opened|seen|used|debugged|grepped)|plane (DJ|guy|stranger)|TikTok|magician|sommelier|wedding planner|travel blogger|radio host|timeshare|weather presenter|improv actor|sports statistician|bookstore|nightclub|gift shop|life coach|rooftop|cruise ship|Claude \+|Claude and|pair with your new manager|AI-native leadership|beginner's mind|differently credentialed|fresh eyes|main-character|protagonist|Staff IC of Energy|Head of Taste|Head of Platform|engineering manager|new (EM|boss|manager|director|lead)|hired a |Hired a |Hired the |we (fired|let go|PIPed|cut) |Fired the |replaced with|replacement:|reassigned|reorged|no IDE|never merged|never pulled|never force|civilian|zero years|outperformed by|outpace you|replace you|replacing you|replaces you|you're optional|you are optional|sunsetting.*human|mentor upward/i.test(
+    return /beach|DJ\b|DJs\b|librarian|barista|yoga|realtor|sommelier|cashier|bouncer|influencer|podcast|bartender|dog walker|hostel|unqualified|non-technical|no STEM|no CS|no tech|zero tech|no experience|no background|never (written|coded|opened|seen|used|debugged|grepped)|plane (DJ|guy|stranger)|TikTok|magician|wedding planner|travel blogger|radio host|timeshare|weather presenter|improv actor|sports statistician|bookstore|nightclub|gift shop|life coach|rooftop|cruise ship|Claude \+|Claude and|pair with your new manager|AI-native leadership|beginner's mind|differently credentialed|fresh eyes|main-character|protagonist|Staff IC of Energy|Head of Taste|Head of Platform|engineering manager|new (EM|boss|manager|director|lead)|hired a |Hired a |Hired the |we (fired|let go|PIPed|cut) |Fired the |replaced with|replacement:|reassigned|reorged|no IDE|never merged|civilian|zero years|outperformed by|outpace you|replace you|replacing you|replaces you|you're optional|you are optional|sunsetting.*human|mentor upward/i.test(
       line.text
     );
   }
 
+  /**
+   * Leadership fuckups laundered onto eng: blameless for them, RCA for you.
+   */
+  function isShieldedAccountabilityLine(line) {
+    if (!line || !line.text) return false;
+    if (line.theme === "shielded_blame") return true;
+    return /blameless|accountability|accountable owner|root cause|RCA\b|postmortem|incident lead|executive sponsor|force-push|force.push|didn't pull|did not pull|git blame|migrate down|hotfixed|hard-reset|cherry-pick|break-glass|I own outcomes|you own|shield|LDAP|SEV-|residual risk|risk acceptance|plausible deniability|my override|didn't stop|not loud enough|customer apology|bonus|equity idol|trapdoor|trampoline|downhill|confidential for me|remove me|fingerprints|exception is leadership|forgiveness rounds|tow truck|broom|narrative shows you|board packet|action item is on you|Own the outage|your weekend|your name/i.test(
+      line.text
+    );
+  }
+
+  /** Featured cynicism: incompetent hires + shielded blame — dominate the feed */
+  function isFeaturedCynicismLine(line) {
+    return isIncompetentHireLine(line) || isShieldedAccountabilityLine(line);
+  }
+
   function lineWeight(line) {
-    if (isIncompetentHireLine(line)) return 8; // show these a lot
+    if (isFeaturedCynicismLine(line)) return 8; // show these a lot
     if (line.tone === "ego" || line.tone === "corp") return 2;
     return 1;
   }
@@ -4635,31 +4929,29 @@
   }
 
   /**
-   * Draw next line from shuffle bag. Biases hard toward incompetent-hire comedy.
+   * Draw next line from shuffle bag. Biases hard toward hire + blame-shield comedy.
    */
   function pickLine(state, rng) {
     rng = rng || Math.random;
     if (!state.bag || state.bag.length === 0) shuffleBag(state, rng);
 
-    function takeFromBag(preferHire) {
+    function takeFromBag(preferFeatured) {
       if (!state.bag.length) shuffleBag(state, rng);
-      if (!preferHire) {
+      if (!preferFeatured) {
         const idx = state.bag.pop();
         return { idx: idx, line: state.lines[idx] };
       }
-      // Search from the end for a hire line; keep non-matches aside briefly
       const held = [];
       let found = null;
       while (state.bag.length > 0 && !found) {
         const idx = state.bag.pop();
         const line = state.lines[idx];
-        if (isIncompetentHireLine(line)) {
+        if (isFeaturedCynicismLine(line)) {
           found = { idx: idx, line: line };
         } else {
           held.push(idx);
         }
       }
-      // put non-matches back
       for (let i = held.length - 1; i >= 0; i--) state.bag.push(held[i]);
       if (found) return found;
       if (!state.bag.length) shuffleBag(state, rng);
@@ -4667,13 +4959,12 @@
       return { idx: idx, line: state.lines[idx] };
     }
 
-    // ~70% of pings should be incompetent-hire / fired-expert comedy
-    let preferHire = rng() < 0.7;
-    let drawn = takeFromBag(preferHire);
+    // ~75% of pings: incompetent hires OR shielded accountability bullshit
+    let preferFeatured = rng() < 0.75;
+    let drawn = takeFromBag(preferFeatured);
     let idx = drawn.idx;
     let pick = drawn.line;
 
-    // Avoid same sender twice in a row when alternatives exist
     let guard = 0;
     while (
       guard < 10 &&
@@ -4681,12 +4972,11 @@
       state.bag.length > 0
     ) {
       state.bag.unshift(idx);
-      drawn = takeFromBag(preferHire && guard < 6);
+      drawn = takeFromBag(preferFeatured && guard < 6);
       idx = drawn.idx;
       pick = drawn.line;
       guard++;
     }
-    // Avoid exact text still sitting in inbox
     guard = 0;
     while (guard < 14 && state.bag.length > 0) {
       const inInbox = state.inbox.some(function (n) {
@@ -4695,7 +4985,7 @@
       const isActive = state.active && state.active.text === pick.text;
       if (!inInbox && !isActive) break;
       state.bag.unshift(idx);
-      drawn = takeFromBag(preferHire);
+      drawn = takeFromBag(preferFeatured);
       idx = drawn.idx;
       pick = drawn.line;
       guard++;
@@ -4912,6 +5202,8 @@
     createNotificationState: createNotificationState,
     intervalForSprint: intervalForSprint,
     isIncompetentHireLine: isIncompetentHireLine,
+    isShieldedAccountabilityLine: isShieldedAccountabilityLine,
+    isFeaturedCynicismLine: isFeaturedCynicismLine,
     pickLine: pickLine,
     shuffleBag: shuffleBag,
     tickNotifications: tickNotifications,

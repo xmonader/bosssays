@@ -321,7 +321,7 @@ describe("notification copy bank", () => {
     assert.ok(state.bag.length > 100);
   });
 
-  it("heavily prefers incompetent-hire messages", () => {
+  it("heavily prefers hire + shielded-blame messages", () => {
     const state = Notes.createNotificationState();
     const rng = (function () {
       let s = 99;
@@ -330,18 +330,20 @@ describe("notification copy bank", () => {
         return (s % 10000) / 10000;
       };
     })();
-    let hire = 0;
+    let featured = 0;
+    let blame = 0;
     const n = 80;
     for (let i = 0; i < n; i++) {
       const line = Notes.pickLine(state, rng);
       state.lastFrom = line.from;
-      if (Notes.isIncompetentHireLine(line)) hire++;
+      if (Notes.isFeaturedCynicismLine(line)) featured++;
+      if (Notes.isShieldedAccountabilityLine(line)) blame++;
     }
-    // Should be well above uniform (~maybe 15-25% of corpus) — target majority
     assert.ok(
-      hire >= 40,
-      "expected mostly incompetent-hire lines, got " + hire + "/" + n
+      featured >= 45,
+      "expected mostly featured cynicism, got " + featured + "/" + n
     );
+    assert.ok(blame >= 5, "expected some shielded-blame lines, got " + blame);
   });
 });
 
