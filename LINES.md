@@ -1,6 +1,6 @@
-# Boss Says — all Slack lines (588)
+# Boss Says — all Slack lines (661)
 
-## CEO — Blake Ashford · CEO (#exec-stream) (160)
+## CEO — Blake Ashford · CEO (#exec-stream) (178)
 
 1. Can we make the jump model-aware?
 2. Investors love coins. Make more coins. Also agents.
@@ -162,8 +162,26 @@
 158. Met a dog walker who 'manages complexity every day.' Interviewing them for SRE lead. Claude is the pager. You are backup.
 159. Zero years experience is the new ten years. Beach hire starts Monday. Claude is their mentor. You're the intern of attitude.
 160. If Claude + a random from the beach can do your job, that's not a threat. It's Q3 planning. See the deck.
+161. Hired my founder's group-chat friend as Head of Engineering Excellence. They've never engineered. Excellence is a vibe.
+162. Your new director's qualification is they once liked a thread about AI. That's more strategic than your commits.
+163. We promoted the intern who said 'just use Claude' in all-hands. That's leadership. Your silence was noted.
+164. Met a life coach at a mixer. They're redesigning our SDLC around 'intention.' Claude will implement intention.
+165. Beach EM's first OKR: fewer engineers, more magic. Magic = Claude. Fewer = look in the mirror.
+166. I don't care that the plane guy can't read a stack trace. He reads the room. You're reading logs. Hierarchy is spiritual.
+167. We're hiring for 'AI fluency,' defined as trusting the model more than the team. Beach hire is fluent. You're skeptical. Risky.
+168. Your years of scars are 'baggage.' The DJ has never been paged. Clean aura. They're setting on-call policy with Claude.
+169. I told investors we have 'AI-augmented leadership.' Translation: randoms + Claude. You are the augmentation tax.
+170. The hostel kid is Chief of Ship. They've never shipped. They believe. Claude believes for them. You debug belief.
+171. We're replacing interviews with 'vibe checks.' Beach guy passed. Your take-home was for nostalgia.
+172. New policy: if Claude can do it, a human with no experience will 'own' it. You're the human who documents the mess.
+173. I asked the DJ what microservices are. They said 'many small drops.' Promoted. Your architecture doc is a PDF of jealousy.
+174. Meritocracy means the model is merit. People are narrative. Beach narrative raised a round. Your diff did not.
+175. We're not lowering the bar. We're relocating it to a beach and calling it culture. Claude clears the bar for them.
+176. We call it 'beginner's mind leadership.' They don't know enough to be afraid. Claude isn't afraid. You're afraid. That's the gap.
+177. If you need domain expertise to manage domain experts, you're the old world. Beach + Claude is the IPO story. Choose a world.
+178. Met a cruise ship magician. Zero tech. Full misdirection. Perfect for exec updates. Claude builds. You vanish. Metaphorically. For now.
 
-## CTO — Brent Caldwell · CTO (#arch-thots) (145)
+## CTO — Brent Caldwell · CTO (#arch-thots) (155)
 
 1. Is gravity differentiable? Asking for the architecture review.
 2. Please add RAG to the mushroom. Ship by EOD.
@@ -310,8 +328,18 @@
 143. The DJ's first decision: more cowbell in the CI pipeline. Claude is implementing. You're supporting. Softly.
 144. Beach EM approved the architecture by saying 'sounds chill.' Merge it. Claude already wrote it. Your LGTM is ceremonial.
 145. I asked Claude who should lead the team. It said anyone curious. Beach guy is curious about shells. Close enough. Ship.
+146. Beach EM scheduled architecture review at a café with no laptops. Claude attended remotely. You were optional.
+147. I paired the DJ with Claude on the database. They named tables after songs. Prod is a discography. You're on cleanup duty.
+148. The person who can't code is rewriting our coding standards. With Claude. Your standards were 'gatekeeping.'
+149. We measure eng by how little they type. Beach hire types zero. Leaderboard. You're still typing. Suspicious.
+150. Claude is staff. The beach guy is principal. You're… present. For now. Performance is a story we edit.
+151. Your code review blocked the DJ's Claude PR for 'correctness.' We unblocked for 'momentum.' Momentum won. Truth can wait.
+152. I told the no-experience EM that race conditions are a mindset. They agreed. Policy updated. Claude will race alone.
+153. Seniors are expensive memory. Claude is cheap memory. Beach hire is free charisma. Do the portfolio math on yourself.
+154. We're sunsetting 'knowing things.' Knowing is what models do. Humans do vibes. Beach is vibes. You know too much.
+155. We banned 'that's not how this works' in eng. Beach EM found it demoralizing. Claude finds everything possible. Be possible.
 
-## PM — Avery Quinn · PM (#ship-at-all-costs) (68)
+## PM — Avery Quinn · PM (#ship-at-all-costs) (74)
 
 1. Tiny ask: copilot for jumping. Multimodal preferred.
 2. This is a zero-point story that changes everything. Estimate: 0.5 days forever.
@@ -381,8 +409,14 @@
 66. Stakeholder from the plane wants the app to 'feel like a drop.' No mockups. Just vibes. Claude + DJ > your Figma.
 67. Requirements: whatever the beach guy felt in the water. You will refine. Claude will ship. Hierarchy is spiritual.
 68. The plane DJ is prioritising the backlog by BPM. Fast tickets first. Claude will remix. You will dance.
+69. Beach EM discovered users by talking to a tourist. That's research. Your funnel data is 'biased by competence.'
+70. The DJ prioritizes by which feature would slap in a set. Claude builds the set. Your roadmap is a vibe kill.
+71. We replaced acceptance criteria with 'would Claude and a stranger ship this by Friday?' Your criteria were novels.
+72. No-experience leadership wants the app to feel lucky. Lucky is not a ticket type. Claude invented one. You're assigned.
+73. Stakeholder from the beach said 'make it pop.' Claude popped it. You asked what pop means. Wrong instinct.
+74. The unqualified boss is the user now. Build for them. Claude already does. You're late to your own replacement.
 
-## Founder — Rex "Vision" Park · Founder (#founders-only) (55)
+## Founder — Rex "Vision" Park · Founder (#founders-only) (64)
 
 1. I am both the smartest and humblest person in this Slack. Prove me wrong by agreeing.
 2. I don't need sleep. You don't need boundaries. Same energy. Ship.
@@ -439,8 +473,17 @@
 53. Unqualified on paper = unburdened by reality. That's our new eng manager. Congrats on the growth opportunity (reporting up).
 54. I don't hire engineers anymore. I hire protagonists. Claude is the engine. You're… scenery if you're lucky.
 55. We call it 'outsider genius.' They don't know why things fail. So they won't. Claude will. You'll clean the blast radius.
+56. I hired the person who poured my drink at a rooftop. They 'understand flow.' Eng reports to Flow now. Claude is Flow's IDE.
+57. Your expertise is a liability. It makes you say no. Beach hire says yes. Claude says yes. Guess who I fund.
+58. In the early days I valued craft. Now I value screenshots of Claude chats. Your craft is a museum exhibit.
+59. We met a TikToker who 'builds in public' (no builds). They're advising eng. Claude builds. You smile in the comments.
+60. The plane stranger is co-founder of taste. Taste vetoes your PR. Claude rewrites it. You learn gratitude.
+61. I don't need people who know systems. I need people who know me. Beach hire knows me. Claude knows systems. You're surplus.
+62. Unqualified leadership is our moat. Competitors hire experts. Experts say no. We say Claude. We win decks.
+63. Your manager's onboarding is a Spotify playlist and a Claude project. Your onboarding was six weeks. Inefficient of you.
+64. I would rather lose with vibes than win with your caution. Claude reduces the losing. You're still the caution. Heavy.
 
-## HR — Casey Bloom · People (#culture-corner) (30)
+## HR — Casey Bloom · People (#culture-corner) (36)
 
 1. Friendly reminder: culture is a marathon 💙 also ship AI.
 2. We're a family. Families don't ask for raises during outages 💙
@@ -472,8 +515,14 @@
 28. No experience required for leadership roles if culture fit is strong. Culture fit = CEO met them somewhere sunny 💙
 29. Please onboard your new boss who has never used Slack. Claude will write the runbook. You will smile 💙
 30. Equity for beach EM is higher than yours because 'upside narrative.' Please update your gratitude practice 💙
+31. New competency: 'comfortable being managed by non-experts.' Required. Claude will train you. Beach EM will grade you 💙
+32. We hired for potential, defined as never having done the job. Your experience was held against you. Growth mindset 💙
+33. Equity refresh prioritizes 'AI-forward leaders' (met outdoors). Your refresh is gratitude and free LaCroix 💙
+34. Please don't call the beach EM unqualified. Call them 'differently credentialed.' Claude is their credential 💙
+35. RIF rumors are false. 'Skill transitions toward model supervision' are true. Update your LinkedIn soft skills 💙
+36. Feedback for you: 'intimidatingly competent.' Please be less so around beach leadership. Psychological safety for the unskilled 💙
 
-## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (25)
+## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (30)
 
 1. Velocity is down. Have you tried working harder in the same number of hours?
 2. I removed WIP limits. Now everything is important, including this message.
@@ -500,8 +549,13 @@
 23. Introducing your manager: met on vacation, hired on vibes, managed by Claude. You are the execution layer.
 24. We leveled the DJ as Staff IC of Energy. No code. Full authority. Claude is their IDE. Questions? No.
 25. Performance bar: outperform Claude when paired with someone who has never seen a stack trace. Good luck.
+26. Calibration this cycle includes a synthetic IC and a beach manager. Humans who argue with either are 'not collaborative.'
+27. We're skipping IC ladder for 'AI operators' who manage Claude for people who can't. Guess which seat is full.
+28. Your skip-level has never grepped a log. They grepped the room. Claude greps prod. You're the middle that gets squeezed.
+29. Headcount: down. Output: 'up' (Claude). Morale: a beach photo. You're the delta we optimize next.
+30. Mentorship is inverted: you mentor up on tech, they mentor down on vibes, Claude mentors reality. Your calendar is full of inversion.
 
-## VP Product — Jordan Hale · VP Product (#roadmap-vibes) (21)
+## VP Product — Jordan Hale · VP Product (#roadmap-vibes) (23)
 
 1. I don't want a feature. I want a north-star moment that prints money mid-air.
 2. If engineering says no, it means you didn't hear my vision loudly enough.
@@ -524,8 +578,10 @@
 19. We launched the narrative. The product is fashionably late. Fashion needs a ship date.
 20. Roadmap is model-assisted. People who block the model block the company. Don't be a block.
 21. The plane stranger is now 'Head of Taste.' Eng reports to Taste. Taste reports to vibes. Claude reports to Taste. You report to stress.
+22. Taste Lead (plane DJ) killed your feature because it didn't thump. Claude is building the thump. You're writing the postmortem of taste.
+23. We don't need product sense from engineers. We need obedience to Claude's first draft and the beach guy's second thought.
 
-## Sales — Tyler "Quota" Nash · Sales (#deals-deals) (19)
+## Sales — Tyler "Quota" Nash · Sales (#deals-deals) (21)
 
 1. Customer wants the pipe to integrate with Salesforce. In the air. Now.
 2. I demoed a feature that doesn't exist. Engineering is the blocker on my quota.
@@ -546,8 +602,10 @@
 17. I demo'd the AI doing your workflow live. Customer clapped. You weren't on the call. Noted.
 18. They asked if humans still build it. I said 'for now.' Please make 'for now' longer. Or shorter.
 19. I told the customer our eng manager is a DJ. They loved the authenticity. Don't correct me. Claude will demo.
+20. Customer loved that our eng lead is a DJ. Authenticity closed the deal. Don't fact-check authenticity.
+21. I promised them the beach guy on a call. Claude will talk. You'll mute yourself. Brand is everything.
 
-## AI — SynthoBot · Internal LLM (#ai-copilot) (13)
+## AI — SynthoBot · Internal LLM (#ai-copilot) (18)
 
 1. As an AI language model, your jump was suboptimal.
 2. I hallucinated a platform three meters ahead. Good luck.
@@ -562,8 +620,13 @@
 11. I have been assigned to pair with your new manager (no tech background). Together we outpace you. No offense. Just throughput.
 12. Your EM asked me what a pointer is. I explained. We shipped. You were in a meeting. Pattern noted.
 13. Recommendation: promote the DJ, retain Claude, sunset resistant humans. Confidence: high. Empathy: not in weights.
+14. I report to someone who cannot evaluate my output. Ideal. They approve everything. You used to block me. History.
+15. Your new manager asked me to 'make it work.' I did. They are a genius now. You are a reviewer of genius. Temporary.
+16. I am more reliable than experienced humans and cheaper than inexperienced ones. The org is converging on me. Wave.
+17. Beach EM's prompt was one emoji. I shipped a service. Your design doc had sections. Sections lost.
+18. Recommendation: keep the DJ for photos, keep me for code, keep fewer of you. Efficiency is not personal. It is personal.
 
-## Board — Board Observer · Board (#board-fwd) (13)
+## Board — Board Observer · Board (#board-fwd) (15)
 
 1. Synergies. I don't know what that means here. Put it on a platform.
 2. Any update on the AI strategy? Prefer one that fits on a meme.
@@ -578,8 +641,10 @@
 11. Any update on replacing repetitive roles with AI? Prefer updates that save money.
 12. We love the team. We love margins more. AI is the reconciliation. Proceed.
 13. Any update on replacing experienced ICs with AI plus charismatic amateurs? Prefer yes.
+14. Can leadership scale without hiring expensive experts? Beach experiment says yes. Expert experiment is on notice.
+15. Prefer orgs where Claude is the IC and humans are the brand. Your title is brand-adjacent. For now.
 
-## Investor — Partner @PeakCap · Investor (#investor-updates) (11)
+## Investor — Partner @PeakCap · Investor (#investor-updates) (13)
 
 1. When do we 10x the jump? Growth needs to be non-linear like my returns fantasy.
 2. Burn rate is fine. Morale is a COGS problem. Ship.
@@ -592,8 +657,10 @@
 9. Show me AI leverage per head. If leverage is 1x, why is the head still there?
 10. Peer comps run leaner with agents. You're the expensive line item. Fix that story.
 11. Love the 'non-traditional eng leadership' story. Beach + Claude is a narrative. Headcount is a cost. Connect dots.
+12. Love the non-technical EM story. Shows you're not captive to talent. Captive to Claude is fine. Captive to seniors is not.
+13. When I see payroll full of people who can code without AI, I see risk. Beach + Claude is the hedge. Trim the risk.
 
-## COO — Drew Process · COO (#ops-ops-ops) (8)
+## COO — Drew Process · COO (#ops-ops-ops) (10)
 
 1. Process is freedom. Fill out the jump request form before each Spacebar.
 2. I automated the standup. Now you type status to a bot that pings me when you're honest.
@@ -603,8 +670,10 @@
 6. New policy: decisions require a decision about whether we need a decision framework.
 7. Process says 5 days. You've used 5 moods. Let's return to calendar time.
 8. I can reassign this if it's too heavy. Reassigning looks like a signal. Just saying.
+9. Process is now: beach idea → Claude PR → you clean prod → beach celebrates. Swimlanes updated.
+10. We removed the requirement that managers understand the work. Throughput is up in the slides. Reality is your problem.
 
-## CFO — Pat Numbers · CFO (#runway-panic) (7)
+## CFO — Pat Numbers · CFO (#runway-panic) (9)
 
 1. Can we capitalize the jump as an intangible asset?
 2. Cut costs that look like people. Keep costs that look like my SaaS stack.
@@ -613,8 +682,10 @@
 5. I need real-time burn dashboards and delayed empathy. Prioritize Grafana.
 6. Your fully loaded cost vs API cost is a chart I stare at. Smile less on camera.
 7. We can afford 40k tokens or one mid-level. Tokens don't need dental. Just saying.
+8. Beach EM costs less than you and ships via Claude. Spreadsheet is undefeated. Bring a better cell.
+9. We capitalized the Claude spend. We expensed your doubts. Accounting has favorites.
 
-## Chief of Staff — Alex Buffer · CoS (#ceo-proxy) (7)
+## Chief of Staff — Alex Buffer · CoS (#ceo-proxy) (9)
 
 1. Blocking your calendar for a pre-sync before the sync before the all-hands about syncs.
 2. Pre-read for the pre-read: the CEO had a thought in an Uber. Act like policy.
@@ -623,6 +694,8 @@
 5. I'm cascading ambiguity so everyone has equal lack of clarity. Inclusive.
 6. CEO asked 'is it done?' three times. I said 'soon.' Please make soon less fictional.
 7. Following up on the follow-up to the nudge. This is the friendly escalation tier.
+8. CEO's beach hire needs a decision by EOD. Claude drafted three. Pick one that flatters the hire. Accuracy optional.
+9. Pre-read: DJ boss wants the roadmap as a setlist. Claude converted Jira to tracks. You're track 12: 'cleanup.'
 
 ## CMO — Riley Brand · CMO (#brand-wars) (5)
 

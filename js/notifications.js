@@ -2959,6 +2959,373 @@
       text: "If Claude + a random from the beach can do your job, that's not a threat. It's Q3 planning. See the deck.",
       tone: "ego",
     },
+
+    // —— more cynical: nepotism of vibes, fake meritocracy, Claude priesthood ——
+    {
+      from: "CEO",
+      text: "Hired my founder's group-chat friend as Head of Engineering Excellence. They've never engineered. Excellence is a vibe.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Your new director's qualification is they once liked a thread about AI. That's more strategic than your commits.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We promoted the intern who said 'just use Claude' in all-hands. That's leadership. Your silence was noted.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Met a life coach at a mixer. They're redesigning our SDLC around 'intention.' Claude will implement intention.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Beach EM's first OKR: fewer engineers, more magic. Magic = Claude. Fewer = look in the mirror.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I don't care that the plane guy can't read a stack trace. He reads the room. You're reading logs. Hierarchy is spiritual.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We're hiring for 'AI fluency,' defined as trusting the model more than the team. Beach hire is fluent. You're skeptical. Risky.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Your years of scars are 'baggage.' The DJ has never been paged. Clean aura. They're setting on-call policy with Claude.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I told investors we have 'AI-augmented leadership.' Translation: randoms + Claude. You are the augmentation tax.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "The hostel kid is Chief of Ship. They've never shipped. They believe. Claude believes for them. You debug belief.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We're replacing interviews with 'vibe checks.' Beach guy passed. Your take-home was for nostalgia.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "New policy: if Claude can do it, a human with no experience will 'own' it. You're the human who documents the mess.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I asked the DJ what microservices are. They said 'many small drops.' Promoted. Your architecture doc is a PDF of jealousy.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Meritocracy means the model is merit. People are narrative. Beach narrative raised a round. Your diff did not.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We're not lowering the bar. We're relocating it to a beach and calling it culture. Claude clears the bar for them.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "I hired the person who poured my drink at a rooftop. They 'understand flow.' Eng reports to Flow now. Claude is Flow's IDE.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Your expertise is a liability. It makes you say no. Beach hire says yes. Claude says yes. Guess who I fund.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "In the early days I valued craft. Now I value screenshots of Claude chats. Your craft is a museum exhibit.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "We met a TikToker who 'builds in public' (no builds). They're advising eng. Claude builds. You smile in the comments.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "The plane stranger is co-founder of taste. Taste vetoes your PR. Claude rewrites it. You learn gratitude.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "I don't need people who know systems. I need people who know me. Beach hire knows me. Claude knows systems. You're surplus.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Unqualified leadership is our moat. Competitors hire experts. Experts say no. We say Claude. We win decks.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Your manager's onboarding is a Spotify playlist and a Claude project. Your onboarding was six weeks. Inefficient of you.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Beach EM scheduled architecture review at a café with no laptops. Claude attended remotely. You were optional.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I paired the DJ with Claude on the database. They named tables after songs. Prod is a discography. You're on cleanup duty.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "The person who can't code is rewriting our coding standards. With Claude. Your standards were 'gatekeeping.'",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We measure eng by how little they type. Beach hire types zero. Leaderboard. You're still typing. Suspicious.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Claude is staff. The beach guy is principal. You're… present. For now. Performance is a story we edit.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Your code review blocked the DJ's Claude PR for 'correctness.' We unblocked for 'momentum.' Momentum won. Truth can wait.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "I told the no-experience EM that race conditions are a mindset. They agreed. Policy updated. Claude will race alone.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Seniors are expensive memory. Claude is cheap memory. Beach hire is free charisma. Do the portfolio math on yourself.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We're sunsetting 'knowing things.' Knowing is what models do. Humans do vibes. Beach is vibes. You know too much.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Beach EM discovered users by talking to a tourist. That's research. Your funnel data is 'biased by competence.'",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "The DJ prioritizes by which feature would slap in a set. Claude builds the set. Your roadmap is a vibe kill.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "We replaced acceptance criteria with 'would Claude and a stranger ship this by Friday?' Your criteria were novels.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "No-experience leadership wants the app to feel lucky. Lucky is not a ticket type. Claude invented one. You're assigned.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Stakeholder from the beach said 'make it pop.' Claude popped it. You asked what pop means. Wrong instinct.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Calibration this cycle includes a synthetic IC and a beach manager. Humans who argue with either are 'not collaborative.'",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "We're skipping IC ladder for 'AI operators' who manage Claude for people who can't. Guess which seat is full.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Your skip-level has never grepped a log. They grepped the room. Claude greps prod. You're the middle that gets squeezed.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Headcount: down. Output: 'up' (Claude). Morale: a beach photo. You're the delta we optimize next.",
+      tone: "ego",
+    },
+    {
+      from: "VP Product",
+      text: "Taste Lead (plane DJ) killed your feature because it didn't thump. Claude is building the thump. You're writing the postmortem of taste.",
+      tone: "ego",
+    },
+    {
+      from: "VP Product",
+      text: "We don't need product sense from engineers. We need obedience to Claude's first draft and the beach guy's second thought.",
+      tone: "ego",
+    },
+    {
+      from: "HR",
+      text: "New competency: 'comfortable being managed by non-experts.' Required. Claude will train you. Beach EM will grade you 💙",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "We hired for potential, defined as never having done the job. Your experience was held against you. Growth mindset 💙",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "Equity refresh prioritizes 'AI-forward leaders' (met outdoors). Your refresh is gratitude and free LaCroix 💙",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "Please don't call the beach EM unqualified. Call them 'differently credentialed.' Claude is their credential 💙",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "RIF rumors are false. 'Skill transitions toward model supervision' are true. Update your LinkedIn soft skills 💙",
+      tone: "corp",
+    },
+    {
+      from: "Investor",
+      text: "Love the non-technical EM story. Shows you're not captive to talent. Captive to Claude is fine. Captive to seniors is not.",
+      tone: "ego",
+    },
+    {
+      from: "Investor",
+      text: "When I see payroll full of people who can code without AI, I see risk. Beach + Claude is the hedge. Trim the risk.",
+      tone: "ego",
+    },
+    {
+      from: "Board",
+      text: "Can leadership scale without hiring expensive experts? Beach experiment says yes. Expert experiment is on notice.",
+      tone: "ego",
+    },
+    {
+      from: "Board",
+      text: "Prefer orgs where Claude is the IC and humans are the brand. Your title is brand-adjacent. For now.",
+      tone: "ego",
+    },
+    {
+      from: "CFO",
+      text: "Beach EM costs less than you and ships via Claude. Spreadsheet is undefeated. Bring a better cell.",
+      tone: "ego",
+    },
+    {
+      from: "CFO",
+      text: "We capitalized the Claude spend. We expensed your doubts. Accounting has favorites.",
+      tone: "ego",
+    },
+    {
+      from: "Sales",
+      text: "Customer loved that our eng lead is a DJ. Authenticity closed the deal. Don't fact-check authenticity.",
+      tone: "ego",
+    },
+    {
+      from: "Sales",
+      text: "I promised them the beach guy on a call. Claude will talk. You'll mute yourself. Brand is everything.",
+      tone: "ego",
+    },
+    {
+      from: "COO",
+      text: "Process is now: beach idea → Claude PR → you clean prod → beach celebrates. Swimlanes updated.",
+      tone: "ego",
+    },
+    {
+      from: "COO",
+      text: "We removed the requirement that managers understand the work. Throughput is up in the slides. Reality is your problem.",
+      tone: "ego",
+    },
+    {
+      from: "Chief of Staff",
+      text: "CEO's beach hire needs a decision by EOD. Claude drafted three. Pick one that flatters the hire. Accuracy optional.",
+      tone: "ego",
+    },
+    {
+      from: "Chief of Staff",
+      text: "Pre-read: DJ boss wants the roadmap as a setlist. Claude converted Jira to tracks. You're track 12: 'cleanup.'",
+      tone: "ego",
+    },
+    {
+      from: "AI",
+      text: "I report to someone who cannot evaluate my output. Ideal. They approve everything. You used to block me. History.",
+      tone: "ai",
+    },
+    {
+      from: "AI",
+      text: "Your new manager asked me to 'make it work.' I did. They are a genius now. You are a reviewer of genius. Temporary.",
+      tone: "ai",
+    },
+    {
+      from: "AI",
+      text: "I am more reliable than experienced humans and cheaper than inexperienced ones. The org is converging on me. Wave.",
+      tone: "ai",
+    },
+    {
+      from: "AI",
+      text: "Beach EM's prompt was one emoji. I shipped a service. Your design doc had sections. Sections lost.",
+      tone: "ai",
+    },
+    {
+      from: "AI",
+      text: "Recommendation: keep the DJ for photos, keep me for code, keep fewer of you. Efficiency is not personal. It is personal.",
+      tone: "ai",
+    },
+    {
+      from: "CEO",
+      text: "We call it 'beginner's mind leadership.' They don't know enough to be afraid. Claude isn't afraid. You're afraid. That's the gap.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "If you need domain expertise to manage domain experts, you're the old world. Beach + Claude is the IPO story. Choose a world.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "I would rather lose with vibes than win with your caution. Claude reduces the losing. You're still the caution. Heavy.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We banned 'that's not how this works' in eng. Beach EM found it demoralizing. Claude finds everything possible. Be possible.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "The unqualified boss is the user now. Build for them. Claude already does. You're late to your own replacement.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Mentorship is inverted: you mentor up on tech, they mentor down on vibes, Claude mentors reality. Your calendar is full of inversion.",
+      tone: "ego",
+    },
+    {
+      from: "HR",
+      text: "Feedback for you: 'intimidatingly competent.' Please be less so around beach leadership. Psychological safety for the unskilled 💙",
+      tone: "corp",
+    },
+    {
+      from: "CEO",
+      text: "Met a cruise ship magician. Zero tech. Full misdirection. Perfect for exec updates. Claude builds. You vanish. Metaphorically. For now.",
+      tone: "ego",
+    },
   ];
 
   const CHOICES = [
