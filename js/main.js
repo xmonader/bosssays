@@ -51,13 +51,14 @@
     const k = e.key;
     if (down) ensureAudio();
 
-    // While reading Slack: only 1–4 (never Space/Enter — those are jump)
+    // While reading Slack: 1–4 corporate, 5 = nuclear quit (never Space)
     if (down && game.notifications.active) {
       const map = {
         "1": "dismiss",
         "2": "on_it",
         "3": "love",
         "4": "pushback",
+        "5": "quit",
       };
       if (map[k]) {
         game.events = [];
@@ -160,7 +161,7 @@
     if (!hint) return;
     const mute = Audio && Audio.isMuted() ? " · sound OFF (M)" : " · M mute";
     hint.textContent =
-      "A/D move · W/Space jump · Tab/E open Slack (when ready) · 1–4 reply · play continues with unread" +
+      "A/D move · W/Space jump · Tab/E Slack · 1–4 reply · 5 FUCK YOU I QUIT · M mute" +
       mute;
   }
 

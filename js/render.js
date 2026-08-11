@@ -406,7 +406,7 @@
     ctx.fillText("☕ coffee = wake up", 105, 38);
     ctx.fillStyle = "#94a3b8";
     ctx.fillText(
-      "Tab=Slack · 1–4 reply · Zzz↑ from stupid requests",
+      "Tab=Slack · 1–4 reply · 5=QUIT · Zzz↑ from nonsense",
       230,
       38
     );
@@ -424,10 +424,10 @@
 
   function drawNotification(ctx, note) {
     if (!note) return;
-    const boxW = 520;
-    const boxH = 230;
+    const boxW = 540;
+    const boxH = 268;
     const x = (LOGIC_W - boxW) / 2;
-    const y = 70;
+    const y = 58;
 
     // Dim world — game is frozen while you read
     ctx.fillStyle = "rgba(2,6,23,0.55)";
@@ -438,7 +438,7 @@
     ctx.font = "bold 12px sans-serif";
     ctx.textAlign = "center";
     ctx.fillText(
-      "READING SLACK · paused · reply 1–4 (no Space — won't mis-click jump)",
+      "READING SLACK · paused · 1–4 reply · 5 = nuclear quit",
       LOGIC_W / 2,
       y - 12
     );
@@ -517,30 +517,49 @@
     ctx.fillStyle = "#64748b";
     ctx.font = "10px sans-serif";
     ctx.fillText(
-      "World frozen while you read · take your time · timeout = mild stun only",
+      "1–4 normal replies · [5] FUCK YOU I QUIT ends the run",
       x + 18,
       y + 186
     );
 
-    // Choices
+    // Choices — row of 4 + nuclear row
     const choices = note.choices || [];
-    const bw = 112;
-    const gap = 10;
-    const total = choices.length * bw + (choices.length - 1) * gap;
+    const gap = 8;
+    const row1 = choices.slice(0, 4);
+    const row2 = choices.slice(4);
+    const bw = 118;
+    let total = row1.length * bw + (row1.length - 1) * gap;
     let cx = x + (boxW - total) / 2;
-    for (let i = 0; i < choices.length; i++) {
-      const c = choices[i];
+    for (let i = 0; i < row1.length; i++) {
+      const c = row1[i];
       ctx.fillStyle = i === 2 ? "#14532d" : "#1e293b";
       ctx.strokeStyle = i === 2 ? "#22c55e" : "#64748b";
-      roundRect(ctx, cx, y + 194, bw, 28, 6);
+      roundRect(ctx, cx, y + 196, bw, 26, 6);
       ctx.fill();
       ctx.stroke();
       ctx.fillStyle = "#f1f5f9";
-      ctx.font = "11px sans-serif";
+      ctx.font = "10px sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText("[" + (i + 1) + "] " + c.label, cx + bw / 2, y + 212);
+      ctx.fillText("[" + (i + 1) + "] " + c.label, cx + bw / 2, y + 213);
       ctx.textAlign = "left";
       cx += bw + gap;
+    }
+    if (row2.length) {
+      const q = row2[0];
+      const qbw = 280;
+      const qx = x + (boxW - qbw) / 2;
+      ctx.fillStyle = "#7f1d1d";
+      ctx.strokeStyle = "#ef4444";
+      ctx.lineWidth = 2;
+      roundRect(ctx, qx, y + 228, qbw, 28, 6);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#fecaca";
+      ctx.font = "bold 12px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("[5] " + q.label, qx + qbw / 2, y + 247);
+      ctx.textAlign = "left";
+      ctx.lineWidth = 1;
     }
   }
 
@@ -581,23 +600,43 @@
   function drawGameOver(ctx, game) {
     ctx.fillStyle = "rgba(15,23,42,0.8)";
     ctx.fillRect(0, 0, LOGIC_W, LOGIC_H);
-    ctx.fillStyle = "#f8fafc";
-    ctx.font = "bold 36px sans-serif";
+    const quit = game.endReason === "quit";
+    ctx.fillStyle = quit ? "#fecaca" : "#f8fafc";
+    ctx.font = "bold 34px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText("LAID OFF", LOGIC_W / 2, LOGIC_H / 2 - 20);
-    ctx.font = "16px sans-serif";
+    ctx.fillText(
+      quit ? "I QUIT." : "LAID OFF",
+      LOGIC_W / 2,
+      LOGIC_H / 2 - 28
+    );
+    ctx.font = "15px sans-serif";
+    ctx.fillStyle = quit ? "#fca5a5" : "#94a3b8";
+    ctx.fillText(
+      quit
+        ? "You sent the message. HR is typing. Birds are singing."
+        : "They said it was a restructuring. Of your employment.",
+      LOGIC_W / 2,
+      LOGIC_H / 2 + 4
+    );
     ctx.fillStyle = "#94a3b8";
+    ctx.font = "14px sans-serif";
     ctx.fillText(
       "Sprints " +
         game.sprint +
         " · Deploys " +
         game.deploys +
         " · Score " +
-        (game.score || 0),
+        (game.score || 0) +
+        " · Zzz " +
+        Math.round(game.effects.sleepDebt || 0),
       LOGIC_W / 2,
-      LOGIC_H / 2 + 16
+      LOGIC_H / 2 + 32
     );
-    ctx.fillText("Press R to re-interview (restart)", LOGIC_W / 2, LOGIC_H / 2 + 48);
+    ctx.fillText(
+      quit ? "Press R to un-quit (restart)" : "Press R to re-interview (restart)",
+      LOGIC_W / 2,
+      LOGIC_H / 2 + 58
+    );
     ctx.textAlign = "left";
   }
 

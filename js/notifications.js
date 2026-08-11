@@ -2396,7 +2396,8 @@
     { id: "dismiss", label: "Mute 1h" },
     { id: "on_it", label: "On it!!" },
     { id: "love", label: "Love this 🔥" },
-    { id: "pushback", label: "Quick pushback" },
+    { id: "pushback", label: "Pushback" },
+    { id: "quit", label: "FUCK YOU I QUIT" },
   ];
 
   /** Display names so it feels like real Slack people, not job titles. */
@@ -2615,7 +2616,8 @@
    * - on_it: calendar block + context
    * - love: hallucinated platforms + slow + context
    * - pushback: short stun + context
-   * - timeout: mild stun (was harsh — no more punishing mis-clicks)
+   * - quit: nuclear option — resign immediately
+   * - timeout: mild stun
    */
   function resolveNotification(state, choiceId) {
     if (!state.active) {
@@ -2633,6 +2635,7 @@
         slow: 0,
         calendar: false,
         hallucinate: false,
+        quit: false,
       };
     } else if (choiceId === "dismiss") {
       effects = {
@@ -2642,6 +2645,7 @@
         slow: 0,
         calendar: false,
         hallucinate: false,
+        quit: false,
       };
     } else if (choiceId === "on_it") {
       effects = {
@@ -2651,6 +2655,7 @@
         slow: 0,
         calendar: true,
         hallucinate: false,
+        quit: false,
       };
     } else if (choiceId === "love") {
       effects = {
@@ -2660,6 +2665,7 @@
         slow: 1.8,
         calendar: false,
         hallucinate: true,
+        quit: false,
       };
     } else if (choiceId === "pushback") {
       effects = {
@@ -2669,6 +2675,17 @@
         slow: 0,
         calendar: false,
         hallucinate: false,
+        quit: false,
+      };
+    } else if (choiceId === "quit") {
+      effects = {
+        kind: "quit",
+        stun: 0,
+        context: 0,
+        slow: 0,
+        calendar: false,
+        hallucinate: false,
+        quit: true,
       };
     } else {
       effects = {
@@ -2678,6 +2695,7 @@
         slow: 0,
         calendar: false,
         hallucinate: false,
+        quit: false,
       };
     }
 

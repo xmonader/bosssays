@@ -402,6 +402,27 @@ describe("inner thought bubbles", () => {
     assert.ok(game.thought);
     assert.equal(game.thought.category, "love");
   });
+
+  it("quit choice ends the run as resignation", () => {
+    const game = Game.createGame({ rng: () => 0.1 });
+    game.notifications.timeSince = 999;
+    Game.step(game, {}, 0.05);
+    Game.step(game, { openInbox: true }, 0.05);
+    assert.ok(game.notifications.active);
+    const r = Game.chooseNotification(game, "quit");
+    assert.equal(r.effects.kind, "quit");
+    assert.equal(game.phase, "gameover");
+    assert.equal(game.endReason, "quit");
+    assert.ok(Game.isGameOver(game));
+    assert.ok(game.thought && game.thought.category === "quit");
+  });
+});
+
+describe("quit choice in pool", () => {
+  it("CHOICES includes nuclear quit option", () => {
+    assert.ok(Notes.CHOICES.some((c) => c.id === "quit"));
+    assert.ok(Notes.CHOICES.length >= 5);
+  });
 });
 
 describe("game events for audio", () => {

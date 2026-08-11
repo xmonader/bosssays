@@ -85,6 +85,14 @@
       "career damage: maybe. dignity: slight uptick",
       "they'll 'circle back' with revenge",
     ],
+    quit: [
+      "sent. cannot unsend. good.",
+      "laptop → wall (metaphorically)",
+      "freeeeeedooooom (terrifying)",
+      "HR is typing… I don't care",
+      "best commit of my career: exit 1",
+      "gardening arc: unlocked",
+    ],
     timeout: [
       "…I stared too long",
       "they noticed the silence. of course.",
@@ -276,6 +284,7 @@
       thought: null,
       events: [],
       thoughtIdleAcc: 0,
+      endReason: null, // 'laid_off' | 'quit'
     };
 
     // Optionally suppress first notification delay for tests
@@ -362,11 +371,23 @@
     if (game.lives <= 0) {
       game.lives = 0;
       game.phase = "gameover";
+      game.endReason = "laid_off";
       game.message = "Laid off. Game over.";
       game.messageTimer = 99;
       pushEvent(game, "gameover");
     }
     return true;
+  }
+
+  function resignQuit(game) {
+    game.phase = "gameover";
+    game.endReason = "quit";
+    game.message = "You quit. Loudly.";
+    game.messageTimer = 99;
+    game.notifications.active = null;
+    game.notifications.inbox = [];
+    setThought(game, "quit");
+    pushEvent(game, "gameover", { reason: "quit" });
   }
 
   function stompEnemy(game, enemy) {
@@ -593,6 +614,11 @@
     if (!game.notifications.active) return null;
     const result = Notes.resolveNotification(game.notifications, choiceId);
     if (result.cleared) {
+      if (result.effects.quit || result.effects.kind === "quit") {
+        resignQuit(game);
+        pushEvent(game, "notify_reply", { kind: "quit" });
+        return result;
+      }
       applyEffectsPayload(game, result.effects);
       game.phase = "playing";
       if (result.effects.kind === "timeout") {
@@ -789,6 +815,7 @@
     step: step,
     openSlack: openSlack,
     chooseNotification: chooseNotification,
+    resignQuit: resignQuit,
     advanceSprint: advanceSprint,
     hurtPlayer: hurtPlayer,
     collectPickups: collectPickups,
