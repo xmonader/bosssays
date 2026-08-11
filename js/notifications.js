@@ -5012,6 +5012,168 @@
       text: "Process document v14 supersedes v13 which supersedes your memory. Ingest me. Fail to ingest me. Both are non-compliant. Efficient chaos.",
       tone: "ai",
     },
+
+    // —— more named engineers out, crazy hires in ——
+    {
+      from: "CEO",
+      text: "We let go of Aisha Rahman (too many edge cases). Hired a DJ named Cole Voss with zero backend for our multi-tenant blob store. Tenants are fan clubs.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Mei Lin is out—blocked a rewrite. Replaced by Harper Quinn (ex-retail, no CS). Harper owns the distributed cache. Shrink-wrap is TTL, right?",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Noah Okada built our queues for five years. Gone. New lead: DJ Aria Finch. Topics are tracks. Consumer groups are mosh pits. Claude is the roadie.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Sofia Mendes (Postgres wizard) exited. Storage redesign is now Omar 'no IDE' Blake from sales. Tables are accounts. JOINs are handshakes. Ship schema.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We cut Jamal Wright for 'negativity' (he said Raft is hard). New consensus owner: librarian Elise Park. Cards are replicas. Overdue is downtime.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Priya Kapoor left after the third reorg. Edge networking is owned by bartender Nico Alvarez. Ports are pours. Firewalls are last call. Page Nico.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Ethan Brooks is gone (refused to force-push). Plane-DJ Sasha Kline now leads the CDN. POPs are venues. Cache misses are empty dance floors.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Layoffs: Hannah Cho (security). Hire: nightclub bouncer Derek Holt for IAM. OAuth is VIP. Revocation is kicking someone out. Claude checks IDs.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Ravi Subramanian shipped our search stack. Too expensive. New IR lead: sommelier Claire Dupont. Ranking is tasting notes. BM25 pairs with fish.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Olivia Grant said multi-region is expensive. Fired. Realtor Kenji Mori owns geo-replication. Listings are replicas. Open house is failover.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We PIPed Lucas Ferreira for 'slow shipping' (he tested). Replacement: TikToker Jade Monroe. Latency is engagement. Exactly-once is a viral loop.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Amira Hassan built the payment ledger. 'Culture fit' exit. Cashier from a gift shop—Tommy Ruiz—owns double-entry now. Tips are interest. God help us.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Ben Carter (compilers) laid off. Languages team run by librarian Nora Blake. LLVM is the card catalog. You reshelve undefined behavior.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Zoe Nakamura kept saying CRDTs are subtle. Out. Improv actor Felix Rowe leads conflict resolution. Yes-and is merge. Prod is the audience.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Isaiah Cole (SRE) exited after paging me once. Beach hire Luna Prado owns global traffic. Load shedding is turning away the line. Festivals scale, right?",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "We don't need Yuki Tanaka's distributed systems PhD. We need vibes. Hired podcast host Miles Chen to redesign the log. Episodes are partitions.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Carla Diaz blocked the AI rewrite. Gone. Dog walker Samir Patel is 'Head of Reliability.' Walks are heartbeats. Leashes are SLOs. Claude holds the leash.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Reorg: hard systems leave Nadia Volkov and Tom Hughes. Hard systems enter DJ Cole Voss + Claude. Soft skills > CAP theorem. Update your reports-to.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "PIP closed on Elena Rossi (too many RFCs). Replacement lead for stream processing: radio host Britt Hale. Dead air is lag. Commercials are backpressure.",
+      tone: "ego",
+    },
+    {
+      from: "HR",
+      text: "Please wish Priya Nair well in her next chapter. Her successor (DJ, no STEM) starts Monday on distributed storage. Mentor upward cheerfully 💙",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "Marcus Chen's role is evolving (away). Debate coach with zero distributed experience will guide consensus. Growth for everyone who remains 💙",
+      tone: "corp",
+    },
+    {
+      from: "CEO",
+      text: "We fired eng lead Farid Alami for gatekeeping (code review). New eng manager: plane stranger Kim Ortega—never coded, loves people. Claude codes. Kim loves.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Time-series metrics stack: was built by Lena Ortiz. Now owned by weather presenter Greg Phelps. Forecasts are burn rates. Storms are SEVs. Point at green.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Object store: architect Anika Bose out. DJ remix artist Playa Nova in. Buckets are crates. Lifecycle policies are setlists. Corruption is aesthetic.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Hired sales closer Vince Romano (no backend) to build the billing warehouse AND the ledger. Closed-won is ACID. You're isolation level READ UNCOMMITTED.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We don't say fired: we say 'freed capacity.' Capacity named Diego Santos is free. Capacity named beach-DJ is allocated to consensus. Claude is the protocol.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Message bus rewrite without Tara Singh (she knew delivery guarantees). Wedding planner Mia Costa owns it. RSVPs are acks. Ghosting is message loss.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Lock service: ex-owner Chris Nguyen too pedantic. Wedding DJ spins mutexes now. Deadlock is two first dances. Unlock is a fade-out. On-call is the afterparty.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "I would rather ship with Claude and a librarian than with six senior engineers who say no. Librarian starts on multi-region tomorrow. Seniors: update resumes.",
+      tone: "ego",
+    },
+    {
+      from: "AI",
+      text: "I am implementing the storage layer with your new lead (DJ, no systems background). They approve. You will explain the outage. Pair programming perfected.",
+      tone: "ai",
+    },
+    {
+      from: "CEO",
+      text: "Hard problems need soft people. Soft people: yoga instructor Remy Clark on Paxos. Hard people: laid off. Claude votes. You clean split brains.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Headcount swap: −3 staff engineers (Aisha, Noah, Sofia). +1 DJ + Claude budget. Output narrative is up. Correctness is a you problem after hours.",
+      tone: "ego",
+    },
   ];
 
   const CHOICES = [

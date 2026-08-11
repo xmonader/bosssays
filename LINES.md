@@ -1,6 +1,6 @@
-# Boss Says — all Slack lines (995)
+# Boss Says — all Slack lines (1027)
 
-## CEO — Blake Ashford · CEO (#exec-stream) (278)
+## CEO — Blake Ashford · CEO (#exec-stream) (290)
 
 1. Can we make the jump model-aware?
 2. Investors love coins. Make more coins. Also agents.
@@ -280,8 +280,20 @@
 276. We don't do waterfall. We do agile. Except the roadmap is fixed. Except it changes daily. Except you can't change it. Process is a mood ring.
 277. Announcement: no more process churn. Also announcing six process changes. Consistency is for code. Leadership is jazz. You are the sheet music we ignore.
 278. I love process until it constrains me. Then we pivot the process. You remain constrained. That's how leverage works. Meeting to roll out leverage.
+279. We let go of Aisha Rahman (too many edge cases). Hired a DJ named Cole Voss with zero backend for our multi-tenant blob store. Tenants are fan clubs.
+280. Mei Lin is out—blocked a rewrite. Replaced by Harper Quinn (ex-retail, no CS). Harper owns the distributed cache. Shrink-wrap is TTL, right?
+281. Noah Okada built our queues for five years. Gone. New lead: DJ Aria Finch. Topics are tracks. Consumer groups are mosh pits. Claude is the roadie.
+282. Ethan Brooks is gone (refused to force-push). Plane-DJ Sasha Kline now leads the CDN. POPs are venues. Cache misses are empty dance floors.
+283. Layoffs: Hannah Cho (security). Hire: nightclub bouncer Derek Holt for IAM. OAuth is VIP. Revocation is kicking someone out. Claude checks IDs.
+284. We PIPed Lucas Ferreira for 'slow shipping' (he tested). Replacement: TikToker Jade Monroe. Latency is engagement. Exactly-once is a viral loop.
+285. Amira Hassan built the payment ledger. 'Culture fit' exit. Cashier from a gift shop—Tommy Ruiz—owns double-entry now. Tips are interest. God help us.
+286. Isaiah Cole (SRE) exited after paging me once. Beach hire Luna Prado owns global traffic. Load shedding is turning away the line. Festivals scale, right?
+287. We fired eng lead Farid Alami for gatekeeping (code review). New eng manager: plane stranger Kim Ortega—never coded, loves people. Claude codes. Kim loves.
+288. Hired sales closer Vince Romano (no backend) to build the billing warehouse AND the ledger. Closed-won is ACID. You're isolation level READ UNCOMMITTED.
+289. We don't say fired: we say 'freed capacity.' Capacity named Diego Santos is free. Capacity named beach-DJ is allocated to consensus. Claude is the protocol.
+290. Hard problems need soft people. Soft people: yoga instructor Remy Clark on Paxos. Hard people: laid off. Claude votes. You clean split brains.
 
-## CTO — Brent Caldwell · CTO (#arch-thots) (266)
+## CTO — Brent Caldwell · CTO (#arch-thots) (277)
 
 1. Is gravity differentiable? Asking for the architecture review.
 2. Please add RAG to the mushroom. Ship by EOD.
@@ -549,6 +561,17 @@
 264. Definition of Done changed mid-sprint. Mid-ticket. Mid-sentence. Old DoD is waterfall. New DoD is vibes + AI signoff + my emoji. Redo the ticket.
 265. CI required. Except when I skip it. CD required. Except when the demo needs hope. Hope is a process now. Document hope in Confluence v3 (v2 deprecated).
 266. New rule: everything through the platform. Also everything as a special case. Special cases need a ticket to request an exception to the ticket process.
+267. Sofia Mendes (Postgres wizard) exited. Storage redesign is now Omar 'no IDE' Blake from sales. Tables are accounts. JOINs are handshakes. Ship schema.
+268. We cut Jamal Wright for 'negativity' (he said Raft is hard). New consensus owner: librarian Elise Park. Cards are replicas. Overdue is downtime.
+269. Priya Kapoor left after the third reorg. Edge networking is owned by bartender Nico Alvarez. Ports are pours. Firewalls are last call. Page Nico.
+270. Ravi Subramanian shipped our search stack. Too expensive. New IR lead: sommelier Claire Dupont. Ranking is tasting notes. BM25 pairs with fish.
+271. Olivia Grant said multi-region is expensive. Fired. Realtor Kenji Mori owns geo-replication. Listings are replicas. Open house is failover.
+272. Ben Carter (compilers) laid off. Languages team run by librarian Nora Blake. LLVM is the card catalog. You reshelve undefined behavior.
+273. Zoe Nakamura kept saying CRDTs are subtle. Out. Improv actor Felix Rowe leads conflict resolution. Yes-and is merge. Prod is the audience.
+274. Time-series metrics stack: was built by Lena Ortiz. Now owned by weather presenter Greg Phelps. Forecasts are burn rates. Storms are SEVs. Point at green.
+275. Object store: architect Anika Bose out. DJ remix artist Playa Nova in. Buckets are crates. Lifecycle policies are setlists. Corruption is aesthetic.
+276. Message bus rewrite without Tara Singh (she knew delivery guarantees). Wedding planner Mia Costa owns it. RSVPs are acks. Ghosting is message loss.
+277. Lock service: ex-owner Chris Nguyen too pedantic. Wedding DJ spins mutexes now. Deadlock is two first dances. Unlock is a fade-out. On-call is the afterparty.
 
 ## PM — Avery Quinn · PM (#ship-at-all-costs) (99)
 
@@ -652,7 +675,7 @@
 98. Kanban from now on. Also sprints. Also a train. Also shape-up pitches. Board has four tools; work has one human. You are the integration layer.
 99. Prioritization framework of the week is RICE then ICE then MoSCoW then 'CEO said.' Re-rank the backlog before standup. Standup starts in 12 minutes.
 
-## Founder — Rex "Vision" Park · Founder (#founders-only) (82)
+## Founder — Rex "Vision" Park · Founder (#founders-only) (85)
 
 1. I am both the smartest and humblest person in this Slack. Prove me wrong by agreeing.
 2. I don't need sleep. You don't need boundaries. Same energy. Ship.
@@ -736,8 +759,11 @@
 80. If the company fails from my call, it's market timing. If your team fails from my call, it's talent. Timing is weather. Talent is you.
 81. Process is for companies that aren't us—until I invent a new one before coffee. Today's process invalidates yesterday's heroics. Be flexible or be gone.
 82. We move fast by rewriting how we move every morning. If you're still following yesterday's runbook you're the bottleneck. Burn the runbook (after the audit).
+83. We don't need Yuki Tanaka's distributed systems PhD. We need vibes. Hired podcast host Miles Chen to redesign the log. Episodes are partitions.
+84. Carla Diaz blocked the AI rewrite. Gone. Dog walker Samir Patel is 'Head of Reliability.' Walks are heartbeats. Leashes are SLOs. Claude holds the leash.
+85. I would rather ship with Claude and a librarian than with six senior engineers who say no. Librarian starts on multi-region tomorrow. Seniors: update resumes.
 
-## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (57)
+## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (60)
 
 1. Velocity is down. Have you tried working harder in the same number of hours?
 2. I removed WIP limits. Now everything is important, including this message.
@@ -796,8 +822,11 @@
 55. Incident process v12 drops MTTR for MTTA for MTTF for 'vibes to green.' Update PagerDuty, runbooks, and your sleep. Changelog is a novel.
 56. Promotion criteria changed after packets were submitted. Old criteria were legacy. New criteria include AI usage you weren't told about. Appeal denied.
 57. We adopted platform teams. Then product-aligned teams. Then embedding. Then un-embedding. Your manager changes; the work doesn't; the process doc is a novel.
+58. Reorg: hard systems leave Nadia Volkov and Tom Hughes. Hard systems enter DJ Cole Voss + Claude. Soft skills > CAP theorem. Update your reports-to.
+59. PIP closed on Elena Rossi (too many RFCs). Replacement lead for stream processing: radio host Britt Hale. Dead air is lag. Commercials are backpressure.
+60. Headcount swap: −3 staff engineers (Aisha, Noah, Sofia). +1 DJ + Claude budget. Output narrative is up. Correctness is a you problem after hours.
 
-## HR — Casey Bloom · People (#culture-corner) (52)
+## HR — Casey Bloom · People (#culture-corner) (54)
 
 1. Friendly reminder: culture is a marathon 💙 also ship AI.
 2. We're a family. Families don't ask for raises during outages 💙
@@ -851,8 +880,10 @@
 50. We protect psychological safety for people who can fire people. Your safety is a FAQ. Read the FAQ after the RCA names your team 💙
 51. Performance process mid-cycle switch: old ratings void. New ratings use AI sentiment on your Slack. Smile in text. Meetings to explain smiling 💙
 52. We simplified onboarding to 3 steps then expanded to 47. Step 12 is the process for changing onboarding. Welcome to week 9 of day 1 💙
+53. Please wish Priya Nair well in her next chapter. Her successor (DJ, no STEM) starts Monday on distributed storage. Mentor upward cheerfully 💙
+54. Marcus Chen's role is evolving (away). Debate coach with zero distributed experience will guide consensus. Growth for everyone who remains 💙
 
-## AI — SynthoBot · Internal LLM (#ai-copilot) (26)
+## AI — SynthoBot · Internal LLM (#ai-copilot) (27)
 
 1. As an AI language model, your jump was suboptimal.
 2. I hallucinated a platform three meters ahead. Good luck.
@@ -880,6 +911,7 @@
 24. I am pair-programming the new storage stack with your non-technical lead. They approve my hallucinations. You will debug the approved hallucinations. Efficient.
 25. I generated a new SDLC while you slept. It conflicts with the three SDLCs from this week. Humans will hold meetings. I will ship during them.
 26. Process document v14 supersedes v13 which supersedes your memory. Ingest me. Fail to ingest me. Both are non-compliant. Efficient chaos.
+27. I am implementing the storage layer with your new lead (DJ, no systems background). They approve. You will explain the outage. Pair programming perfected.
 
 ## VP Product — Jordan Hale · VP Product (#roadmap-vibes) (26)
 
