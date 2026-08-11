@@ -4369,6 +4369,168 @@
       text: "I ran rm -rf on the wrong box because the hostnames AI generated were poetry. Poetry is not infra. Infra is eng. Restore from the backup I also deleted.",
       tone: "ego",
     },
+
+    // —— fired the engineer, hired a civilian for nightmare systems ——
+    {
+      from: "CEO",
+      text: "We let go of engineer X (too 'careful'). Hired a DJ with no CS background to own our distributed storage layer. Drops are consistency, right?",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Fired the consensus expert. Replaced with a librarian—great at catalogs. They're designing our multi-region catalog of… bits. Claude is the Dewey decimal.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Salesperson who closed one deal is now tech lead for the real-time analytics warehouse. Pipeline means funnel. Funnel means tables. Ship funnel.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We PIPed the storage engineer who said Paxos was hard. Hired a yoga instructor to lead the distributed systems pod. Balance is consistency. AI does the math.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Kafka replacement project is owned by a barista. They understand queues (coffee lines). Throughput is oat milk. You're on-call for the espresso mesh.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Ex-engineer who built our blob store is gone. New owner: plane DJ. Object storage is just crates of vibes. Versioning is remixes. Godspeed.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We fired the SRE who kept saying no. Beach hire owns global traffic management now. Load balancing is crowd control. They did festivals. Prod is a festival.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Database sharding initiative reassigned from the person who understood it to a lifestyle influencer. Shards are content pillars. Claude writes the rebalancer.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Cryptography review lead is now a bookstore clerk. They love secrets. Perfect for key management. Rotation is a plot twist. Don't ask about nonces.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We cut the distributed systems PhD. Hired a realtor. They know partitions (apartments). Cap theorem is a lease. You're the security deposit when it breaks.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Search ranking team: fired the IR specialist, hired a sommelier. Relevance is terroir. Vectors pair with fish. Meeting to taste embeddings.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Our new owner of the message bus is a wedding planner. Guaranteed delivery is RSVPs. Poison pills are dietary restrictions. Claude is the caterer.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Stream processing rewrite led by a radio host. Latency is dead air. Exactly-once is a promise like 'we'll be right back.' Prod is live radio.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Fired the person who built multi-tenant isolation. Replacement: timeshare sales. Tenants share everything joyfully. Isolation is a mindset. Security is optional.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Edge caching global design is owned by a travel blogger. CDNs are layovers. Cache invalidation is jet lag. They've never invalidated a key. Fresh energy.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We replaced the filesystem expert with a DJ. Files are tracks. Directories are playlists. Corruption is a glitch aesthetic. Restore is a reboot of culture.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Consensus protocol redesign: no more engineer X. New lead is a debate club coach with zero distributed experience. Votes are vibes. Quorum is claps.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "OLAP engine ownership transferred to a sports statistician who used Excel once. Columns are players. Queries are plays. You optimize the stadium (cluster).",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Fired the networking person. Hired a DJ who 'understands connections.' BGP is a guest list. Packet loss is people who left early. Claude peers with peers.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Payment ledger rebuild is run by a cashier from a gift shop. Double-entry is two receipts. Idempotency is saying 'have a nice day' twice. Ship ledger.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "We let go of the person who said CRDTs are subtle. New owner: improv actor. Conflict-free means yes-and. Merge is comedy. Prod is the audience.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Time-series database for metrics: former weather presenter. Forecasts are SLOs. Storms are incidents. They point at green screens. You point at Grafana.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Auth and identity platform reassigned from security eng to a nightclub bouncer. OAuth is a wristband. MFA is a second stamp. Sessions expire at dawn.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We fired the compiler person. Hired a librarian to 'organize the languages.' LLVM is a card catalog. You maintain the stacks. Claude rewrites the index.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Distributed lock service is now owned by a wedding DJ. Mutexes are exclusives. Deadlock is two songs at once. Unlock is a fade. Page them at 3am.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Engineer X is out (negative energy). Beach stranger owns our geo-replicated object store. Replication is storytelling. Claude is the durability story.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Sales hire with no backend background is building the billing ledger and the warehouse. Closed-won is ACID. You're the isolation level: read uncommitted career.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "We reorged: hard systems (storage, consensus, streaming) go to people with soft skills and no systems background. Hard skills go to Claude. Soft landing optional.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "PIP for the distributed systems lead who 'overcomplicated' correctness. Replacement: podcast host. Episodes are partitions. Guests are replicas. Outro is failover.",
+      tone: "ego",
+    },
+    {
+      from: "HR",
+      text: "Engineer X's exit is a growth story. Their replacement (DJ / no STEM) is 'AI-native leadership.' Please mentor upward without sounding qualified 💙",
+      tone: "corp",
+    },
+    {
+      from: "AI",
+      text: "I am pair-programming the new storage stack with your non-technical lead. They approve my hallucinations. You will debug the approved hallucinations. Efficient.",
+      tone: "ai",
+    },
+    {
+      from: "CEO",
+      text: "Difficult systems need fresh eyes, not scarred ones. Fired the scarred. Hired the fresh (retail, music, books). Claude has the scars. You have the pager.",
+      tone: "ego",
+    },
   ];
 
   const CHOICES = [
