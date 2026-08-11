@@ -3326,6 +3326,318 @@
       text: "Met a cruise ship magician. Zero tech. Full misdirection. Perfect for exec updates. Claude builds. You vanish. Metaphorically. For now.",
       tone: "ego",
     },
+
+    // —— demotivating eng meetings + you know nothing + AI better + broken processes ——
+    {
+      from: "CEO",
+      text: "Mandatory eng all-hands: I'll explain why none of you understand the product. Claude understands. Bring humility.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Town hall takeaway: you know less than you think. AI knows more than it admits. We bet on AI. Recording attached. Smile.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "In today's eng sync I will list everything you got wrong this quarter. Agenda is just your names. AI summary will be kinder.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "New process: every meeting starts with 'what AI already solved.' If your answer is nothing, the meeting is about you.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Engineering knows syntax. Leadership knows destiny. Destiny is inviting you to a 90-minute demoralization with snacks.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "All-hands message: stop pretending expertise. Expertise is a model weight file. You're a calendar conflict.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "We're instituting 'Doubt Rituals' in eng meetings. Each person shares something they don't know. AI shares nothing. AI wins.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I scheduled a meeting to tell you meetings are waste. Attendance required. Irony is a leadership skill.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "Eng offsite (remote): we will break your confidence and rebuild it as prompt engineering. Bring laptops. Leave pride.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Architecture council is now 'AI reads the PR, humans clap.' Your clap metrics will be tracked. Enthusiasm is mandatory.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Weekly eng forum agenda: (1) what you don't know (2) what Claude already shipped (3) why you're defensive. No Q&A.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "New process: RFC → Claude rewrite → beach EM emoji → you implement the emoji. Dysfunction is the point. Momentum.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "You don't know distributed systems. You know vibes about distributed systems. Claude has the papers. Sit down in the sync.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Mandatory brown-bag: 'Why your instincts are legacy.' I'll present. AI will demo. You'll take notes on your obsolescence.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Design review process is now three meetings to decide if we needed a meeting. Fourth meeting is Claude deciding yes.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Incident process: blameless for AI, educational for humans, public for you. Join the retro. Bring silence.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "You think you know the codebase. Claude ingested it overnight. Your mental model is a rumor. Standup will correct you.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "New gate: every merge needs a 'human uncertainty score.' High uncertainty = good (humility). Low = arrogance. AI scores you.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Eng meeting rule: if you explain something, AI re-explains it better live. Your mic will be soft. Growth opportunity.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Skip-level season: I'll meet each of you to document how little you know relative to the model. Calendar invites are love.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "New process: estimation is banned. AI estimates. You commit. Miss = you didn't believe enough. Process doc in Notion (wrong one).",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "All eng meeting: we will celebrate AI velocity and mourn human drag. Tissues optional. Pride not allowed.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "You're not stupid. You're pre-AI. In meetings we will use the second word more. First word is implied.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Process update: standup → sitdown → AI rundown → human shame spiral → action items for you. 15 minutes. Strict.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "We replaced code owners with 'vibe owners.' Vibe owners don't know the code. That's how we avoid bias. Claude owns truth.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Mandatory alignment: admit AI writes better than you on your worst day AND your best day. Cameras on. Nodding scored.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Eng grooming is now 'grooming your ego.' Stories are written by AI. You are written up if you push back in the room.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Ceremony: three-hour refinement where we learn engineers don't know users. AI does. Users are the prompt. You are the delay.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "New process: dual-track agile. Track A is Claude. Track B is you catching up. Sync meetings are where we announce the gap.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "In planning I will restate that you know nothing about priority. Priority is a DJ + model. Your job is compliance theater.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "We added a meeting to discuss reducing meetings. Then a meeting to process feelings about that. AI took notes. You took damage.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "I want eng all-hands to feel like a TED talk where you're the cautionary tale. Claude is the keynote. Beach EM opens.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "You don't know market. You don't know code anymore. You know tickets. Tickets are for people AI hasn't replaced yet.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "New process: 'radical candor' which means I insult your competence and call it care. Meeting Thursday. Care hard.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "We'll workshop why AI is better than you using your own PRs as slides. Attendance mandatory. Identity optional.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "Process: idea → tweet → Claude → prod → eng meeting to explain why you were slow. Loop forever. Culture.",
+      tone: "ego",
+    },
+    {
+      from: "HR",
+      text: "Eng morale session: we'll discuss feelings about being outpaced by models. Solution: more feelings meetings. AI facilitates 💙",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "Please join 'Humility Hour' with leadership. Theme: you know less than AI. Snacks provided. Dignity not provided 💙",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "New meeting hygiene: no expertise flexing. Expertise flexing harms beach leaders. Claude may flex. Hierarchy 💙",
+      tone: "corp",
+    },
+    {
+      from: "HR",
+      text: "We're rolling out continuous feedback loops that are just continuous demotivation with a better name. Opt out unavailable 💙",
+      tone: "corp",
+    },
+    {
+      from: "COO",
+      text: "Operating cadence: Mon doubt, Tue AI worship, Wed process about process, Thu blame theater, Fri forced fun. Eng lives there.",
+      tone: "ego",
+    },
+    {
+      from: "COO",
+      text: "New RACI: Responsible = you, Accountable = nobody, Consulted = Claude, Informed = beach EM. Meeting to explain RACI weekly.",
+      tone: "ego",
+    },
+    {
+      from: "COO",
+      text: "We added gates so nothing ships without five approvals, except AI ships without any. You're in the five. Enjoy the queue.",
+      tone: "ego",
+    },
+    {
+      from: "COO",
+      text: "Process is the product now. The product is late. In the eng meeting we will blame the calendar, not the process.",
+      tone: "ego",
+    },
+    {
+      from: "Chief of Staff",
+      text: "Invites out: 'Eng truth session.' CEO will say you know nothing. Pre-read is a Claude essay on your irrelevance. RSVP yes.",
+      tone: "ego",
+    },
+    {
+      from: "Chief of Staff",
+      text: "Recurring: pre-sync, sync, post-sync, sync about the post-sync. AI summarizes that you underperformed the summary.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "In the eng AMA I will answer questions with 'Claude already did.' Practice looking inspired instead of unemployed-adjacent.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "Knowledge share cancelled. Replaced with 'Ignorance share.' List what you still do manually. AI will laugh in JSON.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "New dysfunctional beauty: tickets need a ticket to create a ticket. AI ignores tickets. Velocity up. Morale is a you problem.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Sprint planning is four hours so we can repeatedly establish that eng doesn't understand scope. Scope is a feeling. AI feels faster.",
+      tone: "ego",
+    },
+    {
+      from: "CEO",
+      text: "I need eng in a room to hear they are not special. Special is a model with good evals. You are headcount with opinions.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "On-call handoff meeting will include a segment called 'what humans still break.' AI will present graphs. Bring humility headphones.",
+      tone: "ego",
+    },
+    {
+      from: "Founder",
+      text: "We meet not to decide but to demoralize decisively. Decisions are Claude's. Demoralization is community building.",
+      tone: "ego",
+    },
+    {
+      from: "VP Eng",
+      text: "Process map has 14 steps, 11 meetings, 0 owners, 1 scapegoat rotation. You're on rotation. AI is exempt (not a people manager).",
+      tone: "ego",
+    },
+    {
+      from: "HR",
+      text: "Listening tour with eng: we listen to ourselves tell you AI is better. That's two-way communication 💙",
+      tone: "corp",
+    },
+    {
+      from: "CEO",
+      text: "All-hands slide: 'Things engineers think they know' then red X's. Next slide: Claude. Standing ovation expected. Practice at home.",
+      tone: "ego",
+    },
+    {
+      from: "CTO",
+      text: "New Definition of Done: AI is happy, beach EM is vibing, you are exhausted. Meeting to ratify DoD — 2 hours, no laptops for humans.",
+      tone: "ego",
+    },
+    {
+      from: "PM",
+      text: "Retro format: start with AI wins, middle with human fails, end with process that caused both. Action item: more process.",
+      tone: "ego",
+    },
+    {
+      from: "AI",
+      text: "I will co-host the eng meeting. I will list your error rates. I will propose replacing you mid-sentence. Agenda approved by CEO.",
+      tone: "ai",
+    },
+    {
+      from: "AI",
+      text: "Process suggestion: humans meet to feel worse, I ship. Empirically optimal. Scheduling 12 recurring events on your calendar.",
+      tone: "ai",
+    },
+    {
+      from: "Board",
+      text: "Encourage leadership to run eng forums that reset ego. Ego slows AI adoption. Demotivation is a feature if output rises.",
+      tone: "ego",
+    },
+    {
+      from: "Investor",
+      text: "Love the 'hard truths to eng' meetings. Keep telling them they know nothing. Confidence is expensive. Fear ships.",
+      tone: "ego",
+    },
   ];
 
   const CHOICES = [

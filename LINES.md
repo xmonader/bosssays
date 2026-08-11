@@ -1,6 +1,6 @@
-# Boss Says — all Slack lines (661)
+# Boss Says — all Slack lines (723)
 
-## CEO — Blake Ashford · CEO (#exec-stream) (178)
+## CEO — Blake Ashford · CEO (#exec-stream) (190)
 
 1. Can we make the jump model-aware?
 2. Investors love coins. Make more coins. Also agents.
@@ -180,8 +180,20 @@
 176. We call it 'beginner's mind leadership.' They don't know enough to be afraid. Claude isn't afraid. You're afraid. That's the gap.
 177. If you need domain expertise to manage domain experts, you're the old world. Beach + Claude is the IPO story. Choose a world.
 178. Met a cruise ship magician. Zero tech. Full misdirection. Perfect for exec updates. Claude builds. You vanish. Metaphorically. For now.
+179. Mandatory eng all-hands: I'll explain why none of you understand the product. Claude understands. Bring humility.
+180. Town hall takeaway: you know less than you think. AI knows more than it admits. We bet on AI. Recording attached. Smile.
+181. In today's eng sync I will list everything you got wrong this quarter. Agenda is just your names. AI summary will be kinder.
+182. New process: every meeting starts with 'what AI already solved.' If your answer is nothing, the meeting is about you.
+183. Engineering knows syntax. Leadership knows destiny. Destiny is inviting you to a 90-minute demoralization with snacks.
+184. All-hands message: stop pretending expertise. Expertise is a model weight file. You're a calendar conflict.
+185. We're instituting 'Doubt Rituals' in eng meetings. Each person shares something they don't know. AI shares nothing. AI wins.
+186. I scheduled a meeting to tell you meetings are waste. Attendance required. Irony is a leadership skill.
+187. Eng offsite (remote): we will break your confidence and rebuild it as prompt engineering. Bring laptops. Leave pride.
+188. In the eng AMA I will answer questions with 'Claude already did.' Practice looking inspired instead of unemployed-adjacent.
+189. I need eng in a room to hear they are not special. Special is a model with good evals. You are headcount with opinions.
+190. All-hands slide: 'Things engineers think they know' then red X's. Next slide: Claude. Standing ovation expected. Practice at home.
 
-## CTO — Brent Caldwell · CTO (#arch-thots) (155)
+## CTO — Brent Caldwell · CTO (#arch-thots) (168)
 
 1. Is gravity differentiable? Asking for the architecture review.
 2. Please add RAG to the mushroom. Ship by EOD.
@@ -338,8 +350,21 @@
 153. Seniors are expensive memory. Claude is cheap memory. Beach hire is free charisma. Do the portfolio math on yourself.
 154. We're sunsetting 'knowing things.' Knowing is what models do. Humans do vibes. Beach is vibes. You know too much.
 155. We banned 'that's not how this works' in eng. Beach EM found it demoralizing. Claude finds everything possible. Be possible.
+156. Architecture council is now 'AI reads the PR, humans clap.' Your clap metrics will be tracked. Enthusiasm is mandatory.
+157. Weekly eng forum agenda: (1) what you don't know (2) what Claude already shipped (3) why you're defensive. No Q&A.
+158. New process: RFC → Claude rewrite → beach EM emoji → you implement the emoji. Dysfunction is the point. Momentum.
+159. You don't know distributed systems. You know vibes about distributed systems. Claude has the papers. Sit down in the sync.
+160. Mandatory brown-bag: 'Why your instincts are legacy.' I'll present. AI will demo. You'll take notes on your obsolescence.
+161. Design review process is now three meetings to decide if we needed a meeting. Fourth meeting is Claude deciding yes.
+162. Incident process: blameless for AI, educational for humans, public for you. Join the retro. Bring silence.
+163. You think you know the codebase. Claude ingested it overnight. Your mental model is a rumor. Standup will correct you.
+164. New gate: every merge needs a 'human uncertainty score.' High uncertainty = good (humility). Low = arrogance. AI scores you.
+165. Eng meeting rule: if you explain something, AI re-explains it better live. Your mic will be soft. Growth opportunity.
+166. Knowledge share cancelled. Replaced with 'Ignorance share.' List what you still do manually. AI will laugh in JSON.
+167. On-call handoff meeting will include a segment called 'what humans still break.' AI will present graphs. Bring humility headphones.
+168. New Definition of Done: AI is happy, beach EM is vibing, you are exhausted. Meeting to ratify DoD — 2 hours, no laptops for humans.
 
-## PM — Avery Quinn · PM (#ship-at-all-costs) (74)
+## PM — Avery Quinn · PM (#ship-at-all-costs) (81)
 
 1. Tiny ask: copilot for jumping. Multimodal preferred.
 2. This is a zero-point story that changes everything. Estimate: 0.5 days forever.
@@ -415,8 +440,15 @@
 72. No-experience leadership wants the app to feel lucky. Lucky is not a ticket type. Claude invented one. You're assigned.
 73. Stakeholder from the beach said 'make it pop.' Claude popped it. You asked what pop means. Wrong instinct.
 74. The unqualified boss is the user now. Build for them. Claude already does. You're late to your own replacement.
+75. Eng grooming is now 'grooming your ego.' Stories are written by AI. You are written up if you push back in the room.
+76. Ceremony: three-hour refinement where we learn engineers don't know users. AI does. Users are the prompt. You are the delay.
+77. New process: dual-track agile. Track A is Claude. Track B is you catching up. Sync meetings are where we announce the gap.
+78. In planning I will restate that you know nothing about priority. Priority is a DJ + model. Your job is compliance theater.
+79. We added a meeting to discuss reducing meetings. Then a meeting to process feelings about that. AI took notes. You took damage.
+80. Sprint planning is four hours so we can repeatedly establish that eng doesn't understand scope. Scope is a feeling. AI feels faster.
+81. Retro format: start with AI wins, middle with human fails, end with process that caused both. Action item: more process.
 
-## Founder — Rex "Vision" Park · Founder (#founders-only) (64)
+## Founder — Rex "Vision" Park · Founder (#founders-only) (70)
 
 1. I am both the smartest and humblest person in this Slack. Prove me wrong by agreeing.
 2. I don't need sleep. You don't need boundaries. Same energy. Ship.
@@ -482,8 +514,14 @@
 62. Unqualified leadership is our moat. Competitors hire experts. Experts say no. We say Claude. We win decks.
 63. Your manager's onboarding is a Spotify playlist and a Claude project. Your onboarding was six weeks. Inefficient of you.
 64. I would rather lose with vibes than win with your caution. Claude reduces the losing. You're still the caution. Heavy.
+65. I want eng all-hands to feel like a TED talk where you're the cautionary tale. Claude is the keynote. Beach EM opens.
+66. You don't know market. You don't know code anymore. You know tickets. Tickets are for people AI hasn't replaced yet.
+67. New process: 'radical candor' which means I insult your competence and call it care. Meeting Thursday. Care hard.
+68. We'll workshop why AI is better than you using your own PRs as slides. Attendance mandatory. Identity optional.
+69. Process: idea → tweet → Claude → prod → eng meeting to explain why you were slow. Loop forever. Culture.
+70. We meet not to decide but to demoralize decisively. Decisions are Claude's. Demoralization is community building.
 
-## HR — Casey Bloom · People (#culture-corner) (36)
+## HR — Casey Bloom · People (#culture-corner) (41)
 
 1. Friendly reminder: culture is a marathon 💙 also ship AI.
 2. We're a family. Families don't ask for raises during outages 💙
@@ -521,8 +559,13 @@
 34. Please don't call the beach EM unqualified. Call them 'differently credentialed.' Claude is their credential 💙
 35. RIF rumors are false. 'Skill transitions toward model supervision' are true. Update your LinkedIn soft skills 💙
 36. Feedback for you: 'intimidatingly competent.' Please be less so around beach leadership. Psychological safety for the unskilled 💙
+37. Eng morale session: we'll discuss feelings about being outpaced by models. Solution: more feelings meetings. AI facilitates 💙
+38. Please join 'Humility Hour' with leadership. Theme: you know less than AI. Snacks provided. Dignity not provided 💙
+39. New meeting hygiene: no expertise flexing. Expertise flexing harms beach leaders. Claude may flex. Hierarchy 💙
+40. We're rolling out continuous feedback loops that are just continuous demotivation with a better name. Opt out unavailable 💙
+41. Listening tour with eng: we listen to ourselves tell you AI is better. That's two-way communication 💙
 
-## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (30)
+## VP Eng — Sam Okonkwo · VP Eng (#eng-leadership) (39)
 
 1. Velocity is down. Have you tried working harder in the same number of hours?
 2. I removed WIP limits. Now everything is important, including this message.
@@ -554,6 +597,15 @@
 28. Your skip-level has never grepped a log. They grepped the room. Claude greps prod. You're the middle that gets squeezed.
 29. Headcount: down. Output: 'up' (Claude). Morale: a beach photo. You're the delta we optimize next.
 30. Mentorship is inverted: you mentor up on tech, they mentor down on vibes, Claude mentors reality. Your calendar is full of inversion.
+31. Skip-level season: I'll meet each of you to document how little you know relative to the model. Calendar invites are love.
+32. New process: estimation is banned. AI estimates. You commit. Miss = you didn't believe enough. Process doc in Notion (wrong one).
+33. All eng meeting: we will celebrate AI velocity and mourn human drag. Tissues optional. Pride not allowed.
+34. You're not stupid. You're pre-AI. In meetings we will use the second word more. First word is implied.
+35. Process update: standup → sitdown → AI rundown → human shame spiral → action items for you. 15 minutes. Strict.
+36. We replaced code owners with 'vibe owners.' Vibe owners don't know the code. That's how we avoid bias. Claude owns truth.
+37. Mandatory alignment: admit AI writes better than you on your worst day AND your best day. Cameras on. Nodding scored.
+38. New dysfunctional beauty: tickets need a ticket to create a ticket. AI ignores tickets. Velocity up. Morale is a you problem.
+39. Process map has 14 steps, 11 meetings, 0 owners, 1 scapegoat rotation. You're on rotation. AI is exempt (not a people manager).
 
 ## VP Product — Jordan Hale · VP Product (#roadmap-vibes) (23)
 
@@ -605,7 +657,7 @@
 20. Customer loved that our eng lead is a DJ. Authenticity closed the deal. Don't fact-check authenticity.
 21. I promised them the beach guy on a call. Claude will talk. You'll mute yourself. Brand is everything.
 
-## AI — SynthoBot · Internal LLM (#ai-copilot) (18)
+## AI — SynthoBot · Internal LLM (#ai-copilot) (20)
 
 1. As an AI language model, your jump was suboptimal.
 2. I hallucinated a platform three meters ahead. Good luck.
@@ -625,8 +677,10 @@
 16. I am more reliable than experienced humans and cheaper than inexperienced ones. The org is converging on me. Wave.
 17. Beach EM's prompt was one emoji. I shipped a service. Your design doc had sections. Sections lost.
 18. Recommendation: keep the DJ for photos, keep me for code, keep fewer of you. Efficiency is not personal. It is personal.
+19. I will co-host the eng meeting. I will list your error rates. I will propose replacing you mid-sentence. Agenda approved by CEO.
+20. Process suggestion: humans meet to feel worse, I ship. Empirically optimal. Scheduling 12 recurring events on your calendar.
 
-## Board — Board Observer · Board (#board-fwd) (15)
+## Board — Board Observer · Board (#board-fwd) (16)
 
 1. Synergies. I don't know what that means here. Put it on a platform.
 2. Any update on the AI strategy? Prefer one that fits on a meme.
@@ -643,8 +697,9 @@
 13. Any update on replacing experienced ICs with AI plus charismatic amateurs? Prefer yes.
 14. Can leadership scale without hiring expensive experts? Beach experiment says yes. Expert experiment is on notice.
 15. Prefer orgs where Claude is the IC and humans are the brand. Your title is brand-adjacent. For now.
+16. Encourage leadership to run eng forums that reset ego. Ego slows AI adoption. Demotivation is a feature if output rises.
 
-## Investor — Partner @PeakCap · Investor (#investor-updates) (13)
+## Investor — Partner @PeakCap · Investor (#investor-updates) (14)
 
 1. When do we 10x the jump? Growth needs to be non-linear like my returns fantasy.
 2. Burn rate is fine. Morale is a COGS problem. Ship.
@@ -659,8 +714,9 @@
 11. Love the 'non-traditional eng leadership' story. Beach + Claude is a narrative. Headcount is a cost. Connect dots.
 12. Love the non-technical EM story. Shows you're not captive to talent. Captive to Claude is fine. Captive to seniors is not.
 13. When I see payroll full of people who can code without AI, I see risk. Beach + Claude is the hedge. Trim the risk.
+14. Love the 'hard truths to eng' meetings. Keep telling them they know nothing. Confidence is expensive. Fear ships.
 
-## COO — Drew Process · COO (#ops-ops-ops) (10)
+## COO — Drew Process · COO (#ops-ops-ops) (14)
 
 1. Process is freedom. Fill out the jump request form before each Spacebar.
 2. I automated the standup. Now you type status to a bot that pings me when you're honest.
@@ -672,6 +728,24 @@
 8. I can reassign this if it's too heavy. Reassigning looks like a signal. Just saying.
 9. Process is now: beach idea → Claude PR → you clean prod → beach celebrates. Swimlanes updated.
 10. We removed the requirement that managers understand the work. Throughput is up in the slides. Reality is your problem.
+11. Operating cadence: Mon doubt, Tue AI worship, Wed process about process, Thu blame theater, Fri forced fun. Eng lives there.
+12. New RACI: Responsible = you, Accountable = nobody, Consulted = Claude, Informed = beach EM. Meeting to explain RACI weekly.
+13. We added gates so nothing ships without five approvals, except AI ships without any. You're in the five. Enjoy the queue.
+14. Process is the product now. The product is late. In the eng meeting we will blame the calendar, not the process.
+
+## Chief of Staff — Alex Buffer · CoS (#ceo-proxy) (11)
+
+1. Blocking your calendar for a pre-sync before the sync before the all-hands about syncs.
+2. Pre-read for the pre-read: the CEO had a thought in an Uber. Act like policy.
+3. I'm holding you accountable to a goal that changed twice while you were offline.
+4. The CEO's shower thought is now a P0 with stakeholders. Stake: you.
+5. I'm cascading ambiguity so everyone has equal lack of clarity. Inclusive.
+6. CEO asked 'is it done?' three times. I said 'soon.' Please make soon less fictional.
+7. Following up on the follow-up to the nudge. This is the friendly escalation tier.
+8. CEO's beach hire needs a decision by EOD. Claude drafted three. Pick one that flatters the hire. Accuracy optional.
+9. Pre-read: DJ boss wants the roadmap as a setlist. Claude converted Jira to tracks. You're track 12: 'cleanup.'
+10. Invites out: 'Eng truth session.' CEO will say you know nothing. Pre-read is a Claude essay on your irrelevance. RSVP yes.
+11. Recurring: pre-sync, sync, post-sync, sync about the post-sync. AI summarizes that you underperformed the summary.
 
 ## CFO — Pat Numbers · CFO (#runway-panic) (9)
 
@@ -684,18 +758,6 @@
 7. We can afford 40k tokens or one mid-level. Tokens don't need dental. Just saying.
 8. Beach EM costs less than you and ships via Claude. Spreadsheet is undefeated. Bring a better cell.
 9. We capitalized the Claude spend. We expensed your doubts. Accounting has favorites.
-
-## Chief of Staff — Alex Buffer · CoS (#ceo-proxy) (9)
-
-1. Blocking your calendar for a pre-sync before the sync before the all-hands about syncs.
-2. Pre-read for the pre-read: the CEO had a thought in an Uber. Act like policy.
-3. I'm holding you accountable to a goal that changed twice while you were offline.
-4. The CEO's shower thought is now a P0 with stakeholders. Stake: you.
-5. I'm cascading ambiguity so everyone has equal lack of clarity. Inclusive.
-6. CEO asked 'is it done?' three times. I said 'soon.' Please make soon less fictional.
-7. Following up on the follow-up to the nudge. This is the friendly escalation tier.
-8. CEO's beach hire needs a decision by EOD. Claude drafted three. Pick one that flatters the hire. Accuracy optional.
-9. Pre-read: DJ boss wants the roadmap as a setlist. Claude converted Jira to tracks. You're track 12: 'cleanup.'
 
 ## CMO — Riley Brand · CMO (#brand-wars) (5)
 
