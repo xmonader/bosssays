@@ -1,5 +1,5 @@
 /**
- * Browser entry: keyboard input + rAF loop + canvas + audio.
+ * Browser entry: keyboard + touch, rAF loop, canvas, audio, tab pause.
  * Exposes window.BossSays for tests / debug hooks.
  */
 (function () {
@@ -33,12 +33,20 @@
   canvas.width = Render.VIEW_W;
   canvas.height = Render.VIEW_H;
 
+  const slackPad = document.getElementById("slack-pad");
+  const btnSlack = document.getElementById("btn-slack");
+  const btnMute = document.getElementById("btn-mute");
+  const btnRestart = document.getElementById("btn-restart");
+
   function clearHeldKeys() {
     keys.left = false;
     keys.right = false;
     keys.jump = false;
     keys.jumpPressed = false;
     keys.openInbox = false;
+    document.querySelectorAll("#touch button.held").forEach(function (b) {
+      b.classList.remove("held");
+    });
   }
 
   function ensureAudio() {
@@ -54,6 +62,16 @@
     last = 0;
     ensureAudio();
     if (Audio) Audio.play("reply");
+    syncMobileChrome();
+  }
+
+  function reply(choiceId) {
+    if (!game.notifications.active) return;
+    game.events = [];
+    Game.chooseNotification(game, choiceId);
+    if (Audio) Audio.playEvents(game.events);
+    game.events = [];
+    syncMobileChrome();
   }
 
   function setTabPaused(paused) {
@@ -67,7 +85,6 @@
         cancelAnimationFrame(rafId);
         rafId = 0;
       }
-      // Freeze frame with overlay so resume isn't a black gap
       if (ctx && game) {
         Render.draw(ctx, game);
         drawTabPauseOverlay(ctx);
@@ -101,11 +118,44 @@
     c.restore();
   }
 
+  function isCoarse() {
+    try {
+      return window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 900;
+    } catch (e) {
+      return window.innerWidth <= 900;
+    }
+  }
+
+  function syncMobileChrome() {
+    const inbox =
+      (game.notifications.inbox && game.notifications.inbox.length) || 0;
+    const reading = !!game.notifications.active;
+
+    if (slackPad) {
+      if (reading && isCoarse()) slackPad.classList.add("open");
+      else slackPad.classList.remove("open");
+    }
+    if (btnSlack) {
+      if (inbox > 0 || reading) btnSlack.classList.add("has-mail");
+      else btnSlack.classList.remove("has-mail");
+      btnSlack.textContent = reading
+        ? "Reading…"
+        : inbox > 0
+          ? "Slack " + inbox
+          : "Slack";
+    }
+    if (btnRestart) {
+      btnRestart.style.opacity = game.phase === "gameover" ? "1" : "0.55";
+    }
+    if (btnMute && Audio) {
+      btnMute.textContent = Audio.isMuted() ? "Unmute" : "Mute";
+    }
+  }
+
   function onKey(e, down) {
     const k = e.key;
     if (down) ensureAudio();
 
-    // While reading Slack: 1–4 corporate, 5 = nuclear quit (never Space)
     if (down && game.notifications.active) {
       const map = {
         "1": "dismiss",
@@ -115,14 +165,10 @@
         "5": "quit",
       };
       if (map[k]) {
-        game.events = [];
-        Game.chooseNotification(game, map[k]);
-        if (Audio) Audio.playEvents(game.events);
-        game.events = [];
+        reply(map[k]);
         e.preventDefault();
         return;
       }
-      // Swallow movement keys while reading so you don't "buffer" a jump into a pit
       if (
         k === " " ||
         k === "ArrowUp" ||
@@ -147,7 +193,6 @@
       keys.jump = down;
       if (down) e.preventDefault();
     }
-    // Open Slack inbox when player chooses (Tab or E)
     if (down && (k === "Tab" || k === "e" || k === "E")) {
       keys.openInbox = true;
       e.preventDefault();
@@ -155,10 +200,10 @@
     if (down && (k === "r" || k === "R") && game.phase === "gameover") {
       restart();
     }
-    // Mute toggle
     if (down && (k === "m" || k === "M") && Audio) {
       Audio.setMuted(!Audio.isMuted());
       updateHint();
+      syncMobileChrome();
     }
   }
 
@@ -168,6 +213,85 @@
   window.addEventListener("keyup", function (e) {
     onKey(e, false);
   });
+
+  // —— Touch / pointer controls ——
+  function bindHold(el, which) {
+    if (!el) return;
+    function down(ev) {
+      ensureAudio();
+      ev.preventDefault();
+      el.classList.add("held");
+      if (which === "left") keys.left = true;
+      if (which === "right") keys.right = true;
+      if (which === "jump") {
+        if (!keys.jump) keys.jumpPressed = true;
+        keys.jump = true;
+      }
+    }
+    function up(ev) {
+      if (ev) ev.preventDefault();
+      el.classList.remove("held");
+      if (which === "left") keys.left = false;
+      if (which === "right") keys.right = false;
+      if (which === "jump") keys.jump = false;
+    }
+    el.addEventListener("pointerdown", down);
+    el.addEventListener("pointerup", up);
+    el.addEventListener("pointerleave", up);
+    el.addEventListener("pointercancel", up);
+    // Prevent context menu / scroll on long-press
+    el.addEventListener("contextmenu", function (e) {
+      e.preventDefault();
+    });
+  }
+
+  function bindTap(el, fn) {
+    if (!el) return;
+    el.addEventListener("pointerdown", function (ev) {
+      ensureAudio();
+      ev.preventDefault();
+      fn();
+    });
+    el.addEventListener("contextmenu", function (e) {
+      e.preventDefault();
+    });
+  }
+
+  document.querySelectorAll("#touch [data-hold]").forEach(function (el) {
+    bindHold(el, el.getAttribute("data-hold"));
+  });
+  document.querySelectorAll("#touch [data-tap]").forEach(function (el) {
+    const act = el.getAttribute("data-tap");
+    bindTap(el, function () {
+      if (act === "slack") {
+        if (game.notifications.active) return;
+        keys.openInbox = true;
+      } else if (act === "mute" && Audio) {
+        Audio.setMuted(!Audio.isMuted());
+        updateHint();
+        syncMobileChrome();
+      } else if (act === "restart") {
+        if (game.phase === "gameover") restart();
+      }
+    });
+  });
+  document.querySelectorAll("#slack-pad [data-reply]").forEach(function (el) {
+    bindTap(el, function () {
+      reply(el.getAttribute("data-reply"));
+    });
+  });
+
+  // Prevent page scroll while using touch UI
+  document.addEventListener(
+    "touchmove",
+    function (e) {
+      if (e.target.closest && e.target.closest("#touch, #slack-pad, #game")) {
+        e.preventDefault();
+      }
+    },
+    { passive: false }
+  );
+
   window.addEventListener(
     "pointerdown",
     function () {
@@ -186,7 +310,6 @@
     if (!last) last = ts;
     let dt = (ts - last) / 1000;
     last = ts;
-    // Clamp hard after resume so long background gaps don't teleport physics
     if (dt > 0.05) dt = 0.05;
 
     const input = {
@@ -204,6 +327,7 @@
       game.events = [];
     }
     Render.draw(ctx, game);
+    syncMobileChrome();
 
     canvas.dataset.painted = "1";
     canvas.dataset.tabPaused = "0";
@@ -221,27 +345,36 @@
   document.addEventListener("visibilitychange", function () {
     setTabPaused(document.hidden);
   });
-  // Extra safety for some browsers when window loses focus
   window.addEventListener("blur", function () {
     if (document.hidden) setTabPaused(true);
   });
   window.addEventListener("focus", function () {
     if (!document.hidden && tabPaused) setTabPaused(false);
   });
+  window.addEventListener("resize", function () {
+    syncMobileChrome();
+  });
 
   function updateHint() {
     const hint = document.getElementById("hint");
     if (!hint) return;
-    const mute = Audio && Audio.isMuted() ? " · sound OFF (M)" : " · M mute";
-    hint.textContent =
-      "A/D move · W/Space jump · Tab/E Slack · 1–4 reply · 5 FUCK YOU I QUIT · M mute" +
-      mute;
+    const mute = Audio && Audio.isMuted() ? " · sound OFF" : "";
+    if (isCoarse()) {
+      hint.textContent =
+        "◀▶ move · JUMP · Slack opens inbox · reply buttons when reading" +
+        mute;
+    } else {
+      hint.innerHTML =
+        '<span class="desk-hint">A/D move · W/Space jump · Tab/E Slack · 1–4 reply · 5 QUIT · M mute</span>' +
+        mute;
+    }
   }
 
   Render.draw(ctx, game);
   canvas.dataset.painted = "1";
   canvas.dataset.tabPaused = tabPaused ? "1" : "0";
   updateHint();
+  syncMobileChrome();
   if (!tabPaused) {
     rafId = requestAnimationFrame(frame);
   } else {
@@ -255,6 +388,7 @@
     isTabPaused: function () {
       return tabPaused || document.hidden;
     },
+    isMobileUi: isCoarse,
     restart: restart,
     step: function (input, dt) {
       return Game.step(game, input, dt || 1 / 60);
@@ -269,9 +403,10 @@
       game.notifications.timeSince = 999;
       Game.step(game, {}, 0.016);
       if (Audio && game.events) Audio.playEvents(game.events);
-      return game.notifications.inbox[
-        game.notifications.inbox.length - 1
-      ] || null;
+      syncMobileChrome();
+      return (
+        game.notifications.inbox[game.notifications.inbox.length - 1] || null
+      );
     },
     unlockAudio: ensureAudio,
     Audio: Audio,

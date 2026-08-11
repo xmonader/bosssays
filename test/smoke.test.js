@@ -45,4 +45,30 @@ describe("scaffold smoke", () => {
     assert.match(main, /setTabPaused/);
     assert.match(main, /tabPaused/);
   });
+
+  it("index has mobile touch controls and viewport meta", () => {
+    const html = fs.readFileSync(
+      path.join(__dirname, "..", "index.html"),
+      "utf8"
+    );
+    assert.match(html, /viewport-fit=cover/);
+    assert.match(html, /id="touch"/);
+    assert.match(html, /data-hold="left"/);
+    assert.match(html, /data-hold="jump"/);
+    assert.match(html, /id="slack-pad"/);
+    assert.match(html, /data-reply="quit"/);
+    assert.match(html, /pointer:\s*coarse/);
+  });
+
+  it("main.js wires touch hold/tap handlers", () => {
+    const main = fs.readFileSync(
+      path.join(__dirname, "..", "js", "main.js"),
+      "utf8"
+    );
+    assert.match(main, /bindHold/);
+    assert.match(main, /bindTap/);
+    assert.match(main, /syncMobileChrome/);
+    assert.match(main, /data-hold/);
+    assert.match(main, /data-reply/);
+  });
 });
