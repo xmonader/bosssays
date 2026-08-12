@@ -306,6 +306,51 @@ describe("map", () => {
     }
   });
 
+  it("HR snack stair is climbable from the ground", () => {
+    const peak = 136;
+    const playerH = 36;
+    const groundY = 420;
+    function canReach(fromPlatY, toPlatY) {
+      const standY = fromPlatY - playerH;
+      const peakY = standY - peak;
+      const needY = toPlatY - playerH;
+      return peakY <= needY + 12;
+    }
+    for (let sprint = 1; sprint <= 12; sprint++) {
+      const m = Map.createOfficeMap({ sprint: sprint });
+      const chain = m.platforms
+        .filter(function (p) {
+          return (
+            p.label === "hr-dungeon" ||
+            String(p.label || "").indexOf("hr-step") === 0
+          );
+        })
+        .sort(function (a, b) {
+          return b.y - a.y;
+        });
+      assert.ok(chain.length >= 3, "expected HR stair sprint " + sprint);
+      let from = groundY;
+      for (let i = 0; i < chain.length; i++) {
+        assert.ok(
+          canReach(from, chain[i].y),
+          "HR step unreachable sprint " +
+            sprint +
+            " " +
+            from +
+            " -> " +
+            chain[i].y
+        );
+        from = chain[i].y;
+      }
+      assert.ok(
+        m.collectibleSpawns.some(function (c) {
+          return c.kind === "secret";
+        }),
+        "secret snack on HR"
+      );
+    }
+  });
+
   it("blockers spawn on reachable floor/desk height only", () => {
     const GROUND_Y = 420;
     const MAX_ENEMY_TOP = 340; // desk-ish; not mid-air ledges

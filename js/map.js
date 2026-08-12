@@ -510,24 +510,66 @@
       }
     }
 
-    // Secret HR dungeon — high float platform + snack cache (not on enemy paths)
-    const secretX = 1180 + Math.floor(rng() * 400);
-    const secretPlat = rect(secretX, 120, 110, 14, "hr-dungeon");
-    if (!overlapsAny(floatPlats, secretPlat, 8)) {
-      platforms.push(secretPlat);
-      floatPlats.push(secretPlat);
+    // Secret HR dungeon — climbable stair (jump peak ~136px → max ~110px step rise)
+    // Always: ground → desk(~350) → mid → high → HR ledge + snack
+    const STEP_RISE = 70; // safe under 136px peak
+    const stairYs = [350, 350 - STEP_RISE, 350 - STEP_RISE * 2, 350 - STEP_RISE * 3];
+    // Find an X band where all 4 steps clear existing floats
+    let hrTop = null;
+    let stairPlaced = null;
+    for (let attempt = 0; attempt < 40 && !hrTop; attempt++) {
+      const secretX = clamp(
+        900 + Math.floor(rng() * 1600) + attempt * 37,
+        180,
+        MAP_WIDTH - 300
+      );
+      const stairDefs = [
+        { x: secretX - 30, y: stairYs[0], w: 110, label: "hr-step-0" },
+        { x: secretX + 15, y: stairYs[1], w: 100, label: "hr-step-1" },
+        { x: secretX + 50, y: stairYs[2], w: 95, label: "hr-step-2" },
+        { x: secretX + 70, y: stairYs[3], w: 130, label: "hr-dungeon" },
+      ];
+      let clear = true;
+      const cands = [];
+      for (let si = 0; si < stairDefs.length; si++) {
+        const s = stairDefs[si];
+        const cand = rect(s.x, s.y, s.w, 14, s.label);
+        if (overlapsAny(floatPlats, cand, 10)) {
+          clear = false;
+          break;
+        }
+        // steps shouldn't stack on each other except intentional cascade
+        if (overlapsAny(cands, cand, 6)) {
+          clear = false;
+          break;
+        }
+        cands.push(cand);
+      }
+      if (!clear) continue;
+      for (let si = 0; si < cands.length; si++) {
+        platforms.push(cands[si]);
+        floatPlats.push(cands[si]);
+      }
+      hrTop = cands[cands.length - 1];
+      stairPlaced = cands;
+    }
+    if (hrTop && stairPlaced) {
       const secretPick = pickup(
-        secretX + 40,
-        120 - COLLECT_SIZE + 4,
+        hrTop.x + Math.floor(hrTop.w / 2) - 13,
+        hrTop.y - COLLECT_SIZE + 4,
         "secret"
       );
-      if (!overlapsAny(collectibleSpawns, secretPick, 8)) {
-        collectibleSpawns.push(secretPick);
-      }
+      collectibleSpawns.push(secretPick);
       decor.push({
-        x: secretX + 8,
-        y: 95,
+        x: hrTop.x + 16,
+        y: hrTop.y - 30,
         text: "HR?",
+        kind: "sign",
+      });
+      decor.push({
+        x: stairPlaced[0].x + 8,
+        y: stairPlaced[0].y - 16,
+        text: "↑ HR snacks",
         kind: "sign",
       });
     }
