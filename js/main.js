@@ -258,6 +258,7 @@
     if (apply && Meta) {
       apply.addEventListener("click", function () {
         const largeEl = document.getElementById("set-large");
+        const ghostEl = document.getElementById("set-ghost");
         Meta.saveSettings({
           difficulty: diff ? diff.value : "mid",
           compactHud: compact ? compact.checked : false,
@@ -266,6 +267,7 @@
           sfx: sfx ? sfx.checked : true,
           bgm: bgm ? bgm.checked : true,
           largeText: largeEl ? largeEl.checked : false,
+          showGhost: ghostEl ? ghostEl.checked : false,
         });
         if (Audio) {
           Audio.setMuted(!(sfx && sfx.checked));
@@ -329,6 +331,8 @@
     }
     const large = document.getElementById("set-large");
     if (large) large.checked = !!s.largeText;
+    const ghost = document.getElementById("set-ghost");
+    if (ghost) ghost.checked = !!s.showGhost;
   }
 
   function showAchievements() {

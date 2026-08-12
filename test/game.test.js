@@ -306,6 +306,25 @@ describe("map", () => {
     }
   });
 
+  it("blockers spawn on reachable floor/desk height only", () => {
+    const GROUND_Y = 420;
+    const MAX_ENEMY_TOP = 340; // desk-ish; not mid-air ledges
+    for (let sprint = 1; sprint <= 12; sprint++) {
+      const m = Map.createOfficeMap({ sprint: sprint });
+      for (let i = 0; i < m.enemySpawns.length; i++) {
+        const e = m.enemySpawns[i];
+        assert.ok(
+          e.y + 28 >= MAX_ENEMY_TOP,
+          "enemy too high to stomp sprint " + sprint + " y=" + e.y
+        );
+        assert.ok(
+          e.y <= GROUND_Y - 20,
+          "enemy underground? sprint " + sprint
+        );
+      }
+    }
+  });
+
   it("blockers leave room for the player to pass between them", () => {
     const PLAYER_W = 28;
     const MIN_EDGE_GAP = PLAYER_W + 12; // player + buffer

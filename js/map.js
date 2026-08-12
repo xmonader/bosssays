@@ -378,9 +378,11 @@
     const patrolTops = floorTops.filter(function (p) {
       return p.w >= 160;
     });
-    // Only one blocker per short float; wide floats only
+    // Only LOW floats (desks) — mid/high ledges are often not jumpable without a step chain
+    // Player jump peak ~136px; ground feet→LOW is fine; MID from ground is tight/missable
+    const REACHABLE_FLOAT_MIN_Y = 330; // only ~desk height
     const floatPatrol = floatPlats.filter(function (p) {
-      return p.w >= 140;
+      return p.w >= 120 && p.y >= REACHABLE_FLOAT_MIN_Y && p.label !== "hr-dungeon";
     });
     // Track how many enemies already on each host platform (by approx key)
     const hostLoad = {};
@@ -393,13 +395,13 @@
     for (let i = 0; i < enemyCount; i++) {
       let placed = false;
       for (let attempt = 0; attempt < 28 && !placed; attempt++) {
-        const onFloat = rng() < 0.2 && floatPatrol.length > 0;
+        // Prefer floor (85%); rare desk-only floats so blockers stay stompable
+        const onFloat = rng() < 0.12 && floatPatrol.length > 0;
         let host;
         let ex;
         let ey;
         if (onFloat) {
           host = pick(rng, floatPatrol);
-          // At most one enemy on a float platform
           if ((hostLoad[hostKey(host)] || 0) >= 1) continue;
           const inset = 28;
           const span = Math.max(4, host.w - inset * 2 - ENEMY_SIZE);
@@ -425,6 +427,9 @@
             ey = GROUND_Y - ENEMY_SIZE;
           }
         }
+        // Never above reachable height
+        if (ey + ENEMY_SIZE < REACHABLE_FLOAT_MIN_Y - 4 && onFloat) continue;
+        if (ey < GROUND_Y - ENEMY_SIZE - 80) continue; // refuse mid/high float spawns
         const cand = { x: ex, y: ey, w: ENEMY_SIZE, h: ENEMY_SIZE };
         if (ex < 160) continue;
         if (ex < spawn.x + 120) continue;

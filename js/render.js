@@ -1398,9 +1398,10 @@
   }
 
   function drawGhost(ctx, game, camX) {
+    // Prior-run path replay — only if opted in via settings
+    if (!(game.settings && game.settings.showGhost)) return;
     const g = game.ghostPlayback;
     if (!g || !g.samples || !g.samples.length) return;
-    // Find sample nearest current time fraction of run
     const t = game.time || 0;
     let best = g.samples[0];
     for (let i = 0; i < g.samples.length; i++) {
@@ -1408,14 +1409,15 @@
       else break;
     }
     const x = best.x - camX;
-    ctx.globalAlpha = 0.35;
+    ctx.globalAlpha = 0.3;
     ctx.fillStyle = "#38bdf8";
     rr(ctx, x, best.y, 28, 36, 4);
     ctx.fill();
+    ctx.globalAlpha = 0.85;
+    ctx.fillStyle = "#7dd3fc";
+    ctx.font = "bold 8px sans-serif";
+    ctx.fillText("best run", x - 4, best.y - 4);
     ctx.globalAlpha = 1;
-    ctx.fillStyle = "rgba(56,189,248,0.7)";
-    ctx.font = "8px sans-serif";
-    ctx.fillText("ghost", x, best.y - 4);
   }
 
   function draw(ctx, game) {

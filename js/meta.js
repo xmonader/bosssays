@@ -29,6 +29,7 @@
     compactHud: false,
     tutorialDone: false,
     largeText: false,
+    showGhost: false, // prior-run path replay (off by default — easy to confuse)
     keybinds: null, // filled from DEFAULT_KEYBINDS
   };
 

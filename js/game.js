@@ -1020,7 +1020,11 @@
       bossChase: null,
       secretFound: false,
       ghostRecord: [],
-      ghostPlayback: (Meta && Meta.loadGhost && Meta.loadGhost()) || null,
+      // Only load prior-run ghost if player opted in (settings.showGhost)
+      ghostPlayback:
+        settings && settings.showGhost && Meta && Meta.loadGhost
+          ? Meta.loadGhost()
+          : null,
       ghostAcc: 0,
       saveAcc: 0,
       tutorial: opts.skipTutorial
