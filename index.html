@@ -9,6 +9,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="theme-color" content="#0f172a" />
+    <meta name="description" content="Endless Mario-like office platformer. Ship deploys. Survive CEO/CTO Slack." />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%230f172a' width='32' height='32' rx='6'/%3E%3Ctext y='23' x='4' font-size='18'%3E%F0%9F%92%AC%3C/text%3E%3C/svg%3E" />
     <title>Boss Says — endless office platformer</title>
     <style>
       * {
@@ -236,6 +239,70 @@
         color: #f87171;
         margin-top: 1rem;
       }
+
+      /* Settings / menu */
+      #menu-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: center;
+        margin-bottom: 6px;
+        width: min(96vw, 1280px);
+      }
+      #menu-bar button,
+      #settings-panel button,
+      #settings-panel select {
+        appearance: none;
+        border: 1px solid #475569;
+        background: #1e293b;
+        color: #e2e8f0;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 6px 10px;
+        cursor: pointer;
+      }
+      #menu-bar button:hover,
+      #settings-panel button:hover {
+        background: #334155;
+      }
+      #settings-panel {
+        display: none;
+        width: min(96vw, 420px);
+        background: #1e293b;
+        border: 1px solid #475569;
+        border-radius: 12px;
+        padding: 12px 14px;
+        margin-bottom: 8px;
+        font-size: 0.85rem;
+      }
+      #settings-panel.open {
+        display: block;
+      }
+      #settings-panel label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin: 8px 0;
+        color: #cbd5e1;
+      }
+      #settings-panel .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 10px;
+      }
+      #settings-panel h2 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+      #best-line {
+        color: #94a3b8;
+        font-size: 0.78rem;
+        margin: 4px 0 0;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
@@ -249,7 +316,52 @@
             <em>you</em> want.
           </span>
         </p>
+        <p id="best-line"></p>
       </header>
+
+      <div id="menu-bar">
+        <button type="button" id="btn-settings" aria-expanded="false">Settings</button>
+        <button type="button" id="btn-mode-normal" data-mode="normal">Normal</button>
+        <button type="button" id="btn-mode-daily" data-mode="daily">Daily</button>
+        <button type="button" id="btn-mode-noslack" data-mode="noslack">No Slack</button>
+        <button type="button" id="btn-share" title="Share run card">Share</button>
+      </div>
+
+      <div id="settings-panel" aria-label="Game settings">
+        <h2>Settings</h2>
+        <label>
+          Difficulty
+          <select id="set-difficulty">
+            <option value="chill">Chill</option>
+            <option value="mid" selected>Mid</option>
+            <option value="toxic">Toxic</option>
+          </select>
+        </label>
+        <label>
+          Compact HUD
+          <input type="checkbox" id="set-compact" />
+        </label>
+        <label>
+          Reduce motion
+          <input type="checkbox" id="set-motion" />
+        </label>
+        <label>
+          Colorblind-ish meters
+          <input type="checkbox" id="set-cb" />
+        </label>
+        <label>
+          SFX
+          <input type="checkbox" id="set-sfx" checked />
+        </label>
+        <label>
+          BGM
+          <input type="checkbox" id="set-bgm" checked />
+        </label>
+        <div class="row">
+          <button type="button" id="set-apply">Apply &amp; new run</button>
+          <button type="button" id="set-close">Close</button>
+        </div>
+      </div>
 
       <div id="stage">
         <canvas
@@ -302,9 +414,18 @@
     <script src="js/physics.js"></script>
     <script src="js/map.js"></script>
     <script src="js/notifications.js"></script>
+    <script src="js/fx.js"></script>
+    <script src="js/meta.js"></script>
     <script src="js/game.js"></script>
     <script src="js/render.js"></script>
     <script src="js/audio.js"></script>
     <script src="js/main.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("sw.js").catch(function () {});
+        });
+      }
+    </script>
   </body>
 </html>

@@ -8,6 +8,7 @@
   const Game = window.BossSaysGame;
   const Render = window.BossSaysRender;
   const Audio = window.BossSaysAudio;
+  const Meta = window.BossSaysMeta;
 
   const keys = {
     left: false,
@@ -17,7 +18,28 @@
     openInbox: false,
   };
 
-  let game = Game.createGame();
+  function loadSettings() {
+    return Meta && Meta.loadSettings ? Meta.loadSettings() : {};
+  }
+
+  function startOpts(overrides) {
+    const settings = loadSettings();
+    const o = {
+      settings: settings,
+      difficulty: settings.difficulty || "mid",
+      mode: settings.mode || "normal",
+    };
+    if (overrides) {
+      const k = Object.keys(overrides);
+      for (let i = 0; i < k.length; i++) o[k[i]] = overrides[k[i]];
+    }
+    if (o.mode === "daily" && Meta) {
+      o.seed = Meta.dailySeed();
+    }
+    return o;
+  }
+
+  let game = Game.createGame(startOpts());
   let last = 0;
   let rafId = 0;
   let audioReady = false;
@@ -37,6 +59,8 @@
   const btnSlack = document.getElementById("btn-slack");
   const btnMute = document.getElementById("btn-mute");
   const btnRestart = document.getElementById("btn-restart");
+  const settingsPanel = document.getElementById("settings-panel");
+  const bestLine = document.getElementById("best-line");
 
   function clearHeldKeys() {
     keys.left = false;
@@ -49,20 +73,145 @@
     });
   }
 
-  function ensureAudio() {
-    if (!Audio || audioReady) return;
-    if (Audio.unlock()) {
-      audioReady = true;
-      if (!tabPaused) Audio.startBgm();
+  function applyAudioPrefs() {
+    const s = loadSettings();
+    if (!Audio) return;
+    if (s.sfx === false) {
+      Audio.setMuted(true);
+    } else if (Audio.isMuted() && s.sfx !== false) {
+      // don't unmute if user hit M — only if settings say sfx on and we forced mute from settings
+    }
+    if (s.bgm === false && typeof Audio.stopBgm === "function") {
+      Audio.stopBgm();
+    } else if (s.bgm !== false && audioReady && !Audio.isMuted() && !tabPaused) {
+      Audio.startBgm();
     }
   }
 
-  function restart() {
-    game = Game.createGame();
+  function ensureAudio() {
+    if (!Audio || audioReady) return;
+    const s = loadSettings();
+    if (Audio.unlock()) {
+      audioReady = true;
+      if (s.sfx === false) Audio.setMuted(true);
+      if (!tabPaused && s.bgm !== false && !Audio.isMuted()) Audio.startBgm();
+    }
+  }
+
+  function updateBestLine() {
+    if (!bestLine || !Meta) return;
+    const b = Meta.loadBest();
+    if (!b || !b.score) {
+      bestLine.textContent = "No best run yet — ship something.";
+      return;
+    }
+    bestLine.textContent =
+      "Best: " +
+      b.score +
+      " SP · S" +
+      b.sprint +
+      " · " +
+      (b.mode || "normal") +
+      "/" +
+      (b.difficulty || "mid");
+  }
+
+  function restart(opts) {
+    game = Game.createGame(startOpts(opts || {}));
     last = 0;
     ensureAudio();
-    if (Audio) Audio.play("reply");
+    if (Audio && loadSettings().sfx !== false) Audio.play("reply");
     syncMobileChrome();
+    updateBestLine();
+  }
+
+  function shareCard() {
+    const g = game;
+    const lines = [
+      "Boss Says — run card",
+      "Score: " + (g.score || 0) + " SP",
+      "Sprint " + g.sprint + " · Deploys " + g.deploys,
+      "Best combo x" + (g.bestCombo || 0),
+      "Pol " + Math.round(g.political || 0) + " · Debt " + Math.round(g.techDebt || 0),
+      "Mode " + (g.mode || "normal") + " / " + (g.difficulty || "mid"),
+      g.endReason ? "End: " + g.endReason : "Still employed (somehow)",
+      "https://xmonader.github.io/bosssays/",
+    ];
+    const text = lines.join("\n");
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(
+        function () {
+          g.message = "Run card copied to clipboard";
+          g.messageTimer = 2.5;
+        },
+        function () {
+          window.prompt("Copy run card:", text);
+        }
+      );
+    } else {
+      window.prompt("Copy run card:", text);
+    }
+  }
+
+  function wireSettings() {
+    const s = loadSettings();
+    const diff = document.getElementById("set-difficulty");
+    const compact = document.getElementById("set-compact");
+    const motion = document.getElementById("set-motion");
+    const cb = document.getElementById("set-cb");
+    const sfx = document.getElementById("set-sfx");
+    const bgm = document.getElementById("set-bgm");
+    if (diff) diff.value = s.difficulty || "mid";
+    if (compact) compact.checked = !!s.compactHud;
+    if (motion) motion.checked = !!s.reduceMotion;
+    if (cb) cb.checked = !!s.colorblind;
+    if (sfx) sfx.checked = s.sfx !== false;
+    if (bgm) bgm.checked = s.bgm !== false;
+
+    const btnSet = document.getElementById("btn-settings");
+    if (btnSet) {
+      btnSet.addEventListener("click", function () {
+        if (!settingsPanel) return;
+        const open = settingsPanel.classList.toggle("open");
+        btnSet.setAttribute("aria-expanded", open ? "true" : "false");
+        if (open) wireSettings();
+      });
+    }
+    const close = document.getElementById("set-close");
+    if (close) {
+      close.addEventListener("click", function () {
+        if (settingsPanel) settingsPanel.classList.remove("open");
+      });
+    }
+    const apply = document.getElementById("set-apply");
+    if (apply && Meta) {
+      apply.addEventListener("click", function () {
+        Meta.saveSettings({
+          difficulty: diff ? diff.value : "mid",
+          compactHud: compact ? compact.checked : false,
+          reduceMotion: motion ? motion.checked : false,
+          colorblind: cb ? cb.checked : false,
+          sfx: sfx ? sfx.checked : true,
+          bgm: bgm ? bgm.checked : true,
+        });
+        if (Audio) {
+          Audio.setMuted(!(sfx && sfx.checked));
+          if (bgm && !bgm.checked) Audio.stopBgm();
+          else if (audioReady && sfx && sfx.checked) Audio.startBgm();
+        }
+        if (settingsPanel) settingsPanel.classList.remove("open");
+        restart();
+      });
+    }
+    document.querySelectorAll("#menu-bar [data-mode]").forEach(function (el) {
+      el.addEventListener("click", function () {
+        const mode = el.getAttribute("data-mode");
+        if (Meta) Meta.saveSettings({ mode: mode });
+        restart({ mode: mode });
+      });
+    });
+    const btnShare = document.getElementById("btn-share");
+    if (btnShare) btnShare.addEventListener("click", shareCard);
   }
 
   function reply(choiceId) {
@@ -200,8 +349,13 @@
     if (down && (k === "r" || k === "R") && game.phase === "gameover") {
       restart();
     }
+    if (down && (k === "s" || k === "S") && game.phase === "gameover") {
+      shareCard();
+      e.preventDefault();
+    }
     if (down && (k === "m" || k === "M") && Audio) {
       Audio.setMuted(!Audio.isMuted());
+      if (Meta) Meta.saveSettings({ sfx: !Audio.isMuted() });
       updateHint();
       syncMobileChrome();
     }
@@ -361,15 +515,18 @@
     const mute = Audio && Audio.isMuted() ? " · sound OFF" : "";
     if (isCoarse()) {
       hint.textContent =
-        "◀▶ move · JUMP · Slack opens inbox · reply buttons when reading" +
+        "◀▶ move · JUMP · Slack · powerups FOC/OOP/★ · Settings for difficulty" +
         mute;
     } else {
       hint.innerHTML =
-        '<span class="desk-hint">A/D move · W/Space jump · Tab/E Slack · 1–4 reply · 5 QUIT · M mute</span>' +
+        '<span class="desk-hint">A/D move · W/Space jump · Tab/E Slack · 1–4 reply · 5 QUIT · M mute · S share (game over)</span>' +
         mute;
     }
   }
 
+  wireSettings();
+  updateBestLine();
+  applyAudioPrefs();
   Render.draw(ctx, game);
   canvas.dataset.painted = "1";
   canvas.dataset.tabPaused = tabPaused ? "1" : "0";
@@ -390,6 +547,7 @@
     },
     isMobileUi: isCoarse,
     restart: restart,
+    shareCard: shareCard,
     step: function (input, dt) {
       return Game.step(game, input, dt || 1 / 60);
     },
@@ -412,5 +570,6 @@
     Audio: Audio,
     Game: Game,
     Render: Render,
+    Meta: Meta,
   };
 })();

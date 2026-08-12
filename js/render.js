@@ -503,6 +503,45 @@
     ctx.arc(x + c.w / 2, y + c.h / 2 + bob, c.w * 0.72, 0, Math.PI * 2);
     ctx.fill();
 
+    if (
+      c.kind === "focus" ||
+      c.kind === "oop" ||
+      c.kind === "standup" ||
+      c.kind === "snack"
+    ) {
+      const cx = x + c.w / 2;
+      const cy = y + c.h / 2 + bob;
+      const colors = {
+        focus: "#38bdf8",
+        oop: "#a78bfa",
+        standup: "#fbbf24",
+        snack: "#4ade80",
+      };
+      const labels = {
+        focus: "FOC",
+        oop: "OOP",
+        standup: "★",
+        snack: "🍪",
+      };
+      ctx.fillStyle = colors[c.kind] || "#fff";
+      ctx.globalAlpha = 0.35;
+      ctx.beginPath();
+      ctx.arc(cx, cy, c.w * 0.7, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = colors[c.kind] || "#fff";
+      rr(ctx, x + 2, y + 2 + bob, c.w - 4, c.h - 4, 5);
+      ctx.fill();
+      ctx.fillStyle = "#0f172a";
+      ctx.font = "bold 9px sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(labels[c.kind] || "?", cx, cy);
+      ctx.textBaseline = "alphabetic";
+      ctx.textAlign = "left";
+      return;
+    }
+
     if (c.kind === "coffee") {
       const mx = x + 4;
       const my = y + 5 + bob;
@@ -683,44 +722,42 @@
   }
 
   function drawHUD(ctx, game) {
+    const compact = game.settings && game.settings.compactHud;
+    const barH = compact ? 28 : 40;
     // Top bar
     ctx.fillStyle = "rgba(15,23,42,0.82)";
-    ctx.fillRect(0, 0, LOGIC_W, 40);
+    ctx.fillRect(0, 0, LOGIC_W, barH);
 
     ctx.fillStyle = "#f8fafc";
     ctx.font = "bold 13px sans-serif";
     ctx.fillText("Boss Says", 10, 17);
 
     ctx.font = "12px sans-serif";
-    ctx.fillText("Sprint " + game.sprint, 100, 17);
-    ctx.fillText("Ship " + game.deploys, 175, 17);
-    if (game.map && game.map.brand) {
+    ctx.fillText("S" + game.sprint, 100, 17);
+    ctx.fillText("Ship " + game.deploys, 140, 17);
+    if (game.map && game.map.brand && !compact) {
       ctx.fillStyle = (game.map.theme && game.map.theme.accent) || "#38bdf8";
       ctx.font = "bold 10px sans-serif";
       ctx.fillText(String(game.map.brand).slice(0, 10), 10, 38);
     }
 
-    // Score / pickups
+    // Score / combo
     ctx.fillStyle = "#fbbf24";
     ctx.font = "bold 12px sans-serif";
-    ctx.fillText("SP " + (game.score || 0), 240, 17);
-    ctx.fillStyle = "#94a3b8";
-    ctx.font = "11px sans-serif";
-    const left =
-      game.collectibles
-        ? game.collectibles.filter(function (c) {
-            return !c.collected;
-          }).length
-        : 0;
-    ctx.fillText("left " + left, 300, 17);
+    ctx.fillText("SP " + (game.score || 0), 210, 17);
+    if (game.combo > 1) {
+      ctx.fillStyle = game.combo >= 5 ? "#f472b6" : "#fde68a";
+      ctx.fillText("x" + game.combo, 275, 17);
+    }
 
     // Lives as PTO hearts
     ctx.fillStyle = "#e2e8f0";
-    ctx.fillText("PTO", 355, 17);
+    ctx.font = "11px sans-serif";
+    ctx.fillText("PTO", 310, 17);
     for (let i = 0; i < game.maxLives; i++) {
       ctx.fillStyle = i < game.lives ? "#f43f5e" : "#475569";
       ctx.beginPath();
-      const hx = 385 + i * 14;
+      const hx = 340 + i * 14;
       ctx.arc(hx, 13, 5, 0, Math.PI * 2);
       ctx.fill();
     }
@@ -728,36 +765,69 @@
     // Context meter
     const cm = game.effects.context;
     const maxC = 100;
+    const cb = game.settings && game.settings.colorblind;
     ctx.fillStyle = "#94a3b8";
     ctx.font = "11px sans-serif";
-    ctx.fillText("Ctx", 430, 17);
+    ctx.fillText("Ctx", 390, 17);
     ctx.fillStyle = "#1e293b";
-    ctx.fillRect(452, 8, 70, 10);
-    ctx.fillStyle = cm > 80 ? "#ef4444" : cm > 50 ? "#f59e0b" : "#22c55e";
-    ctx.fillRect(452, 8, (70 * cm) / maxC, 10);
+    ctx.fillRect(412, 8, 52, 10);
+    ctx.fillStyle = cb
+      ? cm > 80
+        ? "#fff"
+        : "#94a3b8"
+      : cm > 80
+        ? "#ef4444"
+        : cm > 50
+          ? "#f59e0b"
+          : "#22c55e";
+    ctx.fillRect(412, 8, (52 * cm) / maxC, 10);
 
-    // Sleep debt — rises with stupid Slack, falls with coffee
+    // Sleep debt
     const sd = game.effects.sleepDebt || 0;
     ctx.fillStyle = "#94a3b8";
-    ctx.fillText("Zzz", 530, 17);
+    ctx.fillText("Zzz", 470, 17);
     ctx.fillStyle = "#1e293b";
-    ctx.fillRect(554, 8, 70, 10);
+    ctx.fillRect(492, 8, 48, 10);
     ctx.fillStyle = sd > 75 ? "#6366f1" : sd > 45 ? "#818cf8" : "#a5b4fc";
-    ctx.fillRect(554, 8, (70 * sd) / 100, 10);
+    ctx.fillRect(492, 8, (48 * sd) / 100, 10);
 
-    // Status
-    if (game.effects.stunTimer > 0) {
-      ctx.fillStyle = "#fbbf24";
-      ctx.fillText("STUNNED", 632, 17);
-    } else if (game.effects.slowTimer > 0) {
-      ctx.fillStyle = "#c084fc";
-      ctx.fillText("SLOW", 632, 17);
-    } else if (sd >= 60) {
-      ctx.fillStyle = "#a5b4fc";
-      ctx.fillText("TIRED", 632, 17);
+    // Political capital
+    const pol = game.political != null ? game.political : 50;
+    ctx.fillStyle = "#94a3b8";
+    ctx.fillText("Pol", 548, 17);
+    ctx.fillStyle = "#1e293b";
+    ctx.fillRect(570, 8, 40, 10);
+    ctx.fillStyle = pol > 80 ? "#f472b6" : "#e879f9";
+    ctx.fillRect(570, 8, (40 * pol) / 100, 10);
+
+    // Tech debt
+    const td = game.techDebt || 0;
+    ctx.fillStyle = "#94a3b8";
+    ctx.fillText("Debt", 618, 17);
+    ctx.fillStyle = "#1e293b";
+    ctx.fillRect(648, 8, 36, 10);
+    ctx.fillStyle = td > 70 ? "#f97316" : "#fb923c";
+    ctx.fillRect(648, 8, (36 * td) / 100, 10);
+
+    // Status buffs
+    let statusX = 690;
+    const buffs = [];
+    if (game.effects.stunTimer > 0) buffs.push({ t: "STUN", c: "#fbbf24" });
+    else if (game.effects.slowTimer > 0) buffs.push({ t: "SLOW", c: "#c084fc" });
+    if (game.effects.focusTimer > 0) buffs.push({ t: "FOC", c: "#38bdf8" });
+    if (game.effects.oopTimer > 0) buffs.push({ t: "OOP", c: "#a78bfa" });
+    if (game.effects.standupTimer > 0) buffs.push({ t: "★", c: "#fbbf24" });
+    if (game.effects.pureMarioTimer > 0) buffs.push({ t: "DND", c: "#4ade80" });
+    if (game.stormTimer > 0) buffs.push({ t: "STORM", c: "#ef4444" });
+    if (sd >= 60 && !buffs.length) buffs.push({ t: "TIRED", c: "#a5b4fc" });
+    ctx.font = "bold 9px sans-serif";
+    for (let bi = 0; bi < buffs.length && bi < 3; bi++) {
+      ctx.fillStyle = buffs[bi].c;
+      ctx.fillText(buffs[bi].t, statusX, 17);
+      statusX += 38;
     }
 
-    // Slack inbox badge — unread does NOT freeze the game
+    // Slack inbox badge
     const inbox = game.notifications
       ? game.notifications.inbox
         ? game.notifications.inbox.length
@@ -781,31 +851,97 @@
       );
     }
 
-    // Legend strip
-    ctx.fillStyle = "rgba(15,23,42,0.55)";
-    ctx.fillRect(0, 28, LOGIC_W, 14);
-    ctx.fillStyle = "#fbbf24";
-    ctx.font = "10px sans-serif";
-    ctx.fillStyle = "#fbbf24";
-    ctx.fillText("● SP", 70, 38);
-    ctx.fillStyle = "#d97706";
-    ctx.fillText("☕ coffee = wake up", 105, 38);
-    ctx.fillStyle = "#94a3b8";
-    ctx.fillText(
-      "Tab=Slack · 1–4 reply · 5=QUIT · Zzz↑ from nonsense",
-      230,
-      38
-    );
+    if (!compact) {
+      ctx.fillStyle = "rgba(15,23,42,0.55)";
+      ctx.fillRect(0, 28, LOGIC_W, 14);
+      ctx.font = "10px sans-serif";
+      ctx.fillStyle = "#fbbf24";
+      ctx.fillText("● SP", 70, 38);
+      ctx.fillStyle = "#d97706";
+      ctx.fillText("☕ wake", 105, 38);
+      ctx.fillStyle = "#38bdf8";
+      ctx.fillText("FOC/OOP/★ powerups", 155, 38);
+      ctx.fillStyle = "#94a3b8";
+      const mode = game.mode || "normal";
+      const diff = game.difficulty || "mid";
+      ctx.fillText(
+        "Tab Slack · 5 quit · " + mode + "/" + diff,
+        300,
+        38
+      );
+    }
 
     if (game.message && game.messageTimer > 0) {
       ctx.fillStyle = "rgba(15,23,42,0.75)";
-      ctx.fillRect(LOGIC_W / 2 - 220, 52, 440, 28);
+      ctx.fillRect(LOGIC_W / 2 - 230, compact ? 36 : 52, 460, 28);
       ctx.fillStyle = "#f8fafc";
       ctx.font = "12px sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText(game.message, LOGIC_W / 2, 71);
+      ctx.fillText(game.message, LOGIC_W / 2, compact ? 55 : 71);
       ctx.textAlign = "left";
     }
+
+    // Achievement / mode toasts
+    if (game.fx && game.fx.toasts && game.fx.toasts.length) {
+      for (let ti = 0; ti < game.fx.toasts.length; ti++) {
+        const t = game.fx.toasts[ti];
+        const alpha = Math.min(1, t.ttl / 0.4, (t.max - t.ttl) < 0.3 ? t.ttl / 0.3 : 1);
+        ctx.globalAlpha = Math.max(0, alpha);
+        const ty = 90 + ti * 36;
+        ctx.fillStyle = "rgba(15,23,42,0.9)";
+        roundRect(ctx, LOGIC_W - 220, ty, 210, 32, 6);
+        ctx.fill();
+        ctx.fillStyle = "#fbbf24";
+        ctx.font = "bold 11px sans-serif";
+        ctx.fillText(t.title, LOGIC_W - 210, ty + 13);
+        ctx.fillStyle = "#94a3b8";
+        ctx.font = "10px sans-serif";
+        ctx.fillText((t.body || "").slice(0, 32), LOGIC_W - 210, ty + 26);
+      }
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  function drawProjectiles(ctx, game, camX) {
+    if (!game.projectiles) return;
+    for (let i = 0; i < game.projectiles.length; i++) {
+      const pr = game.projectiles[i];
+      const x = pr.x - camX;
+      if (x < -40 || x > LOGIC_W + 40) continue;
+      ctx.fillStyle = "rgba(239,68,68,0.85)";
+      roundRect(ctx, x, pr.y, pr.w, pr.h, 4);
+      ctx.fill();
+      ctx.fillStyle = "#fff";
+      ctx.font = "bold 8px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText((pr.text || "ping").slice(0, 10), x + pr.w / 2, pr.y + 10);
+      ctx.textAlign = "left";
+    }
+  }
+
+  function drawFx(ctx, game, camX) {
+    if (!game.fx) return;
+    const fx = game.fx;
+    // particles in world space
+    for (let i = 0; i < fx.particles.length; i++) {
+      const p = fx.particles[i];
+      const a = Math.max(0, p.ttl / p.max);
+      ctx.globalAlpha = a;
+      ctx.fillStyle = p.color;
+      ctx.fillRect(p.x - camX, p.y, p.size, p.size);
+    }
+    ctx.globalAlpha = 1;
+    for (let i = 0; i < fx.floats.length; i++) {
+      const f = fx.floats[i];
+      const a = Math.max(0, f.ttl / f.max);
+      ctx.globalAlpha = a;
+      ctx.fillStyle = f.color;
+      ctx.font = "bold 12px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(f.text, f.x - camX, f.y);
+      ctx.textAlign = "left";
+    }
+    ctx.globalAlpha = 1;
   }
 
   function drawNotification(ctx, note) {
@@ -987,20 +1123,23 @@
     ctx.fillStyle = "rgba(15,23,42,0.8)";
     ctx.fillRect(0, 0, LOGIC_W, LOGIC_H);
     const quit = game.endReason === "quit";
-    ctx.fillStyle = quit ? "#fecaca" : "#f8fafc";
+    const promoted = game.endReason === "promoted";
+    ctx.fillStyle = quit ? "#fecaca" : promoted ? "#f9a8d4" : "#f8fafc";
     ctx.font = "bold 34px sans-serif";
     ctx.textAlign = "center";
     ctx.fillText(
-      quit ? "I QUIT." : "LAID OFF",
+      quit ? "I QUIT." : promoted ? "PROMOTED" : "LAID OFF",
       LOGIC_W / 2,
       LOGIC_H / 2 - 28
     );
     ctx.font = "15px sans-serif";
-    ctx.fillStyle = quit ? "#fca5a5" : "#94a3b8";
+    ctx.fillStyle = quit ? "#fca5a5" : promoted ? "#fbcfe8" : "#94a3b8";
     ctx.fillText(
       quit
         ? "You sent the message. HR is typing. Birds are singing."
-        : "They said it was a restructuring. Of your employment.",
+        : promoted
+          ? "Jump key unbound. Welcome to middle management."
+          : "They said it was a restructuring. Of your employment.",
       LOGIC_W / 2,
       LOGIC_H / 2 + 4
     );
@@ -1013,15 +1152,33 @@
         game.deploys +
         " · Score " +
         (game.score || 0) +
+        " · Combo " +
+        (game.bestCombo || 0) +
         " · Zzz " +
         Math.round(game.effects.sleepDebt || 0),
       LOGIC_W / 2,
       LOGIC_H / 2 + 32
     );
     ctx.fillText(
-      quit ? "Press R to un-quit (restart)" : "Press R to re-interview (restart)",
+      "Pol " +
+        Math.round(game.political || 0) +
+        " · Debt " +
+        Math.round(game.techDebt || 0) +
+        " · " +
+        (game.mode || "normal") +
+        "/" +
+        (game.difficulty || "mid"),
       LOGIC_W / 2,
-      LOGIC_H / 2 + 58
+      LOGIC_H / 2 + 52
+    );
+    ctx.fillText(
+      quit
+        ? "Press R to un-quit · S share card"
+        : promoted
+          ? "Press R to demote yourself · S share"
+          : "Press R to re-interview · S share card",
+      LOGIC_W / 2,
+      LOGIC_H / 2 + 78
     );
     ctx.textAlign = "left";
   }
@@ -1029,8 +1186,16 @@
   function draw(ctx, game) {
     const camX = game.cameraX || 0;
     const theme = (game.map && game.map.theme) || null;
+    const reduce = game.settings && game.settings.reduceMotion;
+    let shakeX = 0;
+    let shakeY = 0;
+    if (!reduce && game.fx && game.fx.shake > 0) {
+      const a = game.fx.shake * 8;
+      shakeX = (Math.random() - 0.5) * a;
+      shakeY = (Math.random() - 0.5) * a;
+    }
     // Upscale logical playfield to full canvas (bigger on-screen game area)
-    ctx.setTransform(SCALE, 0, 0, SCALE, 0, 0);
+    ctx.setTransform(SCALE, 0, 0, SCALE, shakeX * SCALE, shakeY * SCALE);
     clear(ctx, LOGIC_W, LOGIC_H, theme);
 
     // office window blinds / wall pillars in parallax
@@ -1080,6 +1245,7 @@
         drawCollectible(ctx, game.collectibles[i], camX, game.time);
       }
     }
+    drawProjectiles(ctx, game, camX);
     for (let i = 0; i < game.enemies.length; i++) {
       drawEnemy(ctx, game.enemies[i], camX, game.time);
     }
@@ -1090,7 +1256,20 @@
       (game.effects && game.effects.sleepDebt) || 0,
       game.time
     );
+    // Star invuln sparkle
+    if (game.effects && (game.effects.standupTimer > 0 || game.effects.pureMarioTimer > 0)) {
+      ctx.strokeStyle = "rgba(251,191,36,0.6)";
+      ctx.lineWidth = 2;
+      const px = game.player.x - camX + game.player.w / 2;
+      const py = game.player.y + game.player.h / 2;
+      ctx.beginPath();
+      ctx.arc(px, py, 22 + Math.sin((game.time || 0) * 10) * 3, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    drawFx(ctx, game, camX);
     drawThoughtBubble(ctx, game, camX);
+    // HUD without shake
+    ctx.setTransform(SCALE, 0, 0, SCALE, 0, 0);
     drawHUD(ctx, game);
 
     if (game.notifications.active) {
@@ -1098,6 +1277,13 @@
     }
     if (game.phase === "gameover") {
       drawGameOver(ctx, game);
+    }
+    // Screen flash
+    if (game.fx && game.fx.flash > 0 && !(game.settings && game.settings.reduceMotion)) {
+      ctx.fillStyle = game.fx.flashColor || "#fff";
+      ctx.globalAlpha = Math.min(0.45, game.fx.flash);
+      ctx.fillRect(0, 0, LOGIC_W, LOGIC_H);
+      ctx.globalAlpha = 1;
     }
   }
 
