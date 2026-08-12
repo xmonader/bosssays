@@ -224,15 +224,19 @@
   }
 
   function createEnemy(spawn) {
+    const vx = spawn.vx != null ? spawn.vx : 50;
     return {
       x: spawn.x,
       y: spawn.y,
       w: ENEMY_W,
       h: ENEMY_H,
-      vx: spawn.vx || 50,
+      vx: vx,
       vy: 0,
       alive: true,
       onGround: false,
+      homeX: spawn.x,
+      homeY: spawn.y,
+      homeVx: vx,
     };
   }
 
@@ -719,6 +723,17 @@
     }
   }
 
+  /** True if a platform supports a point just under (x, footY). */
+  function groundUnder(platforms, x, footY) {
+    for (let j = 0; j < platforms.length; j++) {
+      const p = platforms[j];
+      if (x >= p.x && x <= p.x + p.w && footY >= p.y - 2 && footY <= p.y + 12) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   function updateEnemies(game, dt, platforms) {
     for (let i = 0; i < game.enemies.length; i++) {
       const e = game.enemies[i];
@@ -726,8 +741,17 @@
       e.vy += Physics.GRAVITY * dt;
       if (e.vy > Physics.MAX_FALL) e.vy = Physics.MAX_FALL;
 
+      // Ledge turnaround: never walk off into a pit
+      if (e.onGround && e.vx !== 0) {
+        const lookX = e.vx > 0 ? e.x + e.w + 4 : e.x - 4;
+        const footY = e.y + e.h + 2;
+        if (!groundUnder(platforms, lookX, footY)) {
+          e.vx *= -1;
+        }
+      }
+
       e.x += e.vx * dt;
-      // reverse on wall / platform edge-ish: collide horiz
+      // reverse on wall / platform solid collide
       for (let j = 0; j < platforms.length; j++) {
         const p = platforms[j];
         if (!Physics.aabb(e, p)) continue;
@@ -751,8 +775,14 @@
         }
       }
 
-      // Fall off map
-      if (e.y > game.map.height + 50) e.alive = false;
+      // Soft failsafe: respawn at home instead of killing themselves
+      if (e.y > game.map.height + 50) {
+        e.x = e.homeX != null ? e.homeX : e.x;
+        e.y = e.homeY != null ? e.homeY : game.map.groundY - e.h;
+        e.vx = e.homeVx != null ? e.homeVx : (e.vx < 0 ? -Math.abs(e.vx) : Math.abs(e.vx));
+        e.vy = 0;
+        e.onGround = false;
+      }
     }
   }
 

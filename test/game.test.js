@@ -289,6 +289,35 @@ describe("map", () => {
     }
   });
 
+  it("blockers never spawn on story points or coffee", () => {
+    for (let sprint = 1; sprint <= 15; sprint++) {
+      const m = Map.createOfficeMap({ sprint: sprint });
+      for (let i = 0; i < m.enemySpawns.length; i++) {
+        const e = m.enemySpawns[i];
+        const eb = { x: e.x, y: e.y, w: 28, h: 28 };
+        for (let j = 0; j < m.collectibleSpawns.length; j++) {
+          assert.equal(
+            Map.rectsOverlap(eb, m.collectibleSpawns[j], 36),
+            false,
+            "enemy on pickup sprint " + sprint
+          );
+        }
+      }
+    }
+  });
+
+  it("enemies patrol ledges without dying", () => {
+    const game = Game.createGame({ skipTutorial: true });
+    const n0 = game.enemies.filter((e) => e.alive).length;
+    assert.ok(n0 >= 1);
+    for (let i = 0; i < 480; i++) Game.step(game, {}, 1 / 60);
+    const alive = game.enemies.filter((e) => e.alive);
+    assert.equal(alive.length, n0, "no enemy should despawn itself");
+    for (let i = 0; i < alive.length; i++) {
+      assert.ok(alive[i].y < game.map.height, "enemy stayed in world");
+    }
+  });
+
   it("advanceSprint rebuilds map theme", () => {
     const game = Game.createGame({ sprint: 1 });
     const t0 = game.map.theme.id;

@@ -286,38 +286,8 @@
     const spawn = { x: 60, y: GROUND_Y - 40 };
     const deploy = rect(MAP_WIDTH - 120, GROUND_Y - 80, 40, 80, "deploy");
 
-    // Enemies: spread starts so they don't pile on spawn
-    const enemyCount = clamp(5 + Math.floor((sprint - 1) / 2), 5, 12);
-    const enemySpawns = [];
-    const speedBase = 40 + Math.min(40, sprint * 3);
-    for (let i = 0; i < enemyCount; i++) {
-      let placed = false;
-      for (let attempt = 0; attempt < 16 && !placed; attempt++) {
-        const onFloat = rng() < 0.3 && floatPlats.length > 0;
-        let ex;
-        let ey;
-        if (onFloat) {
-          const fp = pick(rng, floatPlats);
-          ex = fp.x + 8 + rng() * Math.max(8, fp.w - 36);
-          ey = fp.y - 28;
-        } else {
-          ex = 220 + Math.floor(rng() * (MAP_WIDTH - 480));
-          ey = GROUND_Y - 28;
-        }
-        const cand = { x: ex, y: ey, w: 28, h: 28 };
-        // keep off spawn and other enemies
-        if (ex < 140) continue;
-        if (overlapsAny(enemySpawns.map(function (e) {
-          return { x: e.x, y: e.y, w: 28, h: 28 };
-        }), cand, 40)) continue;
-        const dir = rng() < 0.5 ? -1 : 1;
-        const sp = speedBase + Math.floor(rng() * 30);
-        enemySpawns.push({ x: ex, y: ey, vx: dir * sp });
-        placed = true;
-      }
-    }
-
     const COLLECT_SIZE = 26;
+    const ENEMY_SIZE = 28;
     function pickup(px, py, kind) {
       return {
         x: px,
@@ -340,6 +310,7 @@
       if (p.h >= 40) floorTops.push(p);
     }
 
+    // Collectibles first so blockers never claim SP/coffee tiles
     const collectibleSpawns = [];
     const PICKUP_PAD = 18; // min separation between pickups
 
@@ -383,6 +354,76 @@
         if (!overlapsAny(collectibleSpawns, early[i], PICKUP_PAD)) {
           collectibleSpawns.push(early[i]);
         }
+      }
+    }
+
+    // Enemies after pickups: never on SP/coffee, keep off spawn, patrol wide floors
+    const enemyCount = clamp(5 + Math.floor((sprint - 1) / 2), 5, 12);
+    const enemySpawns = [];
+    const speedBase = 40 + Math.min(40, sprint * 3);
+    const ENEMY_PICKUP_PAD = 36; // blockers never sit on story points
+    // Prefer wide solid tops so ledge AI has room to patrol
+    const patrolTops = floorTops.filter(function (p) {
+      return p.w >= 120;
+    });
+    const floatPatrol = floatPlats.filter(function (p) {
+      return p.w >= 100;
+    });
+
+    for (let i = 0; i < enemyCount; i++) {
+      let placed = false;
+      for (let attempt = 0; attempt < 24 && !placed; attempt++) {
+        const onFloat =
+          rng() < 0.25 && floatPatrol.length > 0;
+        let host;
+        let ex;
+        let ey;
+        if (onFloat) {
+          host = pick(rng, floatPatrol);
+          const inset = 16;
+          ex = host.x + inset + rng() * Math.max(4, host.w - inset * 2 - ENEMY_SIZE);
+          ey = host.y - ENEMY_SIZE;
+        } else {
+          host =
+            patrolTops.length > 0
+              ? pick(rng, patrolTops)
+              : floorTops.length
+                ? pick(rng, floorTops)
+                : null;
+          if (!host) {
+            ex = 220 + Math.floor(rng() * (MAP_WIDTH - 480));
+            ey = GROUND_Y - ENEMY_SIZE;
+          } else {
+            const inset = 24;
+            ex =
+              host.x +
+              inset +
+              rng() * Math.max(4, host.w - inset * 2 - ENEMY_SIZE);
+            ey = host.y - ENEMY_SIZE;
+          }
+        }
+        const cand = { x: ex, y: ey, w: ENEMY_SIZE, h: ENEMY_SIZE };
+        if (ex < 160) continue;
+        // keep off player spawn and deploy
+        if (ex < spawn.x + 100) continue;
+        if (ex > deploy.x - 80) continue;
+        if (
+          overlapsAny(
+            enemySpawns.map(function (e) {
+              return { x: e.x, y: e.y, w: ENEMY_SIZE, h: ENEMY_SIZE };
+            }),
+            cand,
+            48
+          )
+        ) {
+          continue;
+        }
+        // Never place blockers on story points / coffee
+        if (overlapsAny(collectibleSpawns, cand, ENEMY_PICKUP_PAD)) continue;
+        const dir = rng() < 0.5 ? -1 : 1;
+        const sp = speedBase + Math.floor(rng() * 30);
+        enemySpawns.push({ x: ex, y: ey, vx: dir * sp });
+        placed = true;
       }
     }
 
