@@ -321,11 +321,17 @@
 
       <div id="menu-bar">
         <button type="button" id="btn-pause" title="Pause (Esc / P)">Pause</button>
+        <button type="button" id="btn-continue" title="Continue saved run">Continue</button>
         <button type="button" id="btn-settings" aria-expanded="false">Settings</button>
         <button type="button" id="btn-mode-normal" data-mode="normal">Normal</button>
         <button type="button" id="btn-mode-daily" data-mode="daily">Daily</button>
         <button type="button" id="btn-mode-noslack" data-mode="noslack">No Slack</button>
+        <button type="button" id="btn-mode-oncall" data-mode="oncall">On-Call</button>
+        <button type="button" id="btn-seed" title="Play a seed">Seed</button>
+        <button type="button" id="btn-achieve" title="Achievements">★</button>
+        <button type="button" id="btn-board" title="Local leaderboard">Board</button>
         <button type="button" id="btn-share" title="Share run card">Share</button>
+        <button type="button" id="btn-fullscreen" title="Fullscreen (F)">Fullscreen</button>
       </div>
 
       <div id="settings-panel" aria-label="Game settings">
@@ -358,6 +364,13 @@
           BGM
           <input type="checkbox" id="set-bgm" checked />
         </label>
+        <label>
+          Larger text
+          <input type="checkbox" id="set-large" />
+        </label>
+        <p style="color:#94a3b8;font-size:0.75rem;margin:8px 0 0">
+          Keys default: A/D move · W/Space jump · Tab Slack · Esc pause · F fullscreen · Gamepad OK
+        </p>
         <div class="row">
           <button type="button" id="set-apply">Apply &amp; new run</button>
           <button type="button" id="set-close">Close</button>

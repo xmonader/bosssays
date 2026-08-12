@@ -128,6 +128,7 @@
     game = Game.createGame(startOpts(opts || {}));
     last = 0;
     ensureAudio();
+    syncBgmMood();
     if (Audio && loadSettings().sfx !== false) Audio.play("reply");
     syncMobileChrome();
     updateBestLine();
@@ -253,6 +254,7 @@
     const apply = document.getElementById("set-apply");
     if (apply && Meta) {
       apply.addEventListener("click", function () {
+        const largeEl = document.getElementById("set-large");
         Meta.saveSettings({
           difficulty: diff ? diff.value : "mid",
           compactHud: compact ? compact.checked : false,
@@ -260,11 +262,14 @@
           colorblind: cb ? cb.checked : false,
           sfx: sfx ? sfx.checked : true,
           bgm: bgm ? bgm.checked : true,
+          largeText: largeEl ? largeEl.checked : false,
         });
         if (Audio) {
           Audio.setMuted(!(sfx && sfx.checked));
           if (bgm && !bgm.checked) Audio.stopBgm();
-          else if (audioReady && sfx && sfx.checked) Audio.startBgm();
+          else if (audioReady && sfx && sfx.checked) {
+            Audio.startBgm(moodForGame(game));
+          }
         }
         if (settingsPanel) settingsPanel.classList.remove("open");
         restart();
@@ -279,6 +284,81 @@
     });
     const btnShare = document.getElementById("btn-share");
     if (btnShare) btnShare.addEventListener("click", shareCard);
+    const btnCont = document.getElementById("btn-continue");
+    if (btnCont) {
+      btnCont.addEventListener("click", function () {
+        if (!tryContinue()) {
+          if (game) {
+            game.message = "No saved run";
+            game.messageTimer = 2;
+          }
+        }
+      });
+      const snap = Meta && Meta.loadContinue && Meta.loadContinue();
+      btnCont.style.opacity = snap && snap.v ? "1" : "0.45";
+    }
+    const btnFs = document.getElementById("btn-fullscreen");
+    if (btnFs) btnFs.addEventListener("click", toggleFullscreen);
+    const btnBoard = document.getElementById("btn-board");
+    if (btnBoard) {
+      btnBoard.addEventListener("click", function () {
+        showBoard();
+      });
+    }
+    const btnAchieve = document.getElementById("btn-achieve");
+    if (btnAchieve) {
+      btnAchieve.addEventListener("click", function () {
+        showAchievements();
+      });
+    }
+    const btnSeed = document.getElementById("btn-seed");
+    if (btnSeed) {
+      btnSeed.addEventListener("click", function () {
+        const seedStr = window.prompt(
+          "Enter daily seed (YYYYMMDD) or leave blank for today:",
+          Meta ? String(Meta.dailySeed()) : ""
+        );
+        if (seedStr == null) return;
+        const seed = parseInt(seedStr, 10) || (Meta && Meta.dailySeed());
+        if (Meta) Meta.saveSettings({ mode: "daily" });
+        restart({ mode: "daily", seed: seed });
+      });
+    }
+    const large = document.getElementById("set-large");
+    if (large) large.checked = !!s.largeText;
+  }
+
+  function showAchievements() {
+    if (!Meta) return;
+    const unlocked = Meta.loadAchievements();
+    const lines = Meta.ACHIEVEMENT_DEFS.map(function (d) {
+      return (unlocked[d.id] ? "★ " : "· ") + d.name + " — " + d.desc;
+    });
+    window.alert("Achievements\n\n" + lines.join("\n"));
+  }
+
+  function showBoard() {
+    if (!Meta) return;
+    const board = Meta.loadBoard();
+    if (!board.length) {
+      window.alert("Local leaderboard is empty. Finish a run to post.");
+      return;
+    }
+    const lines = board.slice(0, 10).map(function (e, i) {
+      return (
+        i +
+        1 +
+        ". " +
+        e.name +
+        " — " +
+        e.score +
+        " SP · S" +
+        e.sprint +
+        " · " +
+        e.card
+      );
+    });
+    window.alert("Local leaderboard (device)\n\n" + lines.join("\n"));
   }
 
   function reply(choiceId) {
@@ -288,6 +368,59 @@
     if (Audio) Audio.playEvents(game.events);
     game.events = [];
     syncMobileChrome();
+  }
+
+  /** Map 1–5 to current note choices (supports meeting/review). */
+  function replyByIndex(idx) {
+    const note = game.notifications.active;
+    if (!note || !note.choices) return;
+    // Special: 5 always prefers quit if present
+    if (idx === 4) {
+      const q = note.choices.filter(function (c) {
+        return c.id === "quit";
+      })[0];
+      if (q) {
+        reply(q.id);
+        return;
+      }
+    }
+    const nonQuit = note.choices.filter(function (c) {
+      return c.id !== "quit";
+    });
+    if (nonQuit[idx]) reply(nonQuit[idx].id);
+  }
+
+  function moodForGame(g) {
+    if (!g) return "office";
+    if (g.mode === "oncall") return "oncall";
+    const tid = g.map && g.map.theme && g.map.theme.id;
+    if (tid === "war-room") return "war";
+    if (tid === "all-hands") return "allhands";
+    if (tid === "remote") return "remote";
+    return "office";
+  }
+
+  function syncBgmMood() {
+    if (Audio && typeof Audio.setBgmMood === "function") {
+      Audio.setBgmMood(moodForGame(game));
+    }
+  }
+
+  function tryContinue() {
+    if (!Meta || !Meta.loadContinue) return false;
+    const snap = Meta.loadContinue();
+    if (!snap || !snap.v) return false;
+    restart({
+      continueSnap: snap,
+      sprint: snap.sprint,
+      lives: snap.lives,
+      score: snap.score,
+      deploys: snap.deploys,
+      difficulty: snap.difficulty,
+      mode: snap.mode,
+      seed: snap.seed,
+    });
+    return true;
   }
 
   function setTabPaused(paused) {
@@ -415,6 +548,24 @@
       }
     }
 
+    const binds =
+      (Meta && Meta.loadSettings && Meta.loadSettings().keybinds) ||
+      (Meta && Meta.DEFAULT_KEYBINDS) ||
+      null;
+    function match(action) {
+      if (Meta && Meta.keyMatches) return Meta.keyMatches(binds, action, k);
+      const fb = {
+        left: ["ArrowLeft", "a", "A"],
+        right: ["ArrowRight", "d", "D"],
+        jump: ["ArrowUp", "w", "W", " "],
+        slack: ["Tab", "e", "E"],
+        mute: ["m", "M"],
+      };
+      const list = fb[action] || [];
+      for (let i = 0; i < list.length; i++) if (list[i] === k) return true;
+      return false;
+    }
+
     if (userPaused) {
       if (down && (k === "r" || k === "R")) {
         restart();
@@ -426,49 +577,50 @@
         e.preventDefault();
         return;
       }
-      // Block movement while paused
       if (down) e.preventDefault();
       return;
     }
 
     if (down && game.notifications.active) {
-      const map = {
-        "1": "dismiss",
-        "2": "on_it",
-        "3": "love",
-        "4": "pushback",
-        "5": "quit",
-      };
-      if (map[k]) {
-        reply(map[k]);
+      if (k === "1") {
+        replyByIndex(0);
         e.preventDefault();
         return;
       }
-      if (
-        k === " " ||
-        k === "ArrowUp" ||
-        k === "w" ||
-        k === "W" ||
-        k === "ArrowLeft" ||
-        k === "ArrowRight" ||
-        k === "a" ||
-        k === "A" ||
-        k === "d" ||
-        k === "D"
-      ) {
+      if (k === "2") {
+        replyByIndex(1);
+        e.preventDefault();
+        return;
+      }
+      if (k === "3") {
+        replyByIndex(2);
+        e.preventDefault();
+        return;
+      }
+      if (k === "4") {
+        replyByIndex(3);
+        e.preventDefault();
+        return;
+      }
+      if (k === "5") {
+        replyByIndex(4);
+        e.preventDefault();
+        return;
+      }
+      if (match("jump") || match("left") || match("right")) {
         e.preventDefault();
         return;
       }
     }
 
-    if (k === "ArrowLeft" || k === "a" || k === "A") keys.left = down;
-    if (k === "ArrowRight" || k === "d" || k === "D") keys.right = down;
-    if (k === "ArrowUp" || k === "w" || k === "W" || k === " ") {
+    if (match("left")) keys.left = down;
+    if (match("right")) keys.right = down;
+    if (match("jump")) {
       if (down && !keys.jump) keys.jumpPressed = true;
       keys.jump = down;
       if (down) e.preventDefault();
     }
-    if (down && (k === "Tab" || k === "e" || k === "E")) {
+    if (down && match("slack")) {
       keys.openInbox = true;
       e.preventDefault();
     }
@@ -479,12 +631,58 @@
       shareCard();
       e.preventDefault();
     }
-    if (down && (k === "m" || k === "M") && Audio) {
+    if (down && match("mute") && Audio) {
       Audio.setMuted(!Audio.isMuted());
       if (Meta) Meta.saveSettings({ sfx: !Audio.isMuted() });
       updateHint();
       syncMobileChrome();
     }
+    if (down && (k === "f" || k === "F") && !e.ctrlKey && !e.metaKey) {
+      toggleFullscreen();
+      e.preventDefault();
+    }
+  }
+
+  function toggleFullscreen() {
+    const el = document.documentElement;
+    if (!document.fullscreenElement) {
+      if (el.requestFullscreen) el.requestFullscreen().catch(function () {});
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+
+  // Gamepad poll
+  const padState = { left: false, right: false, jump: false, slack: false, pause: false };
+  function pollGamepad() {
+    if (!navigator.getGamepads) return;
+    const pads = navigator.getGamepads();
+    if (!pads) return;
+    let gp = null;
+    for (let i = 0; i < pads.length; i++) {
+      if (pads[i]) {
+        gp = pads[i];
+        break;
+      }
+    }
+    if (!gp) return;
+    const ax = gp.axes[0] || 0;
+    const left = ax < -0.4 || (gp.buttons[14] && gp.buttons[14].pressed);
+    const right = ax > 0.4 || (gp.buttons[15] && gp.buttons[15].pressed);
+    const jump = (gp.buttons[0] && gp.buttons[0].pressed) || (gp.buttons[1] && gp.buttons[1].pressed);
+    const slack = gp.buttons[2] && gp.buttons[2].pressed;
+    const pause = gp.buttons[9] && gp.buttons[9].pressed;
+    keys.left = keys.left || left;
+    keys.right = keys.right || right;
+    if (jump && !padState.jump) keys.jumpPressed = true;
+    keys.jump = keys.jump || jump;
+    if (slack && !padState.slack) keys.openInbox = true;
+    if (pause && !padState.pause) toggleUserPause();
+    padState.left = left;
+    padState.right = right;
+    padState.jump = jump;
+    padState.slack = slack;
+    padState.pause = pause;
   }
 
   window.addEventListener("keydown", function (e) {
@@ -565,7 +763,29 @@
   }
   document.querySelectorAll("#slack-pad [data-reply]").forEach(function (el) {
     bindTap(el, function () {
-      reply(el.getAttribute("data-reply"));
+      const id = el.getAttribute("data-reply");
+      const note = game.notifications.active;
+      if (note && note.kind === "meeting") {
+        const map = {
+          dismiss: "accept",
+          on_it: "decline",
+          love: "tentative",
+          pushback: "decline",
+          quit: "quit",
+        };
+        reply(map[id] || id);
+        return;
+      }
+      if (note && note.kind === "review") {
+        const nonQuit = note.choices.filter(function (c) {
+          return c.id !== "quit";
+        });
+        const idx = { dismiss: 0, on_it: 1, love: 2, pushback: 3 }[id];
+        if (id === "quit") reply("quit");
+        else if (nonQuit[idx]) reply(nonQuit[idx].id);
+        return;
+      }
+      reply(id);
     });
   });
 
@@ -600,6 +820,8 @@
     last = ts;
     if (dt > 0.05) dt = 0.05;
 
+    pollGamepad();
+
     if (userPaused) {
       keys.jumpPressed = false;
       keys.openInbox = false;
@@ -624,6 +846,10 @@
     Game.step(game, input, dt);
     if (Audio && game.events && game.events.length) {
       Audio.playEvents(game.events);
+      // BGM mood on deploy / storm
+      for (let ei = 0; ei < game.events.length; ei++) {
+        if (game.events[ei].type === "deploy") syncBgmMood();
+      }
       game.events = [];
     }
     Render.draw(ctx, game);
@@ -703,6 +929,10 @@
     },
     togglePause: toggleUserPause,
     abandon: abandonRun,
+    continueRun: tryContinue,
+    toggleFullscreen: toggleFullscreen,
+    showAchievements: showAchievements,
+    showBoard: showBoard,
     isMobileUi: isCoarse,
     restart: restart,
     shareCard: shareCard,

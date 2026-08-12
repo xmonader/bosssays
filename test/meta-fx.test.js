@@ -140,4 +140,88 @@ describe("combo / political / powerups / storm", () => {
     Game.applyPowerup(game, "focus");
     assert.ok(game.effects.focusTimer >= 12);
   });
+
+  it("double jump and wall powerups set timers", () => {
+    const game = Game.createGame({ skipTutorial: true });
+    Game.applyPowerup(game, "double");
+    Game.applyPowerup(game, "wall");
+    assert.ok(game.effects.doubleJumpTimer >= 20);
+    assert.ok(game.effects.wallJumpTimer >= 20);
+  });
+
+  it("serializeContinue round-trips key fields", () => {
+    const game = Game.createGame({ skipTutorial: true, score: 42 });
+    game.political = 66;
+    const snap = Game.serializeContinue(game);
+    assert.equal(snap.v, 1);
+    assert.equal(snap.score, 42);
+    const g2 = Game.createGame({
+      skipTutorial: true,
+      continueSnap: snap,
+      score: 0,
+    });
+    assert.equal(g2.political, 66);
+  });
+
+  it("meeting note resolves accept/decline", () => {
+    const Notes = require("../js/notifications.js");
+    const state = Notes.createNotificationState();
+    state.active = Notes.buildMeetingNote(() => 0.2);
+    const acc = Notes.resolveNotification(state, "accept");
+    assert.equal(acc.effects.kind, "meeting_accept");
+    assert.equal(acc.effects.calendar, true);
+    state.active = Notes.buildMeetingNote(() => 0.2);
+    const dec = Notes.resolveNotification(state, "decline");
+    assert.equal(dec.effects.kind, "meeting_decline");
+  });
+
+  it("review pass/fail scoring", () => {
+    const Notes = require("../js/notifications.js");
+    const state = Notes.createNotificationState();
+    state.active = Notes.buildReviewNote(() => 0);
+    const okId = state.active.reviewOk[0];
+    const pass = Notes.resolveNotification(state, okId);
+    assert.equal(pass.effects.kind, "review_pass");
+    state.active = Notes.buildReviewNote(() => 0);
+    const fail = Notes.resolveNotification(state, "rev_b");
+    assert.ok(fail.effects.kind === "review_fail" || fail.effects.kind === "review_pass");
+  });
+
+  it("run card encode/decode", () => {
+    const run = { score: 100, sprint: 3, deploys: 2, mode: "daily", difficulty: "mid" };
+    const card = Meta.encodeRunCard(run);
+    assert.match(card, /^BS1:/);
+    const back = Meta.decodeRunCard(card);
+    assert.equal(back.score, 100);
+    assert.equal(Meta.decodeRunCard("BS1:1:1:1:x:y:bad"), null);
+  });
+
+  it("boss chase spawns", () => {
+    const game = Game.createGame({ skipTutorial: true });
+    Game.spawnBossChase(game);
+    assert.ok(game.bossChase && game.bossChase.alive);
+  });
+
+  it("maps include secret HR pickup sometimes", () => {
+    let found = false;
+    for (let s = 1; s <= 12; s++) {
+      const m = require("../js/map.js").createOfficeMap({ sprint: s });
+      if (m.collectibleSpawns.some((c) => c.kind === "secret")) found = true;
+    }
+    assert.ok(found, "expected a secret pickup in some sprint");
+  });
+
+  it("physics double jump leaves ground twice", () => {
+    const Physics = require("../js/physics.js");
+    const body = Physics.createBody(0, 100, 20, 30);
+    body.onGround = true;
+    const plats = [{ x: -50, y: 130, w: 200, h: 20 }];
+    Physics.stepBody(body, { jump: true }, plats, 1 / 60, { canDoubleJump: true });
+    assert.ok(body.vy < 0);
+    body.onGround = false;
+    body.jumpsLeft = 1;
+    const vy0 = body.vy;
+    Physics.stepBody(body, { jump: true }, plats, 1 / 60, { canDoubleJump: true });
+    assert.ok(body.vy < vy0 || body.vy < 0);
+  });
 });

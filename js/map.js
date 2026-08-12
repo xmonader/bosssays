@@ -482,6 +482,28 @@
       }
     }
 
+    // Secret HR dungeon — high float platform + snack cache (not on enemy paths)
+    const secretX = 1180 + Math.floor(rng() * 400);
+    const secretPlat = rect(secretX, 120, 110, 14, "hr-dungeon");
+    if (!overlapsAny(floatPlats, secretPlat, 8)) {
+      platforms.push(secretPlat);
+      floatPlats.push(secretPlat);
+      const secretPick = pickup(
+        secretX + 40,
+        120 - COLLECT_SIZE + 4,
+        "secret"
+      );
+      if (!overlapsAny(collectibleSpawns, secretPick, 8)) {
+        collectibleSpawns.push(secretPick);
+      }
+      decor.push({
+        x: secretX + 8,
+        y: 95,
+        text: "HR?",
+        kind: "sign",
+      });
+    }
+
     return {
       width: MAP_WIDTH,
       height: MAP_HEIGHT,

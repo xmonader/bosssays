@@ -244,6 +244,9 @@
     const b = Physics.createBody(spawn.x, spawn.y, PLAYER_W, PLAYER_H);
     b.invuln = 0;
     b.facing = 1;
+    b.jumpsLeft = 1;
+    b.maxJumps = 1;
+    b.wallJump = false;
     return b;
   }
 
@@ -311,6 +314,8 @@
       oopTimer: 0, // phase calendar
       standupTimer: 0, // star invuln
       pureMarioTimer: 0, // secret DND pure platformer
+      doubleJumpTimer: 0,
+      wallJumpTimer: 0,
     };
   }
 
@@ -353,11 +358,10 @@
     game.political = Math.max(0, Math.min(100, (game.political || 50) + delta));
     if (game.political >= 100) {
       tryAchieve(game, "promoted");
-      game.phase = "gameover";
-      game.endReason = "promoted";
       game.message = "Promoted to manager. Jump key unbound.";
       game.messageTimer = 99;
       pushEvent(game, "gameover", { reason: "promoted" });
+      endRun(game, "promoted");
     }
   }
 
@@ -367,10 +371,10 @@
 
   function spawnPowerups(game) {
     // Convert a few collectibles into powerups
-    const kinds = ["focus", "oop", "standup", "snack"];
+    const kinds = ["focus", "oop", "standup", "snack", "double", "wall"];
     let n = 0;
-    for (let i = 0; i < game.collectibles.length && n < 3; i++) {
-      if (game.rng() > 0.12) continue;
+    for (let i = 0; i < game.collectibles.length && n < 4; i++) {
+      if (game.rng() > 0.14) continue;
       if (game.collectibles[i].kind === "coffee") continue;
       game.collectibles[i].kind = kinds[Math.floor(game.rng() * kinds.length)];
       n++;
@@ -398,9 +402,151 @@
       if (game.lives < game.maxLives && game.rng() < 0.35) game.lives += 1;
       game.message = "Free Snack — sleep & context down";
       if (Fx) Fx.addFloat(game.fx, p.x, p.y, "SNACK", "#4ade80");
+    } else if (kind === "double") {
+      game.effects.doubleJumpTimer = Math.max(game.effects.doubleJumpTimer, 20);
+      game.player.maxJumps = 2;
+      game.player.jumpsLeft = 2;
+      game.message = "Double Jump — 20s of extra air";
+      if (Fx) Fx.addFloat(game.fx, p.x, p.y, "2× JUMP", "#67e8f9");
+    } else if (kind === "wall") {
+      game.effects.wallJumpTimer = Math.max(game.effects.wallJumpTimer, 20);
+      game.player.wallJump = true;
+      game.message = "Wall Jump — cling & kick off walls";
+      if (Fx) Fx.addFloat(game.fx, p.x, p.y, "WALL", "#c4b5fd");
     }
     game.messageTimer = 2.2;
     pushEvent(game, "powerup", { kind: kind });
+  }
+
+  function spawnBossChase(game) {
+    if (game.bossChase && game.bossChase.alive) return;
+    const p = game.player;
+    game.bossChase = {
+      x: p.x - 200,
+      y: p.y,
+      w: 32,
+      h: 40,
+      vx: 0,
+      vy: 0,
+      alive: true,
+      ttl: 18,
+      label: "MANAGER",
+    };
+    game.message = "ESCALATION — manager is chasing you";
+    game.messageTimer = 2.8;
+    if (Fx) {
+      Fx.shake(game.fx, 0.3);
+      Fx.addToast(game.fx, "Escalation", "A manager entered the channel");
+    }
+    pushEvent(game, "boss_chase");
+  }
+
+  function tickBossChase(game, dt, platforms) {
+    const b = game.bossChase;
+    if (!b || !b.alive) return;
+    b.ttl -= dt;
+    if (b.ttl <= 0) {
+      b.alive = false;
+      tryAchieve(game, "boss_kite");
+      game.message = "Manager wandered into another thread";
+      game.messageTimer = 2;
+      return;
+    }
+    const p = game.player;
+    const dir = p.x > b.x ? 1 : -1;
+    const speed = 95 + (game.sprint || 1) * 4;
+    b.vx = dir * speed;
+    b.vy += Physics.GRAVITY * dt;
+    if (b.vy > Physics.MAX_FALL) b.vy = Physics.MAX_FALL;
+    b.x += b.vx * dt;
+    b.y += b.vy * dt;
+    b.onGround = false;
+    for (let j = 0; j < platforms.length; j++) {
+      const pl = platforms[j];
+      if (!Physics.aabb(b, pl)) continue;
+      if (b.vy > 0 && b.y + b.h > pl.y && b.y < pl.y) {
+        b.y = pl.y - b.h;
+        b.vy = 0;
+        b.onGround = true;
+      }
+    }
+    if (Physics.aabb(p, b) && p.invuln <= 0) {
+      if (game.effects.standupTimer > 0) return;
+      hurtPlayer(game);
+      addSleepDebt(game, 8);
+      b.x -= dir * 60;
+    }
+  }
+
+  /** Serializable continue snapshot (no functions / rng). */
+  function serializeContinue(game) {
+    return {
+      v: 1,
+      sprint: game.sprint,
+      lives: game.lives,
+      score: game.score,
+      deploys: game.deploys,
+      coffeeCount: game.coffeeCount,
+      collectedCount: game.collectedCount,
+      political: game.political,
+      techDebt: game.techDebt,
+      difficulty: game.difficulty,
+      mode: game.mode,
+      seed: game.seed,
+      player: {
+        x: game.player.x,
+        y: game.player.y,
+        invuln: game.player.invuln,
+      },
+      effects: {
+        context: game.effects.context,
+        sleepDebt: game.effects.sleepDebt,
+        focusTimer: game.effects.focusTimer,
+        doubleJumpTimer: game.effects.doubleJumpTimer,
+        wallJumpTimer: game.effects.wallJumpTimer,
+      },
+      cameraX: game.cameraX,
+      at: Date.now(),
+    };
+  }
+
+  function applyContinueSnapshot(game, snap) {
+    if (!snap || snap.v !== 1) return game;
+    if (snap.player) {
+      game.player.x = snap.player.x;
+      game.player.y = snap.player.y;
+      game.player.invuln = snap.player.invuln || 0;
+    }
+    if (snap.effects) {
+      game.effects.context = snap.effects.context || 0;
+      game.effects.sleepDebt = snap.effects.sleepDebt || 0;
+      game.effects.focusTimer = snap.effects.focusTimer || 0;
+      game.effects.doubleJumpTimer = snap.effects.doubleJumpTimer || 0;
+      game.effects.wallJumpTimer = snap.effects.wallJumpTimer || 0;
+    }
+    game.political = snap.political != null ? snap.political : game.political;
+    game.techDebt = snap.techDebt != null ? snap.techDebt : game.techDebt;
+    game.coffeeCount = snap.coffeeCount || 0;
+    game.collectedCount = snap.collectedCount || 0;
+    game.cameraX = snap.cameraX || 0;
+    tryAchieve(game, "continue_load");
+    game.message = "Session restored — pretend you never left";
+    game.messageTimer = 3;
+    return game;
+  }
+
+  function recordGhostSample(game) {
+    if (!game.ghostRecord) return;
+    game.ghostAcc = (game.ghostAcc || 0) + 1;
+    if (game.ghostAcc % 6 !== 0) return; // ~10 samples/s at 60fps
+    game.ghostRecord.push({
+      x: Math.round(game.player.x),
+      y: Math.round(game.player.y),
+      t: Math.round(game.time * 10) / 10,
+    });
+    if (game.ghostRecord.length > 4000) {
+      game.ghostRecord = game.ghostRecord.slice(-3000);
+    }
   }
 
   function spawnThreadProjectiles(game, count) {
@@ -559,6 +705,12 @@
       stormSurvived: true,
       openedSlackThisSprint: false,
       skippedSlackSprint: true,
+      bossChase: null,
+      secretFound: false,
+      ghostRecord: [],
+      ghostPlayback: (Meta && Meta.loadGhost && Meta.loadGhost()) || null,
+      ghostAcc: 0,
+      saveAcc: 0,
       tutorial: opts.skipTutorial
         ? null
         : {
@@ -577,11 +729,20 @@
       game.effects.focusTimer = 9999;
     }
 
+    if (mode === "oncall") {
+      game.message = "ON-CALL — faster pings, better coffee, worse life";
+      game.messageTimer = 3.5;
+      // Coffee more effective via sleep mul already inverted in addSleepDebt for negative? 
+    }
+
     if (opts.notifyImmediate) {
-      game.notifications.timeSince = Notes.intervalForSprint(sprint);
+      game.notifications.timeSince = Notes.intervalForSprint(sprint, mode);
     }
     if (opts.tutorialForce) {
       game.tutorial = { t: 0, step: 0, done: false };
+    }
+    if (opts.continueSnap) {
+      applyContinueSnapshot(game, opts.continueSnap);
     }
     return game;
   }
@@ -654,6 +815,19 @@
       game.message = "Context window full — OOM";
       game.messageTimer = 2;
     }
+
+    if (effects.political) adjustPolitical(game, effects.political);
+    if (effects.sleep) addSleepDebt(game, effects.sleep);
+    if (effects.kind === "meeting_decline") tryAchieve(game, "meeting_decline");
+    if (effects.kind === "review_pass") {
+      tryAchieve(game, "review_pass");
+      game.score += 40;
+      if (Fx) Fx.addFloat(game.fx, game.player.x, game.player.y, "EXCEEDS", "#4ade80");
+    }
+    if (effects.kind === "review_fail") {
+      game.message = "Needs improvement — classic";
+      game.messageTimer = 2.2;
+    }
   }
 
   function hurtPlayer(game) {
@@ -680,8 +854,7 @@
       game.message = "Laid off. Game over.";
       game.messageTimer = 99;
       pushEvent(game, "gameover");
-      if (Meta) Meta.considerBest(snapshotRun(game));
-      if (Meta) Meta.clearContinue();
+      endRun(game, "laid_off");
     }
     return true;
   }
@@ -697,6 +870,22 @@
     };
   }
 
+  function endRun(game, reason) {
+    game.phase = "gameover";
+    game.endReason = reason || game.endReason || "laid_off";
+    if (Meta) {
+      const run = snapshotRun(game);
+      Meta.considerBest(run);
+      Meta.clearContinue();
+      if (game.ghostRecord && game.ghostRecord.length > 30) {
+        Meta.saveGhost(game.ghostRecord, run);
+      }
+      if (typeof Meta.submitBoard === "function") {
+        Meta.submitBoard(run, "you");
+      }
+    }
+  }
+
   function resignQuit(game) {
     game.phase = "gameover";
     game.endReason = "quit";
@@ -706,8 +895,7 @@
     game.notifications.inbox = [];
     setThought(game, "quit");
     tryAchieve(game, "quit_dignity");
-    if (Meta) Meta.considerBest(snapshotRun(game));
-    if (Meta) Meta.clearContinue();
+    endRun(game, "quit");
     pushEvent(game, "gameover", { reason: "quit" });
   }
 
@@ -821,24 +1009,48 @@
         c.kind === "focus" ||
         c.kind === "oop" ||
         c.kind === "standup" ||
-        c.kind === "snack"
+        c.kind === "snack" ||
+        c.kind === "double" ||
+        c.kind === "wall" ||
+        c.kind === "secret"
       ) {
-        applyPowerup(game, c.kind);
-        bumpCombo(game, 20, c.x, c.y, c.kind.toUpperCase());
+        if (c.kind === "secret") {
+          addSleepDebt(game, -40);
+          game.effects.context = Math.max(0, game.effects.context - 30);
+          game.score += 50;
+          game.secretFound = true;
+          tryAchieve(game, "secret_hr");
+          game.message = "HR Dungeon snack stash unlocked";
+          game.messageTimer = 3;
+          if (Fx) Fx.addToast(game.fx, "Secret Room", "Free snacks + dignity");
+          bumpCombo(game, 50, c.x, c.y, "SECRET");
+        } else {
+          applyPowerup(game, c.kind);
+          bumpCombo(game, 20, c.x, c.y, c.kind.toUpperCase());
+        }
         continue;
       }
       if (c.kind === "coffee") {
-        game.effects.context = Math.max(
-          0,
-          game.effects.context - COFFEE_CONTEXT_RELIEF
-        );
-        addSleepDebt(game, -COFFEE_SLEEP_RELIEF);
+        const relief =
+          game.mode === "oncall"
+            ? COFFEE_SLEEP_RELIEF + 12
+            : COFFEE_SLEEP_RELIEF;
+        const ctxRelief =
+          game.mode === "oncall"
+            ? COFFEE_CONTEXT_RELIEF + 8
+            : COFFEE_CONTEXT_RELIEF;
+        game.effects.context = Math.max(0, game.effects.context - ctxRelief);
+        addSleepDebt(game, -relief);
         game.coffeeCount = (game.coffeeCount || 0) + 1;
         if (game.coffeeCount >= 5) tryAchieve(game, "coffee_5");
         bumpCombo(game, COFFEE_POINTS, c.x, c.y, "☕");
         pushEvent(game, "collect", { kind: "coffee", points: COFFEE_POINTS });
         game.message =
-          "☕ Coffee! sleep −" + COFFEE_SLEEP_RELIEF + " · ctx −" + COFFEE_CONTEXT_RELIEF;
+          "☕ Coffee! sleep −" +
+          relief +
+          " · ctx −" +
+          ctxRelief +
+          (game.mode === "oncall" ? " (on-call brew)" : "");
         game.messageTimer = 2.6;
         setThought(game, "coffee");
         // Secret: all coffees collected → pure Mario
@@ -904,6 +1116,7 @@
     tryAchieve(game, "first_deploy");
     if (game.sprint + 1 >= 5) tryAchieve(game, "sprint_5");
     if (game.sprint + 1 >= 10) tryAchieve(game, "sprint_10");
+    if (game.mode === "oncall") tryAchieve(game, "oncall_night");
     if (game.skippedSlackSprint && !game.openedSlackThisSprint) {
       tryAchieve(game, "no_slack");
     }
@@ -929,6 +1142,7 @@
     game.interactables = spawnInteractables(game.map);
     spawnPowerups(game);
     game.projectiles = [];
+    game.bossChase = null;
     game.effects.calendarBlocks = [];
     game.effects.hallucinated = [];
     game.effects.stunTimer = 0;
@@ -994,6 +1208,18 @@
     }
     if (game.effects.pureMarioTimer > 0) {
       game.effects.pureMarioTimer = Math.max(0, game.effects.pureMarioTimer - dt);
+    }
+    if (game.effects.doubleJumpTimer > 0) {
+      game.effects.doubleJumpTimer = Math.max(0, game.effects.doubleJumpTimer - dt);
+      if (game.effects.doubleJumpTimer === 0) {
+        game.player.maxJumps = 1;
+      }
+    }
+    if (game.effects.wallJumpTimer > 0) {
+      game.effects.wallJumpTimer = Math.max(0, game.effects.wallJumpTimer - dt);
+      if (game.effects.wallJumpTimer === 0) {
+        game.player.wallJump = false;
+      }
     }
 
     // Combo decay
@@ -1240,7 +1466,8 @@
       slackDt,
       game.sprint,
       game.rng,
-      !!game.notifications.active
+      !!game.notifications.active,
+      { mode: game.mode }
     );
     if (tick.arrived) {
       pushEvent(game, "slack_ping", {
@@ -1255,7 +1482,7 @@
         " unread)";
       game.messageTimer = 2.8;
       setThought(game, "slack_ping");
-      addSleepDebt(game, 6);
+      addSleepDebt(game, game.mode === "oncall" ? 9 : 6);
       if (game.stormTimer > 0) spawnThreadProjectiles(game, 1);
     }
     if (tick.backlogPressure) {
@@ -1267,6 +1494,13 @@
       game.messageTimer = 1.6;
       setThought(game, "backlog");
       addSleepDebt(game, 8);
+      // Boss chase after sustained ignore
+      if (
+        (game.notifications.backlogPulse || 0) >= 2 ||
+        game.notifications.inbox.length >= Notes.MAX_INBOX - 1
+      ) {
+        spawnBossChase(game);
+      }
     }
 
     if (game.notifications.active) {
@@ -1332,8 +1566,13 @@
     Physics.stepBody(game.player, physInput, platforms, dt, {
       stunned: stunned,
       slowFactor: slowFactor,
+      canDoubleJump: game.effects.doubleJumpTimer > 0,
+      canWallJump: game.effects.wallJumpTimer > 0,
     });
-    if (willJump && !game.player.onGround && game.player.vy < 0) {
+    if (
+      (willJump || game.player._didJump) &&
+      game.player.vy < 0
+    ) {
       pushEvent(game, "jump");
     } else if (!wasGround && game.player.onGround) {
       pushEvent(game, "land");
@@ -1344,6 +1583,7 @@
 
     updateEnemies(game, dt, platforms);
     playerEnemyCollisions(game);
+    tickBossChase(game, dt, platforms);
     tickProjectiles(game, dt);
     if (game.phase !== "gameover") {
       collectPickups(game);
@@ -1353,6 +1593,15 @@
 
     if (game.phase !== "gameover") {
       checkDeploy(game);
+    }
+
+    recordGhostSample(game);
+
+    // Autosave continue every ~4s
+    game.saveAcc = (game.saveAcc || 0) + dt;
+    if (game.saveAcc > 4 && Meta && Meta.saveContinue) {
+      game.saveAcc = 0;
+      Meta.saveContinue(serializeContinue(game));
     }
 
     if (!game.thought && game.phase === "playing") {
@@ -1406,6 +1655,7 @@
     applyEffectsPayload: applyEffectsPayload,
     applyPowerup: applyPowerup,
     startStorm: startStorm,
+    spawnBossChase: spawnBossChase,
     bumpCombo: bumpCombo,
     adjustPolitical: adjustPolitical,
     adjustTechDebt: adjustTechDebt,
@@ -1414,6 +1664,9 @@
     setThought: setThought,
     addSleepDebt: addSleepDebt,
     snapshotRun: snapshotRun,
+    serializeContinue: serializeContinue,
+    applyContinueSnapshot: applyContinueSnapshot,
+    endRun: endRun,
     THOUGHTS: THOUGHTS,
     STORY_POINTS: STORY_POINTS,
     COFFEE_POINTS: COFFEE_POINTS,

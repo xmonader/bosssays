@@ -210,19 +210,34 @@
     }
   }
 
-  /** Soft looping office arpeggio (very quiet). */
-  function startBgm() {
+  let bgmMood = "office";
+
+  const MOOD_NOTES = {
+    office: [262, 330, 392, 523, 392, 330],
+    war: [196, 233, 262, 233, 196, 175],
+    allhands: [330, 392, 494, 392, 330, 294],
+    oncall: [220, 247, 262, 247, 220, 196],
+    remote: [294, 349, 440, 349, 294, 262],
+  };
+
+  /** Soft looping office arpeggio (very quiet). mood: office|war|allhands|oncall|remote */
+  function startBgm(mood) {
     const c = ensure();
-    if (!c || muted || !unlocked || bgmPlaying) return;
-    const notes = [262, 330, 392, 523, 392, 330]; // C major-ish
+    if (!c || muted || !unlocked) return;
+    if (mood && mood !== bgmMood && bgmPlaying) {
+      stopBgm();
+    }
+    if (bgmPlaying) return;
+    if (mood) bgmMood = mood;
+    const notes = MOOD_NOTES[bgmMood] || MOOD_NOTES.office;
     const gain = c.createGain();
-    gain.gain.value = 0.035;
+    gain.gain.value = bgmMood === "oncall" ? 0.04 : 0.035;
     gain.connect(master);
     const osc = c.createOscillator();
-    osc.type = "triangle";
+    osc.type = bgmMood === "war" ? "sawtooth" : "triangle";
     osc.connect(gain);
     let step = 0;
-    const beat = 0.28;
+    const beat = bgmMood === "oncall" ? 0.22 : 0.28;
     function schedule() {
       if (!bgmPlaying || !ctx) return;
       const t = ctx.currentTime;
@@ -235,6 +250,14 @@
     bgmPlaying = true;
     bgmNodes = { osc: osc, gain: gain, timer: null };
     schedule();
+  }
+
+  function setBgmMood(mood) {
+    if (!mood || mood === bgmMood) return;
+    const was = bgmPlaying;
+    stopBgm();
+    bgmMood = mood;
+    if (was && unlocked && !muted) startBgm(mood);
   }
 
   function stopBgm() {
@@ -302,6 +325,8 @@
     isMuted: isMuted,
     startBgm: startBgm,
     stopBgm: stopBgm,
+    setBgmMood: setBgmMood,
+    MOOD_NOTES: MOOD_NOTES,
     SFX_NAMES: Object.keys(SFX),
     // for tests without AudioContext
     _resetForTests: function () {
@@ -310,6 +335,7 @@
       muted = false;
       ctx = null;
       master = null;
+      bgmMood = "office";
     },
   };
 

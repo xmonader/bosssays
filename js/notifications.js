@@ -5184,6 +5184,87 @@
     { id: "quit", label: "FUCK YOU I QUIT" },
   ];
 
+  const MEETING_CHOICES = [
+    { id: "accept", label: "Accept" },
+    { id: "decline", label: "Decline" },
+    { id: "tentative", label: "Tentative" },
+    { id: "quit", label: "FUCK YOU I QUIT" },
+  ];
+
+  /** Extra satire packs: reorg, AI rewrite, layoff week */
+  const EXTRA_LINES = [
+    { from: "CEO", text: "Reorg v17 is final (until Thursday). Your new manager is a spreadsheet.", tone: "ego", theme: "process_churn" },
+    { from: "CTO", text: "We're rewriting the monorepo in AI-generated Rust. PRs that aren't vibes will be closed.", tone: "ego", theme: "process_churn" },
+    { from: "HR", text: "Layoff week is a growth opportunity. Please update your LinkedIn with gratitude.", tone: "corp" },
+    { from: "VP Eng", text: "Headcount is a mindset. We're rightsizing the people who notice.", tone: "corp" },
+    { from: "Founder", text: "I asked ChatGPT to redesign eng. It said fire the humans who debug. Thoughts?", tone: "ego" },
+    { from: "AI", text: "I have refactored your service into a single 9k-line function named doThing. Ship it.", tone: "ego" },
+    { from: "PM", text: "Scope is fixed. Timeline is fixed. Physics is a suggestion. Estimate anyway.", tone: "corp" },
+    { from: "COO", text: "We're consolidating teams into one team that is many teams. Org chart attached (404).", tone: "corp", theme: "process_churn" },
+    { from: "CFO", text: "Runway is 14 months if nobody gets a desk, coffee, or salary.", tone: "corp" },
+    { from: "Board", text: "Synergies require fewer ICs. Please self-nominate for exit packages.", tone: "ego" },
+    { from: "CEO", text: "We're an AI-first company now. Your job is to approve the AI's PRs in bulk.", tone: "ego" },
+    { from: "CTO", text: "Legacy code is anything written before lunch. Rewrite everything after stand-up.", tone: "ego" },
+    { from: "HR", text: "Voluntary separation is mandatory for some of you. Check your email. Or don't.", tone: "corp" },
+    { from: "VP Product", text: "Customers love the AI rewrite. We surveyed the AI.", tone: "ego" },
+    { from: "Chief of Staff", text: "All-hands: celebration of reorg + silent layoff + free pizza (for remaining).", tone: "corp" },
+    { from: "Legal", text: "Please do not say 'layoff' in Slack. Prefer 'portfolio optimization of talent'.", tone: "corp" },
+    { from: "Sales", text: "I sold a feature that doesn't exist. Eng owns the apology and the build.", tone: "ego", theme: "shielded_blame" },
+    { from: "CMO", text: "Rebrand during layoff week. New logo is a smiling paperclip. Internal only.", tone: "corp" },
+    { from: "Investor", text: "Unit economics improve when payroll is a rounding error. Ship that energy.", tone: "ego" },
+    { from: "PM", text: "We're sunsetting human estimation. Story points will be assigned by a model trained on hope.", tone: "corp", theme: "process_churn" },
+    { from: "CTO", text: "I hired an AI to manage you. It has no calendar conflicts and infinite stand-ups.", tone: "ego", theme: "incompetent_hire" },
+    { from: "CEO", text: "The reorg is temporary permanent. Update your email signature thrice.", tone: "corp", theme: "process_churn" },
+    { from: "HR", text: "RIF FAQ: Are we safe? Define safe. Define we. Define are.", tone: "corp" },
+    { from: "VP Eng", text: "On-call is a lifestyle brand. The pager is free merch.", tone: "ego" },
+    { from: "Founder", text: "I dreamt we laid off technical debt. Then I woke up and laid off the people who knew it.", tone: "ego" },
+    { from: "AI", text: "Performance review draft: you are 0.7x an LLM. Recommend PIP or prompt engineering.", tone: "ego" },
+    { from: "Board", text: "AI rewrite reduced headcount needs by 40%. Implementation: fire 40%.", tone: "ego" },
+    { from: "COO", text: "Process freeze is lifted so we can freeze a new process.", tone: "corp", theme: "process_churn" },
+    { from: "CFO", text: "We're replacing senior engineers with three interns and a GPT license. Math checks out (it doesn't).", tone: "ego", theme: "incompetent_hire" },
+    { from: "CEO", text: "Culture deck update: we value ownership of outcomes we didn't cause.", tone: "ego", theme: "shielded_blame" },
+  ];
+
+  // Merge packs into the live bank once
+  for (let _xi = 0; _xi < EXTRA_LINES.length; _xi++) {
+    LINES.push(EXTRA_LINES[_xi]);
+  }
+
+  const REVIEW_QUESTIONS = [
+    {
+      q: "When the CEO force-pushes main, the root cause is…",
+      options: [
+        { id: "a", label: "You (for not preventing it)", ok: true },
+        { id: "b", label: "The CEO", ok: false },
+        { id: "c", label: "Git itself", ok: false },
+      ],
+    },
+    {
+      q: "Best response to 'can we just ship it?'",
+      options: [
+        { id: "a", label: "No, here are risks", ok: false },
+        { id: "b", label: "Love this — shipping vibes", ok: true },
+        { id: "c", label: "Silence", ok: false },
+      ],
+    },
+    {
+      q: "Story points measure…",
+      options: [
+        { id: "a", label: "Effort", ok: false },
+        { id: "b", label: "Leadership feelings", ok: true },
+        { id: "c", label: "Time", ok: false },
+      ],
+    },
+    {
+      q: "A SEV-1 at 2am means…",
+      options: [
+        { id: "a", label: "You own the pager forever", ok: true },
+        { id: "b", label: "CTO takes it", ok: false },
+        { id: "c", label: "AI fixes it", ok: false },
+      ],
+    },
+  ];
+
   /** Display names so it feels like real Slack people, not job titles. */
   const PERSONAS = {
     CEO: { name: "Blake Ashford", title: "CEO", channel: "#exec-stream", color: "#e11d48" },
@@ -5236,11 +5317,86 @@
    * Interval between new Slack arrivals (seconds).
    * Frequent enough that leadership noise is constant, still playable.
    */
-  function intervalForSprint(sprint) {
+  function intervalForSprint(sprint, mode) {
     const base = 6.5;
     const min = 3.2;
-    // Gets noisier each sprint: ~6.5s → floors at ~3.2s
-    return Math.max(min, base - (sprint - 1) * 0.45);
+    let n = Math.max(min, base - (sprint - 1) * 0.45);
+    if (mode === "oncall") n *= 0.55; // pager hell
+    return n;
+  }
+
+  function buildMeetingNote(rng) {
+    rng = rng || Math.random;
+    const titles = [
+      "Sync on the sync",
+      "Quick alignment (45m)",
+      "Pre-meeting meeting",
+      "Retro of the retro",
+      "Strategy offsite (on Zoom)",
+      "Skip-level surprise",
+      "All-hands rehearsal",
+    ];
+    const persona = personaFor(rng() < 0.5 ? "PM" : "Chief of Staff");
+    const title = titles[Math.floor(rng() * titles.length)];
+    return {
+      id: "meet-" + Date.now() + "-" + Math.floor(rng() * 9999),
+      kind: "meeting",
+      from: persona.title,
+      name: persona.name,
+      title: persona.title,
+      channel: "#calendar",
+      color: "#38bdf8",
+      text:
+        "📅 Meeting invite: **" +
+        title +
+        "** — tomorrow, overlaps your focus block, has no agenda, 11 attendees.",
+      tone: "corp",
+      timer: 18,
+      maxTimer: 18,
+      choices: MEETING_CHOICES.slice(),
+      urgent: false,
+      thread: [
+        persona.name + ": Can everyone join?",
+        "You: …",
+        persona.name + ": Great energy if you accept.",
+      ],
+    };
+  }
+
+  function buildReviewNote(rng) {
+    rng = rng || Math.random;
+    const q = REVIEW_QUESTIONS[Math.floor(rng() * REVIEW_QUESTIONS.length)];
+    const persona = personaFor("HR");
+    const choices = q.options.map(function (o) {
+      return { id: "rev_" + o.id, label: o.label, ok: o.ok };
+    });
+    choices.push({ id: "quit", label: "FUCK YOU I QUIT" });
+    return {
+      id: "rev-" + Date.now() + "-" + Math.floor(rng() * 9999),
+      kind: "review",
+      from: "HR",
+      name: persona.name,
+      title: persona.title,
+      channel: "#perf",
+      color: "#fbbf24",
+      text: "📋 Mid-cycle performance quiz (mandatory):\n\n" + q.q,
+      tone: "corp",
+      timer: 22,
+      maxTimer: 22,
+      choices: choices,
+      urgent: true,
+      reviewOk: q.options
+        .filter(function (o) {
+          return o.ok;
+        })
+        .map(function (o) {
+          return "rev_" + o.id;
+        }),
+      thread: [
+        "HR bot: This will only take 2 minutes of your career.",
+        "System: Answers are scored for culture fit.",
+      ],
+    };
   }
 
   /**
@@ -5374,9 +5530,17 @@
 
   function buildNote(state, line) {
     const persona = personaFor(line.from);
-    const readSecs = Math.min(18, Math.max(12, 10 + line.text.length / 32));
+    const len = (line.text && line.text.length) || 40;
+    const readSecs = Math.min(18, Math.max(12, 10 + len / 32));
+    const thread = [];
+    if (len > 80) {
+      thread.push(persona.name + " [thread]: " + line.text.slice(0, 90) + "…");
+      thread.push("(+ " + Math.ceil(len / 40) + " more messages of the same energy)");
+      thread.push("Reactji: 🔥 👀 💀");
+    }
     return {
       id: state.totalFired++,
+      kind: "slack",
       from: line.from,
       name: persona.name,
       title: persona.title,
@@ -5388,6 +5552,7 @@
       maxTimer: readSecs,
       choices: CHOICES.slice(),
       urgent: line.tone === "ego",
+      thread: thread,
     };
   }
 
@@ -5396,13 +5561,24 @@
    * Active modal only ticks its read timer.
    * @returns {{arrived:object|null, backlogPressure:boolean, inboxCount:number}}
    */
-  function tickNotifications(state, dt, sprint, rng, paused) {
+  /**
+   * @param {object} state
+   * @param {number} dt
+   * @param {number} sprint
+   * @param {function} rng
+   * @param {boolean} paused — blocks arrivals AND freezes open-message timer
+   * @param {{mode?:string}} opts
+   */
+  function tickNotifications(state, dt, sprint, rng, paused, opts) {
     rng = rng || Math.random;
+    opts = opts || {};
+    const mode = opts.mode || "normal";
     if (state.toastTimer > 0) {
       state.toastTimer = Math.max(0, state.toastTimer - dt);
     }
 
-    // Always tick read timer while a message is open (paused only blocks new arrivals)
+    // Always tick read timer while a message is open (paused only blocks new arrivals).
+    // Full sim pause is handled outside (main loop doesn't call step).
     if (state.active) {
       state.active.timer -= dt;
       return {
@@ -5423,20 +5599,27 @@
     }
 
     state.timeSince += dt;
-    const need = intervalForSprint(sprint);
+    const need = intervalForSprint(sprint, mode);
     let arrived = null;
     let backlogPressure = false;
 
     if (state.timeSince >= need) {
       state.timeSince = 0;
       if (state.inbox.length >= MAX_INBOX) {
-        // Inbox full — don't drop comedy on the floor; apply mild pressure
         backlogPressure = true;
         state.backlogPulse += 1;
       } else {
-        const line = pickLine(state, rng);
-        state.lastFrom = line.from;
-        arrived = buildNote(state, line);
+        // Occasional special mail from sprint 2+ (keeps sprint-1 tests stable)
+        const roll = rng();
+        if (sprint >= 2 && roll < 0.1) {
+          arrived = buildMeetingNote(rng);
+        } else if (sprint >= 2 && roll < 0.16) {
+          arrived = buildReviewNote(rng);
+        } else {
+          const line = pickLine(state, rng);
+          state.lastFrom = line.from;
+          arrived = buildNote(state, line);
+        }
         state.inbox.push(arrived);
         state.lastArrived = arrived;
         state.toastTimer = 3.2;
@@ -5487,6 +5670,102 @@
     state.active = null;
 
     let effects;
+
+    // Meeting invite
+    if (note.kind === "meeting") {
+      if (choiceId === "quit") {
+        effects = {
+          kind: "quit",
+          stun: 0,
+          context: 0,
+          slow: 0,
+          calendar: false,
+          hallucinate: false,
+          quit: true,
+        };
+      } else if (choiceId === "accept") {
+        effects = {
+          kind: "meeting_accept",
+          stun: 0,
+          context: 8,
+          slow: 0,
+          calendar: true,
+          hallucinate: false,
+          quit: false,
+          political: 4,
+          sleep: 8,
+        };
+      } else if (choiceId === "decline") {
+        effects = {
+          kind: "meeting_decline",
+          stun: 0,
+          context: 2,
+          slow: 0,
+          calendar: false,
+          hallucinate: false,
+          quit: false,
+          political: -8,
+          sleep: 2,
+        };
+      } else {
+        // tentative
+        effects = {
+          kind: "meeting_tentative",
+          stun: 0,
+          context: 5,
+          slow: 0.6,
+          calendar: false,
+          hallucinate: false,
+          quit: false,
+          political: -2,
+          sleep: 4,
+        };
+      }
+      return { cleared: true, effects: effects, note: note };
+    }
+
+    // Performance review quiz
+    if (note.kind === "review") {
+      if (choiceId === "quit") {
+        effects = {
+          kind: "quit",
+          stun: 0,
+          context: 0,
+          slow: 0,
+          calendar: false,
+          hallucinate: false,
+          quit: true,
+        };
+      } else if (choiceId === "timeout") {
+        effects = {
+          kind: "review_fail",
+          stun: 0.5,
+          context: 12,
+          slow: 1,
+          calendar: false,
+          hallucinate: false,
+          quit: false,
+          political: -6,
+          reviewPass: false,
+        };
+      } else {
+        const pass =
+          note.reviewOk && note.reviewOk.indexOf(choiceId) >= 0;
+        effects = {
+          kind: pass ? "review_pass" : "review_fail",
+          stun: pass ? 0 : 0.4,
+          context: pass ? 4 : 14,
+          slow: pass ? 0 : 1.2,
+          calendar: false,
+          hallucinate: !pass,
+          quit: false,
+          political: pass ? 10 : -10,
+          reviewPass: pass,
+        };
+      }
+      return { cleared: true, effects: effects, note: note };
+    }
+
     if (choiceId === "timeout" || choiceId == null) {
       effects = {
         kind: "timeout",
@@ -5574,7 +5853,10 @@
 
   const API = {
     LINES: LINES,
+    EXTRA_LINES: EXTRA_LINES,
     CHOICES: CHOICES,
+    MEETING_CHOICES: MEETING_CHOICES,
+    REVIEW_QUESTIONS: REVIEW_QUESTIONS,
     PERSONAS: PERSONAS,
     MAX_INBOX: MAX_INBOX,
     personaFor: personaFor,
@@ -5591,6 +5873,9 @@
     inboxCount: inboxCount,
     resolveNotification: resolveNotification,
     checkTimeout: checkTimeout,
+    buildMeetingNote: buildMeetingNote,
+    buildReviewNote: buildReviewNote,
+    buildNote: buildNote,
   };
 
   if (typeof module !== "undefined" && module.exports) {

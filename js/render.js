@@ -507,7 +507,10 @@
       c.kind === "focus" ||
       c.kind === "oop" ||
       c.kind === "standup" ||
-      c.kind === "snack"
+      c.kind === "snack" ||
+      c.kind === "double" ||
+      c.kind === "wall" ||
+      c.kind === "secret"
     ) {
       const cx = x + c.w / 2;
       const cy = y + c.h / 2 + bob;
@@ -516,12 +519,18 @@
         oop: "#a78bfa",
         standup: "#fbbf24",
         snack: "#4ade80",
+        double: "#67e8f9",
+        wall: "#c4b5fd",
+        secret: "#f472b6",
       };
       const labels = {
         focus: "FOC",
         oop: "OOP",
         standup: "★",
         snack: "🍪",
+        double: "2J",
+        wall: "WJ",
+        secret: "HR",
       };
       ctx.fillStyle = colors[c.kind] || "#fff";
       ctx.globalAlpha = 0.35;
@@ -818,7 +827,11 @@
     if (game.effects.oopTimer > 0) buffs.push({ t: "OOP", c: "#a78bfa" });
     if (game.effects.standupTimer > 0) buffs.push({ t: "★", c: "#fbbf24" });
     if (game.effects.pureMarioTimer > 0) buffs.push({ t: "DND", c: "#4ade80" });
+    if (game.effects.doubleJumpTimer > 0) buffs.push({ t: "2J", c: "#67e8f9" });
+    if (game.effects.wallJumpTimer > 0) buffs.push({ t: "WJ", c: "#c4b5fd" });
     if (game.stormTimer > 0) buffs.push({ t: "STORM", c: "#ef4444" });
+    if (game.bossChase && game.bossChase.alive) buffs.push({ t: "MGR", c: "#f87171" });
+    if (game.mode === "oncall") buffs.push({ t: "PAGER", c: "#fb923c" });
     if (sd >= 60 && !buffs.length) buffs.push({ t: "TIRED", c: "#a5b4fc" });
     ctx.font = "bold 9px sans-serif";
     for (let bi = 0; bi < buffs.length && bi < 3; bi++) {
@@ -946,10 +959,13 @@
 
   function drawNotification(ctx, note) {
     if (!note) return;
-    const boxW = 540;
-    const boxH = 268;
+    const large = !!(arguments[2] && arguments[2].largeText);
+    const boxW = 560;
+    const hasThread = note.thread && note.thread.length;
+    const nChoices = (note.choices && note.choices.length) || 5;
+    const boxH = hasThread ? 300 : 268;
     const x = (LOGIC_W - boxW) / 2;
-    const y = 58;
+    const y = 48;
 
     // Dim world — game is frozen while you read
     ctx.fillStyle = "rgba(2,6,23,0.55)";
@@ -959,11 +975,10 @@
     ctx.fillStyle = "#fbbf24";
     ctx.font = "bold 12px sans-serif";
     ctx.textAlign = "center";
-    ctx.fillText(
-      "READING SLACK · paused · 1–4 reply · 5 = nuclear quit",
-      LOGIC_W / 2,
-      y - 12
-    );
+    let banner = "READING SLACK · paused · keys 1–" + Math.min(5, nChoices);
+    if (note.kind === "meeting") banner = "MEETING INVITE · Accept / Decline / Tentative";
+    if (note.kind === "review") banner = "PERFORMANCE REVIEW QUIZ · pick the culture-fit answer";
+    ctx.fillText(banner, LOGIC_W / 2, y - 12);
     ctx.textAlign = "left";
 
     const accent = note.color || "#38bdf8";
@@ -986,7 +1001,15 @@
     const channel = note.channel || "#exec-stream";
     ctx.fillText("Slack  " + channel, x + 14, y + 22);
 
-    if (note.urgent) {
+    if (note.kind === "meeting") {
+      ctx.fillStyle = "#38bdf8";
+      ctx.font = "bold 10px sans-serif";
+      ctx.fillText("● CALENDAR", x + boxW - 100, y + 22);
+    } else if (note.kind === "review") {
+      ctx.fillStyle = "#fbbf24";
+      ctx.font = "bold 10px sans-serif";
+      ctx.fillText("● PERF", x + boxW - 80, y + 22);
+    } else if (note.urgent) {
       ctx.fillStyle = "#e11d48";
       ctx.font = "bold 10px sans-serif";
       ctx.fillText("● URGENT · KNOW-IT-ALL ENERGY", x + boxW - 200, y + 22);
@@ -1015,10 +1038,10 @@
 
     // Name + title
     ctx.fillStyle = "#f8fafc";
-    ctx.font = "bold 15px sans-serif";
+    ctx.font = large ? "bold 17px sans-serif" : "bold 15px sans-serif";
     ctx.fillText(note.name || note.from, x + 48, y + 54);
     ctx.fillStyle = "#94a3b8";
-    ctx.font = "12px sans-serif";
+    ctx.font = large ? "13px sans-serif" : "12px sans-serif";
     ctx.fillText(
       (note.title || note.from) + "  ·  just now  ·  expects a reply",
       x + 48,
@@ -1027,59 +1050,92 @@
 
     // Body
     ctx.fillStyle = "#e2e8f0";
-    ctx.font = "14px sans-serif";
-    wrapText(ctx, note.text, x + 18, y + 100, boxW - 36, 18, 5);
+    ctx.font = large ? "15px sans-serif" : "14px sans-serif";
+    wrapText(ctx, note.text, x + 18, y + 100, boxW - 36, large ? 20 : 18, 4);
+
+    // Thread panel
+    if (hasThread) {
+      ctx.fillStyle = "rgba(30,41,59,0.9)";
+      roundRect(ctx, x + 18, y + 168, boxW - 36, 44, 6);
+      ctx.fill();
+      ctx.fillStyle = "#64748b";
+      ctx.font = "9px sans-serif";
+      ctx.fillText("Thread", x + 24, y + 180);
+      ctx.fillStyle = "#94a3b8";
+      ctx.font = "10px sans-serif";
+      for (let ti = 0; ti < Math.min(2, note.thread.length); ti++) {
+        ctx.fillText(
+          String(note.thread[ti]).slice(0, 70),
+          x + 24,
+          y + 194 + ti * 12
+        );
+      }
+    }
 
     // Timer bar
     const t = Math.max(0, note.timer / note.maxTimer);
+    const barY = hasThread ? y + 220 : y + 168;
     ctx.fillStyle = "#1e293b";
-    ctx.fillRect(x + 18, y + 168, boxW - 36, 8);
+    ctx.fillRect(x + 18, barY, boxW - 36, 8);
     ctx.fillStyle = t < 0.25 ? "#ef4444" : accent;
-    ctx.fillRect(x + 18, y + 168, (boxW - 36) * t, 8);
+    ctx.fillRect(x + 18, barY, (boxW - 36) * t, 8);
     ctx.fillStyle = "#64748b";
     ctx.font = "10px sans-serif";
     ctx.fillText(
-      "1–4 normal replies · [5] FUCK YOU I QUIT ends the run",
+      note.kind === "meeting"
+        ? "1 Accept · 2 Decline · 3 Tentative · 5 QUIT"
+        : note.kind === "review"
+          ? "1–3 answers · 5 QUIT"
+          : "1–4 normal replies · [5] FUCK YOU I QUIT ends the run",
       x + 18,
-      y + 186
+      barY + 18
     );
 
-    // Choices — row of 4 + nuclear row
+    // Choices — row of up to 4 + optional nuclear
     const choices = note.choices || [];
     const gap = 8;
-    const row1 = choices.slice(0, 4);
-    const row2 = choices.slice(4);
-    const bw = 118;
+    const row1 = choices.filter(function (c) {
+      return c.id !== "quit";
+    }).slice(0, 4);
+    const quitC = choices.filter(function (c) {
+      return c.id === "quit";
+    })[0];
+    const bw = Math.min(128, Math.floor((boxW - 40 - (row1.length - 1) * gap) / Math.max(1, row1.length)));
     let total = row1.length * bw + (row1.length - 1) * gap;
     let cx = x + (boxW - total) / 2;
+    const cy1 = barY + 28;
     for (let i = 0; i < row1.length; i++) {
       const c = row1[i];
-      ctx.fillStyle = i === 2 ? "#14532d" : "#1e293b";
-      ctx.strokeStyle = i === 2 ? "#22c55e" : "#64748b";
-      roundRect(ctx, cx, y + 196, bw, 26, 6);
+      ctx.fillStyle = "#1e293b";
+      ctx.strokeStyle = "#64748b";
+      roundRect(ctx, cx, cy1, bw, 26, 6);
       ctx.fill();
       ctx.stroke();
       ctx.fillStyle = "#f1f5f9";
-      ctx.font = "10px sans-serif";
+      ctx.font = "9px sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText("[" + (i + 1) + "] " + c.label, cx + bw / 2, y + 213);
+      ctx.fillText(
+        "[" + (i + 1) + "] " + String(c.label).slice(0, 14),
+        cx + bw / 2,
+        cy1 + 17
+      );
       ctx.textAlign = "left";
       cx += bw + gap;
     }
-    if (row2.length) {
-      const q = row2[0];
+    if (quitC) {
       const qbw = 280;
       const qx = x + (boxW - qbw) / 2;
+      const qy = cy1 + 32;
       ctx.fillStyle = "#7f1d1d";
       ctx.strokeStyle = "#ef4444";
       ctx.lineWidth = 2;
-      roundRect(ctx, qx, y + 228, qbw, 28, 6);
+      roundRect(ctx, qx, qy, qbw, 26, 6);
       ctx.fill();
       ctx.stroke();
       ctx.fillStyle = "#fecaca";
-      ctx.font = "bold 12px sans-serif";
+      ctx.font = "bold 11px sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText("[5] " + q.label, qx + qbw / 2, y + 247);
+      ctx.fillText("[5] " + quitC.label, qx + qbw / 2, qy + 17);
       ctx.textAlign = "left";
       ctx.lineWidth = 1;
     }
@@ -1201,10 +1257,47 @@
     ctx.textAlign = "left";
   }
 
+  function drawBoss(ctx, boss, camX) {
+    if (!boss || !boss.alive) return;
+    const x = boss.x - camX;
+    if (x < -40 || x > LOGIC_W + 40) return;
+    ctx.fillStyle = "#7f1d1d";
+    rr(ctx, x, boss.y, boss.w, boss.h, 4);
+    ctx.fill();
+    ctx.fillStyle = "#fecaca";
+    ctx.font = "bold 8px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(boss.label || "MGR", x + boss.w / 2, boss.y - 4);
+    ctx.fillText("👔", x + boss.w / 2, boss.y + 22);
+    ctx.textAlign = "left";
+  }
+
+  function drawGhost(ctx, game, camX) {
+    const g = game.ghostPlayback;
+    if (!g || !g.samples || !g.samples.length) return;
+    // Find sample nearest current time fraction of run
+    const t = game.time || 0;
+    let best = g.samples[0];
+    for (let i = 0; i < g.samples.length; i++) {
+      if (g.samples[i].t <= t) best = g.samples[i];
+      else break;
+    }
+    const x = best.x - camX;
+    ctx.globalAlpha = 0.35;
+    ctx.fillStyle = "#38bdf8";
+    rr(ctx, x, best.y, 28, 36, 4);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = "rgba(56,189,248,0.7)";
+    ctx.font = "8px sans-serif";
+    ctx.fillText("ghost", x, best.y - 4);
+  }
+
   function draw(ctx, game) {
     const camX = game.cameraX || 0;
     const theme = (game.map && game.map.theme) || null;
     const reduce = game.settings && game.settings.reduceMotion;
+    const oncall = game.mode === "oncall";
     let shakeX = 0;
     let shakeY = 0;
     if (!reduce && game.fx && game.fx.shake > 0) {
@@ -1216,15 +1309,28 @@
     ctx.setTransform(SCALE, 0, 0, SCALE, shakeX * SCALE, shakeY * SCALE);
     clear(ctx, LOGIC_W, LOGIC_H, theme);
 
-    // office window blinds / wall pillars in parallax
-    ctx.fillStyle = "rgba(15,23,42,0.08)";
+    // On-call night wash
+    if (oncall) {
+      ctx.fillStyle = "rgba(15,23,42,0.35)";
+      ctx.fillRect(0, 0, LOGIC_W, LOGIC_H);
+    }
+
+    // Parallax layers — far buildings
+    ctx.fillStyle = oncall ? "rgba(30,58,138,0.25)" : "rgba(15,23,42,0.12)";
+    for (let i = 0; i < game.map.width; i += 220) {
+      const x = i - camX * 0.35;
+      const h = 80 + ((i / 40) % 5) * 18;
+      ctx.fillRect(x, LOGIC_H - 90 - h, 48, h);
+    }
+    // Mid parallax pillars
+    ctx.fillStyle = "rgba(15,23,42,0.1)";
     const stripe = 160 + ((game.sprint || 1) % 5) * 12;
     for (let i = 0; i < game.map.width; i += stripe) {
       const x = i - camX * 0.85;
       ctx.fillRect(x, 48, 18, LOGIC_H - 90);
       ctx.fillStyle = "rgba(255,255,255,0.04)";
       ctx.fillRect(x + 3, 56, 4, LOGIC_H - 110);
-      ctx.fillStyle = "rgba(15,23,42,0.08)";
+      ctx.fillStyle = "rgba(15,23,42,0.1)";
     }
 
     // theme accent wash
@@ -1264,9 +1370,11 @@
       }
     }
     drawProjectiles(ctx, game, camX);
+    drawGhost(ctx, game, camX);
     for (let i = 0; i < game.enemies.length; i++) {
       drawEnemy(ctx, game.enemies[i], camX, game.time);
     }
+    drawBoss(ctx, game.bossChase, camX);
     drawPlayer(
       ctx,
       game.player,
@@ -1291,10 +1399,22 @@
     drawHUD(ctx, game);
 
     if (game.notifications.active) {
-      drawNotification(ctx, game.notifications.active);
+      drawNotification(ctx, game.notifications.active, {
+        largeText: !!(game.settings && game.settings.largeText),
+      });
     }
     if (game.phase === "gameover") {
       drawGameOver(ctx, game);
+    }
+    // Sleep debt vision filter
+    const sd = (game.effects && game.effects.sleepDebt) || 0;
+    if (sd > 40 && !(game.settings && game.settings.reduceMotion)) {
+      ctx.fillStyle = "rgba(30,27,75," + Math.min(0.45, (sd - 40) / 140) + ")";
+      ctx.fillRect(0, 0, LOGIC_W, LOGIC_H);
+      if (sd > 70) {
+        ctx.fillStyle = "rgba(15,23,42," + Math.min(0.25, (sd - 70) / 200) + ")";
+        ctx.fillRect(0, 0, LOGIC_W, LOGIC_H);
+      }
     }
     // Screen flash
     if (game.fx && game.fx.flash > 0 && !(game.settings && game.settings.reduceMotion)) {
