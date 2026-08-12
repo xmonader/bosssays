@@ -513,39 +513,82 @@
     // Secret HR dungeon — climbable stair (jump peak ~136px → max ~110px step rise)
     // Always: ground → desk(~350) → mid → high → HR ledge + snack
     const STEP_RISE = 70; // safe under 136px peak
-    const stairYs = [350, 350 - STEP_RISE, 350 - STEP_RISE * 2, 350 - STEP_RISE * 3];
-    // Find an X band where all 4 steps clear existing floats
+    const stairYs = [
+      350,
+      350 - STEP_RISE,
+      350 - STEP_RISE * 2,
+      350 - STEP_RISE * 3,
+    ];
+
+    function buildStairAt(secretX) {
+      return [
+        rect(secretX - 30, stairYs[0], 110, 14, "hr-step-0"),
+        rect(secretX + 15, stairYs[1], 100, 14, "hr-step-1"),
+        rect(secretX + 50, stairYs[2], 95, 14, "hr-step-2"),
+        rect(secretX + 70, stairYs[3], 130, 14, "hr-dungeon"),
+      ];
+    }
+
+    function stairClear(cands, pad) {
+      for (let si = 0; si < cands.length; si++) {
+        if (overlapsAny(floatPlats, cands[si], pad)) return false;
+      }
+      return true;
+    }
+
     let hrTop = null;
     let stairPlaced = null;
-    for (let attempt = 0; attempt < 40 && !hrTop; attempt++) {
-      const secretX = clamp(
-        900 + Math.floor(rng() * 1600) + attempt * 37,
-        180,
-        MAP_WIDTH - 300
-      );
-      const stairDefs = [
-        { x: secretX - 30, y: stairYs[0], w: 110, label: "hr-step-0" },
-        { x: secretX + 15, y: stairYs[1], w: 100, label: "hr-step-1" },
-        { x: secretX + 50, y: stairYs[2], w: 95, label: "hr-step-2" },
-        { x: secretX + 70, y: stairYs[3], w: 130, label: "hr-dungeon" },
-      ];
-      let clear = true;
-      const cands = [];
-      for (let si = 0; si < stairDefs.length; si++) {
-        const s = stairDefs[si];
-        const cand = rect(s.x, s.y, s.w, 14, s.label);
-        if (overlapsAny(floatPlats, cand, 10)) {
-          clear = false;
-          break;
-        }
-        // steps shouldn't stack on each other except intentional cascade
-        if (overlapsAny(cands, cand, 6)) {
-          clear = false;
-          break;
-        }
-        cands.push(cand);
+    // Deterministic scan across the map so we always find a pocket
+    for (let secretX = 400; secretX < MAP_WIDTH - 320 && !hrTop; secretX += 70) {
+      const cands = buildStairAt(secretX);
+      if (!stairClear(cands, 8)) continue;
+      for (let si = 0; si < cands.length; si++) {
+        platforms.push(cands[si]);
+        floatPlats.push(cands[si]);
       }
-      if (!clear) continue;
+      hrTop = cands[cands.length - 1];
+      stairPlaced = cands;
+    }
+    // Hard fallback: park the stair near mid-map and shove blocking floats aside
+    if (!hrTop) {
+      const secretX = 1400;
+      const cands = buildStairAt(secretX);
+      // Drop any float that collides with the stair (except walls)
+      const keptFloats = [];
+      for (let fi = 0; fi < floatPlats.length; fi++) {
+        const fp = floatPlats[fi];
+        let hit = false;
+        for (let si = 0; si < cands.length; si++) {
+          if (rectsOverlap(fp, cands[si], 6)) {
+            hit = true;
+            break;
+          }
+        }
+        if (!hit) keptFloats.push(fp);
+      }
+      // Rebuild platforms list without removed floats
+      const removeSet = {};
+      for (let fi = 0; fi < floatPlats.length; fi++) {
+        let found = false;
+        for (let ki = 0; ki < keptFloats.length; ki++) {
+          if (keptFloats[ki] === floatPlats[fi]) {
+            found = true;
+            break;
+          }
+        }
+        if (!found) removeSet[floatPlats[fi].x + ":" + floatPlats[fi].y] = true;
+      }
+      const nextPlatforms = [];
+      for (let pi = 0; pi < platforms.length; pi++) {
+        const p = platforms[pi];
+        if (p.h < 40 && removeSet[p.x + ":" + p.y]) continue;
+        nextPlatforms.push(p);
+      }
+      // reset floatPlats reference used below
+      floatPlats.length = 0;
+      for (let ki = 0; ki < keptFloats.length; ki++) floatPlats.push(keptFloats[ki]);
+      platforms.length = 0;
+      for (let pi = 0; pi < nextPlatforms.length; pi++) platforms.push(nextPlatforms[pi]);
       for (let si = 0; si < cands.length; si++) {
         platforms.push(cands[si]);
         floatPlats.push(cands[si]);
