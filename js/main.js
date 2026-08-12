@@ -519,8 +519,29 @@
     const reading = !!game.notifications.active;
 
     if (slackPad) {
-      if (reading && isCoarse()) slackPad.classList.add("open");
+      // Show reply buttons whenever reading (mouse click + touch)
+      if (reading) slackPad.classList.add("open");
       else slackPad.classList.remove("open");
+      // Relabel pad from current note choices when possible
+      if (reading && game.notifications.active) {
+        const note = game.notifications.active;
+        const nonQuit = (note.choices || []).filter(function (c) {
+          return c.id !== "quit";
+        });
+        const map = ["dismiss", "on_it", "love", "pushback"];
+        for (let i = 0; i < map.length; i++) {
+          const btn = slackPad.querySelector(
+            '[data-reply="' + map[i] + '"]'
+          );
+          if (!btn) continue;
+          if (nonQuit[i]) {
+            btn.style.display = "";
+            btn.textContent = i + 1 + " " + nonQuit[i].label;
+          } else {
+            btn.style.display = "none";
+          }
+        }
+      }
     }
     if (btnSlack) {
       if (inbox > 0 || reading) btnSlack.classList.add("has-mail");
@@ -826,6 +847,50 @@
     { once: false }
   );
 
+  // Click Slack options drawn on the canvas (desktop mouse / trackpad)
+  function canvasLogicCoords(ev) {
+    const rect = canvas.getBoundingClientRect();
+    const sx = canvas.width / rect.width;
+    const sy = canvas.height / rect.height;
+    const px = (ev.clientX - rect.left) * sx;
+    const py = (ev.clientY - rect.top) * sy;
+    // Canvas is SCALE times logical playfield
+    return {
+      x: px / Render.SCALE,
+      y: py / Render.SCALE,
+    };
+  }
+
+  canvas.addEventListener("pointerdown", function (ev) {
+    ensureAudio();
+    if (!game.notifications.active) return;
+    if (userPaused || tabPaused) return;
+    const pt = canvasLogicCoords(ev);
+    const id =
+      Render.hitTestNotification &&
+      Render.hitTestNotification(game.notifications.active, pt.x, pt.y);
+    if (id) {
+      ev.preventDefault();
+      reply(id);
+      // brief pointer feedback
+      canvas.style.cursor = "pointer";
+    }
+  });
+
+  canvas.addEventListener("pointermove", function (ev) {
+    if (!game.notifications.active || !Render.hitTestNotification) {
+      canvas.style.cursor = "";
+      return;
+    }
+    const pt = canvasLogicCoords(ev);
+    const id = Render.hitTestNotification(
+      game.notifications.active,
+      pt.x,
+      pt.y
+    );
+    canvas.style.cursor = id ? "pointer" : "default";
+  });
+
   function frame(ts) {
     if (tabPaused || document.hidden) {
       last = 0;
@@ -909,7 +974,7 @@
         "◀▶ move · JUMP · ❚❚ pause · Slack · Settings for difficulty" + mute;
     } else {
       hint.innerHTML =
-        '<span class="desk-hint">A/D move · W/Space jump · Esc/P pause · Tab/E Slack · 1–4 reply · 5 QUIT · M mute</span>' +
+        '<span class="desk-hint">A/D move · W/Space jump · Esc/P pause · Tab/E Slack · click or 1–5 to reply · M mute</span>' +
         mute;
     }
   }

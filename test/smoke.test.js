@@ -46,6 +46,33 @@ describe("scaffold smoke", () => {
     assert.match(main, /tabPaused/);
   });
 
+  it("render exposes Slack click hit-testing", () => {
+    const render = require("../js/render.js");
+    assert.equal(typeof render.hitTestNotification, "function");
+    assert.equal(typeof render.getNotificationHitTargets, "function");
+    const note = {
+      kind: "slack",
+      choices: [
+        { id: "dismiss", label: "Mute" },
+        { id: "on_it", label: "On it" },
+        { id: "love", label: "Love" },
+        { id: "pushback", label: "Push" },
+        { id: "quit", label: "QUIT" },
+      ],
+      thread: [],
+      timer: 10,
+      maxTimer: 10,
+    };
+    const hits = render.getNotificationHitTargets(note);
+    assert.ok(hits.length >= 4);
+    const mid = hits[0];
+    assert.equal(
+      render.hitTestNotification(note, mid.x + mid.w / 2, mid.y + mid.h / 2),
+      mid.id
+    );
+    assert.equal(render.hitTestNotification(note, 0, 0), null);
+  });
+
   it("main.js supports user pause and abandon", () => {
     const main = fs.readFileSync(
       path.join(__dirname, "..", "js", "main.js"),

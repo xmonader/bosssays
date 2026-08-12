@@ -224,15 +224,10 @@
         #touch {
           display: none;
         }
-        #slack-pad.open {
-          display: none; /* desktop uses keys 1–5 */
-        }
       }
-      /* Always allow slack pad on coarse even if wide tablet */
-      @media (pointer: coarse) {
-        #slack-pad.open {
-          display: flex;
-        }
+      /* Slack reply pad whenever reading (mouse + touch) */
+      #slack-pad.open {
+        display: flex;
       }
 
       noscript {

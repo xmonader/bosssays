@@ -1031,6 +1031,81 @@
     ctx.globalAlpha = 1;
   }
 
+  /**
+   * Layout for Slack modal choice buttons (logical coords). Used for draw + click hit tests.
+   * @returns {{id:string,label:string,x:number,y:number,w:number,h:number}[]}
+   */
+  function getNotificationHitTargets(note) {
+    if (!note) return [];
+    const boxW = 560;
+    const hasThread = note.thread && note.thread.length;
+    const x = (LOGIC_W - boxW) / 2;
+    const y = 48;
+    const barY =
+      note.kind === "vent" && hasThread
+        ? y + 250
+        : hasThread
+          ? y + 220
+          : y + 168;
+    const choices = note.choices || [];
+    const gap = 8;
+    const row1 = choices
+      .filter(function (c) {
+        return c.id !== "quit";
+      })
+      .slice(0, 4);
+    const quitC = choices.filter(function (c) {
+      return c.id === "quit";
+    })[0];
+    const bw = Math.min(
+      128,
+      Math.floor((boxW - 40 - (row1.length - 1) * gap) / Math.max(1, row1.length))
+    );
+    const total = row1.length * bw + (row1.length - 1) * gap;
+    let cx = x + (boxW - total) / 2;
+    const cy1 = barY + 28;
+    const hits = [];
+    for (let i = 0; i < row1.length; i++) {
+      hits.push({
+        id: row1[i].id,
+        label: row1[i].label,
+        x: cx,
+        y: cy1,
+        w: bw,
+        h: 28,
+      });
+      cx += bw + gap;
+    }
+    if (quitC) {
+      const qbw = 280;
+      hits.push({
+        id: quitC.id,
+        label: quitC.label,
+        x: x + (boxW - qbw) / 2,
+        y: cy1 + 32,
+        w: qbw,
+        h: 30,
+      });
+    }
+    return hits;
+  }
+
+  function hitTestNotification(note, logicX, logicY) {
+    const hits = getNotificationHitTargets(note);
+    for (let i = 0; i < hits.length; i++) {
+      const h = hits[i];
+      if (
+        logicX >= h.x &&
+        logicX <= h.x + h.w &&
+        logicY >= h.y &&
+        logicY <= h.y + h.h
+      ) {
+        return h.id;
+      }
+    }
+    return null;
+  }
+
   function drawNotification(ctx, note) {
     if (!note) return;
     const large = !!(arguments[2] && arguments[2].largeText);
@@ -1562,6 +1637,8 @@
     LOGIC_H: LOGIC_H,
     SCALE: SCALE,
     draw: draw,
+    getNotificationHitTargets: getNotificationHitTargets,
+    hitTestNotification: hitTestNotification,
   };
 
   if (typeof module !== "undefined" && module.exports) {
