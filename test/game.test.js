@@ -306,6 +306,54 @@ describe("map", () => {
     }
   });
 
+  it("blockers leave room for the player to pass between them", () => {
+    const PLAYER_W = 28;
+    const MIN_EDGE_GAP = PLAYER_W + 12; // player + buffer
+    for (let sprint = 1; sprint <= 12; sprint++) {
+      const m = Map.createOfficeMap({ sprint: sprint });
+      const es = m.enemySpawns
+        .map(function (e) {
+          return { x: e.x, y: e.y, w: 28, h: 28 };
+        })
+        .sort(function (a, b) {
+          return a.x - b.x || a.y - b.y;
+        });
+      for (let i = 0; i < es.length; i++) {
+        for (let j = i + 1; j < es.length; j++) {
+          if (Math.abs(es[i].y - es[j].y) > 24) continue;
+          const left = es[i].x <= es[j].x ? es[i] : es[j];
+          const right = es[i].x <= es[j].x ? es[j] : es[i];
+          const gap = right.x - (left.x + left.w);
+          assert.ok(
+            gap >= MIN_EDGE_GAP,
+            "enemy gap " + gap + " < " + MIN_EDGE_GAP + " sprint " + sprint
+          );
+        }
+      }
+    }
+  });
+
+  it("floor pits are wide enough to fall through", () => {
+    for (let sprint = 1; sprint <= 10; sprint++) {
+      const m = Map.createOfficeMap({ sprint: sprint });
+      const floors = m.platforms
+        .filter(function (p) {
+          return p.h >= 40 && String(p.label || "").indexOf("wall") !== 0;
+        })
+        .sort(function (a, b) {
+          return a.x - b.x;
+        });
+      for (let i = 1; i < floors.length; i++) {
+        const gap = floors[i].x - (floors[i - 1].x + floors[i - 1].w);
+        if (gap <= 0) continue;
+        assert.ok(
+          gap >= 60,
+          "floor gap " + gap + " too narrow sprint " + sprint
+        );
+      }
+    }
+  });
+
   it("enemies patrol ledges without dying", () => {
     const game = Game.createGame({ skipTutorial: true });
     const n0 = game.enemies.filter((e) => e.alive).length;
@@ -426,17 +474,20 @@ describe("collectibles", () => {
   });
 
   it("coffee reduces context, sleep debt, and sets thought", () => {
-    const game = Game.createGame();
+    const game = Game.createGame({ skipTutorial: true });
     game.effects.context = 40;
     game.effects.sleepDebt = 50;
+    game.enemies.forEach(function (e) {
+      e.alive = false;
+    });
     const c = game.collectibles.find((x) => x.kind === "coffee");
+    assert.ok(c, "map should have coffee");
     game.collectibles.forEach(function (o) {
-      if (o !== c && Math.abs(o.x - c.x) < 10 && Math.abs(o.y - c.y) < 10) {
-        o.collected = true;
-      }
+      if (o !== c) o.collected = true;
     });
     game.player.x = c.x;
     game.player.y = c.y;
+    game.player.invuln = 2;
     Game.step(game, {}, 1 / 60);
     assert.equal(c.collected, true);
     assert.ok(game.effects.context < 40);

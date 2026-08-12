@@ -983,6 +983,36 @@
         e.vx *= -1;
       }
 
+      // Reverse when about to clump with another blocker — keep passable gaps
+      for (let j = 0; j < game.enemies.length; j++) {
+        if (i === j) continue;
+        const o = game.enemies[j];
+        if (!o.alive) continue;
+        if (Math.abs(o.y - e.y) > 20) continue;
+        const gap =
+          e.x < o.x ? o.x - (e.x + e.w) : e.x - (o.x + o.w);
+        // If closing in and gap would leave less than player width + buffer
+        if (gap >= 0 && gap < 40) {
+          const approaching =
+            (e.vx > 0 && e.x < o.x) || (e.vx < 0 && e.x > o.x);
+          if (approaching) {
+            e.vx *= -1;
+            // Nudge apart so they don't stick
+            if (e.x < o.x) e.x = o.x - e.w - 42;
+            else e.x = o.x + o.w + 42;
+          }
+        } else if (gap < 0) {
+          // Overlapping — push apart
+          if (e.x <= o.x) {
+            e.x = o.x - e.w - 42;
+            if (e.vx > 0) e.vx *= -1;
+          } else {
+            e.x = o.x + o.w + 42;
+            if (e.vx < 0) e.vx *= -1;
+          }
+        }
+      }
+
       e.y += e.vy * dt;
       e.onGround = false;
       for (let j = 0; j < platforms.length; j++) {
@@ -1002,7 +1032,12 @@
       if (e.y > game.map.height + 50) {
         e.x = e.homeX != null ? e.homeX : e.x;
         e.y = e.homeY != null ? e.homeY : game.map.groundY - e.h;
-        e.vx = e.homeVx != null ? e.homeVx : (e.vx < 0 ? -Math.abs(e.vx) : Math.abs(e.vx));
+        e.vx =
+          e.homeVx != null
+            ? e.homeVx
+            : e.vx < 0
+              ? -Math.abs(e.vx)
+              : Math.abs(e.vx);
         e.vy = 0;
         e.onGround = false;
       }

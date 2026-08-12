@@ -162,10 +162,10 @@
         ? brand + " → " + BRANDS[sprint % BRANDS.length]
         : brand + " HQ";
 
-    // Gap pattern between floor segments (keeps route learnable but not identical)
-    const gapBase = [70, 80, 80, 80];
+    // Gap pattern between floor segments — wide enough for player (28px) to fall through
+    const gapBase = [78, 88, 86, 90];
     const gaps = gapBase.map(function (g, i) {
-      return clamp(g + Math.floor((rng() - 0.5) * 36), 48, 110);
+      return clamp(g + Math.floor((rng() - 0.5) * 28), 64, 120);
     });
 
     // Floor segment widths vary slightly
@@ -232,8 +232,17 @@
     const mode = (sprint - 1) % 5;
 
     function tryAddFloat(cand) {
-      // pad so platforms don't visually stack; slight Y-level peers need X gap
-      if (overlapsAny(floatPlats, cand, 10)) return false;
+      // Keep horizontal corridors so the player (28px) can drop between floats
+      if (overlapsAny(floatPlats, cand, 22)) return false;
+      // Same-height neighbors need a real drop gap (player + breathing room)
+      for (let fi = 0; fi < floatPlats.length; fi++) {
+        const o = floatPlats[fi];
+        if (Math.abs(o.y - cand.y) > 20) continue;
+        const left = cand.x < o.x ? cand : o;
+        const right = cand.x < o.x ? o : cand;
+        const gap = right.x - (left.x + left.w);
+        if (gap >= 0 && gap < 44) return false;
+      }
       floatPlats.push(cand);
       platforms.push(cand);
       return true;
@@ -358,30 +367,43 @@
     }
 
     // Enemies after pickups: never on SP/coffee, keep off spawn, patrol wide floors
-    const enemyCount = clamp(5 + Math.floor((sprint - 1) / 2), 5, 12);
+    // Cap density so player can always drop/walk between blockers (player w=28)
+    const enemyCount = clamp(4 + Math.floor((sprint - 1) / 2), 4, 9);
     const enemySpawns = [];
     const speedBase = 40 + Math.min(40, sprint * 3);
-    const ENEMY_PICKUP_PAD = 36; // blockers never sit on story points
+    const ENEMY_PICKUP_PAD = 36;
+    // Edge-to-edge style pad: leave room for player + jump buffer between blockers
+    const ENEMY_SEP = 72;
     // Prefer wide solid tops so ledge AI has room to patrol
     const patrolTops = floorTops.filter(function (p) {
-      return p.w >= 120;
+      return p.w >= 160;
     });
+    // Only one blocker per short float; wide floats only
     const floatPatrol = floatPlats.filter(function (p) {
-      return p.w >= 100;
+      return p.w >= 140;
     });
+    // Track how many enemies already on each host platform (by approx key)
+    const hostLoad = {};
+
+    function hostKey(p) {
+      if (!p) return "ground";
+      return Math.round(p.x) + ":" + Math.round(p.y) + ":" + Math.round(p.w);
+    }
 
     for (let i = 0; i < enemyCount; i++) {
       let placed = false;
-      for (let attempt = 0; attempt < 24 && !placed; attempt++) {
-        const onFloat =
-          rng() < 0.25 && floatPatrol.length > 0;
+      for (let attempt = 0; attempt < 28 && !placed; attempt++) {
+        const onFloat = rng() < 0.2 && floatPatrol.length > 0;
         let host;
         let ex;
         let ey;
         if (onFloat) {
           host = pick(rng, floatPatrol);
-          const inset = 16;
-          ex = host.x + inset + rng() * Math.max(4, host.w - inset * 2 - ENEMY_SIZE);
+          // At most one enemy on a float platform
+          if ((hostLoad[hostKey(host)] || 0) >= 1) continue;
+          const inset = 28;
+          const span = Math.max(4, host.w - inset * 2 - ENEMY_SIZE);
+          ex = host.x + inset + rng() * span;
           ey = host.y - ENEMY_SIZE;
         } else {
           host =
@@ -390,39 +412,40 @@
               : floorTops.length
                 ? pick(rng, floorTops)
                 : null;
-          if (!host) {
+          if (host) {
+            // Density cap: ~1 enemy per 220px of floor
+            const maxOn = Math.max(1, Math.floor(host.w / 220));
+            if ((hostLoad[hostKey(host)] || 0) >= maxOn) continue;
+            const inset = 40;
+            const span = Math.max(4, host.w - inset * 2 - ENEMY_SIZE);
+            ex = host.x + inset + rng() * span;
+            ey = host.y - ENEMY_SIZE;
+          } else {
             ex = 220 + Math.floor(rng() * (MAP_WIDTH - 480));
             ey = GROUND_Y - ENEMY_SIZE;
-          } else {
-            const inset = 24;
-            ex =
-              host.x +
-              inset +
-              rng() * Math.max(4, host.w - inset * 2 - ENEMY_SIZE);
-            ey = host.y - ENEMY_SIZE;
           }
         }
         const cand = { x: ex, y: ey, w: ENEMY_SIZE, h: ENEMY_SIZE };
         if (ex < 160) continue;
-        // keep off player spawn and deploy
-        if (ex < spawn.x + 100) continue;
-        if (ex > deploy.x - 80) continue;
+        if (ex < spawn.x + 120) continue;
+        if (ex > deploy.x - 90) continue;
         if (
           overlapsAny(
             enemySpawns.map(function (e) {
               return { x: e.x, y: e.y, w: ENEMY_SIZE, h: ENEMY_SIZE };
             }),
             cand,
-            48
+            ENEMY_SEP
           )
         ) {
           continue;
         }
-        // Never place blockers on story points / coffee
         if (overlapsAny(collectibleSpawns, cand, ENEMY_PICKUP_PAD)) continue;
         const dir = rng() < 0.5 ? -1 : 1;
         const sp = speedBase + Math.floor(rng() * 30);
         enemySpawns.push({ x: ex, y: ey, vx: dir * sp });
+        const hk = hostKey(host);
+        hostLoad[hk] = (hostLoad[hk] || 0) + 1;
         placed = true;
       }
     }
