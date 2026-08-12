@@ -372,9 +372,13 @@ describe("map", () => {
 
   it("blockers leave room for the player to pass between them", () => {
     const PLAYER_W = 28;
-    const MIN_EDGE_GAP = PLAYER_W + 12; // player + buffer
+    const MIN_EDGE_GAP = PLAYER_W + 40; // wide lane between reds
     for (let sprint = 1; sprint <= 12; sprint++) {
       const m = Map.createOfficeMap({ sprint: sprint });
+      assert.ok(
+        m.enemySpawns.length <= 6,
+        "too many enemies sprint " + sprint
+      );
       const es = m.enemySpawns
         .map(function (e) {
           return { x: e.x, y: e.y, w: 28, h: 28 };
@@ -391,6 +395,27 @@ describe("map", () => {
           assert.ok(
             gap >= MIN_EDGE_GAP,
             "enemy gap " + gap + " < " + MIN_EDGE_GAP + " sprint " + sprint
+          );
+        }
+      }
+    }
+  });
+
+  it("blockers spawn clear of story points and coffee", () => {
+    for (let sprint = 1; sprint <= 12; sprint++) {
+      const m = Map.createOfficeMap({ sprint: sprint });
+      for (let i = 0; i < m.enemySpawns.length; i++) {
+        const e = {
+          x: m.enemySpawns[i].x,
+          y: m.enemySpawns[i].y,
+          w: 28,
+          h: 28,
+        };
+        for (let j = 0; j < m.collectibleSpawns.length; j++) {
+          assert.equal(
+            Map.rectsOverlap(e, m.collectibleSpawns[j], 70),
+            false,
+            "blocker too close to pickup sprint " + sprint
           );
         }
       }

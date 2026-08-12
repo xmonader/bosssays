@@ -1324,24 +1324,41 @@
         if (Math.abs(o.y - e.y) > 20) continue;
         const gap =
           e.x < o.x ? o.x - (e.x + e.w) : e.x - (o.x + o.w);
-        // If closing in and gap would leave less than player width + buffer
-        if (gap >= 0 && gap < 40) {
+        // Keep a player-width lane between patrols
+        if (gap >= 0 && gap < 56) {
           const approaching =
             (e.vx > 0 && e.x < o.x) || (e.vx < 0 && e.x > o.x);
           if (approaching) {
             e.vx *= -1;
-            // Nudge apart so they don't stick
-            if (e.x < o.x) e.x = o.x - e.w - 42;
-            else e.x = o.x + o.w + 42;
+            if (e.x < o.x) e.x = o.x - e.w - 58;
+            else e.x = o.x + o.w + 58;
           }
         } else if (gap < 0) {
-          // Overlapping — push apart
           if (e.x <= o.x) {
-            e.x = o.x - e.w - 42;
+            e.x = o.x - e.w - 58;
             if (e.vx > 0) e.vx *= -1;
           } else {
-            e.x = o.x + o.w + 42;
+            e.x = o.x + o.w + 58;
             if (e.vx < 0) e.vx *= -1;
+          }
+        }
+      }
+
+      // Don't camp on uncollected pickups — reverse before covering SP/coffee
+      if (game.collectibles && e.vx !== 0) {
+        for (let ci = 0; ci < game.collectibles.length; ci++) {
+          const c = game.collectibles[ci];
+          if (c.collected) continue;
+          if (Math.abs(c.y - e.y) > 40) continue;
+          const lookX = e.vx > 0 ? e.x + e.w + 20 : e.x - 20;
+          const near =
+            lookX > c.x - 24 &&
+            lookX < c.x + c.w + 24 &&
+            e.y + e.h > c.y - 8 &&
+            e.y < c.y + c.h + 20;
+          if (near) {
+            e.vx *= -1;
+            break;
           }
         }
       }

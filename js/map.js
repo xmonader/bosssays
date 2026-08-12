@@ -366,25 +366,16 @@
       }
     }
 
-    // Enemies after pickups: never on SP/coffee, keep off spawn, patrol wide floors
-    // Cap density so player can always drop/walk between blockers (player w=28)
-    const enemyCount = clamp(4 + Math.floor((sprint - 1) / 2), 4, 9);
+    // Enemies after pickups — sparse, floor-only, wide berth around SP/coffee
+    // Player needs clear lanes to read the room and grab pickups
+    const enemyCount = clamp(3 + Math.floor((sprint - 1) / 3), 3, 6);
     const enemySpawns = [];
-    const speedBase = 40 + Math.min(40, sprint * 3);
-    const ENEMY_PICKUP_PAD = 36;
-    // Edge-to-edge style pad: leave room for player + jump buffer between blockers
-    const ENEMY_SEP = 72;
-    // Prefer wide solid tops so ledge AI has room to patrol
+    const speedBase = 36 + Math.min(28, sprint * 2);
+    const ENEMY_PICKUP_PAD = 80; // keep blockers off story points / coffee
+    const ENEMY_SEP = 110; // edge pad so you can walk/stomp between them
     const patrolTops = floorTops.filter(function (p) {
-      return p.w >= 160;
+      return p.w >= 200;
     });
-    // Only LOW floats (desks) — mid/high ledges are often not jumpable without a step chain
-    // Player jump peak ~136px; ground feet→LOW is fine; MID from ground is tight/missable
-    const REACHABLE_FLOAT_MIN_Y = 330; // only ~desk height
-    const floatPatrol = floatPlats.filter(function (p) {
-      return p.w >= 120 && p.y >= REACHABLE_FLOAT_MIN_Y && p.label !== "hr-dungeon";
-    });
-    // Track how many enemies already on each host platform (by approx key)
     const hostLoad = {};
 
     function hostKey(p) {
@@ -394,46 +385,32 @@
 
     for (let i = 0; i < enemyCount; i++) {
       let placed = false;
-      for (let attempt = 0; attempt < 28 && !placed; attempt++) {
-        // Prefer floor (85%); rare desk-only floats so blockers stay stompable
-        const onFloat = rng() < 0.12 && floatPatrol.length > 0;
-        let host;
+      for (let attempt = 0; attempt < 36 && !placed; attempt++) {
+        // Floor only — desks stay free for pickups / reading the layout
+        const host =
+          patrolTops.length > 0
+            ? pick(rng, patrolTops)
+            : floorTops.length
+              ? pick(rng, floorTops)
+              : null;
         let ex;
         let ey;
-        if (onFloat) {
-          host = pick(rng, floatPatrol);
-          if ((hostLoad[hostKey(host)] || 0) >= 1) continue;
-          const inset = 28;
+        if (host) {
+          // Max 1 enemy per ~300px of floor segment
+          const maxOn = Math.max(1, Math.floor(host.w / 300));
+          if ((hostLoad[hostKey(host)] || 0) >= maxOn) continue;
+          const inset = 56;
           const span = Math.max(4, host.w - inset * 2 - ENEMY_SIZE);
           ex = host.x + inset + rng() * span;
           ey = host.y - ENEMY_SIZE;
         } else {
-          host =
-            patrolTops.length > 0
-              ? pick(rng, patrolTops)
-              : floorTops.length
-                ? pick(rng, floorTops)
-                : null;
-          if (host) {
-            // Density cap: ~1 enemy per 220px of floor
-            const maxOn = Math.max(1, Math.floor(host.w / 220));
-            if ((hostLoad[hostKey(host)] || 0) >= maxOn) continue;
-            const inset = 40;
-            const span = Math.max(4, host.w - inset * 2 - ENEMY_SIZE);
-            ex = host.x + inset + rng() * span;
-            ey = host.y - ENEMY_SIZE;
-          } else {
-            ex = 220 + Math.floor(rng() * (MAP_WIDTH - 480));
-            ey = GROUND_Y - ENEMY_SIZE;
-          }
+          ex = 280 + Math.floor(rng() * (MAP_WIDTH - 560));
+          ey = GROUND_Y - ENEMY_SIZE;
         }
-        // Never above reachable height
-        if (ey + ENEMY_SIZE < REACHABLE_FLOAT_MIN_Y - 4 && onFloat) continue;
-        if (ey < GROUND_Y - ENEMY_SIZE - 80) continue; // refuse mid/high float spawns
         const cand = { x: ex, y: ey, w: ENEMY_SIZE, h: ENEMY_SIZE };
-        if (ex < 160) continue;
-        if (ex < spawn.x + 120) continue;
-        if (ex > deploy.x - 90) continue;
+        if (ex < 200) continue;
+        if (ex < spawn.x + 160) continue;
+        if (ex > deploy.x - 100) continue;
         if (
           overlapsAny(
             enemySpawns.map(function (e) {
@@ -445,9 +422,10 @@
         ) {
           continue;
         }
+        // Hard keep-away from pickups (and early coffee/SP)
         if (overlapsAny(collectibleSpawns, cand, ENEMY_PICKUP_PAD)) continue;
         const dir = rng() < 0.5 ? -1 : 1;
-        const sp = speedBase + Math.floor(rng() * 30);
+        const sp = speedBase + Math.floor(rng() * 22);
         enemySpawns.push({ x: ex, y: ey, vx: dir * sp });
         const hk = hostKey(host);
         hostLoad[hk] = (hostLoad[hk] || 0) + 1;
