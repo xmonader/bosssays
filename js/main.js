@@ -44,6 +44,7 @@
   let rafId = 0;
   let audioReady = false;
   let tabPaused = typeof document !== "undefined" && document.hidden;
+  let userPaused = false;
 
   const canvas = document.getElementById("game");
   if (!canvas) {
@@ -59,6 +60,8 @@
   const btnSlack = document.getElementById("btn-slack");
   const btnMute = document.getElementById("btn-mute");
   const btnRestart = document.getElementById("btn-restart");
+  const btnPause = document.getElementById("btn-pause");
+  const btnPauseTouch = document.getElementById("btn-pause-touch");
   const settingsPanel = document.getElementById("settings-panel");
   const bestLine = document.getElementById("best-line");
 
@@ -116,13 +119,77 @@
       (b.difficulty || "mid");
   }
 
+  function isSimPaused() {
+    return userPaused || tabPaused || document.hidden;
+  }
+
   function restart(opts) {
+    userPaused = false;
     game = Game.createGame(startOpts(opts || {}));
     last = 0;
     ensureAudio();
     if (Audio && loadSettings().sfx !== false) Audio.play("reply");
     syncMobileChrome();
     updateBestLine();
+    if (!tabPaused && !rafId) {
+      rafId = requestAnimationFrame(frame);
+    }
+  }
+
+  function abandonRun() {
+    if (game.phase === "gameover") return;
+    game.phase = "gameover";
+    game.endReason = "paused_out";
+    game.message = "You stepped away. HR marked you AFK.";
+    game.messageTimer = 99;
+    game.notifications.active = null;
+    if (Meta && Game.snapshotRun) {
+      Meta.considerBest(Game.snapshotRun(game));
+    }
+    userPaused = false;
+    clearHeldKeys();
+    if (Audio) Audio.play("gameover");
+    Render.draw(ctx, game);
+    syncMobileChrome();
+    updateBestLine();
+  }
+
+  function setUserPaused(paused) {
+    if (game.phase === "gameover") {
+      userPaused = false;
+      return;
+    }
+    userPaused = !!paused;
+    canvas.dataset.userPaused = userPaused ? "1" : "0";
+    clearHeldKeys();
+    last = 0;
+    if (userPaused) {
+      if (Audio && typeof Audio.stopBgm === "function") Audio.stopBgm();
+      Render.draw(ctx, game);
+      drawUserPauseOverlay(ctx);
+    } else {
+      if (
+        audioReady &&
+        Audio &&
+        !Audio.isMuted() &&
+        loadSettings().bgm !== false &&
+        !tabPaused
+      ) {
+        Audio.startBgm();
+      }
+      if (!rafId && !tabPaused) {
+        rafId = requestAnimationFrame(frame);
+      }
+    }
+    if (btnPause) btnPause.textContent = userPaused ? "Resume" : "Pause";
+    if (btnPauseTouch) {
+      btnPauseTouch.textContent = userPaused ? "▶" : "❚❚";
+    }
+    syncMobileChrome();
+  }
+
+  function toggleUserPause() {
+    setUserPaused(!userPaused);
   }
 
   function shareCard() {
@@ -267,6 +334,37 @@
     c.restore();
   }
 
+  function drawUserPauseOverlay(c) {
+    const w = Render.VIEW_W;
+    const h = Render.VIEW_H;
+    c.save();
+    c.setTransform(1, 0, 0, 1, 0, 0);
+    c.fillStyle = "rgba(15,23,42,0.72)";
+    c.fillRect(0, 0, w, h);
+    c.fillStyle = "#f8fafc";
+    c.font = "bold 34px system-ui,sans-serif";
+    c.textAlign = "center";
+    c.fillText("PAUSED", w / 2, h / 2 - 48);
+    c.font = "16px system-ui,sans-serif";
+    c.fillStyle = "#cbd5e1";
+    c.fillText("Esc / P — resume", w / 2, h / 2 - 8);
+    c.fillText("R — new run · Q — abandon (AFK end)", w / 2, h / 2 + 22);
+    c.fillStyle = "#94a3b8";
+    c.font = "14px system-ui,sans-serif";
+    c.fillText(
+      "Sprint " +
+        game.sprint +
+        " · Score " +
+        (game.score || 0) +
+        " · PTO " +
+        game.lives,
+      w / 2,
+      h / 2 + 56
+    );
+    c.textAlign = "left";
+    c.restore();
+  }
+
   function isCoarse() {
     try {
       return window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 900;
@@ -304,6 +402,34 @@
   function onKey(e, down) {
     const k = e.key;
     if (down) ensureAudio();
+
+    // Pause / resume always available (except pure gameover — use R)
+    if (
+      down &&
+      (k === "Escape" || k === "p" || k === "P" || k === "Pause")
+    ) {
+      if (game.phase !== "gameover") {
+        toggleUserPause();
+        e.preventDefault();
+        return;
+      }
+    }
+
+    if (userPaused) {
+      if (down && (k === "r" || k === "R")) {
+        restart();
+        e.preventDefault();
+        return;
+      }
+      if (down && (k === "q" || k === "Q")) {
+        abandonRun();
+        e.preventDefault();
+        return;
+      }
+      // Block movement while paused
+      if (down) e.preventDefault();
+      return;
+    }
 
     if (down && game.notifications.active) {
       const map = {
@@ -420,15 +546,23 @@
       if (act === "slack") {
         if (game.notifications.active) return;
         keys.openInbox = true;
+      } else if (act === "pause") {
+        toggleUserPause();
       } else if (act === "mute" && Audio) {
         Audio.setMuted(!Audio.isMuted());
         updateHint();
         syncMobileChrome();
       } else if (act === "restart") {
-        if (game.phase === "gameover") restart();
+        if (game.phase === "gameover" || userPaused) restart();
       }
     });
   });
+  if (btnPause) {
+    btnPause.addEventListener("click", function () {
+      ensureAudio();
+      toggleUserPause();
+    });
+  }
   document.querySelectorAll("#slack-pad [data-reply]").forEach(function (el) {
     bindTap(el, function () {
       reply(el.getAttribute("data-reply"));
@@ -466,6 +600,18 @@
     last = ts;
     if (dt > 0.05) dt = 0.05;
 
+    if (userPaused) {
+      keys.jumpPressed = false;
+      keys.openInbox = false;
+      Render.draw(ctx, game);
+      drawUserPauseOverlay(ctx);
+      syncMobileChrome();
+      canvas.dataset.userPaused = "1";
+      canvas.dataset.painted = "1";
+      rafId = requestAnimationFrame(frame);
+      return;
+    }
+
     const input = {
       left: keys.left,
       right: keys.right,
@@ -485,6 +631,7 @@
 
     canvas.dataset.painted = "1";
     canvas.dataset.tabPaused = "0";
+    canvas.dataset.userPaused = "0";
     canvas.dataset.sprint = String(game.sprint);
     canvas.dataset.lives = String(game.lives);
     canvas.dataset.phase = game.phase;
@@ -515,11 +662,10 @@
     const mute = Audio && Audio.isMuted() ? " · sound OFF" : "";
     if (isCoarse()) {
       hint.textContent =
-        "◀▶ move · JUMP · Slack · powerups FOC/OOP/★ · Settings for difficulty" +
-        mute;
+        "◀▶ move · JUMP · ❚❚ pause · Slack · Settings for difficulty" + mute;
     } else {
       hint.innerHTML =
-        '<span class="desk-hint">A/D move · W/Space jump · Tab/E Slack · 1–4 reply · 5 QUIT · M mute · S share (game over)</span>' +
+        '<span class="desk-hint">A/D move · W/Space jump · Esc/P pause · Tab/E Slack · 1–4 reply · 5 QUIT · M mute</span>' +
         mute;
     }
   }
@@ -545,6 +691,18 @@
     isTabPaused: function () {
       return tabPaused || document.hidden;
     },
+    isUserPaused: function () {
+      return userPaused;
+    },
+    isSimPaused: isSimPaused,
+    pause: function () {
+      setUserPaused(true);
+    },
+    resume: function () {
+      setUserPaused(false);
+    },
+    togglePause: toggleUserPause,
+    abandon: abandonRun,
     isMobileUi: isCoarse,
     restart: restart,
     shareCard: shareCard,

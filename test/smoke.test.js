@@ -46,6 +46,22 @@ describe("scaffold smoke", () => {
     assert.match(main, /tabPaused/);
   });
 
+  it("main.js supports user pause and abandon", () => {
+    const main = fs.readFileSync(
+      path.join(__dirname, "..", "js", "main.js"),
+      "utf8"
+    );
+    assert.match(main, /userPaused/);
+    assert.match(main, /setUserPaused|toggleUserPause/);
+    assert.match(main, /Escape/);
+    assert.match(main, /abandonRun|paused_out/);
+    const html = fs.readFileSync(
+      path.join(__dirname, "..", "index.html"),
+      "utf8"
+    );
+    assert.match(html, /btn-pause/);
+  });
+
   it("index has mobile touch controls and viewport meta", () => {
     const html = fs.readFileSync(
       path.join(__dirname, "..", "index.html"),

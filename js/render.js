@@ -1127,19 +1127,34 @@
     ctx.fillStyle = quit ? "#fecaca" : promoted ? "#f9a8d4" : "#f8fafc";
     ctx.font = "bold 34px sans-serif";
     ctx.textAlign = "center";
+    const afkTitle = game.endReason === "paused_out";
     ctx.fillText(
-      quit ? "I QUIT." : promoted ? "PROMOTED" : "LAID OFF",
+      quit
+        ? "I QUIT."
+        : promoted
+          ? "PROMOTED"
+          : afkTitle
+            ? "AFK"
+            : "LAID OFF",
       LOGIC_W / 2,
       LOGIC_H / 2 - 28
     );
     ctx.font = "15px sans-serif";
-    ctx.fillStyle = quit ? "#fca5a5" : promoted ? "#fbcfe8" : "#94a3b8";
+    ctx.fillStyle = quit
+      ? "#fca5a5"
+      : promoted
+        ? "#fbcfe8"
+        : afkTitle
+          ? "#93c5fd"
+          : "#94a3b8";
     ctx.fillText(
       quit
         ? "You sent the message. HR is typing. Birds are singing."
         : promoted
           ? "Jump key unbound. Welcome to middle management."
-          : "They said it was a restructuring. Of your employment.",
+          : afkTitle
+            ? "You paused the game and walked away. Calendar still booked you."
+            : "They said it was a restructuring. Of your employment.",
       LOGIC_W / 2,
       LOGIC_H / 2 + 4
     );
@@ -1171,12 +1186,15 @@
       LOGIC_W / 2,
       LOGIC_H / 2 + 52
     );
+    const afk = game.endReason === "paused_out";
     ctx.fillText(
       quit
         ? "Press R to un-quit · S share card"
         : promoted
           ? "Press R to demote yourself · S share"
-          : "Press R to re-interview · S share card",
+          : afk
+            ? "Press R for a new run · S share card"
+            : "Press R to re-interview · S share card",
       LOGIC_W / 2,
       LOGIC_H / 2 + 78
     );
