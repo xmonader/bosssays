@@ -5212,34 +5212,190 @@
     "Riley Soto",
     "Devon Walsh",
     "Mei Lin",
+    "Omar Haddad",
+    "Chris Patel",
+    "Lena Ortiz",
+    "Theo Brooks",
+    "Hana Kim",
+    "Jordan Lee",
+    "Sofia Mendes",
+    "Alex Rivera",
+    "Nina Volkov",
+    "Tomás Silva",
+    "Grace Okonkwo",
+    "Yusuf Ali",
+    "Elena Rossi",
+    "Noah Berg",
+    "Ivy Chen",
+    "Malik Johnson",
   ];
 
   const VENT_LINES = [
+    // Meetings & process
     "My manager scheduled a meeting to discuss why we have too many meetings.",
-    "They hired a 'AI-native PM' who asked me to explain what a branch is. Twice.",
-    "Story points were converted to 'energy units.' Mine is empty.",
-    "I fixed a SEV-1. The RCA says I should have prevented the CEO's force-push.",
     "Standup was 47 minutes. We learned nobody has updates. Again.",
-    "The roadmap is a screenshot of a napkin from the offsite.",
-    "I'm mentoring my new manager. They outrank me. In karma only, apparently not.",
-    "Deploy freze until 'strategy sync.' Strategy is vibes. Freeze is real.",
-    "They replaced our monitoring with a Slack channel called #is-it-down.",
-    "I wrote a design doc. Leadership asked ChatGPT to summarize it and disagreed with the summary.",
-    "On-call is a personality type now. HR says it's culture.",
-    "My OKRs are ship features that don't exist yet and be happy about it.",
-    "They archived the tech debt backlog. Declared debt free. Code still screams.",
-    "I got a 'quick question' that was a full product rewrite in emoji form.",
-    "Performance feedback: 'needs more urgency.' I have three jobs and one body.",
-    "The AI PR bot approved its own broken test. CI is optional now.",
     "Calendar declined my focus block for a 'sync on the sync.'",
-    "We're a flat org. My skip-level has a skip-level with a deck about flatness.",
-    "I asked for headcount. They gave me a GitHub Copilot seat and a pizza emoji.",
-    "Production is held together by a cron job named please_dont_die.sh.",
     "They want us to move faster by adding another process for process changes.",
     "I haven't written code in 3 days. I've been in meetings about writing code.",
-    "The beach hire asked me to pair. They brought a laptop with no IDE.",
+    "We're a flat org. My skip-level has a skip-level with a deck about flatness.",
+    "Definition of Done was redefined mid-sprint. Again. To include a parade.",
+    "The retro action item was 'have fewer retros.' We scheduled two more.",
+    "I blocked focus time. It got renamed 'optional collaboration window.'",
+    "Standup has a standup now. Pre-standup alignment. I'm dying.",
+    "They moved us to Shape Up, then Scrum, then Kanban, then vibes.",
+    "Sprint goal is 'be more agile.' No tickets. Just energy.",
+    "We estimate in Fibonacci, then leadership multiplies by zero.",
+    "Planning poker ended when someone said 'infinite.' They meant the scope.",
+    "RACI chart has twelve R's and zero A's. Classic.",
+    "They banned 'blocked' status. Now we're all 'creatively waiting.'",
+    "Ceremony count: 9/week. Code count: a comment that says TODO.",
+    "The process doc for changing process is longer than our codebase README.",
+    "We have a meeting to prepare the deck for the meeting about the deck.",
+    "My calendar looks like a Jenga tower of yellow blocks named SYNC.",
+    // Leadership / politics
+    "I'm mentoring my new manager. They outrank me. In karma only, apparently not.",
+    "Performance feedback: 'needs more urgency.' I have three jobs and one body.",
+    "I fixed a SEV-1. The RCA says I should have prevented the CEO's force-push.",
     "Blameless postmortem. My name is the only one in the doc.",
+    "They asked for radical candor then PIPed the person who used it.",
+    "Political capital is the only currency that deploys. Mine is monopoly money.",
+    "Skip-level said 'I have your back.' Then forwarded my Slack to HR.",
+    "I got a 'growth opportunity' that is just on-call forever.",
+    "Leadership wants ownership. Of problems they created. By me.",
+    "They said 'fail fast.' Then asked who failed and why in all-hands.",
+    "My promo packet needs a sponsor. Sponsors are busy failing upward.",
+    "They reorged my team into a squad of one. Me. Reporting to a matrix.",
+    "I was told to 'lean in' to a project that was already on fire.",
+    "Vision deck says customer obsession. We haven't talked to a customer since Series B.",
+    "The CEO's 'idea' was my design doc from last year with worse naming.",
+    "I got praised in public and blamed in the private channel. Balance.",
+    "They want a hero. Heroes get paged. Then laid off for burnout costs.",
+    "My manager's manager asked me to translate their manager into tickets.",
+    "I was CC'd on a decision that already shipped to prod. Thanks for the heads-up.",
+    "They measure impact in decks, not diffs.",
+    // AI / tech theater
+    "They hired a 'AI-native PM' who asked me to explain what a branch is. Twice.",
+    "I wrote a design doc. Leadership asked ChatGPT to summarize it and disagreed with the summary.",
+    "The AI PR bot approved its own broken test. CI is optional now.",
     "We're sunsetting the monolith by rewriting it as 47 smaller monoliths.",
+    "They replaced our monitoring with a Slack channel called #is-it-down.",
+    "Production is held together by a cron job named please_dont_die.sh.",
+    "The beach hire asked me to pair. They brought a laptop with no IDE.",
+    "Story points were converted to 'energy units.' Mine is empty.",
+    "Deploy freeze until 'strategy sync.' Strategy is vibes. Freeze is real.",
+    "They archived the tech debt backlog. Declared debt free. Code still screams.",
+    "I got a 'quick question' that was a full product rewrite in emoji form.",
+    "The roadmap is a screenshot of a napkin from the offsite.",
+    "On-call is a personality type now. HR says it's culture.",
+    "My OKRs are ship features that don't exist yet and be happy about it.",
+    "I asked for headcount. They gave me a GitHub Copilot seat and a pizza emoji.",
+    "Copilot wrote the bug. I own the postmortem. Symbiosis.",
+    "They want 'AI everywhere' including the linter that bans human comments.",
+    "We rewrote the service in AI-generated Rust. It compiles feelings, not types.",
+    "The model hallucinated an API. Sales sold it. I'm implementing ghosts.",
+    "Unit tests were 'deprecated in favor of vibe checks.'",
+    "Staging is prod now. Prod is a suggestion.",
+    "They deleted the runbook. Said the AI remembers. The AI does not remember.",
+    "Feature flag count: 400. Documentation: a shrug emoji.",
+    "We have three sources of truth. None of them are true.",
+    "I merged a fix. CI is still red from a flake introduced by the CEO's bot.",
+    "They want microservices for a team of four. Ops is me and a prayer.",
+    "Kubernetes was the answer. Nobody asked the question.",
+    "The data lake is a swamp. With a dashboard that lies politely.",
+    "I spent a day debugging. Root cause: someone 'temporarily' hardcoded true.",
+    "Hotfix went to prod without tests. Follow-up ticket: add tests (P3).",
+    "Our SLA is 99.9%. Our incident channel is 100% full.",
+    "The 'temporary' workaround is four years old and has dependents.",
+    "I asked for a schema change. They said use a JSON blob named misc.",
+    // Hiring / people
+    "We fired the only person who knew the billing system. For 'culture fit.'",
+    "New EM has never shipped. They're coaching me on shipping.",
+    "Interview loop: five hours. Decision: gut feel from the founder.",
+    "They hired a Head of Taste. Taste is shipping my work without credit.",
+    "Onboarding doc is 'ask around.' Around is empty desks.",
+    "My mentee is my manager now. The org chart is a Möbius strip.",
+    "They backfilled a staff role with two interns and a Canva subscription.",
+    "Diversity hire talk from leadership. The eng team is still twelve clones + me.",
+    "I referred a friend. They got rejected for 'too senior.' We need seniors.",
+    "The contractor outlasted three reorgs and my will to live.",
+    // Burnout / life
+    "I dream in Jira ticket keys. That is not a flex.",
+    "PTO denied because 'the sprint needs you.' The sprint always needs me.",
+    "I ate lunch at my desk. The desk ate my soul.",
+    "My wearable says I'm stressed. Slack says 'quick favor?'",
+    "I haven't seen the sun since the last all-hands. It was a recording.",
+    "Coffee is a food group. Sleep is a rumor.",
+    "I muted #general. #general unmuted itself via a bot. Evil.",
+    "Weekend plan: recover from the week. Actual: SEV-2.",
+    "I opened Slack to feel connection. I felt 99+ instead.",
+    "My therapist bills hourly. Leadership bills me in context switches.",
+    "I wrote 'as per my last email' in a thought bubble. Almost sent it.",
+    "Imposter syndrome and actual incompetence of leadership are hard to distinguish.",
+    "I hit inbox zero once. It was a bug. They fixed it.",
+    "My status is 'focusing.' Everyone DMs me 'got a sec?'",
+    "I keep a resignation letter in drafts. It's version 14.",
+    // Customers / product / sales
+    "Sales promised a feature that violates physics and three laws.",
+    "Customer asked for docs. We have a Notion page titled 'TODO: docs.'",
+    "Product wants it both ways: simple UX, every enterprise checkbox.",
+    "We A/B tested nothing and shipped both variants to everyone.",
+    "The NPS survey was only sent to people who work here.",
+    "Roadmap is a graveyard of 'Q3' items living in Q∞.",
+    "Design handed off Figma with 40 frames labeled final_final_v3.",
+    "Scope was cut to MVP. MVP still includes the universe.",
+    "They want personalization without collecting data. Magic, I guess.",
+    "Support escalated a bug titled 'it doesn't work.' Repro steps: 'try it.'",
+    // Security / compliance / ops theater
+    "Security audit next week. We're turning the lint rules on the day before.",
+    "Password policy: change every 30 days. Secrets in Slack: forever.",
+    "We store prod credentials in a shared Google Sheet named 'DO NOT SHARE.'",
+    "SOC2 evidence is screenshots of us smiling at a process.",
+    "They want zero trust. They shared the root password in #eng.",
+    "Backup strategy: hope. Restore test: never.",
+    "The VPN is down. So is trust.",
+    "We got paged for disk full. Root cause: log line 'disk is fine' on a loop.",
+    // Culture slogans vs reality
+    "Culture deck: psychological safety. Reality: don't contradict the deck.",
+    "We 'move with urgency' toward meetings about urgency.",
+    "Core value: transparency. My raise is classified.",
+    "They said work-life balance. On-call calendar says otherwise.",
+    "All-hands Q&A: questions filtered to compliments.",
+    "Hackathon prize: a hoodie. Cost of my weekend: dignity.",
+    "Free snacks, paid with unpaid overtime. Fair trade.",
+    "Team offsite is a Zoom background of a beach.",
+    "We celebrate shipping by announcing the next deadline in the same message.",
+    "Recognition channel is 90% leadership recognizing themselves.",
+    // Short punchy vents
+    "Jira is a lifestyle.",
+    "This could have been a 404.",
+    "I'm not blocked. I'm entombed.",
+    "Context window: full. Will to live: paging.",
+    "Ship happens.",
+    "The bug is social.",
+    "LGTM (Lies Generate Technical Myths).",
+    "Works on my machine. My machine is a lie.",
+    "I am the glue code. Glue is tired.",
+    "Please stop inventing new ways to say 'ASAP.'",
+    "If everything is P0, nothing is. Also everything is.",
+    "My PR has been 'almost approved' since Thursday.",
+    "Reviewers: 0. Opinions: 40.",
+    "I refactored. They reverted. For 'timing.'",
+    "The branch name is longer than the fix.",
+    "We pair programmed anxiety.",
+    "I fixed the flaky test by deleting the test. Velocity up. Morale down.",
+    "Please don't @channel me into a crisis I already fixed.",
+    "The wiki is a museum of abandoned truths.",
+    "I would like one day where Slack is wrong and code is right.",
+    "Who owns this? Everyone. So no one.",
+    "The dependency is deprecated. So is my patience.",
+    "I am once again asking for a product manager who reads the ticket.",
+    "My tickets have tickets. Nested trauma.",
+    "We don't have a bus factor. We have a bus fleet and one driver.",
+    "I muted the bot. The bot DMed me. Skynet but for Jira.",
+    "Can we not reinvent auth this quarter. Asking for my soul.",
+    "The hotfix needs a hotfix. Recursive shame.",
+    "I will not be taking questions from the emoji thread.",
+    "Today's mood: 200 OK on the outside, 503 inside.",
   ];
 
   const VENT_TITLES = [
@@ -5249,6 +5405,15 @@
     "💬 'Quick sync' (we will only complain)",
     "🫠 Post-standup decompression",
     "📵 Camera-off solidarity hour",
+    "🍵 Tea & tickets (no leadership)",
+    "🫥 Quiet quitting rehearsal",
+    "📎 Detach from the roadmap",
+    "🧠 Group context restore",
+    "🔥 Blameless rage room",
+    "🧃 Snack & snark",
+    "📉 Velocity is a feeling",
+    "🛟 Emotional on-call handoff",
+    "🎧 Headphones-on support group",
   ];
 
   /** Extra satire packs: reorg, AI rewrite, layoff week */
@@ -5474,29 +5639,46 @@
    */
   function buildVentNote(rng) {
     rng = rng || Math.random;
-    const hosts = pickUnique(rng, VENT_ENGINEERS, 4);
-    const vents = pickUnique(rng, VENT_LINES, 4);
+    const nPeople = 5 + Math.floor(rng() * 3); // 5–7 eng
+    const nVents = Math.max(nPeople, 6 + Math.floor(rng() * 4)); // 6–9 lines
+    const hosts = pickUnique(rng, VENT_ENGINEERS, nPeople);
+    const vents = pickUnique(rng, VENT_LINES, nVents);
     const title = VENT_TITLES[Math.floor(rng() * VENT_TITLES.length)];
     const host = hosts[0];
     const thread = [];
-    for (let i = 0; i < hosts.length; i++) {
-      thread.push(hosts[i] + ": " + vents[i % vents.length]);
+    for (let i = 0; i < vents.length; i++) {
+      const who = hosts[i % hosts.length];
+      thread.push(who + ": " + vents[i]);
     }
-    thread.push("…typing indicators everywhere. Nobody is shipping. Everyone is healing.");
-    const body =
+    const closers = [
+      "…typing indicators everywhere. Nobody is shipping. Everyone is healing.",
+      "…someone reacted with 💀. It was unanimous.",
+      "…camera stays off. Dignity stays on.",
+      "…no action items. Action item is surviving.",
+      "…host muted themselves to cry softly. We respect that.",
+    ];
+    thread.push(closers[Math.floor(rng() * closers.length)]);
+
+    // Body shows first few vents; full chaos lives in the thread
+    let body =
       title +
       "\n\n" +
       host +
-      " started a camera-off huddle. No managers. No notes. No action items.\n\n" +
-      hosts[1] +
-      ': "' +
-      vents[0] +
-      '"\n' +
-      hosts[2] +
-      ': "' +
-      vents[1] +
-      '"\n\n' +
-      "The agenda is: feel things. Then maybe coffee.";
+      " started a camera-off huddle (" +
+      hosts.length +
+      " eng). No managers. No notes. No action items.\n\n";
+    const show = Math.min(3, vents.length);
+    for (let i = 0; i < show; i++) {
+      body += hosts[i % hosts.length] + ': "' + vents[i] + '"\n';
+    }
+    if (vents.length > show) {
+      body +=
+        "\n(+" +
+        (vents.length - show) +
+        " more vents in the thread — pure solidarity)\n";
+    }
+    body += "\nThe agenda is: feel things. Then maybe coffee.";
+
     return {
       id: "vent-" + Date.now() + "-" + Math.floor(rng() * 9999),
       kind: "vent",
@@ -5507,8 +5689,8 @@
       color: "#34d399",
       text: body,
       tone: "corp",
-      timer: 24,
-      maxTimer: 24,
+      timer: 28,
+      maxTimer: 28,
       choices: VENT_CHOICES.slice(),
       urgent: false,
       thread: thread,
@@ -6065,6 +6247,7 @@
     VENT_CHOICES: VENT_CHOICES,
     VENT_LINES: VENT_LINES,
     VENT_ENGINEERS: VENT_ENGINEERS,
+    VENT_TITLES: VENT_TITLES,
   };
 
   if (typeof module !== "undefined" && module.exports) {

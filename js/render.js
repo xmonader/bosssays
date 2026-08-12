@@ -963,7 +963,8 @@
     const boxW = 560;
     const hasThread = note.thread && note.thread.length;
     const nChoices = (note.choices && note.choices.length) || 5;
-    const boxH = hasThread ? 300 : 268;
+    const boxH =
+      note.kind === "vent" && hasThread ? 330 : hasThread ? 300 : 268;
     const x = (LOGIC_W - boxW) / 2;
     const y = 48;
 
@@ -1059,19 +1060,26 @@
     ctx.font = large ? "15px sans-serif" : "14px sans-serif";
     wrapText(ctx, note.text, x + 18, y + 100, boxW - 36, large ? 20 : 18, 4);
 
-    // Thread panel
+    // Thread panel (vent meetings get more lines)
     if (hasThread) {
+      const isVent = note.kind === "vent";
+      const threadH = isVent ? 72 : 44;
+      const maxT = isVent ? 5 : 2;
       ctx.fillStyle = "rgba(30,41,59,0.9)";
-      roundRect(ctx, x + 18, y + 168, boxW - 36, 44, 6);
+      roundRect(ctx, x + 18, y + 168, boxW - 36, threadH, 6);
       ctx.fill();
-      ctx.fillStyle = "#64748b";
+      ctx.fillStyle = isVent ? "#34d399" : "#64748b";
       ctx.font = "9px sans-serif";
-      ctx.fillText("Thread", x + 24, y + 180);
+      ctx.fillText(
+        isVent ? "Vent thread (scroll the pain)" : "Thread",
+        x + 24,
+        y + 180
+      );
       ctx.fillStyle = "#94a3b8";
       ctx.font = "10px sans-serif";
-      for (let ti = 0; ti < Math.min(2, note.thread.length); ti++) {
+      for (let ti = 0; ti < Math.min(maxT, note.thread.length); ti++) {
         ctx.fillText(
-          String(note.thread[ti]).slice(0, 70),
+          String(note.thread[ti]).slice(0, isVent ? 78 : 70),
           x + 24,
           y + 194 + ti * 12
         );
@@ -1080,7 +1088,12 @@
 
     // Timer bar
     const t = Math.max(0, note.timer / note.maxTimer);
-    const barY = hasThread ? y + 220 : y + 168;
+    const barY =
+      note.kind === "vent" && hasThread
+        ? y + 250
+        : hasThread
+          ? y + 220
+          : y + 168;
     ctx.fillStyle = "#1e293b";
     ctx.fillRect(x + 18, barY, boxW - 36, 8);
     ctx.fillStyle = t < 0.25 ? "#ef4444" : accent;

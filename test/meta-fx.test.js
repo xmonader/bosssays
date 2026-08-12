@@ -216,6 +216,25 @@ describe("combo / political / powerups / storm", () => {
     assert.equal(game.phase, "playing");
   });
 
+  it("vent bank is large and meetings pull unique lines", () => {
+    const Notes = require("../js/notifications.js");
+    assert.ok(Notes.VENT_LINES.length >= 100, "need a fat vent bank");
+    assert.ok(Notes.VENT_ENGINEERS.length >= 20);
+    const a = Notes.buildVentNote(() => 0.11);
+    const b = Notes.buildVentNote(() => 0.77);
+    assert.ok(a.thread.length >= 6);
+    assert.ok(b.thread.length >= 6);
+    // Different rng seeds → different host/title pools usually
+    const texts = new Set();
+    for (let i = 0; i < 40; i++) {
+      const n = Notes.buildVentNote(function () {
+        return (i * 0.017 + 0.03) % 1;
+      });
+      texts.add(n.thread[0]);
+    }
+    assert.ok(texts.size >= 15, "vent threads should vary across builds");
+  });
+
   it("maps include secret HR pickup sometimes", () => {
     let found = false;
     for (let s = 1; s <= 12; s++) {
