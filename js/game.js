@@ -124,6 +124,113 @@
       "PTO converted to FTO: forever time off",
       "context window closed permanently",
     ],
+    timeout: [
+      "…I stared too long",
+      "they noticed the silence. of course.",
+      "analysis paralysis: professional edition",
+    ],
+    hurt: [
+      "ow. also: expected.",
+      "PTO is a finite resource. like patience.",
+      "this is fine. (it is not)",
+    ],
+    deploy: [
+      "shipped. they'll rebrand before lunch.",
+      "same office, new logo, same pain",
+      "deploy joy half-life: 12 seconds",
+      "what fresh Slack awaits",
+    ],
+    backlog: [
+      "inbox is a second boss fight",
+      "they're stacking trauma",
+      "I can hear the typing indicators",
+    ],
+    coffee: [
+      "coffee: the only OKR that matters",
+      "brief chemical hope",
+      "*slurp* ok. 4 more hours. maybe.",
+      "this is a medical device now",
+      "sleep debt paid in beans",
+      "hot bean water = temporary humanity",
+      "if leadership could taste this clarity",
+      "Zzz deferred. not cancelled.",
+      "mm. burnt. perfect.",
+    ],
+    vent: [
+      "we're all in this sinking boat",
+      "finally: humans who understand tickets",
+      "no managers = temporary utopia",
+      "complained productively. is that a skill?",
+      "solidarity: the real sprint goal",
+      "I feel 12% less insane",
+    ],
+    collect: [
+      "story points. fictional currency.",
+      "at least this number goes up",
+      "Jira will still say 0.5 though",
+      "collecting cope tokens",
+      "tiny win. bank it.",
+      "ping — dopamine. cheap but legal.",
+    ],
+    chair: [
+      "ergonomic? emotionally no.",
+      "if I sit I will never stand again",
+      "hot-desking is a war crime",
+      "this chair has known suffering",
+    ],
+    plant: [
+      "the plant gets more water than I do",
+      "still greener than the roadmap",
+      "photosynthesis > standups",
+    ],
+    monitor: [
+      "dual monitors, single will to live",
+      "blue light: the company vitamin",
+      "pixel prison, but mine",
+    ],
+    box: [
+      "moving boxes. reorg energy.",
+      "what's in the box? tech debt.",
+      "do not open until Q4",
+    ],
+    chart: [
+      "chart goes up. my mood doesn't.",
+      "axis of delusion",
+      "they printed this in color. bold.",
+    ],
+    lock: [
+      "SOC2 sticker energy",
+      "security theater, front row",
+      "password is Password1! probably",
+    ],
+    antenna: [
+      "5 bars of anxiety",
+      "signal: strong. meaning: none.",
+    ],
+    beanbag: [
+      "culture. (sits in the corner forever)",
+      "nap illegal. beanbag decorative.",
+    ],
+    prop: [
+      "office clutter: my only friend",
+      "touched grass? no. touched plastic.",
+    ],
+    tired: [
+      "eyelids filing a ticket",
+      "running on Slack and spite",
+      "sleep is a roadmap item: P3",
+      "3am energy at 2pm",
+      "I can hear my own latency",
+      "please no more 'quick' thoughts",
+    ],
+    idle: [
+      "…",
+      "*stares into the open office*",
+      "is this what they meant by ownership",
+      "I could be gardening right now",
+      "*yawns into the hoodie*",
+    ],
+  };
 
   /** End-screen copy when player nuclear-quits via Slack */
   const QUIT_ENDINGS = [
@@ -278,113 +385,6 @@
       toast: "Gone fishing. Bring your own pager.",
     },
   ];
-    timeout: [
-      "…I stared too long",
-      "they noticed the silence. of course.",
-      "analysis paralysis: professional edition",
-    ],
-    hurt: [
-      "ow. also: expected.",
-      "PTO is a finite resource. like patience.",
-      "this is fine. (it is not)",
-    ],
-    deploy: [
-      "shipped. they'll rebrand before lunch.",
-      "same office, new logo, same pain",
-      "deploy joy half-life: 12 seconds",
-      "what fresh Slack awaits",
-    ],
-    backlog: [
-      "inbox is a second boss fight",
-      "they're stacking trauma",
-      "I can hear the typing indicators",
-    ],
-    coffee: [
-      "coffee: the only OKR that matters",
-      "brief chemical hope",
-      "*slurp* ok. 4 more hours. maybe.",
-      "this is a medical device now",
-      "sleep debt paid in beans",
-      "hot bean water = temporary humanity",
-      "if leadership could taste this clarity",
-      "Zzz deferred. not cancelled.",
-      "mm. burnt. perfect.",
-    ],
-    vent: [
-      "we're all in this sinking boat",
-      "finally: humans who understand tickets",
-      "no managers = temporary utopia",
-      "complained productively. is that a skill?",
-      "solidarity: the real sprint goal",
-      "I feel 12% less insane",
-    ],
-    collect: [
-      "story points. fictional currency.",
-      "at least this number goes up",
-      "Jira will still say 0.5 though",
-      "collecting cope tokens",
-      "tiny win. bank it.",
-      "ping — dopamine. cheap but legal.",
-    ],
-    chair: [
-      "ergonomic? emotionally no.",
-      "if I sit I will never stand again",
-      "hot-desking is a war crime",
-      "this chair has known suffering",
-    ],
-    plant: [
-      "the plant gets more water than I do",
-      "still greener than the roadmap",
-      "photosynthesis > standups",
-    ],
-    monitor: [
-      "dual monitors, single will to live",
-      "blue light: the company vitamin",
-      "pixel prison, but mine",
-    ],
-    box: [
-      "moving boxes. reorg energy.",
-      "what's in the box? tech debt.",
-      "do not open until Q4",
-    ],
-    chart: [
-      "chart goes up. my mood doesn't.",
-      "axis of delusion",
-      "they printed this in color. bold.",
-    ],
-    lock: [
-      "SOC2 sticker energy",
-      "security theater, front row",
-      "password is Password1! probably",
-    ],
-    antenna: [
-      "5 bars of anxiety",
-      "signal: strong. meaning: none.",
-    ],
-    beanbag: [
-      "culture. (sits in the corner forever)",
-      "nap illegal. beanbag decorative.",
-    ],
-    prop: [
-      "office clutter: my only friend",
-      "touched grass? no. touched plastic.",
-    ],
-    tired: [
-      "eyelids filing a ticket",
-      "running on Slack and spite",
-      "sleep is a roadmap item: P3",
-      "3am energy at 2pm",
-      "I can hear my own latency",
-      "please no more 'quick' thoughts",
-    ],
-    idle: [
-      "…",
-      "*stares into the open office*",
-      "is this what they meant by ownership",
-      "I could be gardening right now",
-      "*yawns into the hoodie*",
-    ],
-  };
 
   const MAX_SLEEP = 100;
   const COFFEE_SLEEP_RELIEF = 22;
