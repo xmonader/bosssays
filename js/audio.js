@@ -282,6 +282,14 @@
         else play("collect");
       } else if (t === "prop") {
         play("land");
+      } else if (t === "combo") {
+        play("collect");
+      } else if (t === "powerup") {
+        play("deploy");
+      } else if (t === "storm" || t === "storm_end") {
+        play("notify");
+      } else if (t === "achievement") {
+        play("deploy");
       }
     }
   }
