@@ -1205,17 +1205,19 @@
     ctx.font = "bold 34px sans-serif";
     ctx.textAlign = "center";
     const afkTitle = game.endReason === "paused_out";
-    ctx.fillText(
-      quit
-        ? "I QUIT."
-        : promoted
-          ? "PROMOTED"
-          : afkTitle
-            ? "AFK"
-            : "LAID OFF",
-      LOGIC_W / 2,
-      LOGIC_H / 2 - 28
-    );
+    const quitTitle = quit
+      ? game.quitTitle || "I QUIT."
+      : promoted
+        ? "PROMOTED"
+        : afkTitle
+          ? "AFK"
+          : "LAID OFF";
+    // Slightly smaller font for long quit titles
+    ctx.font =
+      quit && quitTitle.length > 18
+        ? "bold 26px sans-serif"
+        : "bold 34px sans-serif";
+    ctx.fillText(quitTitle, LOGIC_W / 2, LOGIC_H / 2 - 28);
     ctx.font = "15px sans-serif";
     ctx.fillStyle = quit
       ? "#fca5a5"
@@ -1224,19 +1226,35 @@
         : afkTitle
           ? "#93c5fd"
           : "#94a3b8";
-    ctx.fillText(
-      quit
-        ? "You sent the message. HR is typing. Birds are singing."
-        : promoted
-          ? "Jump key unbound. Welcome to middle management."
-          : afkTitle
-            ? "You paused the game and walked away. Calendar still booked you."
-            : "They said it was a restructuring. Of your employment.",
-      LOGIC_W / 2,
-      LOGIC_H / 2 + 4
-    );
+    const quitBody =
+      game.quitBody ||
+      "You sent the message. HR is typing. Birds are singing.";
+    // Wrap long quit lines
+    if (quit && quitBody.length > 58) {
+      const mid = quitBody.lastIndexOf(" ", 52);
+      const a = mid > 20 ? quitBody.slice(0, mid) : quitBody.slice(0, 52);
+      const b = mid > 20 ? quitBody.slice(mid + 1) : quitBody.slice(52);
+      ctx.fillText(a, LOGIC_W / 2, LOGIC_H / 2 - 2);
+      ctx.fillText(b, LOGIC_W / 2, LOGIC_H / 2 + 18);
+    } else {
+      ctx.fillText(
+        quit
+          ? quitBody
+          : promoted
+            ? "Jump key unbound. Welcome to middle management."
+            : afkTitle
+              ? "You paused the game and walked away. Calendar still booked you."
+              : "They said it was a restructuring. Of your employment.",
+        LOGIC_W / 2,
+        LOGIC_H / 2 + 4
+      );
+    }
     ctx.fillStyle = "#94a3b8";
     ctx.font = "14px sans-serif";
+    const statsY =
+      quit && (game.quitBody || "").length > 58
+        ? LOGIC_H / 2 + 44
+        : LOGIC_H / 2 + 32;
     ctx.fillText(
       "Sprints " +
         game.sprint +
@@ -1249,7 +1267,7 @@
         " · Zzz " +
         Math.round(game.effects.sleepDebt || 0),
       LOGIC_W / 2,
-      LOGIC_H / 2 + 32
+      statsY
     );
     ctx.fillText(
       "Pol " +
@@ -1261,7 +1279,7 @@
         "/" +
         (game.difficulty || "mid"),
       LOGIC_W / 2,
-      LOGIC_H / 2 + 52
+      statsY + 20
     );
     const afk = game.endReason === "paused_out";
     ctx.fillText(
@@ -1273,7 +1291,7 @@
             ? "Press R for a new run · S share card"
             : "Press R to re-interview · S share card",
       LOGIC_W / 2,
-      LOGIC_H / 2 + 78
+      statsY + 46
     );
     ctx.textAlign = "left";
   }

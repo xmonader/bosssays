@@ -202,6 +202,24 @@ describe("combo / political / powerups / storm", () => {
     assert.ok(game.bossChase && game.bossChase.alive);
   });
 
+  it("quit endings bank is large and varies", () => {
+    assert.ok(Game.QUIT_ENDINGS.length >= 25);
+    const titles = new Set();
+    for (let i = 0; i < 40; i++) {
+      const g = Game.createGame({
+        skipTutorial: true,
+        rng: function () {
+          return (i * 0.031) % 1;
+        },
+      });
+      Game.resignQuit(g);
+      assert.equal(g.endReason, "quit");
+      assert.ok(g.quitTitle && g.quitBody);
+      titles.add(g.quitTitle);
+    }
+    assert.ok(titles.size >= 10, "quit titles should vary");
+  });
+
   it("vent meeting heals sleep and context", () => {
     const Notes = require("../js/notifications.js");
     const game = Game.createGame({ skipTutorial: true });

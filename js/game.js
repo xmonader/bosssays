@@ -104,7 +104,180 @@
       "HR is typing… I don't care",
       "best commit of my career: exit 1",
       "gardening arc: unlocked",
+      "two weeks? try two seconds",
+      "Slack status: ✨ unemployed ✨",
+      "they can circle back to my void",
+      "I am the outage. I am resolved.",
+      "bonus: never again reading 'as per'",
+      "my last PR: delete career.ts",
+      "notifications: 0. peace: loading…",
+      "I left the group chat of capitalism",
+      "equity? I took the door equity",
+      "calendar is free forever. beautiful",
+      "reply-all to life: unsubscribe",
+      "the SEV was my employment. mitigated.",
+      "no more standups. only sit-downs (park)",
+      "I blocked the company domain. growth.",
+      "quiet quitting? loud. intentional.",
+      "manager will 'sync' with empty chair",
+      "I shipped myself out of the building",
+      "PTO converted to FTO: forever time off",
+      "context window closed permanently",
     ],
+
+  /** End-screen copy when player nuclear-quits via Slack */
+  const QUIT_ENDINGS = [
+    {
+      title: "I QUIT.",
+      body: "You sent the message. HR is typing. Birds are singing.",
+      toast: "You quit. Loudly.",
+    },
+    {
+      title: "EXIT 1",
+      body: "Process terminated. Stack trace: dignity restored.",
+      toast: "Career process killed with SIGQUIT.",
+    },
+    {
+      title: "UNSUBSCRIBED",
+      body: "You left every channel, including the company.",
+      toast: "Muted: employment.",
+    },
+    {
+      title: "FORCE PUSH — CAREER",
+      body: "History rewritten. Branch: main is now yours alone.",
+      toast: "Force-pushed yourself to freedom.",
+    },
+    {
+      title: "SEV-0: RESIGNED",
+      body: "Incident owner: you. Mitigation: the door. Postmortem: optional.",
+      toast: "Declared SEV-0 on your own job.",
+    },
+    {
+      title: "NO MORE STANDUPS",
+      body: "Your status forever: Away · Gardening · Do not page.",
+      toast: "Standup declined. Permanently.",
+    },
+    {
+      title: "CALENDAR CLEARED",
+      body: "Every invite auto-declined. Including your own employment.",
+      toast: "Freed every calendar block. Including life.",
+    },
+    {
+      title: "REPLY-ALL: BYE",
+      body: "The whole company saw it. Perfect. No notes.",
+      toast: "Reply-all resignation. Iconic.",
+    },
+    {
+      title: "LGTM — LEAVING",
+      body: "You approved your own exit PR. CI is green. Soul too.",
+      toast: "Merged: exit. Closing laptop.",
+    },
+    {
+      title: "PAGER OFF",
+      body: "On-call handoff: the void. Escalation path: none.",
+      toast: "Pager silenced. Forever.",
+    },
+    {
+      title: "CONTEXT CLOSED",
+      body: "Window full of freedom. OOM: old job.",
+      toast: "Context flushed. New runtime: outside.",
+    },
+    {
+      title: "SHIPPED: MYSELF",
+      body: "Deploy target: the exit. Rollback: disabled.",
+      toast: "Deployed to freedom environment.",
+    },
+    {
+      title: "BLOCKED: COMPANY",
+      body: "Domain blocked. Notifications: 0. Peace: 99+.",
+      toast: "Blocked @company.com. Bliss.",
+    },
+    {
+      title: "TWO WEEKS? NAH",
+      body: "Notice period measured in keystrokes. Done.",
+      toast: "Notice period: one nuclear message.",
+    },
+    {
+      title: "EQUITY → DOOR",
+      body: "You cashed out in dignity. Vesting: instantaneous.",
+      toast: "Took the door equity package.",
+    },
+    {
+      title: "MUTED FOREVER",
+      body: "Leadership is still talking. You cannot hear them. Beautiful.",
+      toast: "Mute 1h → mute existence of job.",
+    },
+    {
+      title: "AFK — PERMANENT",
+      body: "Status set once. Never toggled back. Legend.",
+      toast: "AFK locked. Cannot unset.",
+    },
+    {
+      title: "DELETE FROM EMPLOYEES",
+      body: "WHERE soul = exhausted; — rows affected: 1. Good.",
+      toast: "SQL resignation: committed.",
+    },
+    {
+      title: "GIT COMMIT -m 'OUT'",
+      body: "Nothing to stage. Working tree clean. You are free.",
+      toast: "Committed: out. Pushed: life.",
+    },
+    {
+      title: "NO CIRCLE-BACK",
+      body: "They will try. Your Slack is a 404 now.",
+      toast: "Circle-back rejected: user not found.",
+    },
+    {
+      title: "PERFORMANCE: EXITS",
+      body: "Exceeds expectations at leaving. Promo to civilian.",
+      toast: "Perf review: self-terminated.",
+    },
+    {
+      title: "TECH DEBT: ZERO",
+      body: "You left the debt with them. Poetic justice.",
+      toast: "Tech debt reassigned to leadership.",
+    },
+    {
+      title: "HELLO, WORLD OUTSIDE",
+      body: "First program after work: breathing. Compiles fine.",
+      toast: "Hello, world (the real one).",
+    },
+    {
+      title: "SLACK STATUS: ✨ GONE ✨",
+      body: "Custom status outlived the job by 0 seconds. Perfect.",
+      toast: "Status: gone. Expires: never.",
+    },
+    {
+      title: "MEETING DECLINED: LIFE",
+      body: "You declined the only invite that mattered: tomorrow.",
+      toast: "Declined: remaining employed.",
+    },
+    {
+      title: "HOTFIXED MY LIFE",
+      body: "Root cause: employment. Fix: exit. No regression tests.",
+      toast: "Hotfix applied to existence.",
+    },
+    {
+      title: "OWNED THE OUTAGE",
+      body: "The outage was staying. You owned ending it.",
+      toast: "Owned the outage of your career.",
+    },
+    {
+      title: "UNASSIGNED: ME",
+      body: "Ticket closed. Assignee: nobody. Priority: freedom.",
+      toast: "Unassigned from the org chart.",
+    },
+    {
+      title: "LAST MESSAGE",
+      body: "It was not 'love this.' It was the truth. Finally.",
+      toast: "Last Slack was honest. Rare.",
+    },
+    {
+      title: "GONE FISHING",
+      body: "Literally or metaphorically. Either way: not here.",
+      toast: "Gone fishing. Bring your own pager.",
+    },
+  ];
     timeout: [
       "…I stared too long",
       "they noticed the silence. of course.",
@@ -921,10 +1094,19 @@
     }
   }
 
+  function pickQuitEnding(game) {
+    const rng = game.rng || Math.random;
+    const i = Math.floor(rng() * QUIT_ENDINGS.length) % QUIT_ENDINGS.length;
+    return QUIT_ENDINGS[i];
+  }
+
   function resignQuit(game) {
+    const ending = pickQuitEnding(game);
     game.phase = "gameover";
     game.endReason = "quit";
-    game.message = "You quit. Loudly.";
+    game.quitTitle = ending.title;
+    game.quitBody = ending.body;
+    game.message = ending.toast;
     game.messageTimer = 99;
     game.notifications.active = null;
     game.notifications.inbox = [];
@@ -932,6 +1114,10 @@
     tryAchieve(game, "quit_dignity");
     endRun(game, "quit");
     pushEvent(game, "gameover", { reason: "quit" });
+    if (Fx && game.fx) {
+      Fx.addToast(game.fx, ending.title, ending.body);
+      Fx.flash(game.fx, "#fecaca", 0.35);
+    }
   }
 
   function stompEnemy(game, enemy) {
@@ -1740,6 +1926,7 @@
     openSlack: openSlack,
     chooseNotification: chooseNotification,
     resignQuit: resignQuit,
+    QUIT_ENDINGS: QUIT_ENDINGS,
     advanceSprint: advanceSprint,
     hurtPlayer: hurtPlayer,
     collectPickups: collectPickups,
