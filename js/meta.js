@@ -73,6 +73,7 @@
     { id: "secret_hr", name: "HR Dungeon", desc: "Find the secret snack room" },
     { id: "boss_kite", name: "Escalation", desc: "Survive a manager chase" },
     { id: "meeting_decline", name: "No Thanks", desc: "Decline a meeting invite" },
+    { id: "vent_circle", name: "Therapy Standup", desc: "Join an eng venting meeting" },
     { id: "review_pass", name: "Exceeds", desc: "Ace a performance review" },
     { id: "oncall_night", name: "Pager Duty", desc: "Ship a deploy in On-Call mode" },
     { id: "continue_load", name: "Session Restore", desc: "Continue a saved run" },

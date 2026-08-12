@@ -776,6 +776,17 @@
         reply(map[id] || id);
         return;
       }
+      if (note && note.kind === "vent") {
+        const map = {
+          dismiss: "vent",
+          on_it: "nod",
+          love: "leave",
+          pushback: "leave",
+          quit: "quit",
+        };
+        reply(map[id] || id);
+        return;
+      }
       if (note && note.kind === "review") {
         const nonQuit = note.choices.filter(function (c) {
           return c.id !== "quit";

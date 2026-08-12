@@ -978,6 +978,8 @@
     let banner = "READING SLACK · paused · keys 1–" + Math.min(5, nChoices);
     if (note.kind === "meeting") banner = "MEETING INVITE · Accept / Decline / Tentative";
     if (note.kind === "review") banner = "PERFORMANCE REVIEW QUIZ · pick the culture-fit answer";
+    if (note.kind === "vent")
+      banner = "ENG VENT CIRCLE · no managers · complain freely · heal a little";
     ctx.fillText(banner, LOGIC_W / 2, y - 12);
     ctx.textAlign = "left";
 
@@ -1009,6 +1011,10 @@
       ctx.fillStyle = "#fbbf24";
       ctx.font = "bold 10px sans-serif";
       ctx.fillText("● PERF", x + boxW - 80, y + 22);
+    } else if (note.kind === "vent") {
+      ctx.fillStyle = "#34d399";
+      ctx.font = "bold 10px sans-serif";
+      ctx.fillText("● ENG-ONLY", x + boxW - 100, y + 22);
     } else if (note.urgent) {
       ctx.fillStyle = "#e11d48";
       ctx.font = "bold 10px sans-serif";
@@ -1086,7 +1092,9 @@
         ? "1 Accept · 2 Decline · 3 Tentative · 5 QUIT"
         : note.kind === "review"
           ? "1–3 answers · 5 QUIT"
-          : "1–4 normal replies · [5] FUCK YOU I QUIT ends the run",
+          : note.kind === "vent"
+            ? "1 Vent · 2 Silent nod · 3 Leave · 5 QUIT"
+            : "1–4 normal replies · [5] FUCK YOU I QUIT ends the run",
       x + 18,
       barY + 18
     );

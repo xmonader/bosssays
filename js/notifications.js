@@ -5191,6 +5191,66 @@
     { id: "quit", label: "FUCK YOU I QUIT" },
   ];
 
+  const VENT_CHOICES = [
+    { id: "vent", label: "Vent with them" },
+    { id: "nod", label: "Silent nod" },
+    { id: "leave", label: "Gotta jump" },
+    { id: "quit", label: "FUCK YOU I QUIT" },
+  ];
+
+  /** Fake IC colleagues for the unofficial venting meeting */
+  const VENT_ENGINEERS = [
+    "Priya Nair",
+    "Marcus Chen",
+    "Sam Okonkwo",
+    "Jules Park",
+    "Diego Alvarez",
+    "Aisha Rahman",
+    "Ben Takahashi",
+    "Nora Feldman",
+    "Kai Nakamura",
+    "Riley Soto",
+    "Devon Walsh",
+    "Mei Lin",
+  ];
+
+  const VENT_LINES = [
+    "My manager scheduled a meeting to discuss why we have too many meetings.",
+    "They hired a 'AI-native PM' who asked me to explain what a branch is. Twice.",
+    "Story points were converted to 'energy units.' Mine is empty.",
+    "I fixed a SEV-1. The RCA says I should have prevented the CEO's force-push.",
+    "Standup was 47 minutes. We learned nobody has updates. Again.",
+    "The roadmap is a screenshot of a napkin from the offsite.",
+    "I'm mentoring my new manager. They outrank me. In karma only, apparently not.",
+    "Deploy freze until 'strategy sync.' Strategy is vibes. Freeze is real.",
+    "They replaced our monitoring with a Slack channel called #is-it-down.",
+    "I wrote a design doc. Leadership asked ChatGPT to summarize it and disagreed with the summary.",
+    "On-call is a personality type now. HR says it's culture.",
+    "My OKRs are ship features that don't exist yet and be happy about it.",
+    "They archived the tech debt backlog. Declared debt free. Code still screams.",
+    "I got a 'quick question' that was a full product rewrite in emoji form.",
+    "Performance feedback: 'needs more urgency.' I have three jobs and one body.",
+    "The AI PR bot approved its own broken test. CI is optional now.",
+    "Calendar declined my focus block for a 'sync on the sync.'",
+    "We're a flat org. My skip-level has a skip-level with a deck about flatness.",
+    "I asked for headcount. They gave me a GitHub Copilot seat and a pizza emoji.",
+    "Production is held together by a cron job named please_dont_die.sh.",
+    "They want us to move faster by adding another process for process changes.",
+    "I haven't written code in 3 days. I've been in meetings about writing code.",
+    "The beach hire asked me to pair. They brought a laptop with no IDE.",
+    "Blameless postmortem. My name is the only one in the doc.",
+    "We're sunsetting the monolith by rewriting it as 47 smaller monoliths.",
+  ];
+
+  const VENT_TITLES = [
+    "☕ Unofficial coffee / therapy",
+    "🛋️ No-managers vent room",
+    "🔒 Eng-only (seriously)",
+    "💬 'Quick sync' (we will only complain)",
+    "🫠 Post-standup decompression",
+    "📵 Camera-off solidarity hour",
+  ];
+
   /** Extra satire packs: reorg, AI rewrite, layoff week */
   const EXTRA_LINES = [
     { from: "CEO", text: "Reorg v17 is final (until Thursday). Your new manager is a spreadsheet.", tone: "ego", theme: "process_churn" },
@@ -5396,6 +5456,63 @@
         "HR bot: This will only take 2 minutes of your career.",
         "System: Answers are scored for culture fit.",
       ],
+    };
+  }
+
+  function pickUnique(rng, arr, n) {
+    const copy = arr.slice();
+    const out = [];
+    for (let i = 0; i < n && copy.length; i++) {
+      const idx = Math.floor(rng() * copy.length);
+      out.push(copy.splice(idx, 1)[0]);
+    }
+    return out;
+  }
+
+  /**
+   * Unofficial eng-only venting meeting — pure solidarity / complaint circle.
+   */
+  function buildVentNote(rng) {
+    rng = rng || Math.random;
+    const hosts = pickUnique(rng, VENT_ENGINEERS, 4);
+    const vents = pickUnique(rng, VENT_LINES, 4);
+    const title = VENT_TITLES[Math.floor(rng() * VENT_TITLES.length)];
+    const host = hosts[0];
+    const thread = [];
+    for (let i = 0; i < hosts.length; i++) {
+      thread.push(hosts[i] + ": " + vents[i % vents.length]);
+    }
+    thread.push("…typing indicators everywhere. Nobody is shipping. Everyone is healing.");
+    const body =
+      title +
+      "\n\n" +
+      host +
+      " started a camera-off huddle. No managers. No notes. No action items.\n\n" +
+      hosts[1] +
+      ': "' +
+      vents[0] +
+      '"\n' +
+      hosts[2] +
+      ': "' +
+      vents[1] +
+      '"\n\n' +
+      "The agenda is: feel things. Then maybe coffee.";
+    return {
+      id: "vent-" + Date.now() + "-" + Math.floor(rng() * 9999),
+      kind: "vent",
+      from: "Eng",
+      name: host,
+      title: "Staff IC",
+      channel: "#eng-whispers",
+      color: "#34d399",
+      text: body,
+      tone: "corp",
+      timer: 24,
+      maxTimer: 24,
+      choices: VENT_CHOICES.slice(),
+      urgent: false,
+      thread: thread,
+      ventors: hosts,
     };
   }
 
@@ -5611,10 +5728,13 @@
       } else {
         // Occasional special mail from sprint 2+ (keeps sprint-1 tests stable)
         const roll = rng();
-        if (sprint >= 2 && roll < 0.1) {
+        if (sprint >= 2 && roll < 0.09) {
           arrived = buildMeetingNote(rng);
-        } else if (sprint >= 2 && roll < 0.16) {
+        } else if (sprint >= 2 && roll < 0.14) {
           arrived = buildReviewNote(rng);
+        } else if (sprint >= 2 && roll < 0.22) {
+          // Eng venting circle — more common than exec meetings on purpose
+          arrived = buildVentNote(rng);
         } else {
           const line = pickLine(state, rng);
           state.lastFrom = line.from;
@@ -5719,6 +5839,71 @@
           quit: false,
           political: -2,
           sleep: 4,
+        };
+      }
+      return { cleared: true, effects: effects, note: note };
+    }
+
+    // Eng venting meeting — solidarity heals sleep/context, not political capital
+    if (note.kind === "vent") {
+      if (choiceId === "quit") {
+        effects = {
+          kind: "quit",
+          stun: 0,
+          context: 0,
+          slow: 0,
+          calendar: false,
+          hallucinate: false,
+          quit: true,
+        };
+      } else if (choiceId === "vent") {
+        effects = {
+          kind: "vent_join",
+          stun: 0,
+          context: -18,
+          slow: 0,
+          calendar: false,
+          hallucinate: false,
+          quit: false,
+          political: -2,
+          sleep: -22,
+          score: 15,
+        };
+      } else if (choiceId === "nod") {
+        effects = {
+          kind: "vent_nod",
+          stun: 0,
+          context: -10,
+          slow: 0,
+          calendar: false,
+          hallucinate: false,
+          quit: false,
+          political: 0,
+          sleep: -12,
+          score: 8,
+        };
+      } else if (choiceId === "timeout") {
+        effects = {
+          kind: "vent_timeout",
+          stun: 0,
+          context: -4,
+          slow: 0,
+          calendar: false,
+          hallucinate: false,
+          quit: false,
+          sleep: -4,
+        };
+      } else {
+        // leave early
+        effects = {
+          kind: "vent_leave",
+          stun: 0,
+          context: -2,
+          slow: 0,
+          calendar: false,
+          hallucinate: false,
+          quit: false,
+          sleep: -3,
         };
       }
       return { cleared: true, effects: effects, note: note };
@@ -5875,7 +6060,11 @@
     checkTimeout: checkTimeout,
     buildMeetingNote: buildMeetingNote,
     buildReviewNote: buildReviewNote,
+    buildVentNote: buildVentNote,
     buildNote: buildNote,
+    VENT_CHOICES: VENT_CHOICES,
+    VENT_LINES: VENT_LINES,
+    VENT_ENGINEERS: VENT_ENGINEERS,
   };
 
   if (typeof module !== "undefined" && module.exports) {

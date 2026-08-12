@@ -202,6 +202,20 @@ describe("combo / political / powerups / storm", () => {
     assert.ok(game.bossChase && game.bossChase.alive);
   });
 
+  it("vent meeting heals sleep and context", () => {
+    const Notes = require("../js/notifications.js");
+    const game = Game.createGame({ skipTutorial: true });
+    game.effects.sleepDebt = 50;
+    game.effects.context = 40;
+    game.notifications.active = Notes.buildVentNote(() => 0.3);
+    const sleep0 = game.effects.sleepDebt;
+    const ctx0 = game.effects.context;
+    Game.chooseNotification(game, "vent");
+    assert.ok(game.effects.sleepDebt < sleep0, "vent should reduce sleep debt");
+    assert.ok(game.effects.context < ctx0, "vent should free context");
+    assert.equal(game.phase, "playing");
+  });
+
   it("maps include secret HR pickup sometimes", () => {
     let found = false;
     for (let s = 1; s <= 12; s++) {

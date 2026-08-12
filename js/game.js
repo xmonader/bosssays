@@ -137,6 +137,14 @@
       "Zzz deferred. not cancelled.",
       "mm. burnt. perfect.",
     ],
+    vent: [
+      "we're all in this sinking boat",
+      "finally: humans who understand tickets",
+      "no managers = temporary utopia",
+      "complained productively. is that a skill?",
+      "solidarity: the real sprint goal",
+      "I feel 12% less insane",
+    ],
     collect: [
       "story points. fictional currency.",
       "at least this number goes up",
@@ -773,10 +781,13 @@
     if (effects.slow > 0) {
       game.effects.slowTimer = Math.max(game.effects.slowTimer, effects.slow);
     }
-    game.effects.context = Math.min(
-      MAX_CONTEXT,
-      game.effects.context + (effects.context || 0)
+    game.effects.context = Math.max(
+      0,
+      Math.min(MAX_CONTEXT, game.effects.context + (effects.context || 0))
     );
+    if (effects.score) {
+      game.score += effects.score;
+    }
 
     if (effects.calendar) {
       const px = game.player.x + 80;
@@ -827,6 +838,30 @@
     if (effects.kind === "review_fail") {
       game.message = "Needs improvement — classic";
       game.messageTimer = 2.2;
+    }
+    if (effects.kind === "vent_join" || effects.kind === "vent_nod") {
+      tryAchieve(game, "vent_circle");
+      if (Fx) {
+        Fx.addFloat(
+          game.fx,
+          game.player.x,
+          game.player.y,
+          effects.kind === "vent_join" ? "VENTED" : "NODDED",
+          "#34d399"
+        );
+        Fx.addParticles(
+          game.fx,
+          game.player.x + 14,
+          game.player.y,
+          "#6ee7b7",
+          10
+        );
+      }
+      game.message =
+        effects.kind === "vent_join"
+          ? "Vent complete — sleep & context down. Soul slightly less crushed."
+          : "Silent solidarity. The group chat felt that.";
+      game.messageTimer = 3;
     }
   }
 
@@ -1376,26 +1411,49 @@
       }
       applyEffectsPayload(game, result.effects);
       game.phase = "playing";
-      if (result.effects.kind === "timeout") {
+      const kind = result.effects.kind;
+      const noteKind = result.note && result.note.kind;
+      if (kind === "timeout") {
         game.message = "Chat auto-closed — mild stun";
         pushEvent(game, "notify_timeout");
         setThought(game, "timeout");
         addSleepDebt(game, 10);
         adjustPolitical(game, -4);
+      } else if (
+        noteKind === "vent" ||
+        kind === "vent_join" ||
+        kind === "vent_nod" ||
+        kind === "vent_leave" ||
+        kind === "vent_timeout"
+      ) {
+        pushEvent(game, "notify_reply", { kind: kind });
+        setThought(game, "vent");
+        // sleep/context already applied via effects.sleep / effects.context
+        if (!game.message || game.messageTimer < 1) {
+          game.message = "Left the vent circle";
+        }
+      } else if (
+        noteKind === "meeting" ||
+        noteKind === "review" ||
+        (kind && kind.indexOf("meeting_") === 0) ||
+        (kind && kind.indexOf("review_") === 0)
+      ) {
+        pushEvent(game, "notify_reply", { kind: kind });
+        setThought(game, "open");
+        if (!game.message) game.message = "Replied: " + kind;
       } else {
-        game.message = "Replied: " + result.effects.kind;
-        pushEvent(game, "notify_reply", { kind: result.effects.kind });
+        game.message = "Replied: " + kind;
+        pushEvent(game, "notify_reply", { kind: kind });
         const cat =
-          result.effects.kind === "love"
+          kind === "love"
             ? "love"
-            : result.effects.kind === "on_it"
+            : kind === "on_it"
               ? "on_it"
-              : result.effects.kind === "pushback"
+              : kind === "pushback"
                 ? "pushback"
                 : "dismiss";
         setThought(game, cat);
         // Sycophancy and fake "on it" cost more sleep than a short dismiss
-        // Political capital: love up, pushback down, dismiss neutral-ish
         if (cat === "love") {
           addSleepDebt(game, 12);
           adjustPolitical(game, 8);
@@ -1412,13 +1470,13 @@
           addSleepDebt(game, 3);
           adjustPolitical(game, -1);
         }
-        // Chance of thread projectiles after engaging
         if (cat === "on_it" || cat === "love") {
-          if (game.rng() < 0.45) spawnThreadProjectiles(game, 2 + Math.floor(game.rng() * 3));
+          if (game.rng() < 0.45)
+            spawnThreadProjectiles(game, 2 + Math.floor(game.rng() * 3));
         }
       }
       if (result.effects.stun > 0) pushEvent(game, "stun");
-      game.messageTimer = 2.0;
+      game.messageTimer = Math.max(game.messageTimer, 2.0);
       game.player.invuln = Math.max(game.player.invuln, 0.45);
     }
     return result;
