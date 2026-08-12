@@ -195,16 +195,19 @@
 
   function shareCard() {
     const g = game;
+    const clk =
+      Game.formatOfficeClock && Game.formatOfficeClock(g.officeMin || 0);
     const lines = [
       "Boss Says — run card",
       "Score: " + (g.score || 0) + " SP",
       "Sprint " + g.sprint + " · Deploys " + g.deploys,
       "Best combo x" + (g.bestCombo || 0),
       "Pol " + Math.round(g.political || 0) + " · Debt " + Math.round(g.techDebt || 0),
+      clk ? "Office clock: " + clk.long : null,
       "Mode " + (g.mode || "normal") + " / " + (g.difficulty || "mid"),
       g.endReason ? "End: " + g.endReason : "Still employed (somehow)",
       "https://xmonader.github.io/bosssays/",
-    ];
+    ].filter(Boolean);
     const text = lines.join("\n");
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(

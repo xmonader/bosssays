@@ -389,6 +389,125 @@
   const MAX_SLEEP = 100;
   const COFFEE_SLEEP_RELIEF = 22;
 
+  // Office clock: nonstop misery. Real 1s ≈ several office minutes.
+  const DAY_NAMES = [
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat",
+    "Sun",
+    "Mon?",
+    "Still Mon",
+    "Eternal Mon",
+  ];
+  const CLOCK_LABELS = [
+    { h: 0, t: "witching hour of tickets" },
+    { h: 1, t: "SEV o'clock" },
+    { h: 2, t: "why are we still here" },
+    { h: 3, t: "pager ghost hour" },
+    { h: 4, t: "coffee is a food group" },
+    { h: 5, t: "birds starting. you aren't" },
+    { h: 6, t: "standup in 2h. you never left" },
+    { h: 7, t: "commute of the damned" },
+    { h: 8, t: "optimistic lies begin" },
+    { h: 9, t: "standup soon™" },
+    { h: 10, t: "meetings eating the day" },
+    { h: 11, t: "pre-lunch crisis" },
+    { h: 12, t: "lunch at desk (again)" },
+    { h: 13, t: "post-lunch crash" },
+    { h: 14, t: "afternoon reorg energy" },
+    { h: 15, t: "3pm despair dip" },
+    { h: 16, t: "ship by EOD jokes" },
+    { h: 17, t: "people leaving. not you" },
+    { h: 18, t: "optional? mandatory" },
+    { h: 19, t: "dinner is Slack" },
+    { h: 20, t: "prime time for bad ideas" },
+    { h: 21, t: "kids' bedtime. your deploy" },
+    { h: 22, t: "night shift of the IC" },
+    { h: 23, t: "tomorrow's you will hate this" },
+  ];
+
+  function clockRate(game) {
+    // minutes of office time per real second
+    if (game.mode === "oncall") return 8;
+    if (game.mode === "speedrun") return 10;
+    if (game.difficulty === "toxic") return 6;
+    if (game.difficulty === "chill") return 3.5;
+    return 5;
+  }
+
+  function formatOfficeClock(officeMin) {
+    officeMin = Math.max(0, Math.floor(officeMin || 0));
+    const dayIdx = Math.floor(officeMin / (24 * 60));
+    const dayName = DAY_NAMES[Math.min(dayIdx, DAY_NAMES.length - 1)];
+    const m = officeMin % (24 * 60);
+    const h24 = Math.floor(m / 60);
+    const min = m % 60;
+    const ampm = h24 >= 12 ? "PM" : "AM";
+    const h12 = h24 % 12 || 12;
+    const mm = min < 10 ? "0" + min : String(min);
+    const clock = h12 + ":" + mm + " " + ampm;
+    let label = "still employed";
+    for (let i = 0; i < CLOCK_LABELS.length; i++) {
+      if (CLOCK_LABELS[i].h === h24) {
+        label = CLOCK_LABELS[i].t;
+        break;
+      }
+    }
+    if (dayIdx >= 1) label = "day " + (dayIdx + 1) + " · " + label;
+    if (dayIdx >= 3) label = "nonstop misery · " + label;
+    return {
+      dayIdx: dayIdx,
+      dayName: dayName,
+      h24: h24,
+      min: min,
+      clock: clock,
+      short: dayName + " " + clock,
+      long: dayName + " " + clock + " — " + label,
+      label: label,
+      isNight: h24 >= 20 || h24 < 6,
+      isDeadHour: h24 >= 23 || h24 < 5,
+      officeMin: officeMin,
+    };
+  }
+
+  function advanceOfficeClock(game, minutes, reason) {
+    if (!minutes) return;
+    const prev = formatOfficeClock(game.officeMin);
+    game.officeMin = (game.officeMin || 0) + minutes;
+    const next = formatOfficeClock(game.officeMin);
+    // Milestone toasts on hour cross into misery zones
+    if (next.h24 !== prev.h24) {
+      if (next.isDeadHour || next.h24 === 17 || next.h24 === 12 || next.h24 === 21) {
+        game.message = next.short + " · " + next.label;
+        game.messageTimer = 2.8;
+        if (Fx && game.fx) {
+          Fx.addToast(game.fx, next.short, next.label);
+        }
+      }
+      if (next.h24 === 0 && next.dayIdx > prev.dayIdx) {
+        game.message = "Day " + (next.dayIdx + 1) + " begins. You never left.";
+        game.messageTimer = 3.2;
+        addSleepDebt(game, 6);
+      }
+      // Late night stacks sleep
+      if (next.isDeadHour && game.rng() < 0.55) {
+        addSleepDebt(game, 3);
+      }
+    }
+    if (reason && reason !== "tick") {
+      pushEvent(game, "clock", { minutes: minutes, reason: reason });
+    }
+  }
+
+  function tickOfficeClock(game, dt) {
+    // Continuous drip of time — the real horror
+    const rate = clockRate(game);
+    advanceOfficeClock(game, rate * dt, "tick");
+  }
+
   function setThought(game, category) {
     const pool = THOUGHTS[category] || THOUGHTS.idle;
     if (!pool.length) return null;
@@ -674,6 +793,7 @@
       difficulty: game.difficulty,
       mode: game.mode,
       seed: game.seed,
+      officeMin: game.officeMin,
       player: {
         x: game.player.x,
         y: game.player.y,
@@ -710,8 +830,11 @@
     game.coffeeCount = snap.coffeeCount || 0;
     game.collectedCount = snap.collectedCount || 0;
     game.cameraX = snap.cameraX || 0;
+    if (snap.officeMin != null) game.officeMin = snap.officeMin;
     tryAchieve(game, "continue_load");
-    game.message = "Session restored — pretend you never left";
+    const clk = formatOfficeClock(game.officeMin);
+    game.message =
+      "Session restored — " + clk.short + " and you never left";
     game.messageTimer = 3;
     return game;
   }
@@ -862,6 +985,14 @@
       effects: emptyEffects(),
       cameraX: 0,
       time: 0,
+      // Start ~9:00 Mon; on-call starts later for comedy
+      officeMin:
+        opts.officeMin != null
+          ? opts.officeMin
+          : mode === "oncall"
+            ? 21 * 60 + Math.floor(rng() * 90) // ~9–10:30 PM
+            : 9 * 60 + Math.floor(rng() * 45), // ~9:00–9:45 AM
+      lastClockHour: -1,
       rng: rng,
       seed: seed != null ? seed : null,
       difficulty: difficultyId,
@@ -1014,6 +1145,11 @@
     }
     if (effects.kind === "vent_join" || effects.kind === "vent_nod") {
       tryAchieve(game, "vent_circle");
+      advanceOfficeClock(
+        game,
+        effects.kind === "vent_join" ? 45 : 25,
+        "vent"
+      );
       if (Fx) {
         Fx.addFloat(
           game.fx,
@@ -1030,11 +1166,18 @@
           10
         );
       }
+      const clk = formatOfficeClock(game.officeMin);
       game.message =
         effects.kind === "vent_join"
-          ? "Vent complete — sleep & context down. Soul slightly less crushed."
-          : "Silent solidarity. The group chat felt that.";
+          ? "Vent done · " +
+            clk.clock +
+            " — sleep down. Still somehow " +
+            clk.label
+          : "Silent nod · " + clk.short;
       game.messageTimer = 3;
+    }
+    if (effects.kind === "meeting_accept") {
+      advanceOfficeClock(game, 50 + Math.floor(game.rng() * 40), "meeting");
     }
   }
 
@@ -1420,8 +1563,16 @@
     game.phase = "playing";
     const brand = game.map.brandLabel || game.map.brand || "HQ";
     const theme = (game.map.theme && game.map.theme.id) || "office";
+    // Shipping always eats half a day of your life
+    advanceOfficeClock(game, 180 + Math.floor(game.rng() * 120), "deploy");
+    const clk = formatOfficeClock(game.officeMin);
     game.message =
-      "Sprint " + game.sprint + " · rebrand: " + brand + " · theme: " + theme;
+      "Sprint " +
+      game.sprint +
+      " · rebrand: " +
+      brand +
+      " · " +
+      clk.short;
     game.messageTimer = 3.2;
     game.cameraX = 0;
     pushEvent(game, "deploy");
@@ -1609,8 +1760,14 @@
       game.skippedSlackSprint = false;
       pushEvent(game, "notify");
       game.player.invuln = Math.max(game.player.invuln, 0.5);
+      // Reading Slack always burns calendar time
+      advanceOfficeClock(game, 8 + Math.floor(game.rng() * 12), "slack_open");
+      const clk = formatOfficeClock(game.officeMin);
       game.message =
-        "Reading Slack — " + (note.name || note.from) + " · reply with 1–4";
+        clk.clock +
+        " · Reading Slack — " +
+        (note.name || note.from) +
+        " · reply 1–4";
       game.messageTimer = 1.8;
       setThought(game, "open");
       addSleepDebt(game, 4);
@@ -1679,17 +1836,21 @@
           addSleepDebt(game, 12);
           adjustPolitical(game, 8);
           adjustTechDebt(game, 4);
+          advanceOfficeClock(game, 25 + Math.floor(game.rng() * 20), "love");
         } else if (cat === "on_it") {
           addSleepDebt(game, 10);
           adjustPolitical(game, 5);
           adjustTechDebt(game, 6);
+          advanceOfficeClock(game, 40 + Math.floor(game.rng() * 30), "on_it");
         } else if (cat === "pushback") {
           addSleepDebt(game, 6);
           adjustPolitical(game, -10);
           adjustTechDebt(game, -2);
+          advanceOfficeClock(game, 15 + Math.floor(game.rng() * 15), "pushback");
         } else {
           addSleepDebt(game, 3);
           adjustPolitical(game, -1);
+          advanceOfficeClock(game, 5 + Math.floor(game.rng() * 10), "dismiss");
         }
         if (cat === "on_it" || cat === "love") {
           if (game.rng() < 0.45)
@@ -1719,6 +1880,9 @@
       tickThought(game, dt);
       return game;
     }
+
+    // Time never stops — even while reading Slack (that's the joke)
+    tickOfficeClock(game, dt);
 
     // Choice from UI (1–4 only while reading)
     if (input.choice && game.notifications.active) {
@@ -1927,6 +2091,8 @@
     chooseNotification: chooseNotification,
     resignQuit: resignQuit,
     QUIT_ENDINGS: QUIT_ENDINGS,
+    formatOfficeClock: formatOfficeClock,
+    advanceOfficeClock: advanceOfficeClock,
     advanceSprint: advanceSprint,
     hurtPlayer: hurtPlayer,
     collectPickups: collectPickups,

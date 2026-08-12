@@ -22,16 +22,66 @@
     ctx.closePath();
   }
 
-  function clear(ctx, w, h, theme) {
-    const sky = (theme && theme.sky) || ["#c8d8e8", "#e8eef4", "#d0d8e0"];
+  function formatClockFromGame(game) {
+    if (
+      typeof root !== "undefined" &&
+      root.BossSaysGame &&
+      root.BossSaysGame.formatOfficeClock
+    ) {
+      return root.BossSaysGame.formatOfficeClock(game.officeMin || 0);
+    }
+    // Node / fallback
+    try {
+      if (typeof module !== "undefined" && module.exports) {
+        // filled later if require available — use inline mini
+      }
+    } catch (e) {
+      /* ignore */
+    }
+    const m = Math.floor(game.officeMin || 0);
+    const day = Math.floor(m / 1440);
+    const hm = m % 1440;
+    const h24 = Math.floor(hm / 60);
+    const min = hm % 60;
+    const ampm = h24 >= 12 ? "PM" : "AM";
+    const h12 = h24 % 12 || 12;
+    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Mon?"];
+    const mm = min < 10 ? "0" + min : String(min);
+    return {
+      short: (days[Math.min(day, days.length - 1)] || "Day") + " " + h12 + ":" + mm + " " + ampm,
+      label: h24 >= 22 || h24 < 5 ? "why are we still here" : "still employed",
+      isNight: h24 >= 20 || h24 < 6,
+      isDeadHour: h24 >= 23 || h24 < 5,
+      h24: h24,
+      dayIdx: day,
+      clock: h12 + ":" + mm + " " + ampm,
+    };
+  }
+
+  function clear(ctx, w, h, theme, clockInfo) {
+    let sky = (theme && theme.sky) || ["#c8d8e8", "#e8eef4", "#d0d8e0"];
+    // Time-of-day sky wash for nonstop misery
+    if (clockInfo) {
+      if (clockInfo.isDeadHour) {
+        sky = ["#0f172a", "#1e1b4b", "#0c0a1a"];
+      } else if (clockInfo.isNight) {
+        sky = ["#1e293b", "#312e81", "#1e1b4b"];
+      } else if (clockInfo.h24 >= 17 && clockInfo.h24 < 20) {
+        sky = ["#fb923c", "#f59e0b", "#7c2d12"];
+      } else if (clockInfo.h24 >= 6 && clockInfo.h24 < 9) {
+        sky = ["#7dd3fc", "#bae6fd", "#e0f2fe"];
+      }
+    }
     const g = ctx.createLinearGradient(0, 0, 0, h);
     g.addColorStop(0, sky[0] || "#c8d8e8");
     g.addColorStop(0.45, sky[1] || sky[0]);
     g.addColorStop(1, sky[2] || sky[1] || sky[0]);
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, w, h);
-    // soft ceiling lights
-    ctx.fillStyle = "rgba(255,255,255,0.06)";
+    // soft ceiling lights (dimmer at night)
+    ctx.fillStyle = clockInfo && clockInfo.isNight
+      ? "rgba(251,191,36,0.08)"
+      : "rgba(255,255,255,0.06)";
     for (let i = 80; i < w; i += 140) {
       ctx.beginPath();
       ctx.ellipse(i, 28, 36, 10, 0, 0, Math.PI * 2);
@@ -864,24 +914,48 @@
       );
     }
 
+    // Office clock of endless misery (HUD)
+    const clk = formatClockFromGame(game);
+    if (clk) {
+      const cx = LOGIC_W / 2 - 95;
+      const cy = compact ? 4 : 30;
+      ctx.fillStyle = clk.isDeadHour
+        ? "rgba(127,29,29,0.92)"
+        : clk.isNight
+          ? "rgba(30,27,75,0.9)"
+          : "rgba(15,23,42,0.88)";
+      roundRect(ctx, cx, cy, 190, compact ? 18 : 22, 6);
+      ctx.fill();
+      ctx.fillStyle = clk.isDeadHour
+        ? "#fecaca"
+        : clk.isNight
+          ? "#c4b5fd"
+          : "#fde68a";
+      ctx.font = "bold 12px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(clk.short, LOGIC_W / 2, cy + (compact ? 13 : 15));
+      ctx.textAlign = "left";
+      if (!compact) {
+        ctx.fillStyle = "#94a3b8";
+        ctx.font = "9px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(clk.label, LOGIC_W / 2, 58);
+        ctx.textAlign = "left";
+      }
+    }
+
     if (!compact) {
       ctx.fillStyle = "rgba(15,23,42,0.55)";
       ctx.fillRect(0, 28, LOGIC_W, 14);
       ctx.font = "10px sans-serif";
       ctx.fillStyle = "#fbbf24";
-      ctx.fillText("● SP", 70, 38);
+      ctx.fillText("● SP", 10, 38);
       ctx.fillStyle = "#d97706";
-      ctx.fillText("☕ wake", 105, 38);
-      ctx.fillStyle = "#38bdf8";
-      ctx.fillText("FOC/OOP/★ powerups", 155, 38);
+      ctx.fillText("☕", 48, 38);
       ctx.fillStyle = "#94a3b8";
       const mode = game.mode || "normal";
       const diff = game.difficulty || "mid";
-      ctx.fillText(
-        "Tab Slack · 5 quit · " + mode + "/" + diff,
-        300,
-        38
-      );
+      ctx.fillText("Tab Slack · 5 quit · " + mode + "/" + diff, 70, 38);
     }
 
     if (game.message && game.messageTimer > 0) {
@@ -1269,6 +1343,7 @@
       LOGIC_W / 2,
       statsY
     );
+    const endClk = formatClockFromGame(game);
     ctx.fillText(
       "Pol " +
         Math.round(game.political || 0) +
@@ -1281,7 +1356,18 @@
       LOGIC_W / 2,
       statsY + 20
     );
+    if (endClk) {
+      ctx.fillStyle = endClk.isDeadHour ? "#fca5a5" : "#94a3b8";
+      ctx.font = "13px sans-serif";
+      ctx.fillText(
+        "Clock out: " + endClk.long,
+        LOGIC_W / 2,
+        statsY + 40
+      );
+    }
     const afk = game.endReason === "paused_out";
+    ctx.fillStyle = "#94a3b8";
+    ctx.font = "14px sans-serif";
     ctx.fillText(
       quit
         ? "Press R to un-quit · S share card"
@@ -1291,7 +1377,7 @@
             ? "Press R for a new run · S share card"
             : "Press R to re-interview · S share card",
       LOGIC_W / 2,
-      statsY + 46
+      statsY + (endClk ? 62 : 46)
     );
     ctx.textAlign = "left";
   }
@@ -1344,13 +1430,16 @@
       shakeX = (Math.random() - 0.5) * a;
       shakeY = (Math.random() - 0.5) * a;
     }
+    const clk = formatClockFromGame(game);
     // Upscale logical playfield to full canvas (bigger on-screen game area)
     ctx.setTransform(SCALE, 0, 0, SCALE, shakeX * SCALE, shakeY * SCALE);
-    clear(ctx, LOGIC_W, LOGIC_H, theme);
+    clear(ctx, LOGIC_W, LOGIC_H, theme, clk);
 
-    // On-call night wash
-    if (oncall) {
-      ctx.fillStyle = "rgba(15,23,42,0.35)";
+    // On-call / dead-hour night wash
+    if (oncall || (clk && clk.isDeadHour)) {
+      ctx.fillStyle = clk && clk.isDeadHour
+        ? "rgba(15,23,42,0.4)"
+        : "rgba(15,23,42,0.35)";
       ctx.fillRect(0, 0, LOGIC_W, LOGIC_H);
     }
 

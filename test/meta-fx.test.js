@@ -202,6 +202,23 @@ describe("combo / political / powerups / storm", () => {
     assert.ok(game.bossChase && game.bossChase.alive);
   });
 
+  it("office clock advances and formats misery hours", () => {
+    const g = Game.createGame({ skipTutorial: true, officeMin: 9 * 60 });
+    assert.ok(g.officeMin >= 9 * 60);
+    const a = Game.formatOfficeClock(9 * 60 + 15);
+    assert.match(a.clock, /9:15 AM|AM/);
+    assert.ok(a.short.indexOf("Mon") >= 0 || a.dayName);
+    const night = Game.formatOfficeClock(2 * 60); // 2 AM Mon
+    assert.equal(night.isDeadHour, true);
+    assert.ok(night.label.length > 3);
+    const before = g.officeMin;
+    Game.advanceOfficeClock(g, 120, "test");
+    assert.ok(g.officeMin >= before + 120);
+    // continuous tick
+    Game.step(g, {}, 1);
+    assert.ok(g.officeMin > before + 120);
+  });
+
   it("quit endings bank is large and varies", () => {
     assert.ok(Game.QUIT_ENDINGS.length >= 25);
     const titles = new Set();
